@@ -256,8 +256,8 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     </div>
   </div>
   <div class="header-actions">
-    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);">5 registros · 5 alunos</span>
-    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);">Atualizado em 09/06/2026 às 21:08</span>
+    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);">7 registros · 7 alunos</span>
+    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);">Atualizado em 09/06/2026 às 21:31</span>
     <button class="btn btn-ghost btn-sm" onclick="exportPDF()">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
       PDF
@@ -337,10 +337,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="section-title">Painel Executivo</div>
       <div id="overviewContent">
     <div class="cards-grid">
-      <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">5</div></div>
-      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">5</div></div>
+      <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">7</div></div>
+      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">7</div></div>
       <div class="metric-card success"><div class="metric-label">Fatos Positivos</div><div class="metric-value">0</div><div class="metric-sub">0% do total</div></div>
-      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">5</div><div class="metric-sub">100% do total</div></div>
+      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">7</div><div class="metric-sub">100% do total</div></div>
       <div class="metric-card warning"><div class="metric-label">Índice Positivo</div><div class="metric-value">0%</div></div>
       <div class="metric-card danger"><div class="metric-label">Índice Negativo</div><div class="metric-value">100%</div></div>
     </div>
@@ -352,11 +352,11 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
             <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#a32d2d;display:inline-block;border-top:1px dashed #a32d2d;"></span> Negativos</span>
           </div>
         </div>
-        <div class="chart-wrap" style="height:220px;"><canvas id="weeklyChart" role="img" aria-label="Evolução semanal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="weeklyChart" role="img" aria-label="Evolução semanal" height="440" style="display: block; box-sizing: border-box; height: 220px; width: 532px;" width="1064"></canvas></div>
       </div>
       <div class="chart-card">
         <div class="chart-header"><div class="chart-title">Distribuição Geral</div></div>
-        <div class="chart-wrap" style="height:220px;"><canvas id="pieChart" role="img" aria-label="Distribuição geral" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="pieChart" role="img" aria-label="Distribuição geral" height="440" style="display: block; box-sizing: border-box; height: 220px; width: 532px;" width="1064"></canvas></div>
       </div>
     </div>
     <div class="two-col">
@@ -382,7 +382,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
     </tr><tr>
-      <td><strong>Aluno 03</strong></td>
+      <td><strong>Aluno 24</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
@@ -390,7 +390,17 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
   </tbody></table></div></div>
       <div class="chart-card"><div class="chart-header"><div class="chart-title">Requerem Atenção</div></div><div id="bottom5Table"><table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
     <tr>
+      <td><strong>Aluno 01</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
       <td><strong>Aluno 03</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 24</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
@@ -401,16 +411,6 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <td class="saldo-neg">-1</td>
     </tr><tr>
       <td><strong>Aluno 19</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr><tr>
-      <td><strong>Aluno 18</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr><tr>
-      <td><strong>Aluno 13</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
@@ -425,7 +425,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="section-title">Ranking de Alunos</div>
       <div class="filter-bar">
         <div class="filter-group"><div class="filter-label">Atividade</div><select id="rankAtivFilter" onchange="renderRanking()"><option value="">Todas</option><option value="Aula Inaugural">Aula Inaugural</option><option value="Cerimonial">Cerimonial</option></select></div>
-        <div class="filter-group"><div class="filter-label">Responsável</div><select id="rankRspnlFilter" onchange="renderRanking()"><option value="">Todos</option><option value="CE">CE</option><option value="FB">FB</option></select></div>
+        <div class="filter-group"><div class="filter-label">Responsável</div><select id="rankRspnlFilter" onchange="renderRanking()"><option value="">Todos</option><option value="BA">BA</option><option value="CE">CE</option><option value="FB">FB</option></select></div>
         <div class="filter-group"><div class="filter-label">De</div><input type="date" id="rankDateFrom" onchange="renderRanking()"></div>
         <div class="filter-group"><div class="filter-label">Até</div><input type="date" id="rankDateTo" onchange="renderRanking()"></div>
         <button class="filter-clear" onclick="clearRankFilters()">× Limpar</button>
@@ -476,10 +476,32 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
         <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
       </div></td>
-      <td><span class="badge badge-neg">⚠ Atenção</span></td>
+      <td></td>
     </tr><tr class="attn-row">
       <td><span class="rank-badge rank-normal">5</span></td>
+      <td><strong>Aluno 24</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-neg">⚠ Atenção</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-normal">6</span></td>
       <td><strong>Aluno 03</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-neg">⚠ Atenção</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-normal">7</span></td>
+      <td><strong>Aluno 01</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
@@ -497,7 +519,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <div id="page-individual" class="page">
       <div class="section-title">Análise Individual</div>
       <div class="student-selector">
-        <select id="studentSelect" onchange="renderIndividual()"><option value="">Selecionar aluno...</option><option value="03">Aluno 03</option><option value="13">Aluno 13</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="22">Aluno 22</option></select>
+        <select id="studentSelect" onchange="renderIndividual()"><option value="">Selecionar aluno...</option><option value="01">Aluno 01</option><option value="03">Aluno 03</option><option value="13">Aluno 13</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="22">Aluno 22</option><option value="24">Aluno 24</option></select>
       </div>
       <div id="individualContent">
         <div class="empty-state">
@@ -565,6 +587,14 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
     </div><div style="margin-bottom:10px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Att: Meticulosidade</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:3 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-3</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
         <span style="font-size:12px;font-weight:600;">Att: Cooperação</span>
         <span style="font-size:11px;color:var(--text-muted);">Total:1 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-1</span></span>
       </div>
@@ -579,14 +609,6 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
         <div style="width:0%;background:var(--success);"></div>
       </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Att: Meticulosidade</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:1 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-1</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
     </div></div>
       </div>
       <div class="two-col">
@@ -596,7 +618,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         </div>
         <div class="chart-card">
           <div class="chart-title" style="margin-bottom:1rem;">Nuvem de Conteúdos</div>
-          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"><span class="word-tag" title="Cpcd Moral: Disciplina Consciente: 4 registros" style="font-size: 28px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Disciplina Consciente</span><span class="word-tag" title="Valor: Espírito de corpo: 4 registros" style="font-size: 28px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Espírito de corpo</span><span class="word-tag" title="Att: Rusticidade: 3 registros" style="font-size: 24px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Rusticidade</span><span class="word-tag" title="Valor: Disciplina: 3 registros" style="font-size: 24px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Disciplina</span><span class="word-tag" title="Att: Cooperação: 1 registros" style="font-size: 15px; background: rgba(24, 95, 165, 0.133); color: rgb(24, 95, 165); border: 1px solid rgba(24, 95, 165, 0.267);">Cooperação</span><span class="word-tag" title="Cpcd Cognitiva: Resolução de Problemas: 1 registros" style="font-size: 15px; background: rgba(133, 79, 11, 0.133); color: rgb(133, 79, 11); border: 1px solid rgba(133, 79, 11, 0.267);">Resolução de Problemas</span><span class="word-tag" title="Att: Meticulosidade: 1 registros" style="font-size: 15px; background: rgba(153, 53, 86, 0.133); color: rgb(153, 53, 86); border: 1px solid rgba(153, 53, 86, 0.267);">Meticulosidade</span></div>
+          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"><span class="word-tag" title="Cpcd Moral: Disciplina Consciente: 4 registros" style="font-size: 28px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Disciplina Consciente</span><span class="word-tag" title="Valor: Espírito de corpo: 4 registros" style="font-size: 28px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Espírito de corpo</span><span class="word-tag" title="Att: Rusticidade: 3 registros" style="font-size: 24px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Rusticidade</span><span class="word-tag" title="Valor: Disciplina: 3 registros" style="font-size: 24px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Disciplina</span><span class="word-tag" title="Att: Meticulosidade: 3 registros" style="font-size: 24px; background: rgba(24, 95, 165, 0.133); color: rgb(24, 95, 165); border: 1px solid rgba(24, 95, 165, 0.267);">Meticulosidade</span><span class="word-tag" title="Att: Cooperação: 1 registros" style="font-size: 15px; background: rgba(133, 79, 11, 0.133); color: rgb(133, 79, 11); border: 1px solid rgba(133, 79, 11, 0.267);">Cooperação</span><span class="word-tag" title="Cpcd Cognitiva: Resolução de Problemas: 1 registros" style="font-size: 15px; background: rgba(153, 53, 86, 0.133); color: rgb(153, 53, 86); border: 1px solid rgba(153, 53, 86, 0.267);">Resolução de Problemas</span></div>
         </div>
       </div>
     </div>
@@ -607,7 +629,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="filter-bar">
         <div class="filter-group"><div class="filter-label">De</div><input type="date" id="tempDateFrom" onchange="renderTemporal()"></div>
         <div class="filter-group"><div class="filter-label">Até</div><input type="date" id="tempDateTo" onchange="renderTemporal()"></div>
-        <div class="filter-group"><div class="filter-label">Aluno</div><select id="tempAlunoFilter" onchange="renderTemporal()"><option value="">Todos</option><option value="03">Aluno 03</option><option value="13">Aluno 13</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="22">Aluno 22</option></select></div>
+        <div class="filter-group"><div class="filter-label">Aluno</div><select id="tempAlunoFilter" onchange="renderTemporal()"><option value="">Todos</option><option value="01">Aluno 01</option><option value="03">Aluno 03</option><option value="13">Aluno 13</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="22">Aluno 22</option><option value="24">Aluno 24</option></select></div>
         <div class="filter-group"><div class="filter-label">Atividade</div><select id="tempAtivFilter" onchange="renderTemporal()"><option value="">Todas</option><option value="Aula Inaugural">Aula Inaugural</option><option value="Cerimonial">Cerimonial</option></select></div>
         <button class="filter-clear" onclick="clearTempFilters()">× Limpar</button>
       </div>
@@ -642,7 +664,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:.75rem;color:var(--danger);">Atividades com maior índice de desvios</div>
-        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-neg">-4</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-neg">-1</span></div>
+        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-neg">-6</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-neg">-1</span></div>
       </div>
     </div>
     <div class="chart-card">
@@ -657,7 +679,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <!-- ── ALERTAS ── -->
     <div id="page-alertas" class="page">
       <div class="section-title">Alertas Automáticos</div>
-      <div id="alertsContent"><div class="section-title">Situação Crítica</div><div class="alert-list" style="margin-bottom:1.5rem;"><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 03 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 13 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 18 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 19 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 22 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div></div></div>
+      <div id="alertsContent"><div class="section-title">Situação Crítica</div><div class="alert-list" style="margin-bottom:1.5rem;"><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 01 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 03 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 13 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 18 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 19 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 22 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 24 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div></div></div>
     </div>
 
     <!-- ── ADMIN (oculto para usuários comuns) ── -->
@@ -679,14 +701,14 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 
         <div id="adminDataSummary" style="display: block;">
           <div class="data-summary" id="adminSummaryCards">
-    <div class="summary-item"><div class="summary-num">5</div><div class="summary-lbl">Alunos</div></div>
-    <div class="summary-item"><div class="summary-num">5</div><div class="summary-lbl">Registros</div></div>
+    <div class="summary-item"><div class="summary-num">7</div><div class="summary-lbl">Alunos</div></div>
+    <div class="summary-item"><div class="summary-num">7</div><div class="summary-lbl">Registros</div></div>
     <div class="summary-item"><div class="summary-num" style="color:var(--success);">0</div><div class="summary-lbl">Positivos</div></div>
-    <div class="summary-item"><div class="summary-num" style="color:var(--danger);">5</div><div class="summary-lbl">Negativos</div></div>
+    <div class="summary-item"><div class="summary-num" style="color:var(--danger);">7</div><div class="summary-lbl">Negativos</div></div>
   </div>
         </div>
 
-        <div id="logBox" class="log-box" style="display: block;"><div class="log-line ok">[21:08:13] ✓ Arquivo recebido: Frad.xlsx (11.1 KB)</div><div class="log-line ok">[21:08:13] ✓ Lendo planilha...</div><div class="log-line ok">[21:08:13] ✓ Aba encontrada: "FRAD"</div><div class="log-line ok">[21:08:13] ✓ 3 linhas lidas.</div><div class="log-line ok">[21:08:13] ✓ 5 registros processados com sucesso.</div><div class="log-line ok">[21:08:13] ✓ 5 alunos identificados.</div><div class="log-line ok">[21:08:13] ✓ ✓ Dashboard atualizado. Baixe o HTML para publicar.</div></div>
+        <div id="logBox" class="log-box" style="display: block;"><div class="log-line ok">[21:31:46] ✓ Arquivo recebido: Frad.xlsx (11.2 KB)</div><div class="log-line ok">[21:31:46] ✓ Lendo planilha...</div><div class="log-line ok">[21:31:46] ✓ Aba encontrada: "FRAD"</div><div class="log-line ok">[21:31:46] ✓ 4 linhas lidas.</div><div class="log-line ok">[21:31:46] ✓ 7 registros processados com sucesso.</div><div class="log-line ok">[21:31:46] ✓ 7 alunos identificados.</div><div class="log-line ok">[21:31:46] ✓ ✓ Dashboard atualizado. Baixe o HTML para publicar.</div></div>
       </div>
 
       <div id="downloadSection" class="admin-panel" style="display: block;">
@@ -719,10 +741,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
      NÃO altere manualmente esta seção
 ════════════════════════════════════════════ -->
 <script id="embeddedData" type="application/json">
-[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"}]
+[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"01","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"24","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"}]
 </script>
 <script id="embeddedMeta" type="application/json">
-{"updatedAt":"2026-06-10T00:09:29.325Z","recordCount":5,"studentCount":5}
+{"updatedAt":"2026-06-10T00:32:31.671Z","recordCount":7,"studentCount":7}
 </script>
 
 <!-- ══════════════════════════════════════════
