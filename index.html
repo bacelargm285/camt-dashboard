@@ -1,0 +1,1478 @@
+<html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAMt 2026 — Dashboard de Acompanhamento</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root {
+  --olive:#4a5240;--olive-light:#6b7260;--olive-faint:#f0f1ec;--olive-mid:#d4d8cc;
+  --khaki:#8b8b5a;--khaki-light:#c8c89a;
+  --danger:#a32d2d;--danger-bg:#fcebeb;
+  --success:#3b6d11;--success-bg:#eaf3de;
+  --warning:#854f0b;--warning-bg:#faeeda;
+  --info:#185fa5;--info-bg:#e6f1fb;
+  --text:#1a1c18;--text-muted:#5f5e5a;--text-faint:#888780;
+  --border:rgba(74,82,64,0.15);--border-strong:rgba(74,82,64,0.3);
+  --surface:#ffffff;--surface-2:#f6f7f3;--surface-3:#f0f1ec;
+  --radius:8px;--radius-lg:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,-apple-system,sans-serif;background:#eef0ea;color:var(--text);font-size:14px;line-height:1.5;}
+
+/* ── HEADER ── */
+.app-header{background:var(--olive);color:#fff;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-emblem{width:32px;height:32px;border:1.5px solid rgba(255,255,255,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.5px;}
+.brand-name{font-size:15px;font-weight:600;letter-spacing:.3px;}
+.brand-sub{font-size:11px;opacity:.6;letter-spacing:.5px;}
+.header-actions{display:flex;gap:8px;align-items:center;}
+.btn{padding:6px 14px;border-radius:var(--radius);border:1px solid;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap;text-decoration:none;}
+.btn-ghost{background:transparent;border-color:rgba(255,255,255,.3);color:#fff;}
+.btn-ghost:hover{background:rgba(255,255,255,.1);}
+.btn-primary{background:var(--khaki);border-color:var(--khaki);color:#fff;}
+.btn-primary:hover{background:var(--khaki-light);}
+.btn-danger{background:var(--danger);border-color:var(--danger);color:#fff;}
+.btn-outline{background:var(--surface);border-color:var(--border-strong);color:var(--text);}
+.btn-outline:hover{background:var(--surface-2);}
+.btn-sm{padding:4px 10px;font-size:12px;}
+
+/* ── LAYOUT ── */
+.app-body{display:flex;min-height:calc(100vh - 56px);}
+.sidebar{width:220px;background:var(--olive);flex-shrink:0;padding:1.5rem 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.nav-section{padding:0 1rem 1rem;}
+.nav-label{font-size:10px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.4);text-transform:uppercase;padding:0 .5rem;margin-bottom:6px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:var(--radius);cursor:pointer;color:rgba(255,255,255,.7);font-size:13px;transition:all .15s;margin-bottom:2px;}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff;}
+.nav-item.active{background:rgba(255,255,255,.15);color:#fff;}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;}
+.main{flex:1;padding:1.5rem;overflow-x:hidden;min-width:0;}
+.page{display:none;}
+.page.active{display:block;}
+
+/* ── TYPOGRAPHY / SECTION ── */
+.section-title{font-size:18px;font-weight:600;color:var(--olive);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── METRIC CARDS ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.5rem;}
+.metric-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;}
+.metric-label{font-size:11px;color:var(--text-muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
+.metric-value{font-size:28px;font-weight:700;color:var(--olive);line-height:1;}
+.metric-sub{font-size:11px;color:var(--text-faint);margin-top:4px;}
+.metric-card.danger .metric-value{color:var(--danger);}
+.metric-card.success .metric-value{color:var(--success);}
+.metric-card.warning .metric-value{color:var(--warning);}
+
+/* ── CHART CARDS ── */
+.chart-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;}
+.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.chart-title{font-size:13px;font-weight:600;color:var(--text);}
+.chart-wrap{position:relative;width:100%;}
+
+/* ── GRIDS ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;}
+@media(max-width:900px){.two-col{grid-template-columns:1fr;}.sidebar{display:none;}}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);padding:8px 12px;border-bottom:1px solid var(--border);background:var(--surface-2);}
+td{padding:9px 12px;border-bottom:.5px solid var(--border);vertical-align:middle;}
+tr:hover td{background:var(--surface-2);}
+tr:last-child td{border-bottom:none;}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;}
+.rank-gold{background:#fac775;color:#412402;}
+.rank-silver{background:#d3d1c7;color:#2c2c2a;}
+.rank-bronze{background:#f5c4b3;color:#4a1b0c;}
+.rank-normal{background:var(--surface-3);color:var(--text-muted);}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-pos{background:var(--success-bg);color:var(--success);}
+.badge-neg{background:var(--danger-bg);color:var(--danger);}
+.badge-warn{background:var(--warning-bg);color:var(--warning);}
+.badge-info{background:var(--info-bg);color:var(--info);}
+.saldo-pos{color:var(--success);font-weight:700;}
+.saldo-neg{color:var(--danger);font-weight:700;}
+.saldo-zero{color:var(--text-muted);font-weight:700;}
+
+/* ── FILTERS ── */
+.filter-bar{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.filter-group{display:flex;align-items:center;gap:6px;}
+.filter-label{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;}
+select,input[type="date"],input[type="text"],input[type="password"]{padding:5px 10px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;background:var(--surface);color:var(--text);cursor:pointer;}
+select:focus,input:focus{outline:2px solid var(--khaki);}
+.filter-clear{font-size:12px;color:var(--danger);cursor:pointer;border:none;background:none;padding:4px 8px;border-radius:var(--radius);}
+.filter-clear:hover{background:var(--danger-bg);}
+
+/* ── ALERTS ── */
+.alert-list{display:flex;flex-direction:column;gap:8px;}
+.alert-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:var(--radius);border-left:3px solid;}
+.alert-item.alert-danger{background:var(--danger-bg);border-color:var(--danger);}
+.alert-item.alert-warning{background:var(--warning-bg);border-color:var(--warning);}
+.alert-item.alert-success{background:var(--success-bg);border-color:var(--success);}
+.alert-item.alert-info{background:var(--info-bg);border-color:var(--info);}
+.alert-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.alert-text{font-size:12px;color:var(--text);}
+.alert-title{font-weight:700;margin-bottom:2px;}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.timeline-item{display:flex;gap:12px;padding-bottom:1rem;position:relative;}
+.timeline-item::before{content:'';position:absolute;left:15px;top:28px;bottom:0;width:1px;background:var(--border);}
+.timeline-item:last-child::before{display:none;}
+.tl-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;font-weight:700;}
+.tl-dot-pos{background:var(--success-bg);color:var(--success);border:1.5px solid var(--success);}
+.tl-dot-neg{background:var(--danger-bg);color:var(--danger);border:1.5px solid var(--danger);}
+.tl-content{flex:1;background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:8px 12px;}
+.tl-date{font-size:11px;color:var(--text-faint);margin-bottom:2px;}
+.tl-fact{font-size:12px;color:var(--text);margin-bottom:4px;line-height:1.5;}
+.tl-meta{display:flex;gap:6px;flex-wrap:wrap;}
+.tl-tag{font-size:10px;padding:1px 6px;border-radius:20px;background:var(--surface-3);color:var(--text-muted);}
+
+/* ── WORD CLOUD ── */
+.word-cloud{display:flex;flex-wrap:wrap;gap:6px;padding:.5rem;}
+.word-tag{padding:4px 10px;border-radius:20px;font-weight:600;cursor:default;transition:transform .1s;}
+.word-tag:hover{transform:scale(1.05);}
+
+/* ── PROGRESS ── */
+.progress-bar{height:6px;background:var(--surface-3);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;}
+.fill-pos{background:var(--success);}
+.fill-neg{background:var(--danger);}
+
+/* ── HIGHLIGHT ROWS ── */
+.highlight-row td{background:#fffef0!important;}
+.attn-row td{background:#fdf0f0!important;}
+
+/* ── AI CARD ── */
+.ai-card{background:var(--olive-faint);border:1px solid var(--olive-mid);border-radius:var(--radius-lg);padding:1.25rem;}
+.ai-header{display:flex;align-items:center;gap:8px;margin-bottom:1rem;}
+.ai-badge{background:var(--olive);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.5px;}
+.strength-item,.gap-item{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-radius:var(--radius);background:var(--surface);margin-bottom:6px;}
+.strength-item{border-left:3px solid var(--success);}
+.gap-item{border-left:3px solid var(--danger);}
+
+/* ── EMPTY STATE ── */
+.empty-state{text-align:center;padding:3rem;color:var(--text-faint);}
+.empty-state svg{width:48px;height:48px;opacity:.3;margin:0 auto 1rem;display:block;}
+
+/* ── STUDENT SELECTOR ── */
+.student-selector{display:flex;gap:10px;align-items:center;margin-bottom:1.25rem;}
+.student-selector select{flex:1;max-width:300px;}
+
+/* ─────────────────────────────────────────
+   TELA DE DADOS VAZIOS (público sem dados)
+───────────────────────────────────────────*/
+.no-data-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;gap:1.5rem;}
+.no-data-icon{font-size:64px;opacity:.3;}
+.no-data-title{font-size:20px;font-weight:600;color:var(--olive);}
+.no-data-sub{font-size:13px;color:var(--text-muted);max-width:380px;line-height:1.7;}
+
+/* ─────────────────────────────────────────
+   MODAL DE SENHA ADMIN
+───────────────────────────────────────────*/
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;display:flex;align-items:center;justify-content:center;}
+.modal{background:var(--surface);border-radius:var(--radius-lg);padding:2rem;width:360px;max-width:90vw;border:.5px solid var(--border-strong);}
+.modal-title{font-size:16px;font-weight:600;color:var(--olive);margin-bottom:.5rem;display:flex;align-items:center;gap:8px;}
+.modal-sub{font-size:13px;color:var(--text-muted);margin-bottom:1.5rem;}
+.modal-field{margin-bottom:1rem;}
+.modal-field label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.modal-field input{width:100%;padding:8px 12px;font-size:14px;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem;}
+.modal-error{color:var(--danger);font-size:12px;margin-top:6px;display:none;}
+
+/* ─────────────────────────────────────────
+   ÁREA ADMINISTRATIVA
+───────────────────────────────────────────*/
+.admin-bar{background:#2d3026;color:#fff;padding:8px 2rem;display:flex;align-items:center;gap:12px;font-size:12px;}
+.admin-badge{background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px;}
+.admin-panel{background:var(--surface);border:1px solid var(--danger);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;}
+.admin-panel-title{font-size:14px;font-weight:700;color:var(--danger);margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+
+.upload-zone{border:2px dashed var(--olive-mid);border-radius:var(--radius-lg);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--olive-faint);}
+.upload-zone:hover{border-color:var(--olive);background:var(--surface-3);}
+.upload-zone.drag-over{border-color:var(--khaki);background:#f0f1e0;}
+.upload-icon{font-size:40px;margin-bottom:1rem;}
+.upload-title{font-size:15px;font-weight:600;color:var(--olive);margin-bottom:6px;}
+.upload-sub{font-size:12px;color:var(--text-muted);}
+
+.data-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:1.25rem;}
+.summary-item{background:var(--surface-2);border-radius:var(--radius);padding:.75rem 1rem;text-align:center;}
+.summary-num{font-size:22px;font-weight:700;color:var(--olive);}
+.summary-lbl{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;}
+
+.download-section{margin-top:1.25rem;padding:1rem;background:var(--info-bg);border-radius:var(--radius);border:.5px solid rgba(24,95,165,.2);}
+.download-title{font-size:13px;font-weight:600;color:var(--info);margin-bottom:.5rem;}
+.download-sub{font-size:12px;color:var(--text-muted);margin-bottom:.75rem;line-height:1.6;}
+.step-list{counter-reset:step;display:flex;flex-direction:column;gap:6px;margin-bottom:.75rem;}
+.step-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text);}
+.step-item::before{counter-increment:step;content:counter(step);width:18px;height:18px;border-radius:50%;background:var(--info);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+.log-box{background:#1a1c18;color:#8bc34a;font-family:monospace;font-size:11px;padding:1rem;border-radius:var(--radius);max-height:200px;overflow-y:auto;margin-top:1rem;display:none;}
+.log-line{margin-bottom:3px;}
+.log-line.err{color:#e57373;}
+.log-line.warn{color:#ffb74d;}
+.log-line.ok{color:#8bc34a;}
+
+@media print{.sidebar,.app-header,.admin-bar,.filter-bar,.header-actions,.btn{display:none!important;}.main{padding:0;}}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--olive-mid);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     MODAL DE AUTENTICAÇÃO ADMIN
+════════════════════════════════════════════ -->
+<div id="authModal" class="modal-overlay" style="display: none;">
+  <div class="modal">
+    <div class="modal-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+      Acesso Administrativo
+    </div>
+    <div class="modal-sub">Esta área é restrita ao administrador do curso. Informe a senha para continuar.</div>
+    <div class="modal-field">
+      <label>Senha</label>
+      <input type="password" id="adminPassInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdminPass()">
+      <div class="modal-error" id="authError">Senha incorreta. Tente novamente.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="cancelAdmin()">Cancelar</button>
+      <button class="btn btn-primary" onclick="checkAdminPass()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header class="app-header">
+  <div class="brand">
+    <div class="brand-emblem">CAMt</div>
+    <div>
+      <div class="brand-name">Curso Avançado de Montanhismo 2026</div>
+      <div class="brand-sub">SISTEMA DE ACOMPANHAMENTO DE DESEMPENHO</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);">5 registros · 5 alunos</span>
+    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);">Atualizado em 09/06/2026 às 21:08</span>
+    <button class="btn btn-ghost btn-sm" onclick="exportPDF()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+      PDF
+    </button>
+    <button class="btn btn-ghost btn-sm" onclick="exportExcel()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="3"></line></svg>
+      Excel
+    </button>
+  </div>
+</header>
+
+<!-- Barra de modo admin (oculta para usuários normais) -->
+<div id="adminBar" class="admin-bar" style="display: flex;">
+  <span class="admin-badge">ADMIN</span>
+  <span>Modo Administrador ativo — as alterações ficam embutidas no arquivo HTML para redistribuição.</span>
+  <span style="flex:1;"></span>
+  <button class="btn btn-ghost btn-sm" onclick="exitAdmin()">Sair do modo admin</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BODY
+════════════════════════════════════════════ -->
+<div class="app-body">
+  <nav class="sidebar" id="mainSidebar">
+    <div class="nav-section">
+      <div class="nav-label">Painel</div>
+      <div class="nav-item" onclick="showPage('overview',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Visão Geral
+      </div>
+      <div class="nav-item" onclick="showPage('ranking',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        Ranking de Alunos
+      </div>
+      <div class="nav-item" onclick="showPage('individual',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        Análise Individual
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Análises</div>
+      <div class="nav-item" onclick="showPage('atividades',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        Por Atividade
+      </div>
+      <div class="nav-item" onclick="showPage('atitudinal',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+        Conteúdo Atitudinal
+      </div>
+      <div class="nav-item" onclick="showPage('temporal',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Evolução Temporal
+      </div>
+      <div class="nav-item" onclick="showPage('inteligente',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"></path></svg>
+        Análise Inteligente
+      </div>
+      <div class="nav-item" onclick="showPage('alertas',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
+        Alertas
+      </div>
+    </div>
+    <!-- Item admin visível apenas no modo admin -->
+    <div class="nav-section" id="adminNavSection" style="display: block;">
+      <div class="nav-label">Administração</div>
+      <div class="nav-item active" onclick="showPage('admin',this)" style="color:rgba(255,160,160,.8);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+        Gerenciar Dados
+      </div>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ── VISÃO GERAL ── -->
+    <div id="page-overview" class="page">
+      <div class="section-title">Painel Executivo</div>
+      <div id="overviewContent">
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">5</div></div>
+      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">5</div></div>
+      <div class="metric-card success"><div class="metric-label">Fatos Positivos</div><div class="metric-value">0</div><div class="metric-sub">0% do total</div></div>
+      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">5</div><div class="metric-sub">100% do total</div></div>
+      <div class="metric-card warning"><div class="metric-label">Índice Positivo</div><div class="metric-value">0%</div></div>
+      <div class="metric-card danger"><div class="metric-label">Índice Negativo</div><div class="metric-value">100%</div></div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">Evolução Semanal</div>
+          <div style="display:flex;gap:12px;font-size:11px;">
+            <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#3b6d11;display:inline-block;"></span> Positivos</span>
+            <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#a32d2d;display:inline-block;border-top:1px dashed #a32d2d;"></span> Negativos</span>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="weeklyChart" role="img" aria-label="Evolução semanal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">Distribuição Geral</div></div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="pieChart" role="img" aria-label="Distribuição geral" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card"><div class="chart-header"><div class="chart-title">Melhores Desempenhos</div></div><div id="top5Table"><table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
+    <tr>
+      <td><strong>Aluno 13</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 18</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 19</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 22</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 03</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr>
+  </tbody></table></div></div>
+      <div class="chart-card"><div class="chart-header"><div class="chart-title">Requerem Atenção</div></div><div id="bottom5Table"><table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
+    <tr>
+      <td><strong>Aluno 03</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 22</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 19</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 18</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr><tr>
+      <td><strong>Aluno 13</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+    </tr>
+  </tbody></table></div></div>
+    </div>
+  </div>
+    </div>
+
+    <!-- ── RANKING ── -->
+    <div id="page-ranking" class="page">
+      <div class="section-title">Ranking de Alunos</div>
+      <div class="filter-bar">
+        <div class="filter-group"><div class="filter-label">Atividade</div><select id="rankAtivFilter" onchange="renderRanking()"><option value="">Todas</option><option value="Aula Inaugural">Aula Inaugural</option><option value="Cerimonial">Cerimonial</option></select></div>
+        <div class="filter-group"><div class="filter-label">Responsável</div><select id="rankRspnlFilter" onchange="renderRanking()"><option value="">Todos</option><option value="CE">CE</option><option value="FB">FB</option></select></div>
+        <div class="filter-group"><div class="filter-label">De</div><input type="date" id="rankDateFrom" onchange="renderRanking()"></div>
+        <div class="filter-group"><div class="filter-label">Até</div><input type="date" id="rankDateTo" onchange="renderRanking()"></div>
+        <button class="filter-clear" onclick="clearRankFilters()">× Limpar</button>
+      </div>
+      <div class="chart-card">
+        <div class="table-wrap"><table>
+          <thead><tr><th>#</th><th>Aluno</th><th>Positivos</th><th>Negativos</th><th>Saldo</th><th>Desempenho</th><th>Status</th></tr></thead>
+          <tbody id="rankingBody"><tr class="attn-row">
+      <td><span class="rank-badge rank-gold">1</span></td>
+      <td><strong>Aluno 13</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-pos">★ Destaque</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-silver">2</span></td>
+      <td><strong>Aluno 18</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-pos">★ Destaque</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-bronze">3</span></td>
+      <td><strong>Aluno 19</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-pos">★ Destaque</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-normal">4</span></td>
+      <td><strong>Aluno 22</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-neg">⚠ Atenção</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-normal">5</span></td>
+      <td><strong>Aluno 03</strong></td>
+      <td><span class="badge badge-pos">+0</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-neg">-1</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
+      </div></td>
+      <td><span class="badge badge-neg">⚠ Atenção</span></td>
+    </tr></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ── INDIVIDUAL ── -->
+    <div id="page-individual" class="page">
+      <div class="section-title">Análise Individual</div>
+      <div class="student-selector">
+        <select id="studentSelect" onchange="renderIndividual()"><option value="">Selecionar aluno...</option><option value="03">Aluno 03</option><option value="13">Aluno 13</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="22">Aluno 22</option></select>
+      </div>
+      <div id="individualContent">
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Selecione um aluno para ver sua análise individual.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ATIVIDADES ── -->
+    <div id="page-atividades" class="page">
+      <div class="section-title">Análise por Atividade</div>
+      <div class="two-col">
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Registros Positivos</div>
+          <div class="chart-wrap" id="atividadePosWrap" style="position: relative; height: 200px;"><canvas id="atividadePosChart" role="img" aria-label="Positivos por atividade" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Registros Negativos</div>
+          <div class="chart-wrap" id="atividadeNegWrap" style="position: relative; height: 200px;"><canvas id="atividadeNegChart" role="img" aria-label="Negativos por atividade" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Total por Atividade</div>
+        <div class="chart-wrap" id="atividadeTotalWrap" style="position: relative; height: 200px;"><canvas id="atividadeTotalChart" role="img" aria-label="Total por atividade" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+      </div>
+    </div>
+
+    <!-- ── ATITUDINAL ── -->
+    <div id="page-atitudinal" class="page">
+      <div class="section-title">Conteúdo Atitudinal</div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Ranking de Conteúdos</div>
+        <div id="atitudinalList"><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Cpcd Moral: Disciplina Consciente</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:4 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-4</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Valor: Espírito de corpo</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:4 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-4</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Att: Rusticidade</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:3 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-3</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Valor: Disciplina</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:3 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-3</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Att: Cooperação</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:1 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-1</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Cpcd Cognitiva: Resolução de Problemas</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:1 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-1</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div><div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">Att: Meticulosidade</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:1 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-1</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:0%;background:var(--success);"></div>
+      </div>
+    </div></div>
+      </div>
+      <div class="two-col">
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Distribuição Positivo × Negativo</div>
+          <div class="chart-wrap" id="atitudinalChartWrap" style="position: relative; height: 340px;"><canvas id="atitudinalChart" role="img" aria-label="Distribuição por conteúdo atitudinal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Nuvem de Conteúdos</div>
+          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"><span class="word-tag" title="Cpcd Moral: Disciplina Consciente: 4 registros" style="font-size: 28px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Disciplina Consciente</span><span class="word-tag" title="Valor: Espírito de corpo: 4 registros" style="font-size: 28px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Espírito de corpo</span><span class="word-tag" title="Att: Rusticidade: 3 registros" style="font-size: 24px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Rusticidade</span><span class="word-tag" title="Valor: Disciplina: 3 registros" style="font-size: 24px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Disciplina</span><span class="word-tag" title="Att: Cooperação: 1 registros" style="font-size: 15px; background: rgba(24, 95, 165, 0.133); color: rgb(24, 95, 165); border: 1px solid rgba(24, 95, 165, 0.267);">Cooperação</span><span class="word-tag" title="Cpcd Cognitiva: Resolução de Problemas: 1 registros" style="font-size: 15px; background: rgba(133, 79, 11, 0.133); color: rgb(133, 79, 11); border: 1px solid rgba(133, 79, 11, 0.267);">Resolução de Problemas</span><span class="word-tag" title="Att: Meticulosidade: 1 registros" style="font-size: 15px; background: rgba(153, 53, 86, 0.133); color: rgb(153, 53, 86); border: 1px solid rgba(153, 53, 86, 0.267);">Meticulosidade</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TEMPORAL ── -->
+    <div id="page-temporal" class="page">
+      <div class="section-title">Evolução Temporal</div>
+      <div class="filter-bar">
+        <div class="filter-group"><div class="filter-label">De</div><input type="date" id="tempDateFrom" onchange="renderTemporal()"></div>
+        <div class="filter-group"><div class="filter-label">Até</div><input type="date" id="tempDateTo" onchange="renderTemporal()"></div>
+        <div class="filter-group"><div class="filter-label">Aluno</div><select id="tempAlunoFilter" onchange="renderTemporal()"><option value="">Todos</option><option value="03">Aluno 03</option><option value="13">Aluno 13</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="22">Aluno 22</option></select></div>
+        <div class="filter-group"><div class="filter-label">Atividade</div><select id="tempAtivFilter" onchange="renderTemporal()"><option value="">Todas</option><option value="Aula Inaugural">Aula Inaugural</option><option value="Cerimonial">Cerimonial</option></select></div>
+        <button class="filter-clear" onclick="clearTempFilters()">× Limpar</button>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Registros por Semana</div>
+        <div class="chart-wrap" style="height:280px;"><canvas id="temporalChart" role="img" aria-label="Evolução temporal semanal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Acumulado por Mês</div>
+        <div class="chart-wrap" style="height:240px;"><canvas id="monthlyChart" role="img" aria-label="Acumulado mensal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+      </div>
+    </div>
+
+    <!-- ── INTELIGENTE ── -->
+    <div id="page-inteligente" class="page">
+      <div class="section-title">Análise Inteligente</div>
+      <div id="intelligentContent">
+    <div class="two-col">
+      <div class="chart-card ai-card">
+        <div class="ai-header"><div class="chart-title" style="color:var(--success);">★ Principais Pontos Fortes</div><div class="ai-badge">IA</div></div>
+        <div style="color:var(--text-faint);font-size:13px;padding:.5rem;">Dados insuficientes para análise.</div>
+      </div>
+      <div class="chart-card ai-card">
+        <div class="ai-header"><div class="chart-title" style="color:var(--danger);">⚠ Oportunidades de Melhoria</div><div class="ai-badge">IA</div></div>
+        <div class="gap-item"><span style="font-size:12px;">Comportamento inadequado</span><span style="font-size:11px;font-weight:700;color:var(--danger);">3 ocorrências</span></div><div class="gap-item"><span style="font-size:12px;">Baixa iniciativa</span><span style="font-size:11px;font-weight:700;color:var(--danger);">1 ocorrências</span></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:.75rem;color:var(--success);">Atividades com maior potencial positivo</div>
+        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-pos">+0</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-pos">+0</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:.75rem;color:var(--danger);">Atividades com maior índice de desvios</div>
+        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-neg">-4</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-neg">-1</span></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Frequência de palavras-chave nos fatos observados</div>
+      <div class="chart-wrap" style="position:relative;height:180px;">
+        <canvas id="freqChart" role="img" aria-label="Frequência de palavras-chave" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas>
+      </div>
+    </div>
+  </div>
+    </div>
+
+    <!-- ── ALERTAS ── -->
+    <div id="page-alertas" class="page">
+      <div class="section-title">Alertas Automáticos</div>
+      <div id="alertsContent"><div class="section-title">Situação Crítica</div><div class="alert-list" style="margin-bottom:1.5rem;"><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 03 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 13 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 18 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 19 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 22 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div></div></div>
+    </div>
+
+    <!-- ── ADMIN (oculto para usuários comuns) ── -->
+    <div id="page-admin" class="page active">
+      <div class="section-title">Gerenciamento de Dados</div>
+
+      <div class="admin-panel">
+        <div class="admin-panel-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          Importar nova planilha FRAD
+        </div>
+
+        <div id="uploadZone" class="upload-zone" onclick="document.getElementById('adminFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)">
+          <div class="upload-icon">📊</div>
+          <div class="upload-title">Arraste o arquivo .xlsx aqui ou clique para selecionar</div>
+          <div class="upload-sub">Planilha exportada do Google Forms/Sheets<br>Colunas: Nº Aluno · Data · Registro · Conteúdo Atitudinal · Atividade · Fato Observado · Rspnl</div>
+        </div>
+        <input type="file" id="adminFileInput" accept=".xlsx,.xls" style="display:none;" onchange="handleAdminUpload(this)">
+
+        <div id="adminDataSummary" style="display: block;">
+          <div class="data-summary" id="adminSummaryCards">
+    <div class="summary-item"><div class="summary-num">5</div><div class="summary-lbl">Alunos</div></div>
+    <div class="summary-item"><div class="summary-num">5</div><div class="summary-lbl">Registros</div></div>
+    <div class="summary-item"><div class="summary-num" style="color:var(--success);">0</div><div class="summary-lbl">Positivos</div></div>
+    <div class="summary-item"><div class="summary-num" style="color:var(--danger);">5</div><div class="summary-lbl">Negativos</div></div>
+  </div>
+        </div>
+
+        <div id="logBox" class="log-box" style="display: block;"><div class="log-line ok">[21:08:13] ✓ Arquivo recebido: Frad.xlsx (11.1 KB)</div><div class="log-line ok">[21:08:13] ✓ Lendo planilha...</div><div class="log-line ok">[21:08:13] ✓ Aba encontrada: "FRAD"</div><div class="log-line ok">[21:08:13] ✓ 3 linhas lidas.</div><div class="log-line ok">[21:08:13] ✓ 5 registros processados com sucesso.</div><div class="log-line ok">[21:08:13] ✓ 5 alunos identificados.</div><div class="log-line ok">[21:08:13] ✓ ✓ Dashboard atualizado. Baixe o HTML para publicar.</div></div>
+      </div>
+
+      <div id="downloadSection" class="admin-panel" style="display: block;">
+        <div class="admin-panel-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Publicar dashboard atualizado
+        </div>
+        <div class="download-section">
+          <div class="download-title">Como publicar os dados atualizados</div>
+          <div class="download-sub">Os dados foram processados e incorporados neste arquivo. Baixe o HTML atualizado e substitua o arquivo no servidor/GitHub Pages.</div>
+          <div class="step-list">
+            <div class="step-item">Clique em "Baixar HTML atualizado" abaixo.</div>
+            <div class="step-item">Substitua o arquivo <code>dashboard-camt.html</code> no seu repositório GitHub.</div>
+            <div class="step-item">O GitHub Pages publicará automaticamente em 1–2 minutos.</div>
+            <div class="step-item">Todos os acessos ao link público verão os novos dados imediatamente.</div>
+          </div>
+          <button class="btn btn-primary" onclick="downloadUpdatedHTML()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Baixar HTML atualizado
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DADOS EMBUTIDOS — editado pelo admin
+     NÃO altere manualmente esta seção
+════════════════════════════════════════════ -->
+<script id="embeddedData" type="application/json">
+[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"}]
+</script>
+<script id="embeddedMeta" type="application/json">
+{"updatedAt":"2026-06-10T00:09:29.325Z","recordCount":5,"studentCount":5}
+</script>
+
+<!-- ══════════════════════════════════════════
+     LÓGICA PRINCIPAL
+════════════════════════════════════════════ -->
+<script>
+/* ─── CONFIGURAÇÃO ───────────────────────────
+   Senha admin: "GM285"
+   Para alterar: substitua o hash abaixo pelo SHA-256 da nova senha.
+   Gerador: https://emn178.github.io/online-tools/sha256.html
+──────────────────────────────────────────── */
+const ADMIN_HASH = 'd716d9c6b45944262d989f6c6829871c60e3219d1ecd888769bbfd3fc71f48bc';
+// SHA-256 de "GM285"
+
+/* ─── ESTADO ─────────────────────────────── */
+let rawData = [];
+let allStudents = [];
+let charts = {};
+let isAdminMode = false;
+let pendingProcessedData = null; // dados processados aguardando publicação
+
+/* ─── INICIALIZAÇÃO ──────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  // Verifica se veio com ?admin na URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('admin')) {
+    document.getElementById('authModal').style.display = 'flex';
+    document.getElementById('adminPassInput').focus();
+  }
+  // Carrega dados embutidos
+  loadEmbeddedData();
+});
+
+function loadEmbeddedData() {
+  try {
+    const raw = JSON.parse(document.getElementById('embeddedData').textContent);
+    const meta = JSON.parse(document.getElementById('embeddedMeta').textContent);
+    if (raw && Array.isArray(raw) && raw.length > 0) {
+      rawData = raw.map(r => ({ ...r, data: r.dateStr ? new Date(r.dateStr) : null }));
+      allStudents = [...new Set(rawData.map(r => r.aluno))].sort((a,b) => +a - +b);
+      updateHeaderInfo(meta);
+      populateFilters();
+      renderAll();
+    } else {
+      renderEmptyState();
+    }
+  } catch(e) {
+    renderEmptyState();
+  }
+}
+
+function renderEmptyState() {
+  document.getElementById('overviewContent').innerHTML = `
+    <div class="no-data-screen">
+      <div class="no-data-icon">📋</div>
+      <div class="no-data-title">Dashboard aguardando dados</div>
+      <div class="no-data-sub">Este painel ainda não contém dados carregados. O administrador do curso precisa importar a planilha FRAD para ativar os indicadores.</div>
+    </div>`;
+}
+
+function updateHeaderInfo(meta) {
+  document.getElementById('dataInfo').textContent =
+    `${rawData.length} registros · ${allStudents.length} alunos`;
+  if (meta && meta.updatedAt) {
+    const d = new Date(meta.updatedAt);
+    document.getElementById('dataTimestamp').textContent =
+      `Atualizado em ${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
+  }
+}
+
+/* ─── AUTENTICAÇÃO ADMIN ─────────────────── */
+async function checkAdminPass() {
+  const pass = document.getElementById('adminPassInput').value;
+  const hash = await sha256(pass);
+  if (hash === ADMIN_HASH) {
+    document.getElementById('authModal').style.display = 'none';
+    activateAdminMode();
+  } else {
+    document.getElementById('authError').style.display = 'block';
+    document.getElementById('adminPassInput').value = '';
+    document.getElementById('adminPassInput').focus();
+  }
+}
+
+function cancelAdmin() {
+  document.getElementById('authModal').style.display = 'none';
+  // Remove ?admin da URL sem recarregar
+  history.replaceState({}, '', window.location.pathname);
+}
+
+function activateAdminMode() {
+  isAdminMode = true;
+  document.getElementById('adminBar').style.display = 'flex';
+  document.getElementById('adminNavSection').style.display = 'block';
+  history.replaceState({}, '', window.location.pathname);
+}
+
+function exitAdmin() {
+  isAdminMode = false;
+  document.getElementById('adminBar').style.display = 'none';
+  document.getElementById('adminNavSection').style.display = 'none';
+  showPage('overview', document.querySelector('.nav-item'));
+}
+
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+/* ─── UPLOAD ADMIN ───────────────────────── */
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) processAdminFile(file);
+}
+
+function handleAdminUpload(input) {
+  const file = input.files[0];
+  if (file) processAdminFile(file);
+  input.value = '';
+}
+
+function processAdminFile(file) {
+  const log = document.getElementById('logBox');
+  log.style.display = 'block';
+  log.innerHTML = '';
+  addLog('ok', `Arquivo recebido: ${file.name} (${(file.size/1024).toFixed(1)} KB)`);
+  addLog('ok', 'Lendo planilha...');
+
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const wb = XLSX.read(ev.target.result, { type: 'binary', cellDates: true });
+      const sheetName = wb.SheetNames[0];
+      addLog('ok', `Aba encontrada: "${sheetName}"`);
+      const ws = wb.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(ws, { raw: false, dateNF: 'yyyy-mm-dd' });
+      addLog('ok', `${json.length} linhas lidas.`);
+      const processed = parseRows(json, log);
+      addLog('ok', `${processed.length} registros processados com sucesso.`);
+      const students = [...new Set(processed.map(r => r.aluno))];
+      addLog('ok', `${students.length} alunos identificados.`);
+      pendingProcessedData = processed;
+      // Atualiza dashboard ao vivo
+      rawData = processed.map(r => ({ ...r, data: r.dateStr ? new Date(r.dateStr) : null }));
+      allStudents = students.sort((a,b) => +a - +b);
+      const meta = { updatedAt: new Date().toISOString(), recordCount: processed.length, studentCount: students.length };
+      updateHeaderInfo(meta);
+      populateFilters();
+      renderAll();
+      // Mostra resumo e botão de download
+      showAdminSummary(processed, students, meta);
+      addLog('ok', '✓ Dashboard atualizado. Baixe o HTML para publicar.');
+    } catch(err) {
+      addLog('err', 'Erro: ' + err.message);
+    }
+  };
+  reader.readAsBinaryString(file);
+}
+
+function parseRows(json, log) {
+  const result = [];
+  let skipped = 0;
+  json.forEach(row => {
+    const nr = String(row['Nº Aluno'] || row['Nr Aluno'] || row['NrAluno'] || '').trim();
+    if (!nr) { skipped++; return; }
+    const students = nr.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+    const registro = String(row['Registro'] || '').trim();
+    const isPos = registro.toLowerCase().includes('positiv');
+    const isNeg = registro.toLowerCase().includes('negativ');
+    if (!isPos && !isNeg) { skipped++; return; }
+    let dateStr = '';
+    const dateRaw = row['Data'];
+    if (dateRaw) {
+      const d = new Date(dateRaw);
+      if (!isNaN(d)) dateStr = d.toISOString().split('T')[0];
+    }
+    const dateObj = dateStr ? new Date(dateStr) : null;
+    students.forEach(s => {
+      result.push({
+        aluno: s.padStart(2,'0'),
+        dateStr,
+        tipo: isPos ? 'Positivo' : 'Negativo',
+        conteudo: String(row['Conteúdo Atitudinal'] || '').trim(),
+        atividade: String(row['Atividade'] || '').trim(),
+        fato: String(row['Fato Observado'] || '').trim(),
+        rspnl: String(row['Rspnl'] || '').trim(),
+        semana: dateObj ? getWeekKey(dateObj) : '',
+        mes: dateObj ? `${dateObj.getFullYear()}-${String(dateObj.getMonth()+1).padStart(2,'0')}` : '',
+      });
+    });
+  });
+  if (log && skipped > 0) addLog('warn', `${skipped} linhas ignoradas (sem aluno ou tipo indefinido).`);
+  return result;
+}
+
+function showAdminSummary(data, students, meta) {
+  const pos = data.filter(r => r.tipo === 'Positivo').length;
+  const neg = data.filter(r => r.tipo === 'Negativo').length;
+  document.getElementById('adminSummaryCards').innerHTML = `
+    <div class="summary-item"><div class="summary-num">${students.length}</div><div class="summary-lbl">Alunos</div></div>
+    <div class="summary-item"><div class="summary-num">${data.length}</div><div class="summary-lbl">Registros</div></div>
+    <div class="summary-item"><div class="summary-num" style="color:var(--success);">${pos}</div><div class="summary-lbl">Positivos</div></div>
+    <div class="summary-item"><div class="summary-num" style="color:var(--danger);">${neg}</div><div class="summary-lbl">Negativos</div></div>
+  `;
+  document.getElementById('adminDataSummary').style.display = 'block';
+  document.getElementById('downloadSection').style.display = 'block';
+}
+
+function addLog(type, msg) {
+  const log = document.getElementById('logBox');
+  const line = document.createElement('div');
+  line.className = `log-line ${type}`;
+  const prefix = type === 'ok' ? '✓' : type === 'err' ? '✗' : '!';
+  line.textContent = `[${new Date().toLocaleTimeString('pt-BR')}] ${prefix} ${msg}`;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+/* ─── DOWNLOAD HTML ATUALIZADO ───────────── */
+function downloadUpdatedHTML() {
+  if (!pendingProcessedData) { alert('Nenhum dado processado.'); return; }
+  const meta = {
+    updatedAt: new Date().toISOString(),
+    recordCount: pendingProcessedData.length,
+    studentCount: [...new Set(pendingProcessedData.map(r=>r.aluno))].length
+  };
+  // Serializa dados sem o campo "data" (será reconstruído do dateStr)
+  const cleanData = pendingProcessedData.map(r => {
+    const { data, ...rest } = r; // remove campo Date (não serializável limpo)
+    return rest;
+  });
+  const dataJson = JSON.stringify(cleanData);
+  const metaJson = JSON.stringify(meta);
+  // Pega o HTML atual e substitui os blocos de dados
+  const html = document.documentElement.outerHTML;
+  const updated = html
+    .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
+      `<script id="embeddedData" type="application/json">\n${dataJson}\n<\/script>`)
+    .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
+      `<script id="embeddedMeta" type="application/json">\n${metaJson}\n<\/script>`);
+  const blob = new Blob([updated], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dashboard-camt-${new Date().toISOString().slice(0,10)}.html`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ─── NAVEGAÇÃO ──────────────────────────── */
+function showPage(pageId, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const pg = document.getElementById('page-' + pageId);
+  if (pg) pg.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+/* ─── HELPERS ────────────────────────────── */
+function getWeekKey(d) {
+  const jan1 = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
+  return `${d.getFullYear()}-S${String(week).padStart(2,'0')}`;
+}
+
+function getStats(data) {
+  const pos = data.filter(r => r.tipo === 'Positivo').length;
+  const neg = data.filter(r => r.tipo === 'Negativo').length;
+  const total = data.length;
+  return { total, pos, neg,
+    pctPos: total ? Math.round(pos/total*100) : 0,
+    pctNeg: total ? Math.round(neg/total*100) : 0 };
+}
+
+function getStudentStats(data) {
+  const map = {};
+  data.forEach(r => {
+    if (!map[r.aluno]) map[r.aluno] = { aluno: r.aluno, pos: 0, neg: 0, records: [] };
+    if (r.tipo === 'Positivo') map[r.aluno].pos++;
+    else map[r.aluno].neg++;
+    map[r.aluno].records.push(r);
+  });
+  return Object.values(map)
+    .map(s => ({ ...s, saldo: s.pos - s.neg }))
+    .sort((a, b) => b.saldo - a.saldo || b.pos - a.pos);
+}
+
+function destroyChart(id) {
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+}
+
+function populateFilters() {
+  const atividades = [...new Set(rawData.map(r => r.atividade).filter(Boolean))].sort();
+  const rspnls = [...new Set(rawData.map(r => r.rspnl).filter(Boolean))].sort();
+  ['rankAtivFilter','tempAtivFilter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const cur = el.value;
+    el.innerHTML = '<option value="">Todas</option>';
+    atividades.forEach(a => el.add(new Option(a, a)));
+    el.value = cur;
+  });
+  const rEl = document.getElementById('rankRspnlFilter');
+  if (rEl) { rEl.innerHTML = '<option value="">Todos</option>'; rspnls.forEach(r => rEl.add(new Option(r, r))); }
+  const sEl = document.getElementById('studentSelect');
+  if (sEl) { sEl.innerHTML = '<option value="">Selecionar aluno...</option>'; allStudents.forEach(s => sEl.add(new Option('Aluno ' + s, s))); }
+  const tEl = document.getElementById('tempAlunoFilter');
+  if (tEl) { tEl.innerHTML = '<option value="">Todos</option>'; allStudents.forEach(s => tEl.add(new Option('Aluno ' + s, s))); }
+}
+
+function renderAll() {
+  renderOverview();
+  renderRanking();
+  renderAtividades();
+  renderAtitudinal();
+  renderTemporal();
+  renderInteligente();
+  renderAlertas();
+}
+
+/* ─── RENDER: VISÃO GERAL ────────────────── */
+function renderOverview() {
+  if (!rawData.length) { renderEmptyState(); return; }
+  const s = getStats(rawData);
+  const ranked = getStudentStats(rawData);
+  // Weekly
+  const weeks = {};
+  rawData.forEach(r => {
+    if (!r.semana) return;
+    if (!weeks[r.semana]) weeks[r.semana] = { pos:0, neg:0 };
+    if (r.tipo === 'Positivo') weeks[r.semana].pos++; else weeks[r.semana].neg++;
+  });
+  const wkeys = Object.keys(weeks).sort();
+
+  document.getElementById('overviewContent').innerHTML = `
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">${allStudents.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">${s.total}</div></div>
+      <div class="metric-card success"><div class="metric-label">Fatos Positivos</div><div class="metric-value">${s.pos}</div><div class="metric-sub">${s.pctPos}% do total</div></div>
+      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">${s.neg}</div><div class="metric-sub">${s.pctNeg}% do total</div></div>
+      <div class="metric-card ${s.pctPos > 50 ? 'success':'warning'}"><div class="metric-label">Índice Positivo</div><div class="metric-value">${s.pctPos}%</div></div>
+      <div class="metric-card ${s.pctNeg > 50 ? 'danger':''}"><div class="metric-label">Índice Negativo</div><div class="metric-value">${s.pctNeg}%</div></div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">Evolução Semanal</div>
+          <div style="display:flex;gap:12px;font-size:11px;">
+            <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#3b6d11;display:inline-block;"></span> Positivos</span>
+            <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#a32d2d;display:inline-block;border-top:1px dashed #a32d2d;"></span> Negativos</span>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="weeklyChart" role="img" aria-label="Evolução semanal"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div class="chart-title">Distribuição Geral</div></div>
+        <div class="chart-wrap" style="height:220px;"><canvas id="pieChart" role="img" aria-label="Distribuição geral"></canvas></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card"><div class="chart-header"><div class="chart-title">Melhores Desempenhos</div></div><div id="top5Table"></div></div>
+      <div class="chart-card"><div class="chart-header"><div class="chart-title">Requerem Atenção</div></div><div id="bottom5Table"></div></div>
+    </div>
+  `;
+
+  destroyChart('weeklyChart');
+  charts['weeklyChart'] = new Chart(document.getElementById('weeklyChart'), {
+    type: 'line',
+    data: { labels: wkeys, datasets: [
+      { label:'Positivos', data: wkeys.map(k=>weeks[k].pos), borderColor:'#3b6d11', backgroundColor:'rgba(59,109,17,.1)', tension:.3, fill:true, pointRadius:4 },
+      { label:'Negativos', data: wkeys.map(k=>weeks[k].neg), borderColor:'#a32d2d', backgroundColor:'rgba(163,45,45,.1)', tension:.3, fill:true, borderDash:[4,2], pointRadius:4 }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true, ticks:{precision:0}}, x:{ticks:{autoSkip:true, maxTicksLimit:8}}} }
+  });
+
+  destroyChart('pieChart');
+  charts['pieChart'] = new Chart(document.getElementById('pieChart'), {
+    type:'doughnut',
+    data:{ labels:['Positivos','Negativos'], datasets:[{ data:[s.pos, s.neg], backgroundColor:['#639922','#a32d2d'], borderWidth:0 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'60%',
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label: ctx=>`${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw/s.total*100)}%)`}} } }
+  });
+
+  document.getElementById('top5Table').innerHTML = miniTable(ranked.slice(0,5));
+  document.getElementById('bottom5Table').innerHTML = miniTable([...ranked].reverse().slice(0,5));
+}
+
+function miniTable(students) {
+  if (!students.length) return '<div class="empty-state" style="padding:1rem;">Sem dados</div>';
+  return `<table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
+    ${students.map(s=>`<tr>
+      <td><strong>Aluno ${s.aluno}</strong></td>
+      <td><span class="badge badge-pos">+${s.pos}</span></td>
+      <td><span class="badge badge-neg">-${s.neg}</span></td>
+      <td class="${s.saldo>0?'saldo-pos':s.saldo<0?'saldo-neg':'saldo-zero'}">${s.saldo>0?'+':''}${s.saldo}</td>
+    </tr>`).join('')}
+  </tbody></table>`;
+}
+
+/* ─── RENDER: RANKING ────────────────────── */
+function getFilteredForRanking() {
+  const atv = document.getElementById('rankAtivFilter')?.value || '';
+  const rsp = document.getElementById('rankRspnlFilter')?.value || '';
+  const df  = document.getElementById('rankDateFrom')?.value || '';
+  const dt  = document.getElementById('rankDateTo')?.value || '';
+  return rawData.filter(r => {
+    if (atv && r.atividade !== atv) return false;
+    if (rsp && r.rspnl !== rsp) return false;
+    if (df && r.dateStr && r.dateStr < df) return false;
+    if (dt && r.dateStr && r.dateStr > dt) return false;
+    return true;
+  });
+}
+
+function renderRanking() {
+  const data = getFilteredForRanking();
+  const ranked = getStudentStats(data);
+  const tbody = document.getElementById('rankingBody');
+  if (!tbody) return;
+  if (!ranked.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nenhum dado para os filtros selecionados.</td></tr>'; return; }
+  const top10 = new Set(ranked.slice(0,10).map(s=>s.aluno));
+  const bot10 = new Set(ranked.slice(-10).map(s=>s.aluno));
+  tbody.innerHTML = ranked.map((s,i) => {
+    const rank = i+1;
+    let bc = 'rank-normal';
+    if (rank===1) bc='rank-gold'; else if (rank===2) bc='rank-silver'; else if (rank===3) bc='rank-bronze';
+    let rowClass = top10.has(s.aluno) && rank<=10 ? 'highlight-row' : '';
+    if (bot10.has(s.aluno) && rank > ranked.length-10) rowClass = 'attn-row';
+    const total = s.pos+s.neg;
+    const pct = total ? Math.round(s.pos/total*100) : 0;
+    let status = rank<=3 ? '<span class="badge badge-pos">★ Destaque</span>'
+      : rank > ranked.length-3 ? '<span class="badge badge-neg">⚠ Atenção</span>' : '';
+    return `<tr class="${rowClass}">
+      <td><span class="rank-badge ${bc}">${rank}</span></td>
+      <td><strong>Aluno ${s.aluno}</strong></td>
+      <td><span class="badge badge-pos">+${s.pos}</span></td>
+      <td><span class="badge badge-neg">-${s.neg}</span></td>
+      <td class="${s.saldo>0?'saldo-pos':s.saldo<0?'saldo-neg':'saldo-zero'}">${s.saldo>0?'+':''}${s.saldo}</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:${pct}%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">${pct}%</span>
+      </div></td>
+      <td>${status}</td>
+    </tr>`;
+  }).join('');
+}
+
+function clearRankFilters() {
+  ['rankAtivFilter','rankRspnlFilter'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  ['rankDateFrom','rankDateTo'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  renderRanking();
+}
+
+/* ─── RENDER: INDIVIDUAL ─────────────────── */
+function renderIndividual() {
+  const aluno = document.getElementById('studentSelect')?.value;
+  const container = document.getElementById('individualContent');
+  if (!aluno || !container) return;
+  const data = rawData.filter(r => r.aluno === aluno).sort((a,b) => {
+    if (!a.dateStr && !b.dateStr) return 0;
+    return (a.dateStr||'') < (b.dateStr||'') ? -1 : 1;
+  });
+  const s = getStats(data);
+  const weeks = {};
+  data.forEach(r => {
+    if (!r.semana) return;
+    if (!weeks[r.semana]) weeks[r.semana] = {pos:0,neg:0};
+    if (r.tipo==='Positivo') weeks[r.semana].pos++; else weeks[r.semana].neg++;
+  });
+  const wkeys = Object.keys(weeks).sort();
+  const timeline = data.slice().reverse().slice(0,20);
+  container.innerHTML = `
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Total</div><div class="metric-value">${s.total}</div></div>
+      <div class="metric-card success"><div class="metric-label">Positivos</div><div class="metric-value">${s.pos}</div></div>
+      <div class="metric-card danger"><div class="metric-label">Negativos</div><div class="metric-value">${s.neg}</div></div>
+      <div class="metric-card ${s.pos-s.neg>=0?'success':'danger'}"><div class="metric-label">Saldo</div><div class="metric-value">${s.pos-s.neg>0?'+':''}${s.pos-s.neg}</div></div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card"><div class="chart-title" style="margin-bottom:1rem;">Evolução semanal — Aluno ${aluno}</div>
+        <div class="chart-wrap" style="height:200px;"><canvas id="indivChart" role="img" aria-label="Evolução individual"></canvas></div>
+      </div>
+      <div class="chart-card"><div class="chart-title" style="margin-bottom:1rem;">Positivo × Negativo</div>
+        <div class="chart-wrap" style="height:200px;"><canvas id="indivPie" role="img" aria-label="Distribuição individual"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-card"><div class="chart-title" style="margin-bottom:1rem;">Linha do Tempo — Últimos 20 Registros</div>
+      <div class="timeline">
+        ${timeline.map(r=>`<div class="timeline-item">
+          <div class="tl-dot ${r.tipo==='Positivo'?'tl-dot-pos':'tl-dot-neg'}">${r.tipo==='Positivo'?'+':'−'}</div>
+          <div class="tl-content">
+            <div class="tl-date">${r.dateStr||'Data não registrada'} · ${r.atividade}</div>
+            <div class="tl-fact">${r.fato||'—'}</div>
+            <div class="tl-meta">
+              ${r.conteudo ? r.conteudo.split(',').map(c=>`<span class="tl-tag">${c.trim()}</span>`).join('') : ''}
+              ${r.rspnl?`<span class="tl-tag">Rspnl: ${r.rspnl}</span>`:''}
+            </div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  destroyChart('indivChart');
+  destroyChart('indivPie');
+  charts['indivChart'] = new Chart(document.getElementById('indivChart'), {
+    type:'bar', data:{ labels:wkeys, datasets:[
+      {label:'Positivos',data:wkeys.map(k=>weeks[k].pos),backgroundColor:'#639922',borderRadius:3},
+      {label:'Negativos',data:wkeys.map(k=>weeks[k].neg),backgroundColor:'#a32d2d',borderRadius:3}
+    ]}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}
+  });
+  charts['indivPie'] = new Chart(document.getElementById('indivPie'), {
+    type:'doughnut', data:{labels:['Positivos','Negativos'],datasets:[{data:[s.pos,s.neg],backgroundColor:['#639922','#a32d2d'],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:false}}}
+  });
+}
+
+/* ─── RENDER: ATIVIDADES ─────────────────── */
+function renderAtividades() {
+  const atv = {};
+  rawData.forEach(r => {
+    if (!r.atividade) return;
+    if (!atv[r.atividade]) atv[r.atividade] = {pos:0,neg:0};
+    if (r.tipo==='Positivo') atv[r.atividade].pos++; else atv[r.atividade].neg++;
+  });
+  const ativs = Object.entries(atv).sort((a,b)=>(b[1].pos+b[1].neg)-(a[1].pos+a[1].neg));
+  const labels = ativs.map(a=>a[0]);
+  const barH = Math.max(200, labels.length*36+60);
+  ['atividadePosWrap','atividadeNegWrap','atividadeTotalWrap'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.height=barH+'px';
+  });
+  const barOpts = () => ({responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}});
+  destroyChart('atividadePosChart'); destroyChart('atividadeNegChart'); destroyChart('atividadeTotalChart');
+  charts['atividadePosChart'] = new Chart(document.getElementById('atividadePosChart'),{type:'bar',data:{labels,datasets:[{data:ativs.map(a=>a[1].pos),backgroundColor:'#639922',borderRadius:4}]},options:barOpts()});
+  charts['atividadeNegChart'] = new Chart(document.getElementById('atividadeNegChart'),{type:'bar',data:{labels,datasets:[{data:ativs.map(a=>a[1].neg),backgroundColor:'#a32d2d',borderRadius:4}]},options:barOpts()});
+  charts['atividadeTotalChart'] = new Chart(document.getElementById('atividadeTotalChart'),{type:'bar',data:{labels,datasets:[{data:ativs.map(a=>a[1].pos+a[1].neg),backgroundColor:'#4a5240',borderRadius:4}]},options:barOpts()});
+}
+
+/* ─── RENDER: ATITUDINAL ─────────────────── */
+function renderAtitudinal() {
+  const map = {};
+  rawData.forEach(r => {
+    if (!r.conteudo) return;
+    r.conteudo.split(',').forEach(c => {
+      const key = c.trim(); if (!key) return;
+      if (!map[key]) map[key]={pos:0,neg:0};
+      if (r.tipo==='Positivo') map[key].pos++; else map[key].neg++;
+    });
+  });
+  const sorted = Object.entries(map).sort((a,b)=>(b[1].pos+b[1].neg)-(a[1].pos+a[1].neg));
+  document.getElementById('atitudinalList').innerHTML = sorted.slice(0,15).map(([k,v])=>{
+    const total=v.pos+v.neg; const pctPos=total?Math.round(v.pos/total*100):0;
+    return `<div style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <span style="font-size:12px;font-weight:600;">${k}</span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:${total} <span style="color:var(--success);">+${v.pos}</span> <span style="color:var(--danger);">-${v.neg}</span></span>
+      </div>
+      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
+        <div style="width:${pctPos}%;background:var(--success);"></div>
+      </div>
+    </div>`;
+  }).join('');
+  const top10 = sorted.slice(0,10);
+  const barH = Math.max(200, top10.length*40+60);
+  const wrap = document.getElementById('atitudinalChartWrap');
+  if (wrap) wrap.style.height = barH+'px';
+  destroyChart('atitudinalChart');
+  charts['atitudinalChart'] = new Chart(document.getElementById('atitudinalChart'),{
+    type:'bar',
+    data:{labels:top10.map(([k])=>k.length>30?k.slice(0,28)+'…':k),datasets:[
+      {label:'Positivos',data:top10.map(([,v])=>v.pos),backgroundColor:'#639922',borderRadius:3},
+      {label:'Negativos',data:top10.map(([,v])=>v.neg),backgroundColor:'#a32d2d',borderRadius:3}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}
+  });
+  const wc = document.getElementById('wordCloud');
+  if (!wc) return;
+  wc.innerHTML='';
+  const maxCount = sorted[0] ? sorted[0][1].pos+sorted[0][1].neg : 1;
+  const colors=['#4a5240','#639922','#8b8b5a','#3b6d11','#185fa5','#854f0b','#993556'];
+  sorted.slice(0,25).forEach(([k,v],i)=>{
+    const total=v.pos+v.neg; const size=10+Math.round((total/maxCount)*18);
+    const color=colors[i%colors.length];
+    const span=document.createElement('span');
+    span.className='word-tag';
+    span.style.cssText=`font-size:${size}px;background:${color}22;color:${color};border:1px solid ${color}44;`;
+    span.textContent=k.replace(/^(Att:|Cpcd \w+:|Valor:)\s*/i,'').trim()||k;
+    span.title=`${k}: ${total} registros`;
+    wc.appendChild(span);
+  });
+}
+
+/* ─── RENDER: TEMPORAL ───────────────────── */
+function getFilteredForTemporal() {
+  const df=document.getElementById('tempDateFrom')?.value||'';
+  const dt=document.getElementById('tempDateTo')?.value||'';
+  const al=document.getElementById('tempAlunoFilter')?.value||'';
+  const atv=document.getElementById('tempAtivFilter')?.value||'';
+  return rawData.filter(r=>{
+    if(al && r.aluno!==al) return false;
+    if(atv && r.atividade!==atv) return false;
+    if(df && r.dateStr && r.dateStr<df) return false;
+    if(dt && r.dateStr && r.dateStr>dt) return false;
+    return true;
+  });
+}
+
+function renderTemporal() {
+  const data = getFilteredForTemporal();
+  const weeks={}, months={};
+  data.forEach(r=>{
+    if(r.semana){if(!weeks[r.semana])weeks[r.semana]={pos:0,neg:0};if(r.tipo==='Positivo')weeks[r.semana].pos++;else weeks[r.semana].neg++;}
+    if(r.mes){if(!months[r.mes])months[r.mes]={pos:0,neg:0};if(r.tipo==='Positivo')months[r.mes].pos++;else months[r.mes].neg++;}
+  });
+  const wkeys=Object.keys(weeks).sort(), mkeys=Object.keys(months).sort();
+  destroyChart('temporalChart'); destroyChart('monthlyChart');
+  charts['temporalChart'] = new Chart(document.getElementById('temporalChart'),{
+    type:'line',data:{labels:wkeys,datasets:[
+      {label:'Positivos',data:wkeys.map(k=>weeks[k].pos),borderColor:'#3b6d11',backgroundColor:'rgba(59,109,17,.08)',fill:true,tension:.3,pointRadius:4},
+      {label:'Negativos',data:wkeys.map(k=>weeks[k].neg),borderColor:'#a32d2d',backgroundColor:'rgba(163,45,45,.08)',fill:true,tension:.3,borderDash:[5,3],pointRadius:4}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}},x:{ticks:{autoSkip:true,maxTicksLimit:10}}}}
+  });
+  charts['monthlyChart'] = new Chart(document.getElementById('monthlyChart'),{
+    type:'bar',data:{labels:mkeys,datasets:[
+      {label:'Positivos',data:mkeys.map(k=>months[k].pos),backgroundColor:'#639922',borderRadius:4},
+      {label:'Negativos',data:mkeys.map(k=>months[k].neg),backgroundColor:'#a32d2d',borderRadius:4}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
+  });
+}
+
+function clearTempFilters() {
+  ['tempDateFrom','tempDateTo'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['tempAlunoFilter','tempAtivFilter'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderTemporal();
+}
+
+/* ─── RENDER: ANÁLISE INTELIGENTE ─────────── */
+function renderInteligente() {
+  const keywords = {
+    'Liderança':/lider|comand|coordenou|organizou|liderou/i,
+    'Iniciativa':/iniciativa|proativ|antecip|voluntari/i,
+    'Espírito de equipe':/equipe|coletiv|grupo|companheiro|solidariedade/i,
+    'Disciplina':/disciplin|cumpriu|respeit|seguiu a ordem/i,
+    'Resistência física':/esforço|resistência|físic|superou|aguentou/i,
+    'Capacidade técnica':/técnic|habilidade|execut|realiz|destr|profici/i,
+    'Comunicação':/comunic|informou|reportou|avisou|relatou/i,
+    'Comprometimento':/comprom|dedicação|empenho|esforçou/i,
+  };
+  const gaps = {
+    'Falta de atenção':/descuid|desatento|negligência|esqueceu|perdeu/i,
+    'Indisciplina':/indiscipl|desobedec|desacatou|ignorou/i,
+    'Baixa iniciativa':/individualidade|não ajudou|parado|enrolando/i,
+    'Falhas de comunicação':/não avisou|sem comunicar|falhou em inform/i,
+    'Problemas técnicos':/erro técnico|falha técnica|incorreto|inadequado/i,
+    'Comportamento inadequado':/dormindo|dorm|inadequado|inapropriado/i,
+  };
+  const sc={}, gc={};
+  rawData.forEach(r=>{
+    const text=r.fato;
+    if(r.tipo==='Positivo'){Object.entries(keywords).forEach(([k,re])=>{if(re.test(text))sc[k]=(sc[k]||0)+1;});}
+    else{Object.entries(gaps).forEach(([k,re])=>{if(re.test(text))gc[k]=(gc[k]||0)+1;});}
+  });
+  const sortedStr=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
+  const sortedGap=Object.entries(gc).sort((a,b)=>b[1]-a[1]);
+  const atv={};
+  rawData.forEach(r=>{if(!r.atividade)return;if(!atv[r.atividade])atv[r.atividade]={pos:0,neg:0};if(r.tipo==='Positivo')atv[r.atividade].pos++;else atv[r.atividade].neg++;});
+  const topPosAtv=Object.entries(atv).sort((a,b)=>b[1].pos-a[1].pos).slice(0,3);
+  const topNegAtv=Object.entries(atv).sort((a,b)=>b[1].neg-a[1].neg).slice(0,3);
+  const allKw=[...sortedStr.map(([k,v])=>({k,v,tipo:'pos'})),...sortedGap.map(([k,v])=>({k,v,tipo:'neg'}))];
+  const container=document.getElementById('intelligentContent');
+  if(!container)return;
+  container.innerHTML=`
+    <div class="two-col">
+      <div class="chart-card ai-card">
+        <div class="ai-header"><div class="chart-title" style="color:var(--success);">★ Principais Pontos Fortes</div><div class="ai-badge">IA</div></div>
+        ${sortedStr.length?sortedStr.map(([k,v])=>`<div class="strength-item"><span style="font-size:12px;">${k}</span><span style="font-size:11px;font-weight:700;color:var(--success);">${v} ocorrências</span></div>`).join(''):'<div style="color:var(--text-faint);font-size:13px;padding:.5rem;">Dados insuficientes para análise.</div>'}
+      </div>
+      <div class="chart-card ai-card">
+        <div class="ai-header"><div class="chart-title" style="color:var(--danger);">⚠ Oportunidades de Melhoria</div><div class="ai-badge">IA</div></div>
+        ${sortedGap.length?sortedGap.map(([k,v])=>`<div class="gap-item"><span style="font-size:12px;">${k}</span><span style="font-size:11px;font-weight:700;color:var(--danger);">${v} ocorrências</span></div>`).join(''):'<div style="color:var(--text-faint);font-size:13px;padding:.5rem;">Nenhum padrão negativo detectado.</div>'}
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:.75rem;color:var(--success);">Atividades com maior potencial positivo</div>
+        ${topPosAtv.map(([a,v])=>`<div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>${a}</span><span class="badge badge-pos">+${v.pos}</span></div>`).join('')}
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:.75rem;color:var(--danger);">Atividades com maior índice de desvios</div>
+        ${topNegAtv.map(([a,v])=>`<div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>${a}</span><span class="badge badge-neg">-${v.neg}</span></div>`).join('')}
+      </div>
+    </div>
+    ${allKw.length?`<div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Frequência de palavras-chave nos fatos observados</div>
+      <div class="chart-wrap" style="position:relative;height:${Math.max(180,allKw.length*28+60)}px;">
+        <canvas id="freqChart" role="img" aria-label="Frequência de palavras-chave"></canvas>
+      </div>
+    </div>`:''}
+  `;
+  if(allKw.length){
+    destroyChart('freqChart');
+    charts['freqChart']=new Chart(document.getElementById('freqChart'),{
+      type:'bar',data:{labels:allKw.map(x=>x.k),datasets:[{data:allKw.map(x=>x.v),backgroundColor:allKw.map(x=>x.tipo==='pos'?'#639922':'#a32d2d'),borderRadius:4}]},
+      options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{precision:0}}}}
+    });
+  }
+}
+
+/* ─── RENDER: ALERTAS ────────────────────── */
+function renderAlertas() {
+  const thirtyAgo = new Date(Date.now() - 30*24*60*60*1000);
+  const ranked = getStudentStats(rawData);
+  const alerts = [];
+  allStudents.forEach(aluno=>{
+    const recentPos=rawData.filter(r=>r.aluno===aluno&&r.tipo==='Positivo'&&r.data&&r.data>thirtyAgo);
+    const hasPos=rawData.filter(r=>r.aluno===aluno&&r.tipo==='Positivo').length>0;
+    if(hasPos&&recentPos.length===0) alerts.push({type:'warning',icon:'⏰',title:`Aluno ${aluno} — Sem positivos recentes`,text:'Nenhum registro positivo nos últimos 30 dias.'});
+    const pos=rawData.filter(r=>r.aluno===aluno&&r.tipo==='Positivo').length;
+    if(pos===0) alerts.push({type:'danger',icon:'⚠️',title:`Aluno ${aluno} — Nenhum registro positivo`,text:'Nenhum fato positivo registrado ao longo do curso.'});
+  });
+  ranked.filter(s=>s.saldo<=-3).forEach(s=>alerts.push({type:'danger',icon:'🔴',title:`Aluno ${s.aluno} — Desempenho crítico`,text:`Saldo comportamental de ${s.saldo} (${s.pos} positivos, ${s.neg} negativos).`}));
+  ranked.filter(s=>s.saldo>=3&&s.pos>=5).slice(0,3).forEach(s=>alerts.push({type:'success',icon:'✅',title:`Aluno ${s.aluno} — Evolução consistente`,text:`Saldo +${s.saldo} com ${s.pos} registros positivos. Perfil de destaque.`}));
+  allStudents.forEach(aluno=>{
+    const all=rawData.filter(r=>r.aluno===aluno&&r.dateStr).sort((a,b)=>a.dateStr<b.dateStr?-1:1);
+    if(all.length<4)return;
+    const half=Math.floor(all.length/2);
+    const f1=all.slice(0,half).filter(r=>r.tipo==='Negativo').length;
+    const f2=all.slice(half).filter(r=>r.tipo==='Negativo').length;
+    if(f2>f1*1.5&&f2>=2) alerts.push({type:'warning',icon:'📈',title:`Aluno ${aluno} — Aumento de negativos`,text:'Tendência crescente de registros negativos na segunda metade do curso.'});
+  });
+  const container=document.getElementById('alertsContent');
+  if(!container)return;
+  if(!alerts.length){container.innerHTML='<div class="empty-state">Nenhum alerta ativo no momento.</div>';return;}
+  const groups={danger:[],warning:[],success:[]};
+  alerts.forEach(a=>groups[a.type]?.push(a));
+  const rg=(title,items,type)=>items.length?`<div class="section-title">${title}</div><div class="alert-list" style="margin-bottom:1.5rem;">${items.map(a=>`<div class="alert-item alert-${type}"><div class="alert-icon">${a.icon}</div><div class="alert-text"><div class="alert-title">${a.title}</div>${a.text}</div></div>`).join('')}</div>`:'';
+  container.innerHTML=rg('Situação Crítica',groups.danger,'danger')+rg('Requer Atenção',groups.warning,'warning')+rg('Evolução Positiva',groups.success,'success');
+}
+
+/* ─── EXPORT ─────────────────────────────── */
+function exportPDF() { window.print(); }
+function exportExcel() {
+  if(!rawData.length){alert('Nenhum dado disponível.');return;}
+  const ranked=getStudentStats(rawData);
+  const ws=XLSX.utils.json_to_sheet(ranked.map(s=>({'Aluno':s.aluno,'Positivos':s.pos,'Negativos':s.neg,'Saldo':s.saldo,'Total':s.pos+s.neg})));
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Ranking');
+  XLSX.writeFile(wb,`CAMt_Ranking_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+</script>
+
+
+</body></html>
