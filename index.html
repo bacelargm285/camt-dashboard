@@ -256,8 +256,8 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     </div>
   </div>
   <div class="header-actions">
-    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);">10 registros · 6 alunos</span>
-    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);">Atualizado em 09/06/2026 às 21:44</span>
+    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);">11 registros · 6 alunos</span>
+    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);">Atualizado em 09/06/2026 às 21:57</span>
     <button class="btn btn-ghost btn-sm" onclick="exportPDF()">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
       PDF
@@ -338,11 +338,11 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div id="overviewContent">
     <div class="cards-grid">
       <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">6</div></div>
-      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">10</div></div>
-      <div class="metric-card success"><div class="metric-label">Fatos Positivos</div><div class="metric-value">1</div><div class="metric-sub">10% do total</div></div>
-      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">9</div><div class="metric-sub">90% do total</div></div>
-      <div class="metric-card warning"><div class="metric-label">Índice Positivo</div><div class="metric-value">10%</div></div>
-      <div class="metric-card danger"><div class="metric-label">Índice Negativo</div><div class="metric-value">90%</div></div>
+      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">11</div></div>
+      <div class="metric-card success"><div class="metric-label">Fatos Positivos</div><div class="metric-value">2</div><div class="metric-sub">18% do total</div></div>
+      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">9</div><div class="metric-sub">82% do total</div></div>
+      <div class="metric-card warning"><div class="metric-label">Índice Positivo</div><div class="metric-value">18%</div></div>
+      <div class="metric-card danger"><div class="metric-label">Índice Negativo</div><div class="metric-value">82%</div></div>
     </div>
     <div class="two-col">
       <div class="chart-card">
@@ -362,17 +362,17 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <div class="two-col">
       <div class="chart-card"><div class="chart-header"><div class="chart-title">Melhores Desempenhos</div></div><div id="top5Table"><table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
     <tr>
+      <td><strong>Aluno 19</strong></td>
+      <td><span class="badge badge-pos">+1</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-zero">0</td>
+    </tr><tr>
       <td><strong>Aluno 22</strong></td>
       <td><span class="badge badge-pos">+1</span></td>
       <td><span class="badge badge-neg">-2</span></td>
       <td class="saldo-neg">-1</td>
     </tr><tr>
       <td><strong>Aluno 13</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr><tr>
-      <td><strong>Aluno 19</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
@@ -405,14 +405,14 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
     </tr><tr>
-      <td><strong>Aluno 19</strong></td>
+      <td><strong>Aluno 13</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
     </tr><tr>
-      <td><strong>Aluno 13</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
+      <td><strong>Aluno 22</strong></td>
+      <td><span class="badge badge-pos">+1</span></td>
+      <td><span class="badge badge-neg">-2</span></td>
       <td class="saldo-neg">-1</td>
     </tr>
   </tbody></table></div></div>
@@ -435,6 +435,17 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
           <thead><tr><th>#</th><th>Aluno</th><th>Positivos</th><th>Negativos</th><th>Saldo</th><th>Desempenho</th><th>Status</th></tr></thead>
           <tbody id="rankingBody"><tr class="attn-row">
       <td><span class="rank-badge rank-gold">1</span></td>
+      <td><strong>Aluno 19</strong></td>
+      <td><span class="badge badge-pos">+1</span></td>
+      <td><span class="badge badge-neg">-1</span></td>
+      <td class="saldo-zero">0</td>
+      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
+        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:50%"></div></div>
+        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">50%</span>
+      </div></td>
+      <td><span class="badge badge-pos">★ Destaque</span></td>
+    </tr><tr class="attn-row">
+      <td><span class="rank-badge rank-silver">2</span></td>
       <td><strong>Aluno 22</strong></td>
       <td><span class="badge badge-pos">+1</span></td>
       <td><span class="badge badge-neg">-2</span></td>
@@ -445,19 +456,8 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div></td>
       <td><span class="badge badge-pos">★ Destaque</span></td>
     </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-silver">2</span></td>
-      <td><strong>Aluno 13</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td><span class="badge badge-pos">★ Destaque</span></td>
-    </tr><tr class="attn-row">
       <td><span class="rank-badge rank-bronze">3</span></td>
-      <td><strong>Aluno 19</strong></td>
+      <td><strong>Aluno 13</strong></td>
       <td><span class="badge badge-pos">+0</span></td>
       <td><span class="badge badge-neg">-1</span></td>
       <td class="saldo-neg">-1</td>
@@ -545,10 +545,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         <div id="atitudinalList"><div style="margin-bottom:10px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
         <span style="font-size:12px;font-weight:600;">Att: Meticulosidade</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:6 <span style="color:var(--success);">+1</span> <span style="color:var(--danger);">-5</span></span>
+        <span style="font-size:11px;color:var(--text-muted);">Total:7 <span style="color:var(--success);">+2</span> <span style="color:var(--danger);">-5</span></span>
       </div>
       <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:17%;background:var(--success);"></div>
+        <div style="width:29%;background:var(--success);"></div>
       </div>
     </div><div style="margin-bottom:10px;">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
@@ -607,7 +607,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         </div>
         <div class="chart-card">
           <div class="chart-title" style="margin-bottom:1rem;">Nuvem de Conteúdos</div>
-          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"><span class="word-tag" title="Att: Meticulosidade: 6 registros" style="font-size: 28px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Meticulosidade</span><span class="word-tag" title="Cpcd Moral: Disciplina Consciente: 4 registros" style="font-size: 22px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Disciplina Consciente</span><span class="word-tag" title="Valor: Espírito de corpo: 4 registros" style="font-size: 22px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Espírito de corpo</span><span class="word-tag" title="Att: Rusticidade: 3 registros" style="font-size: 19px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Rusticidade</span><span class="word-tag" title="Valor: Disciplina: 3 registros" style="font-size: 19px; background: rgba(24, 95, 165, 0.133); color: rgb(24, 95, 165); border: 1px solid rgba(24, 95, 165, 0.267);">Disciplina</span><span class="word-tag" title="Att: Cooperação: 1 registros" style="font-size: 13px; background: rgba(133, 79, 11, 0.133); color: rgb(133, 79, 11); border: 1px solid rgba(133, 79, 11, 0.267);">Cooperação</span><span class="word-tag" title="Cpcd Cognitiva: Resolução de Problemas: 1 registros" style="font-size: 13px; background: rgba(153, 53, 86, 0.133); color: rgb(153, 53, 86); border: 1px solid rgba(153, 53, 86, 0.267);">Resolução de Problemas</span></div>
+          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"><span class="word-tag" title="Att: Meticulosidade: 7 registros" style="font-size: 28px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Meticulosidade</span><span class="word-tag" title="Cpcd Moral: Disciplina Consciente: 4 registros" style="font-size: 20px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Disciplina Consciente</span><span class="word-tag" title="Valor: Espírito de corpo: 4 registros" style="font-size: 20px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Espírito de corpo</span><span class="word-tag" title="Att: Rusticidade: 3 registros" style="font-size: 18px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Rusticidade</span><span class="word-tag" title="Valor: Disciplina: 3 registros" style="font-size: 18px; background: rgba(24, 95, 165, 0.133); color: rgb(24, 95, 165); border: 1px solid rgba(24, 95, 165, 0.267);">Disciplina</span><span class="word-tag" title="Att: Cooperação: 1 registros" style="font-size: 13px; background: rgba(133, 79, 11, 0.133); color: rgb(133, 79, 11); border: 1px solid rgba(133, 79, 11, 0.267);">Cooperação</span><span class="word-tag" title="Cpcd Cognitiva: Resolução de Problemas: 1 registros" style="font-size: 13px; background: rgba(153, 53, 86, 0.133); color: rgb(153, 53, 86); border: 1px solid rgba(153, 53, 86, 0.267);">Resolução de Problemas</span></div>
         </div>
       </div>
     </div>
@@ -649,7 +649,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <div class="two-col">
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:.75rem;color:var(--success);">Atividades com maior potencial positivo</div>
-        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-pos">+1</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-pos">+0</span></div>
+        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-pos">+2</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-pos">+0</span></div>
       </div>
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:.75rem;color:var(--danger);">Atividades com maior índice de desvios</div>
@@ -668,7 +668,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <!-- ── ALERTAS ── -->
     <div id="page-alertas" class="page">
       <div class="section-title">Alertas Automáticos</div>
-      <div id="alertsContent"><div class="section-title">Situação Crítica</div><div class="alert-list" style="margin-bottom:1.5rem;"><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 03 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 04 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 13 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 18 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 19 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div></div></div>
+      <div id="alertsContent"><div class="section-title">Situação Crítica</div><div class="alert-list" style="margin-bottom:1.5rem;"><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 03 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 04 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 13 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 18 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div></div></div>
     </div>
 
     <!-- ── ADMIN (oculto para usuários comuns) ── -->
@@ -691,13 +691,13 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         <div id="adminDataSummary" style="display: block;">
           <div class="data-summary" id="adminSummaryCards">
     <div class="summary-item"><div class="summary-num">6</div><div class="summary-lbl">Alunos</div></div>
-    <div class="summary-item"><div class="summary-num">10</div><div class="summary-lbl">Registros</div></div>
-    <div class="summary-item"><div class="summary-num" style="color:var(--success);">1</div><div class="summary-lbl">Positivos</div></div>
+    <div class="summary-item"><div class="summary-num">11</div><div class="summary-lbl">Registros</div></div>
+    <div class="summary-item"><div class="summary-num" style="color:var(--success);">2</div><div class="summary-lbl">Positivos</div></div>
     <div class="summary-item"><div class="summary-num" style="color:var(--danger);">9</div><div class="summary-lbl">Negativos</div></div>
   </div>
         </div>
 
-        <div id="logBox" class="log-box" style="display: block;"><div class="log-line ok">[21:44:33] ✓ Arquivo recebido: Frad.xlsx (11.3 KB)</div><div class="log-line ok">[21:44:33] ✓ Lendo planilha...</div><div class="log-line ok">[21:44:33] ✓ Aba encontrada: "FRAD"</div><div class="log-line ok">[21:44:33] ✓ 5 linhas lidas.</div><div class="log-line ok">[21:44:33] ✓ 10 registros processados com sucesso.</div><div class="log-line ok">[21:44:33] ✓ 6 alunos identificados.</div><div class="log-line ok">[21:44:34] ✓ ✓ Dashboard atualizado. Baixe o HTML para publicar.</div></div>
+        <div id="logBox" class="log-box" style="display: block;"><div class="log-line ok">[21:57:13] ✓ Arquivo recebido: Frad.xlsx (11.3 KB)</div><div class="log-line ok">[21:57:13] ✓ Lendo planilha...</div><div class="log-line ok">[21:57:13] ✓ Aba encontrada: "FRAD"</div><div class="log-line ok">[21:57:13] ✓ 6 linhas lidas.</div><div class="log-line ok">[21:57:13] ✓ 11 registros processados com sucesso.</div><div class="log-line ok">[21:57:13] ✓ 6 alunos identificados.</div><div class="log-line ok">[21:57:13] ✓ ✓ Dashboard atualizado. Baixe o HTML para publicar.</div></div>
       </div>
 
       <div id="downloadSection" class="admin-panel" style="display: block;">
@@ -730,10 +730,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
      NÃO altere manualmente esta seção
 ════════════════════════════════════════════ -->
 <script id="embeddedData" type="application/json">
-[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"04","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Positivo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"}]
+[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"04","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Positivo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Positivo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"}]
 </script>
 <script id="embeddedMeta" type="application/json">
-{"updatedAt":"2026-06-10T00:44:38.117Z","recordCount":10,"studentCount":6}
+{"updatedAt":"2026-06-10T00:57:16.990Z","recordCount":11,"studentCount":6}
 </script>
 
 <!-- ══════════════════════════════════════════
