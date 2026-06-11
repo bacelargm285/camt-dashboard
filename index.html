@@ -1,4 +1,6 @@
-<html lang="pt-BR"><head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CAMt 2026 — Dashboard de Acompanhamento</title>
@@ -225,10 +227,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 <!-- ══════════════════════════════════════════
      MODAL DE AUTENTICAÇÃO ADMIN
 ════════════════════════════════════════════ -->
-<div id="authModal" class="modal-overlay" style="display: none;">
+<div id="authModal" class="modal-overlay" style="display:none;">
   <div class="modal">
     <div class="modal-title">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
       Acesso Administrativo
     </div>
     <div class="modal-sub">Esta área é restrita ao administrador do curso. Informe a senha para continuar.</div>
@@ -256,21 +258,21 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     </div>
   </div>
   <div class="header-actions">
-    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);">18 registros · 14 alunos</span>
-    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);">Atualizado em 11/06/2026 às 13:09</span>
+    <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);"></span>
+    <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);"></span>
     <button class="btn btn-ghost btn-sm" onclick="exportPDF()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       PDF
     </button>
     <button class="btn btn-ghost btn-sm" onclick="exportExcel()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="3"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="3"/></svg>
       Excel
     </button>
   </div>
 </header>
 
 <!-- Barra de modo admin (oculta para usuários normais) -->
-<div id="adminBar" class="admin-bar" style="display: flex;">
+<div id="adminBar" class="admin-bar" style="display:none;">
   <span class="admin-badge">ADMIN</span>
   <span>Modo Administrador ativo — as alterações ficam embutidas no arquivo HTML para redistribuição.</span>
   <span style="flex:1;"></span>
@@ -284,47 +286,47 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
   <nav class="sidebar" id="mainSidebar">
     <div class="nav-section">
       <div class="nav-label">Painel</div>
-      <div class="nav-item" onclick="showPage('overview',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <div class="nav-item active" onclick="showPage('overview',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         Visão Geral
       </div>
       <div class="nav-item" onclick="showPage('ranking',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         Ranking de Alunos
       </div>
       <div class="nav-item" onclick="showPage('individual',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Análise Individual
       </div>
     </div>
     <div class="nav-section">
       <div class="nav-label">Análises</div>
       <div class="nav-item" onclick="showPage('atividades',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         Por Atividade
       </div>
       <div class="nav-item" onclick="showPage('atitudinal',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         Conteúdo Atitudinal
       </div>
       <div class="nav-item" onclick="showPage('temporal',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Evolução Temporal
       </div>
       <div class="nav-item" onclick="showPage('inteligente',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
         Análise Inteligente
       </div>
       <div class="nav-item" onclick="showPage('alertas',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         Alertas
       </div>
     </div>
     <!-- Item admin visível apenas no modo admin -->
-    <div class="nav-section" id="adminNavSection" style="display: block;">
+    <div class="nav-section" id="adminNavSection" style="display:none;">
       <div class="nav-label">Administração</div>
-      <div class="nav-item active" onclick="showPage('admin',this)" style="color:rgba(255,160,160,.8);">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+      <div class="nav-item" onclick="showPage('admin',this)" style="color:rgba(255,160,160,.8);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
         Gerenciar Dados
       </div>
     </div>
@@ -333,99 +335,17 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
   <main class="main">
 
     <!-- ── VISÃO GERAL ── -->
-    <div id="page-overview" class="page">
+    <div id="page-overview" class="page active">
       <div class="section-title">Painel Executivo</div>
-      <div id="overviewContent">
-    <div class="cards-grid">
-      <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">14</div></div>
-      <div class="metric-card"><div class="metric-label">Total de Registros</div><div class="metric-value">18</div></div>
-      <div class="metric-card success"><div class="metric-label">Fatos Positivos</div><div class="metric-value">3</div><div class="metric-sub">17% do total</div></div>
-      <div class="metric-card danger"><div class="metric-label">Fatos Negativos</div><div class="metric-value">15</div><div class="metric-sub">83% do total</div></div>
-      <div class="metric-card warning"><div class="metric-label">Índice Positivo</div><div class="metric-value">17%</div></div>
-      <div class="metric-card danger"><div class="metric-label">Índice Negativo</div><div class="metric-value">83%</div></div>
-    </div>
-    <div class="two-col">
-      <div class="chart-card">
-        <div class="chart-header"><div class="chart-title">Evolução Semanal</div>
-          <div style="display:flex;gap:12px;font-size:11px;">
-            <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#3b6d11;display:inline-block;"></span> Positivos</span>
-            <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:2px;background:#a32d2d;display:inline-block;border-top:1px dashed #a32d2d;"></span> Negativos</span>
-          </div>
-        </div>
-        <div class="chart-wrap" style="height:220px;"><canvas id="weeklyChart" role="img" aria-label="Evolução semanal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-header"><div class="chart-title">Distribuição Geral</div></div>
-        <div class="chart-wrap" style="height:220px;"><canvas id="pieChart" role="img" aria-label="Distribuição geral" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
-      </div>
-    </div>
-    <div class="two-col">
-      <div class="chart-card"><div class="chart-header"><div class="chart-title">Melhores Desempenhos</div></div><div id="top5Table"><table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
-    <tr>
-      <td><strong>Aluno 10</strong></td>
-      <td><span class="badge badge-pos">+1</span></td>
-      <td><span class="badge badge-neg">-0</span></td>
-      <td class="saldo-pos">+1</td>
-    </tr><tr>
-      <td><strong>Aluno 28</strong></td>
-      <td><span class="badge badge-pos">+1</span></td>
-      <td><span class="badge badge-neg">-0</span></td>
-      <td class="saldo-pos">+1</td>
-    </tr><tr>
-      <td><strong>Aluno 15</strong></td>
-      <td><span class="badge badge-pos">+1</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-zero">0</td>
-    </tr><tr>
-      <td><strong>Aluno 16</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr><tr>
-      <td><strong>Aluno 18</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr>
-  </tbody></table></div></div>
-      <div class="chart-card"><div class="chart-header"><div class="chart-title">Requerem Atenção</div></div><div id="bottom5Table"><table><thead><tr><th>Aluno</th><th>Pos</th><th>Neg</th><th>Saldo</th></tr></thead><tbody>
-    <tr>
-      <td><strong>Aluno 22</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-2</span></td>
-      <td class="saldo-neg">-2</td>
-    </tr><tr>
-      <td><strong>Aluno 14</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-2</span></td>
-      <td class="saldo-neg">-2</td>
-    </tr><tr>
-      <td><strong>Aluno 13</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-2</span></td>
-      <td class="saldo-neg">-2</td>
-    </tr><tr>
-      <td><strong>Aluno 07</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr><tr>
-      <td><strong>Aluno 02</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-    </tr>
-  </tbody></table></div></div>
-    </div>
-  </div>
+      <div id="overviewContent"></div>
     </div>
 
     <!-- ── RANKING ── -->
     <div id="page-ranking" class="page">
       <div class="section-title">Ranking de Alunos</div>
       <div class="filter-bar">
-        <div class="filter-group"><div class="filter-label">Atividade</div><select id="rankAtivFilter" onchange="renderRanking()"><option value="">Todas</option><option value="Aula Inaugural">Aula Inaugural</option><option value="Cerimonial">Cerimonial</option><option value="Instrução prática de reciclagem de Escalada Operacional.">Instrução prática de reciclagem de Escalada Operacional.</option><option value="Instrução/demonstração de reciclagem de Escalada Operacional.">Instrução/demonstração de reciclagem de Escalada Operacional.</option><option value="Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.">Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.</option></select></div>
-        <div class="filter-group"><div class="filter-label">Responsável</div><select id="rankRspnlFilter" onchange="renderRanking()"><option value="">Todos</option><option value="CE">CE</option><option value="FB">FB</option><option value="SS">SS</option></select></div>
+        <div class="filter-group"><div class="filter-label">Atividade</div><select id="rankAtivFilter" onchange="renderRanking()"><option value="">Todas</option></select></div>
+        <div class="filter-group"><div class="filter-label">Responsável</div><select id="rankRspnlFilter" onchange="renderRanking()"><option value="">Todos</option></select></div>
         <div class="filter-group"><div class="filter-label">De</div><input type="date" id="rankDateFrom" onchange="renderRanking()"></div>
         <div class="filter-group"><div class="filter-label">Até</div><input type="date" id="rankDateTo" onchange="renderRanking()"></div>
         <button class="filter-clear" onclick="clearRankFilters()">× Limpar</button>
@@ -433,161 +353,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="chart-card">
         <div class="table-wrap"><table>
           <thead><tr><th>#</th><th>Aluno</th><th>Positivos</th><th>Negativos</th><th>Saldo</th><th>Desempenho</th><th>Status</th></tr></thead>
-          <tbody id="rankingBody"><tr class="highlight-row">
-      <td><span class="rank-badge rank-gold">1</span></td>
-      <td><strong>Aluno 10</strong></td>
-      <td><span class="badge badge-pos">+1</span></td>
-      <td><span class="badge badge-neg">-0</span></td>
-      <td class="saldo-pos">+1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:100%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">100%</span>
-      </div></td>
-      <td><span class="badge badge-pos">★ Destaque</span></td>
-    </tr><tr class="highlight-row">
-      <td><span class="rank-badge rank-silver">2</span></td>
-      <td><strong>Aluno 28</strong></td>
-      <td><span class="badge badge-pos">+1</span></td>
-      <td><span class="badge badge-neg">-0</span></td>
-      <td class="saldo-pos">+1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:100%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">100%</span>
-      </div></td>
-      <td><span class="badge badge-pos">★ Destaque</span></td>
-    </tr><tr class="highlight-row">
-      <td><span class="rank-badge rank-bronze">3</span></td>
-      <td><strong>Aluno 15</strong></td>
-      <td><span class="badge badge-pos">+1</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-zero">0</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:50%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">50%</span>
-      </div></td>
-      <td><span class="badge badge-pos">★ Destaque</span></td>
-    </tr><tr class="highlight-row">
-      <td><span class="rank-badge rank-normal">4</span></td>
-      <td><strong>Aluno 16</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">5</span></td>
-      <td><strong>Aluno 18</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">6</span></td>
-      <td><strong>Aluno 19</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">7</span></td>
-      <td><strong>Aluno 20</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">8</span></td>
-      <td><strong>Aluno 03</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">9</span></td>
-      <td><strong>Aluno 08</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">10</span></td>
-      <td><strong>Aluno 02</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">11</span></td>
-      <td><strong>Aluno 07</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-1</span></td>
-      <td class="saldo-neg">-1</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">12</span></td>
-      <td><strong>Aluno 13</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-2</span></td>
-      <td class="saldo-neg">-2</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td><span class="badge badge-neg">⚠ Atenção</span></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">13</span></td>
-      <td><strong>Aluno 14</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-2</span></td>
-      <td class="saldo-neg">-2</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td><span class="badge badge-neg">⚠ Atenção</span></td>
-    </tr><tr class="attn-row">
-      <td><span class="rank-badge rank-normal">14</span></td>
-      <td><strong>Aluno 22</strong></td>
-      <td><span class="badge badge-pos">+0</span></td>
-      <td><span class="badge badge-neg">-2</span></td>
-      <td class="saldo-neg">-2</td>
-      <td style="min-width:100px;"><div style="display:flex;gap:4px;align-items:center;">
-        <div class="progress-bar" style="flex:1;"><div class="progress-fill fill-pos" style="width:0%"></div></div>
-        <span style="font-size:11px;color:var(--text-muted);width:30px;text-align:right;">0%</span>
-      </div></td>
-      <td><span class="badge badge-neg">⚠ Atenção</span></td>
-    </tr></tbody>
+          <tbody id="rankingBody"></tbody>
         </table></div>
       </div>
     </div>
@@ -596,11 +362,11 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <div id="page-individual" class="page">
       <div class="section-title">Análise Individual</div>
       <div class="student-selector">
-        <select id="studentSelect" onchange="renderIndividual()"><option value="">Selecionar aluno...</option><option value="02">Aluno 02</option><option value="03">Aluno 03</option><option value="07">Aluno 07</option><option value="08">Aluno 08</option><option value="10">Aluno 10</option><option value="13">Aluno 13</option><option value="14">Aluno 14</option><option value="15">Aluno 15</option><option value="16">Aluno 16</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="20">Aluno 20</option><option value="22">Aluno 22</option><option value="28">Aluno 28</option></select>
+        <select id="studentSelect" onchange="renderIndividual()"><option value="">Selecionar aluno...</option></select>
       </div>
       <div id="individualContent">
         <div class="empty-state">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Selecione um aluno para ver sua análise individual.
         </div>
       </div>
@@ -612,16 +378,16 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="two-col">
         <div class="chart-card">
           <div class="chart-title" style="margin-bottom:1rem;">Registros Positivos</div>
-          <div class="chart-wrap" id="atividadePosWrap" style="position: relative; height: 240px;"><canvas id="atividadePosChart" role="img" aria-label="Positivos por atividade" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+          <div class="chart-wrap" id="atividadePosWrap" style="position:relative;"><canvas id="atividadePosChart" role="img" aria-label="Positivos por atividade"></canvas></div>
         </div>
         <div class="chart-card">
           <div class="chart-title" style="margin-bottom:1rem;">Registros Negativos</div>
-          <div class="chart-wrap" id="atividadeNegWrap" style="position: relative; height: 240px;"><canvas id="atividadeNegChart" role="img" aria-label="Negativos por atividade" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+          <div class="chart-wrap" id="atividadeNegWrap" style="position:relative;"><canvas id="atividadeNegChart" role="img" aria-label="Negativos por atividade"></canvas></div>
         </div>
       </div>
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:1rem;">Total por Atividade</div>
-        <div class="chart-wrap" id="atividadeTotalWrap" style="position: relative; height: 240px;"><canvas id="atividadeTotalChart" role="img" aria-label="Total por atividade" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        <div class="chart-wrap" id="atividadeTotalWrap" style="position:relative;"><canvas id="atividadeTotalChart" role="img" aria-label="Total por atividade"></canvas></div>
       </div>
     </div>
 
@@ -630,104 +396,16 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="section-title">Conteúdo Atitudinal</div>
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:1rem;">Ranking de Conteúdos</div>
-        <div id="atitudinalList"><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Valor: Disciplina</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:7 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-7</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Att: Meticulosidade</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:6 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-6</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Cpcd Cognitiva: Resolução de Problemas</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:4 <span style="color:var(--success);">+3</span> <span style="color:var(--danger);">-1</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:75%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Cpcd Moral: Disciplina Consciente</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:4 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-4</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Valor: Espírito de corpo</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:4 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-4</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Att: Rusticidade</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:3 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-3</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Cpcd Fis: Equilíbrio dinâmico</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:3 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-3</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Cpcd Fis: Equilíbrio estático</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:3 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-3</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Cpcd Moral: Autoconhecimento</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:2 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-2</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Cpcd Fis: Equilíbrio recuperado</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:2 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-2</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div><div style="margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-        <span style="font-size:12px;font-weight:600;">Att: Cooperação</span>
-        <span style="font-size:11px;color:var(--text-muted);">Total:1 <span style="color:var(--success);">+0</span> <span style="color:var(--danger);">-1</span></span>
-      </div>
-      <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--danger-bg);">
-        <div style="width:0%;background:var(--success);"></div>
-      </div>
-    </div></div>
+        <div id="atitudinalList"></div>
       </div>
       <div class="two-col">
         <div class="chart-card">
           <div class="chart-title" style="margin-bottom:1rem;">Distribuição Positivo × Negativo</div>
-          <div class="chart-wrap" id="atitudinalChartWrap" style="position: relative; height: 460px;"><canvas id="atitudinalChart" role="img" aria-label="Distribuição por conteúdo atitudinal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+          <div class="chart-wrap" id="atitudinalChartWrap" style="position:relative;"><canvas id="atitudinalChart" role="img" aria-label="Distribuição por conteúdo atitudinal"></canvas></div>
         </div>
         <div class="chart-card">
           <div class="chart-title" style="margin-bottom:1rem;">Nuvem de Conteúdos</div>
-          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"><span class="word-tag" title="Valor: Disciplina: 7 registros" style="font-size: 28px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Disciplina</span><span class="word-tag" title="Att: Meticulosidade: 6 registros" style="font-size: 25px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Meticulosidade</span><span class="word-tag" title="Cpcd Cognitiva: Resolução de Problemas: 4 registros" style="font-size: 20px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Resolução de Problemas</span><span class="word-tag" title="Cpcd Moral: Disciplina Consciente: 4 registros" style="font-size: 20px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Disciplina Consciente</span><span class="word-tag" title="Valor: Espírito de corpo: 4 registros" style="font-size: 20px; background: rgba(24, 95, 165, 0.133); color: rgb(24, 95, 165); border: 1px solid rgba(24, 95, 165, 0.267);">Espírito de corpo</span><span class="word-tag" title="Att: Rusticidade: 3 registros" style="font-size: 18px; background: rgba(133, 79, 11, 0.133); color: rgb(133, 79, 11); border: 1px solid rgba(133, 79, 11, 0.267);">Rusticidade</span><span class="word-tag" title="Cpcd Fis: Equilíbrio dinâmico: 3 registros" style="font-size: 18px; background: rgba(153, 53, 86, 0.133); color: rgb(153, 53, 86); border: 1px solid rgba(153, 53, 86, 0.267);">Equilíbrio dinâmico</span><span class="word-tag" title="Cpcd Fis: Equilíbrio estático: 3 registros" style="font-size: 18px; background: rgba(74, 82, 64, 0.133); color: rgb(74, 82, 64); border: 1px solid rgba(74, 82, 64, 0.267);">Equilíbrio estático</span><span class="word-tag" title="Cpcd Moral: Autoconhecimento: 2 registros" style="font-size: 15px; background: rgba(99, 153, 34, 0.133); color: rgb(99, 153, 34); border: 1px solid rgba(99, 153, 34, 0.267);">Autoconhecimento</span><span class="word-tag" title="Cpcd Fis: Equilíbrio recuperado: 2 registros" style="font-size: 15px; background: rgba(139, 139, 90, 0.133); color: rgb(139, 139, 90); border: 1px solid rgba(139, 139, 90, 0.267);">Equilíbrio recuperado</span><span class="word-tag" title="Att: Cooperação: 1 registros" style="font-size: 13px; background: rgba(59, 109, 17, 0.133); color: rgb(59, 109, 17); border: 1px solid rgba(59, 109, 17, 0.267);">Cooperação</span></div>
+          <div id="wordCloud" class="word-cloud" style="min-height:200px;align-items:center;"></div>
         </div>
       </div>
     </div>
@@ -738,91 +416,62 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="filter-bar">
         <div class="filter-group"><div class="filter-label">De</div><input type="date" id="tempDateFrom" onchange="renderTemporal()"></div>
         <div class="filter-group"><div class="filter-label">Até</div><input type="date" id="tempDateTo" onchange="renderTemporal()"></div>
-        <div class="filter-group"><div class="filter-label">Aluno</div><select id="tempAlunoFilter" onchange="renderTemporal()"><option value="">Todos</option><option value="02">Aluno 02</option><option value="03">Aluno 03</option><option value="07">Aluno 07</option><option value="08">Aluno 08</option><option value="10">Aluno 10</option><option value="13">Aluno 13</option><option value="14">Aluno 14</option><option value="15">Aluno 15</option><option value="16">Aluno 16</option><option value="18">Aluno 18</option><option value="19">Aluno 19</option><option value="20">Aluno 20</option><option value="22">Aluno 22</option><option value="28">Aluno 28</option></select></div>
-        <div class="filter-group"><div class="filter-label">Atividade</div><select id="tempAtivFilter" onchange="renderTemporal()"><option value="">Todas</option><option value="Aula Inaugural">Aula Inaugural</option><option value="Cerimonial">Cerimonial</option><option value="Instrução prática de reciclagem de Escalada Operacional.">Instrução prática de reciclagem de Escalada Operacional.</option><option value="Instrução/demonstração de reciclagem de Escalada Operacional.">Instrução/demonstração de reciclagem de Escalada Operacional.</option><option value="Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.">Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.</option></select></div>
+        <div class="filter-group"><div class="filter-label">Aluno</div><select id="tempAlunoFilter" onchange="renderTemporal()"><option value="">Todos</option></select></div>
+        <div class="filter-group"><div class="filter-label">Atividade</div><select id="tempAtivFilter" onchange="renderTemporal()"><option value="">Todas</option></select></div>
         <button class="filter-clear" onclick="clearTempFilters()">× Limpar</button>
       </div>
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:1rem;">Registros por Semana</div>
-        <div class="chart-wrap" style="height:280px;"><canvas id="temporalChart" role="img" aria-label="Evolução temporal semanal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        <div class="chart-wrap" style="height:280px;"><canvas id="temporalChart" role="img" aria-label="Evolução temporal semanal"></canvas></div>
       </div>
       <div class="chart-card">
         <div class="chart-title" style="margin-bottom:1rem;">Acumulado por Mês</div>
-        <div class="chart-wrap" style="height:240px;"><canvas id="monthlyChart" role="img" aria-label="Acumulado mensal" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+        <div class="chart-wrap" style="height:240px;"><canvas id="monthlyChart" role="img" aria-label="Acumulado mensal"></canvas></div>
       </div>
     </div>
 
     <!-- ── INTELIGENTE ── -->
     <div id="page-inteligente" class="page">
       <div class="section-title">Análise Inteligente</div>
-      <div id="intelligentContent">
-    <div class="two-col">
-      <div class="chart-card ai-card">
-        <div class="ai-header"><div class="chart-title" style="color:var(--success);">★ Principais Pontos Fortes</div><div class="ai-badge">IA</div></div>
-        <div class="strength-item"><span style="font-size:12px;">Capacidade técnica</span><span style="font-size:11px;font-weight:700;color:var(--success);">3 ocorrências</span></div>
-      </div>
-      <div class="chart-card ai-card">
-        <div class="ai-header"><div class="chart-title" style="color:var(--danger);">⚠ Oportunidades de Melhoria</div><div class="ai-badge">IA</div></div>
-        <div class="gap-item"><span style="font-size:12px;">Comportamento inadequado</span><span style="font-size:11px;font-weight:700;color:var(--danger);">3 ocorrências</span></div><div class="gap-item"><span style="font-size:12px;">Baixa iniciativa</span><span style="font-size:11px;font-weight:700;color:var(--danger);">1 ocorrências</span></div>
-      </div>
-    </div>
-    <div class="two-col">
-      <div class="chart-card">
-        <div class="chart-title" style="margin-bottom:.75rem;color:var(--success);">Atividades com maior potencial positivo</div>
-        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Instrução/demonstração de reciclagem de Escalada Operacional.</span><span class="badge badge-pos">+3</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-pos">+0</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-pos">+0</span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title" style="margin-bottom:.75rem;color:var(--danger);">Atividades com maior índice de desvios</div>
-        <div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Instrução prática de reciclagem de Escalada Operacional.</span><span class="badge badge-neg">-9</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Aula Inaugural</span><span class="badge badge-neg">-4</span></div><div style="padding:6px 0;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;"><span>Cerimonial</span><span class="badge badge-neg">-1</span></div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title" style="margin-bottom:1rem;">Frequência de palavras-chave nos fatos observados</div>
-      <div class="chart-wrap" style="position:relative;height:180px;">
-        <canvas id="freqChart" role="img" aria-label="Frequência de palavras-chave" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas>
-      </div>
-    </div>
-  </div>
+      <div id="intelligentContent"></div>
     </div>
 
     <!-- ── ALERTAS ── -->
     <div id="page-alertas" class="page">
       <div class="section-title">Alertas Automáticos</div>
-      <div id="alertsContent"><div class="section-title">Situação Crítica</div><div class="alert-list" style="margin-bottom:1.5rem;"><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 02 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 03 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 07 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 08 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 13 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 14 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 16 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 18 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 19 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 20 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div><div class="alert-item alert-danger"><div class="alert-icon">⚠️</div><div class="alert-text"><div class="alert-title">Aluno 22 — Nenhum registro positivo</div>Nenhum fato positivo registrado ao longo do curso.</div></div></div></div>
+      <div id="alertsContent"></div>
     </div>
 
     <!-- ── ADMIN (oculto para usuários comuns) ── -->
-    <div id="page-admin" class="page active">
+    <div id="page-admin" class="page">
       <div class="section-title">Gerenciamento de Dados</div>
 
       <div class="admin-panel">
         <div class="admin-panel-title">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           Importar nova planilha FRAD
         </div>
 
-        <div id="uploadZone" class="upload-zone" onclick="document.getElementById('adminFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)">
+        <div id="uploadZone" class="upload-zone" onclick="document.getElementById('adminFileInput').click()"
+             ondragover="event.preventDefault();this.classList.add('drag-over')"
+             ondragleave="this.classList.remove('drag-over')"
+             ondrop="handleDrop(event)">
           <div class="upload-icon">📊</div>
           <div class="upload-title">Arraste o arquivo .xlsx aqui ou clique para selecionar</div>
           <div class="upload-sub">Planilha exportada do Google Forms/Sheets<br>Colunas: Nº Aluno · Data · Registro · Conteúdo Atitudinal · Atividade · Fato Observado · Rspnl</div>
         </div>
         <input type="file" id="adminFileInput" accept=".xlsx,.xls" style="display:none;" onchange="handleAdminUpload(this)">
 
-        <div id="adminDataSummary" style="display: block;">
-          <div class="data-summary" id="adminSummaryCards">
-    <div class="summary-item"><div class="summary-num">14</div><div class="summary-lbl">Alunos</div></div>
-    <div class="summary-item"><div class="summary-num">18</div><div class="summary-lbl">Registros</div></div>
-    <div class="summary-item"><div class="summary-num" style="color:var(--success);">3</div><div class="summary-lbl">Positivos</div></div>
-    <div class="summary-item"><div class="summary-num" style="color:var(--danger);">15</div><div class="summary-lbl">Negativos</div></div>
-  </div>
+        <div id="adminDataSummary" style="display:none;">
+          <div class="data-summary" id="adminSummaryCards"></div>
         </div>
 
-        <div id="logBox" class="log-box" style="display: block;"><div class="log-line ok">[13:09:55] ✓ Arquivo recebido: FRAD.xlsx (8.0 KB)</div><div class="log-line ok">[13:09:55] ✓ Lendo planilha...</div><div class="log-line ok">[13:09:55] ✓ Aba encontrada: "FRAD"</div><div class="log-line ok">[13:09:55] ✓ 11 linhas lidas.</div><div class="log-line ok">[13:09:55] ✓ 18 registros processados com sucesso.</div><div class="log-line ok">[13:09:55] ✓ 14 alunos identificados.</div><div class="log-line ok">[13:09:55] ✓ ✓ Dashboard atualizado. Baixe o HTML para publicar.</div></div>
+        <div id="logBox" class="log-box"></div>
       </div>
 
-      <div id="downloadSection" class="admin-panel" style="display: block;">
+      <div id="downloadSection" class="admin-panel" style="display:none;">
         <div class="admin-panel-title">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Publicar dashboard atualizado
         </div>
         <div class="download-section">
@@ -835,7 +484,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
             <div class="step-item">Todos os acessos ao link público verão os novos dados imediatamente.</div>
           </div>
           <button class="btn btn-primary" onclick="downloadUpdatedHTML()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Baixar HTML atualizado
           </button>
         </div>
@@ -850,10 +499,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
      NÃO altere manualmente esta seção
 ════════════════════════════════════════════ -->
 <script id="embeddedData" type="application/json">
-[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"10","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Instrução/demonstração de reciclagem de Escalada Operacional.","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Instrução/demonstração de reciclagem de Escalada Operacional.","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"28","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Instrução/demonstração de reciclagem de Escalada Operacional.","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por bradar verbalmento comandos durante sua guiada com Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"02","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Moral: Autoconhecimento","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por não saber montar e/ou utilizar corretamente o freio ATC quando na função de Nr 2 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por deixar de executar a atividade diurna ao não escalar a Rota 3 do Paredão 3 quando na função de Nr 1de Cdd, por ocasião da prática de Escalada Operacional.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático, Cpcd Fis: Equilíbrio recuperado","atividade":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","fato":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.\n\nApós alguns “caindos” o referido aluno pediu desligamento voluntário, sendo desescalado pelo instrutor/avaliador para conversar com o Coordenador do Curso. Ao chegar no areal solicitou visita médica, sendo examinado pelo Sgt APH. Após o atendimento médico e/ou conversa com o Coordenador, o referido aluno foi reintegrado ao turno para execução do restante da atividade.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Moral: Autoconhecimento","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Ao desescalar com o freio Stop o referido aluno pressionou a alavanca do freio ocasionando a liberação total do sistema de travamento, vindo a despencar alguns metros em queda livre, atentando contra a segurança, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático, Cpcd Fis: Equilíbrio recuperado","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3. Durante a atividade, por 2 (duas) vezes houve a necessidade de realizar um auto resgate no referido aluno.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"16","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Instrução prática de reciclagem de Escalada Operacional.","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"}]
+null
 </script>
 <script id="embeddedMeta" type="application/json">
-{"updatedAt":"2026-06-11T16:10:01.867Z","recordCount":18,"studentCount":14}
+{"updatedAt":null,"recordCount":0,"studentCount":0}
 </script>
 
 <!-- ══════════════════════════════════════════
@@ -1091,30 +740,27 @@ function downloadUpdatedHTML() {
   const dataJson = JSON.stringify(cleanData);
   const metaJson = JSON.stringify(meta);
 
-  // Captura o HTML e substitui os blocos de dados
-  let html = document.documentElement.outerHTML;
-  html = html
-    .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
-      `<script id="embeddedData" type="application/json">\n${dataJson}\n<\/script>`)
-    .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
-      `<script id="embeddedMeta" type="application/json">\n${metaJson}\n<\/script>`);
-
-  // Garante que o arquivo baixado NUNCA saia em modo admin,
-  // independente do estado atual da sessão
-  html = html
-    .replace(/id="adminBar" class="admin-bar" style="display:none;"/g,
-             'id="adminBar" class="admin-bar" style="display:none;"')
-    .replace(/id="adminNavSection" style="display:none;"/g,
-             'id="adminNavSection" style="display:none;"')
-    .replace(/id="authModal" class="modal-overlay" style="display:none;"/g,
-             'id="authModal" class="modal-overlay" style="display:none;"');
-
-  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `dashboard-camt-${new Date().toISOString().slice(0,10)}.html`;
-  a.click();
-  URL.revokeObjectURL(a.href);
+  // Busca o arquivo HTML original do servidor (não o DOM em memória)
+  // para garantir que o download nunca contenha estado de runtime (modo admin, etc.)
+  fetch(window.location.href)
+    .then(r => r.text())
+    .then(originalHtml => {
+      let out = originalHtml
+        .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
+          '<script id="embeddedData" type="application/json">\n' + dataJson + '\n<\/script>')
+        .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
+          '<script id="embeddedMeta" type="application/json">\n' + metaJson + '\n<\/script>');
+      const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch(() => {
+      // Fallback para arquivo local (protocolo file://) onde fetch não funciona
+      alert('Atenção: você está abrindo o arquivo localmente.\n\nPara o download funcionar corretamente sem modo admin, hospede o arquivo no GitHub Pages e acesse via link https://');
+    });
 }
 
 /* ─── NAVEGAÇÃO ──────────────────────────── */
@@ -1615,6 +1261,5 @@ function exportExcel() {
   XLSX.writeFile(wb,`CAMt_Ranking_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
