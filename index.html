@@ -777,52 +777,15 @@ let pendingProcessedData = null; // dados processados aguardando publicação
 
 /* ─── INICIALIZAÇÃO ──────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
-  // ── Acesso admin por URL (?admin=1) ──
+  // Verifica se veio com ?admin na URL
   const params = new URLSearchParams(window.location.search);
-  const hrefHasAdmin = window.location.href.includes('?admin') || window.location.href.includes('&admin');
-  if (params.has('admin') || hrefHasAdmin) {
-    openAdminModal();
+  if (params.has('admin')) {
+    document.getElementById('authModal').style.display = 'flex';
+    document.getElementById('adminPassInput').focus();
   }
-
-  // ── Acesso admin por atalho de teclado ──
-  // Pressione: Ctrl + Shift + A  (qualquer plataforma)
-  // Ou clique 5x rápidos no logo do cabeçalho
-  document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-      e.preventDefault();
-      openAdminModal();
-    }
-  });
-
-  // ── Acesso admin por 5 cliques no logo ──
-  let logoClicks = 0, logoTimer = null;
-  const logo = document.querySelector('.brand-emblem');
-  if (logo) {
-    logo.style.cursor = 'pointer';
-    logo.addEventListener('click', () => {
-      logoClicks++;
-      clearTimeout(logoTimer);
-      logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
-      if (logoClicks >= 5) {
-        logoClicks = 0;
-        openAdminModal();
-      }
-    });
-  }
-
   // Carrega dados embutidos
   loadEmbeddedData();
 });
-
-function openAdminModal() {
-  if (isAdminMode) return; // já está em modo admin
-  document.getElementById('authModal').style.display = 'flex';
-  setTimeout(() => {
-    const input = document.getElementById('adminPassInput');
-    if (input) { input.value = ''; input.focus(); }
-    document.getElementById('authError').style.display = 'none';
-  }, 50);
-}
 
 function loadEmbeddedData() {
   try {
@@ -886,16 +849,15 @@ async function checkAdminPass() {
 
 function cancelAdmin() {
   document.getElementById('authModal').style.display = 'none';
-  // Remove ?admin da URL sem recarregar (funciona em https://)
-  // Em file:// o history.replaceState pode não funcionar, mas não é crítico
-  try { history.replaceState({}, '', window.location.pathname); } catch(e) {}
+  // Remove ?admin da URL sem recarregar
+  history.replaceState({}, '', window.location.pathname);
 }
 
 function activateAdminMode() {
   isAdminMode = true;
   document.getElementById('adminBar').style.display = 'flex';
   document.getElementById('adminNavSection').style.display = 'block';
-  try { history.replaceState({}, '', window.location.pathname); } catch(e) {}
+  history.replaceState({}, '', window.location.pathname);
 }
 
 function exitAdmin() {
@@ -1077,87 +1039,46 @@ function addLog(type, msg) {
 /* ─── DOWNLOAD HTML ATUALIZADO ───────────── */
 function downloadUpdatedHTML() {
   if (!pendingProcessedData) { alert('Nenhum dado processado.'); return; }
-
-  // Prepara os dados limpos
+  const meta = {
+    updatedAt: new Date().toISOString(),
+    recordCount: pendingProcessedData.length,
+    studentCount: [...new Set(pendingProcessedData.map(r=>r.aluno))].length
+  };
+  // pendingProcessedData now contains { frad, situacao, conceito, avaliacoes }
   const isNewFormat = pendingProcessedData && typeof pendingProcessedData === 'object' && !Array.isArray(pendingProcessedData);
   let cleanFrad = [], cleanSit = [], cleanCct = [], cleanAval = [];
   if (isNewFormat) {
     cleanFrad = (pendingProcessedData.frad || []).map(r => { const { data, ...rest } = r; return rest; });
-    cleanSit  = pendingProcessedData.situacao  || [];
-    cleanCct  = pendingProcessedData.conceito  || [];
+    cleanSit = pendingProcessedData.situacao || [];
+    cleanCct = pendingProcessedData.conceito || [];
     cleanAval = pendingProcessedData.avaliacoes || [];
   } else {
     cleanFrad = (pendingProcessedData || []).map(r => { const { data, ...rest } = r; return rest; });
   }
   const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval });
-  const meta = {
-    updatedAt: new Date().toISOString(),
-    recordCount: cleanFrad.length,
-    studentCount: [...new Set(cleanFrad.map(r=>r.aluno))].length
-  };
   const metaJson = JSON.stringify(meta);
 
-  // Gera o HTML final a partir do código-fonte embutido no próprio arquivo
-  // Funciona tanto em file:// quanto em https:// sem depender de fetch
-  function buildAndDownload(sourceHtml) {
-    let out = sourceHtml
-      .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
-        '<script id="embeddedData" type="application/json">
-' + dataJson + '
-<\/script>')
-      .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
-        '<script id="embeddedMeta" type="application/json">
-' + metaJson + '
-<\/script>');
-    // Garante que o arquivo baixado nunca saia em modo admin
-    out = out
-      .replace(/id="adminBar" class="admin-bar" style="display:flex;"/g,
-               'id="adminBar" class="admin-bar" style="display:none;"')
-      .replace(/id="adminNavSection" style="display:block;"/g,
-               'id="adminNavSection" style="display:none;"')
-      .replace(/id="authModal" class="modal-overlay" style="display:flex;"/g,
-               'id="authModal" class="modal-overlay" style="display:none;"');
-    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-  }
-
-  // Tenta fetch (funciona no GitHub Pages)
-  // Se falhar (file://), usa o innerHTML do documento como fonte
-  if (window.location.protocol === 'file:') {
-    // Modo local: serializa o HTML do documento e aplica as substituições
-    // Reseta os elementos de UI do admin antes de serializar
-    const adminBar = document.getElementById('adminBar');
-    const adminNav = document.getElementById('adminNavSection');
-    const authModal = document.getElementById('authModal');
-    const prevBar  = adminBar  ? adminBar.style.display  : '';
-    const prevNav  = adminNav  ? adminNav.style.display  : '';
-    const prevModal = authModal ? authModal.style.display : '';
-    if (adminBar)  adminBar.style.display  = 'none';
-    if (adminNav)  adminNav.style.display  = 'none';
-    if (authModal) authModal.style.display = 'none';
-    const source = '<!DOCTYPE html>
-' + document.documentElement.outerHTML;
-    if (adminBar)  adminBar.style.display  = prevBar;
-    if (adminNav)  adminNav.style.display  = prevNav;
-    if (authModal) authModal.style.display = prevModal;
-    buildAndDownload(source);
-  } else {
-    // Modo servidor (GitHub Pages): busca o arquivo original limpo
-    fetch(window.location.href)
-      .then(r => r.text())
-      .then(buildAndDownload)
-      .catch(() => {
-        // Fallback: mesmo método do file://
-        const source = '<!DOCTYPE html>
-' + document.documentElement.outerHTML;
-        buildAndDownload(source);
-      });
-  }
+  // Busca o arquivo HTML original do servidor (não o DOM em memória)
+  // para garantir que o download nunca contenha estado de runtime (modo admin, etc.)
+  fetch(window.location.href)
+    .then(r => r.text())
+    .then(originalHtml => {
+      let out = originalHtml
+        .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
+          '<script id="embeddedData" type="application/json">\n' + dataJson + '\n<\/script>')
+        .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
+          '<script id="embeddedMeta" type="application/json">\n' + metaJson + '\n<\/script>');
+      const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch(() => {
+      // Fallback para arquivo local (protocolo file://) onde fetch não funciona
+      alert('Atenção: você está abrindo o arquivo localmente.\n\nPara o download funcionar corretamente sem modo admin, hospede o arquivo no GitHub Pages e acesse via link https://');
+    });
 }
 
 /* ─── NAVEGAÇÃO ──────────────────────────── */
