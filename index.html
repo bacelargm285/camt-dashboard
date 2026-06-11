@@ -220,6 +220,81 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--olive-mid);border-radius:3px;}
+
+/* ── MÓDULOS EXPANDIDOS ─────────────────── */
+.tab-bar{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:1.25rem;flex-wrap:wrap;}
+.tab{padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--text-muted);margin-bottom:-1px;transition:all .15s;text-transform:uppercase;letter-spacing:.4px;}
+.tab.active{color:var(--olive);border-bottom-color:var(--olive);}
+.tab:hover{color:var(--text);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+.profile-header{background:linear-gradient(135deg,var(--olive) 0%,var(--olive-light) 100%);color:#fff;border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1.25rem;}
+.profile-avatar{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0;border:2px solid rgba(255,255,255,.4);}
+.profile-name{font-size:18px;font-weight:700;margin-bottom:2px;}
+.profile-sub{font-size:12px;opacity:.75;margin-bottom:6px;}
+.profile-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.profile-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);}
+.profile-tag.sit-mat{background:rgba(99,153,34,.3);border-color:rgba(99,153,34,.5);}
+.profile-tag.sit-desl{background:rgba(163,45,45,.3);border-color:rgba(163,45,45,.5);}
+.profile-tag.sit-nap{background:rgba(133,79,11,.3);border-color:rgba(133,79,11,.5);}
+
+.radar-wrap{position:relative;width:100%;max-width:400px;margin:0 auto;}
+.mention-badge{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;font-size:16px;font-weight:800;}
+.mention-MB{background:var(--success-bg);color:var(--success);border:2px solid var(--success);}
+.mention-B{background:var(--info-bg);color:var(--info);border:2px solid var(--info);}
+.mention-R{background:var(--warning-bg);color:var(--warning);border:2px solid var(--warning);}
+.mention-I{background:var(--danger-bg);color:var(--danger);border:2px solid var(--danger);}
+
+.nota-badge{display:inline-flex;align-items:center;justify-content:center;min-width:36px;padding:2px 6px;border-radius:6px;font-size:12px;font-weight:700;}
+.nota-alta{background:var(--success-bg);color:var(--success);}
+.nota-media{background:var(--info-bg);color:var(--info);}
+.nota-baixa{background:var(--warning-bg);color:var(--warning);}
+.nota-critica{background:var(--danger-bg);color:var(--danger);}
+
+.tipo-AS{background:#e6f1fb;color:#185fa5;border:1px solid rgba(24,95,165,.2);}
+.tipo-AF{background:#eaf3de;color:#3b6d11;border:1px solid rgba(59,109,17,.2);}
+.tipo-AR{background:#faeeda;color:#854f0b;border:1px solid rgba(133,79,11,.2);}
+
+.attr-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.attr-label{font-size:11px;color:var(--text-muted);width:180px;flex-shrink:0;font-weight:600;}
+.attr-track{flex:1;height:8px;background:var(--surface-3);border-radius:4px;overflow:hidden;}
+.attr-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--khaki),var(--olive));}
+.attr-value{font-size:12px;font-weight:700;color:var(--olive);width:36px;text-align:right;}
+
+.search-input{width:100%;padding:9px 14px 9px 36px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:13px;background:var(--surface);color:var(--text);}
+.search-wrap{position:relative;margin-bottom:1rem;}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-faint);pointer-events:none;}
+
+.student-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem;cursor:pointer;transition:all .15s;}
+.student-card:hover{border-color:var(--olive-mid);box-shadow:0 2px 8px rgba(74,82,64,.1);}
+.student-card.selected{border-color:var(--olive);background:var(--olive-faint);}
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:1.25rem;}
+
+.sit-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+.sit-Matriculado{background:var(--success-bg);color:var(--success);}
+.sit-Desligado{background:var(--danger-bg);color:var(--danger);}
+.sit-NaoApresentado{background:var(--warning-bg);color:var(--warning);}
+
+.timeline-360{display:flex;flex-direction:column;gap:0;}
+.tl360-item{display:flex;gap:12px;padding-bottom:.875rem;position:relative;}
+.tl360-item::before{content:'';position:absolute;left:14px;top:30px;bottom:0;width:1px;background:var(--border);}
+.tl360-item:last-child::before{display:none;}
+.tl360-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;font-weight:700;}
+.tl360-pos{background:var(--success-bg);color:var(--success);border:1.5px solid var(--success);}
+.tl360-neg{background:var(--danger-bg);color:var(--danger);border:1.5px solid var(--danger);}
+.tl360-aval{background:var(--info-bg);color:var(--info);border:1.5px solid var(--info);}
+.tl360-sit{background:var(--warning-bg);color:var(--warning);border:1.5px solid var(--warning);}
+.tl360-content{flex:1;background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:7px 10px;}
+.tl360-date{font-size:10px;color:var(--text-faint);margin-bottom:2px;}
+.tl360-text{font-size:12px;color:var(--text);line-height:1.5;}
+.tl360-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
+
+.alert-360{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:var(--radius);border-left:3px solid;margin-bottom:6px;font-size:12px;}
+.alert-360-danger{background:var(--danger-bg);border-color:var(--danger);}
+.alert-360-warning{background:var(--warning-bg);border-color:var(--warning);}
+.alert-360-success{background:var(--success-bg);border-color:var(--success);}
+
 </style>
 </head>
 <body>
@@ -322,7 +397,27 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         Alertas
       </div>
     </div>
-    <!-- Item admin visível apenas no modo admin -->
+    <!-- Módulos expandidos -->
+    <div class="nav-section" id="newModulesNav">
+      <div class="nav-label">Módulos</div>
+      <div class="nav-item" onclick="showPage('situacao',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Situação do Aluno
+      </div>
+      <div class="nav-item" onclick="showPage('avaliacoes',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Avaliações
+      </div>
+      <div class="nav-item" onclick="showPage('conceito',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Conceito Vertical
+      </div>
+      <div class="nav-item" onclick="showPage('perfil',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M3 21v-1a9 9 0 0118 0v1"/></svg>
+        Perfil 360°
+      </div>
+    </div>
+        <!-- Item admin visível apenas no modo admin -->
     <div class="nav-section" id="adminNavSection" style="display:none;">
       <div class="nav-label">Administração</div>
       <div class="nav-item" onclick="showPage('admin',this)" style="color:rgba(255,160,160,.8);">
@@ -491,6 +586,154 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
     </div>
 
+
+    <!-- ── SITUAÇÃO DO ALUNO ── -->
+    <div id="page-situacao" class="page">
+      <div class="section-title">Situação do Aluno</div>
+      <div class="cards-grid" id="sitCards"></div>
+      <div class="filter-bar">
+        <div class="filter-group">
+          <div class="filter-label">Situação</div>
+          <select id="sitSitFilter" onchange="renderSituacao()"><option value="">Todas</option></select>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label">OM</div>
+          <select id="sitOMFilter" onchange="renderSituacao()"><option value="">Todas</option></select>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label">Posto/Grad</div>
+          <select id="sitPostoFilter" onchange="renderSituacao()"><option value="">Todos</option></select>
+        </div>
+        <button class="filter-clear" onclick="clearSitFilters()">× Limpar</button>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <input type="text" class="search-input" id="sitSearch" placeholder="Pesquisar por nome, nome de guerra ou número..." oninput="renderSituacao()">
+      </div>
+      <div class="student-grid" id="situacaoGrid"></div>
+      <div class="chart-card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nº</th><th>Nome de Guerra</th><th>Nome Completo</th><th>Posto/Grad</th><th>QAS/QMS</th><th>OM</th><th>Situação</th><th>Ações</th></tr></thead>
+            <tbody id="situacaoTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AVALIAÇÕES ── -->
+    <div id="page-avaliacoes" class="page">
+      <div class="section-title">Avaliações</div>
+      <div class="tab-bar">
+        <div class="tab active" onclick="switchAvalTab('geral',this)">Visão Geral</div>
+        <div class="tab" onclick="switchAvalTab('individual',this)">Análise por Aluno</div>
+        <div class="tab" onclick="switchAvalTab('disciplina',this)">Por Disciplina</div>
+      </div>
+
+      <div id="aval-tab-geral" class="tab-content active">
+        <div class="cards-grid" id="avalCards"></div>
+        <div class="two-col">
+          <div class="chart-card">
+            <div class="chart-title" style="margin-bottom:1rem;">Média por Disciplina</div>
+            <div class="chart-wrap" id="avalDiscWrap" style="position:relative;"><canvas id="avalDiscChart" role="img" aria-label="Média por disciplina"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title" style="margin-bottom:1rem;">Distribuição por Tipo de Avaliação</div>
+            <div class="chart-wrap" style="height:220px;"><canvas id="avalTipoChart" role="img" aria-label="Distribuição por tipo"></canvas></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Ranking Geral — Média das Avaliações</div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>#</th><th>Aluno</th><th>Nome de Guerra</th><th>AS (Somativa)</th><th>AF (Formativa)</th><th>AR (Recuperação)</th><th>Média Geral</th></tr></thead>
+            <tbody id="avalRankingBody"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div id="aval-tab-individual" class="tab-content">
+        <div class="student-selector" style="margin-bottom:1.25rem;">
+          <select id="avalStudentSelect" onchange="renderAvalIndividual()"><option value="">Selecionar aluno...</option></select>
+        </div>
+        <div id="avalIndividualContent">
+          <div class="empty-state">Selecione um aluno para ver seu histórico de avaliações.</div>
+        </div>
+      </div>
+
+      <div id="aval-tab-disciplina" class="tab-content">
+        <div class="student-selector" style="margin-bottom:1.25rem;">
+          <select id="avalDiscSelect" onchange="renderAvalDisciplina()"><option value="">Selecionar disciplina...</option></select>
+        </div>
+        <div id="avalDisciplinaContent">
+          <div class="empty-state">Selecione uma disciplina.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONCEITO VERTICAL ── -->
+    <div id="page-conceito" class="page">
+      <div class="section-title">Conceito Vertical</div>
+      <div class="tab-bar">
+        <div class="tab active" onclick="switchCctTab('turma',this)">Painel da Turma</div>
+        <div class="tab" onclick="switchCctTab('individual',this)">Análise Individual</div>
+        <div class="tab" onclick="switchCctTab('comparar',this)">Comparar Alunos</div>
+      </div>
+
+      <div id="cct-tab-turma" class="tab-content active">
+        <div class="cards-grid" id="cctCards"></div>
+        <div class="two-col">
+          <div class="chart-card">
+            <div class="chart-title" style="margin-bottom:1rem;">Média por Atributo — Turma</div>
+            <div class="chart-wrap" id="cctAttrWrap" style="position:relative;height:320px;"><canvas id="cctAttrChart" role="img" aria-label="Média por atributo"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title" style="margin-bottom:1rem;">Distribuição de Menções</div>
+            <div class="chart-wrap" style="height:220px;"><canvas id="cctMencaoChart" role="img" aria-label="Distribuição de menções"></canvas></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Ranking — Conceito Vertical</div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>#</th><th>Aluno</th><th>Nome de Guerra</th><th>Média</th><th>Menção</th><th>Status</th><th>Perfil</th></tr></thead>
+            <tbody id="cctRankingBody"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div id="cct-tab-individual" class="tab-content">
+        <div class="student-selector" style="margin-bottom:1.25rem;">
+          <select id="cctStudentSelect" onchange="renderCctIndividual()"><option value="">Selecionar aluno...</option></select>
+        </div>
+        <div id="cctIndividualContent">
+          <div class="empty-state">Selecione um aluno para ver seu Conceito Vertical.</div>
+        </div>
+      </div>
+
+      <div id="cct-tab-comparar" class="tab-content">
+        <div style="display:flex;gap:10px;margin-bottom:1.25rem;flex-wrap:wrap;">
+          <select id="cctCompA" onchange="renderCctComparar()" style="flex:1;min-width:180px;"><option value="">Aluno A...</option></select>
+          <select id="cctCompB" onchange="renderCctComparar()" style="flex:1;min-width:180px;"><option value="">Aluno B...</option></select>
+        </div>
+        <div id="cctCompararContent"><div class="empty-state">Selecione dois alunos para comparar.</div></div>
+      </div>
+    </div>
+
+    <!-- ── PERFIL 360° ── -->
+    <div id="page-perfil" class="page">
+      <div class="section-title">Perfil 360° do Aluno</div>
+      <div class="student-selector" style="margin-bottom:1.25rem;">
+        <select id="perfilStudentSelect" onchange="renderPerfil360()"><option value="">Selecionar aluno...</option></select>
+      </div>
+      <div id="perfil360Content">
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-1a9 9 0 0118 0v1"/></svg>
+          Selecione um aluno para ver seu prontuário completo.
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -499,10 +742,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
      NÃO altere manualmente esta seção
 ════════════════════════════════════════════ -->
 <script id="embeddedData" type="application/json">
-[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"10","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"28","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Escalada operacional","fato":"Por bradar verbalmento comandos durante sua guiada com Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"02","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Moral: Autoconhecimento","atividade":"Escalada operacional","fato":"Por não saber montar e/ou utilizar corretamente o freio ATC quando na função de Nr 2 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático","atividade":"Escalada operacional","fato":"Por deixar de executar a atividade diurna ao não escalar a Rota 3 do Paredão 3 quando na função de Nr 1de Cdd, por ocasião da prática de Escalada Operacional.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático, Cpcd Fis: Equilíbrio recuperado","atividade":"Escalada operacional","fato":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.\r\n\r\nApós alguns “caindos” o referido aluno pediu desligamento voluntário, sendo desescalado pelo instrutor/avaliador para conversar com o Coordenador do Curso. Ao chegar no areal solicitou visita médica, sendo examinado pelo Sgt APH. Após o atendimento médico e/ou conversa com o Coordenador, o referido aluno foi reintegrado ao turno para execução do restante da atividade.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Moral: Autoconhecimento","atividade":"Escalada operacional","fato":"Ao desescalar com o freio Stop o referido aluno pressionou a alavanca do freio ocasionando a liberação total do sistema de travamento, vindo a despencar alguns metros em queda livre, atentando contra a segurança, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático, Cpcd Fis: Equilíbrio recuperado","atividade":"Escalada operacional","fato":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3. Durante a atividade, por 2 (duas) vezes houve a necessidade de realizar um auto resgate no referido aluno.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"16","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Autoconfiança, Att:  Coragem física, Att: Decisão, Att: Persistência, Cpcd Cognitiva: Avaliação, Cpcd Fis: Agilidade","atividade":"Escalada operacional","fato":"por não concluir a tarefa que a ele foi determinada (escalador 1 da rota 3 paredão 3) vindo a pedir desligamento ao ser interpelado pelo instrutor.","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Avaliação, Cpcd Fis: Resistência aeróbica, Valor: Aprimoramento técnico profissional","atividade":"TCM - 3ª parte - Orientação","fato":"Em virtude da não conclusão da pista de orientação prevista no TCM – 3ª Parte, teve sua situação alterada de \"Normal\" para \"Observação\".","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Avaliação, Cpcd Fis: Resistência aeróbica, Valor: Aprimoramento técnico profissional","atividade":"TCM - 3ª parte - Orientação","fato":"Em virtude da não conclusão da pista de orientação prevista no TCM – 3ª Parte, teve sua situação alterada de \"Normal\" para \"Observação\".","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Decisão, Cpcd Cognitiva: Avaliação, Cpcd Fis: Resistência muscular localizada, Valor: Aprimoramento técnico profissional","atividade":"TCM - 3ª parte - Orientação","fato":"Em virtude da não conclusão da pista de orientação prevista no TCM – 3ª Parte, não pegou nenhum ponto, teve sua situação alterada de \"Normal\" para \"Xeque\".","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"02","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"12","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"23","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Fis: Agilidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"por deixar 3 meios mal empregados, vindo a soltar da via e deixar materiais como mosquetão e fita com o 2 de cordada que seria necessário para a escalada","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"por não saber utilizar o saca cunha, apresentando dificuldades para retirar meios","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Moral: Disciplina Consciente","atividade":"Escalada operacional","fato":"por retirar o capacete na base do paredão para arrumar a lanterna de cabeça","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Att: Persistência, Cpcd Fis: Agilidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"pela técnica de escalada horrível, demonstrando inexperiência no emprego de meios e na confecção de equalização, além da desorganização do material no boldrier, não sabendo onde estava o meio a ser empregado, perdendo tempo na escalada para procurar o material","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Fis: Agilidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"Por não conduzir lanterna de cabeça para a atividade de escalada noturna.","rspnl":"FA","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Persistência, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"Pela técnica de escalada horrível, ficando 2 horas na mesma posição da rota 7 , demonstrando falta de técnica e falta de querencia","rspnl":"FA","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Condução Fogos de Artilharia","fato":"Por não estar com a identificação na placa do guarda mão do fuzil.","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente","atividade":"Condução Fogos de Artilharia","fato":"Por estar dormindo durante a instrução","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Persistência, Att: Rusticidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"por não concluir a tarefa que a ele foi determinada (escalador 1 da rota 3) vindo a pedir desligamento ao interpelado por este instrutor;","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Planejamento","atividade":"Escalada operacional","fato":"por apresentar baixo desempenho na função de 2 de cordada, e por ter atentado contra segurança após dar  o pronto para o instrutor com os mosquetões de seg do freio e do backup abertos;","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Cpcd Cognitiva: Avaliação","atividade":"Escalada operacional","fato":"por apresentar baixo desempenho na função de 1 de cordada, Al sem determinação.","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"por demonstrar baixo desempenho na função de 2 de cordada, o referido aluno demonstra muita dúvida e falta de conhecimento dos procedimentos.","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Resolução de Problemas, Cpcd Fis: Agilidade, Valor: Disciplina","atividade":"Cerimonial","fato":"Por não seguirem a sequência correta do cerimonial, montando o armamento antes de municiar o carregador","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Resolução de Problemas, Cpcd Fis: Agilidade, Valor: Disciplina","atividade":"Cerimonial","fato":"Por não seguirem a sequência correta do cerimonial, montando o armamento antes de municiar o carregador","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"09","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade","atividade":"Escalada operacional","fato":"por estar com o encordamento no loop e não no caminho do loop","rspnl":"MM","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-11","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Autoconhecimento, Valor: Aprimoramento técnico profissional","atividade":"GAA","fato":"por apresentar bom rendimento durante prática de simulação para GAA.","rspnl":"MC","semana":"2026-S24","mes":"2026-06"}]
+null
 </script>
 <script id="embeddedMeta" type="application/json">
-{"updatedAt":"2026-06-11T19:01:25.244Z","recordCount":44,"studentCount":18}
+{"updatedAt":null,"recordCount":0,"studentCount":0}
 </script>
 
 <!-- ══════════════════════════════════════════
@@ -518,6 +761,14 @@ const ADMIN_HASH = 'd716d9c6b45944262d989f6c6829871c60e3219d1ecd888769bbfd3fc71f
 // SHA-256 de "GM285"
 
 /* ─── ESTADO ─────────────────────────────── */
+// ── NOVOS MÓDULOS: Estado
+let situacaoData = [];
+let conceitoData = [];
+let avaliacaoData = [];
+const CONCEITO_ATTRS = ['AUTOCONFIANÇA','COOPERAÇÃO','DECISÃO','EQUILÍBRIO EMOCIONAL',
+  'METICULOSIDADE','PERSISTÊNCIA','PLANEJAMENTO','RESOLUÇÃO DE PROBLEMAS','RUSTICIDADE','TÉCNICO-PROFISSIONAL'];
+const TIPO_LABEL = { AS:'Somativa', AF:'Formativa', AR:'Recuperação' };
+
 let rawData = [];
 let allStudents = [];
 let charts = {};
@@ -526,25 +777,71 @@ let pendingProcessedData = null; // dados processados aguardando publicação
 
 /* ─── INICIALIZAÇÃO ──────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
-  // Verifica se veio com ?admin na URL
+  // ── Acesso admin por URL (?admin=1) ──
   const params = new URLSearchParams(window.location.search);
-  if (params.has('admin')) {
-    document.getElementById('authModal').style.display = 'flex';
-    document.getElementById('adminPassInput').focus();
+  const hrefHasAdmin = window.location.href.includes('?admin') || window.location.href.includes('&admin');
+  if (params.has('admin') || hrefHasAdmin) {
+    openAdminModal();
   }
+
+  // ── Acesso admin por atalho de teclado ──
+  // Pressione: Ctrl + Shift + A  (qualquer plataforma)
+  // Ou clique 5x rápidos no logo do cabeçalho
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      e.preventDefault();
+      openAdminModal();
+    }
+  });
+
+  // ── Acesso admin por 5 cliques no logo ──
+  let logoClicks = 0, logoTimer = null;
+  const logo = document.querySelector('.brand-emblem');
+  if (logo) {
+    logo.style.cursor = 'pointer';
+    logo.addEventListener('click', () => {
+      logoClicks++;
+      clearTimeout(logoTimer);
+      logoTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+      if (logoClicks >= 5) {
+        logoClicks = 0;
+        openAdminModal();
+      }
+    });
+  }
+
   // Carrega dados embutidos
   loadEmbeddedData();
 });
+
+function openAdminModal() {
+  if (isAdminMode) return; // já está em modo admin
+  document.getElementById('authModal').style.display = 'flex';
+  setTimeout(() => {
+    const input = document.getElementById('adminPassInput');
+    if (input) { input.value = ''; input.focus(); }
+    document.getElementById('authError').style.display = 'none';
+  }, 50);
+}
 
 function loadEmbeddedData() {
   try {
     const raw = JSON.parse(document.getElementById('embeddedData').textContent);
     const meta = JSON.parse(document.getElementById('embeddedMeta').textContent);
-    if (raw && Array.isArray(raw) && raw.length > 0) {
-      rawData = raw.map(r => ({ ...r, data: r.dateStr ? new Date(r.dateStr) : null }));
+    // Support both legacy (array) and new format ({ frad, situacao, conceito, avaliacoes })
+    const isNewFmt = raw && typeof raw === 'object' && !Array.isArray(raw) && raw.frad;
+    const fradArr = isNewFmt ? raw.frad : (Array.isArray(raw) ? raw : []);
+    if (fradArr && fradArr.length > 0) {
+      rawData = fradArr.map(r => ({ ...r, data: r.dateStr ? new Date(r.dateStr) : null }));
       allStudents = [...new Set(rawData.map(r => r.aluno))].sort((a,b) => +a - +b);
+      if (isNewFmt) {
+        situacaoData = raw.situacao || [];
+        conceitoData = raw.conceito || [];
+        avaliacaoData = raw.avaliacoes || [];
+      }
       updateHeaderInfo(meta);
       populateFilters();
+      populateNewModuleFilters();
       renderAll();
     } else {
       renderEmptyState();
@@ -589,15 +886,16 @@ async function checkAdminPass() {
 
 function cancelAdmin() {
   document.getElementById('authModal').style.display = 'none';
-  // Remove ?admin da URL sem recarregar
-  history.replaceState({}, '', window.location.pathname);
+  // Remove ?admin da URL sem recarregar (funciona em https://)
+  // Em file:// o history.replaceState pode não funcionar, mas não é crítico
+  try { history.replaceState({}, '', window.location.pathname); } catch(e) {}
 }
 
 function activateAdminMode() {
   isAdminMode = true;
   document.getElementById('adminBar').style.display = 'flex';
   document.getElementById('adminNavSection').style.display = 'block';
-  history.replaceState({}, '', window.location.pathname);
+  try { history.replaceState({}, '', window.location.pathname); } catch(e) {}
 }
 
 function exitAdmin() {
@@ -642,21 +940,72 @@ function processAdminFile(file) {
       const sheetName = wb.SheetNames[0];
       addLog('ok', `Aba encontrada: "${sheetName}"`);
       const ws = wb.Sheets[sheetName];
-      const json = XLSX.utils.sheet_to_json(ws, { raw: false, dateNF: 'yyyy-mm-dd' });
-      addLog('ok', `${json.length} linhas lidas.`);
+      // ─ Ler FRAD ─
+      const fradSheet = wb.Sheets['FRAD'] || ws;
+      const json = XLSX.utils.sheet_to_json(fradSheet, { raw: false, dateNF: 'yyyy-mm-dd' });
+      addLog('ok', `FRAD: ${json.length} linhas lidas.`);
       const processed = parseRows(json, log);
-      addLog('ok', `${processed.length} registros processados com sucesso.`);
-      const students = [...new Set(processed.map(r => r.aluno))];
-      addLog('ok', `${students.length} alunos identificados.`);
-      pendingProcessedData = processed;
-      // Atualiza dashboard ao vivo
+      addLog('ok', `${processed.length} registros FRAD processados.`);
+
+      // ─ Ler SITUACAO ─
+      const sitSheet = wb.Sheets['SITUACAO'];
+      if (sitSheet) {
+        const sitJson = XLSX.utils.sheet_to_json(sitSheet, { raw: true });
+        situacaoData = sitJson.map(r => ({
+          nr: String(r['Nr_Aluno'] || '').trim().padStart(2,'0'),
+          sit: String(r['Sit_Aluno'] || '').trim(),
+          identidade: String(r['Identidade'] || '').trim(),
+          posto: String(r['Posto_Grad'] || '').trim(),
+          qas: String(r['QAS_QMS'] || '').trim(),
+          nome: String(r['Nome Completo'] || '').trim(),
+          guerra: String(r['Nome de Guerra'] || '').trim(),
+          om: String(r['OM_Sigla'] || '').trim(),
+        }));
+        addLog('ok', `SITUACAO: ${situacaoData.length} alunos carregados.`);
+      }
+
+      // ─ Ler CONCEITO ─
+      const cctSheet = wb.Sheets['CONCEITO'];
+      if (cctSheet) {
+        const cctJson = XLSX.utils.sheet_to_json(cctSheet, { raw: true });
+        conceitoData = cctJson.map(r => ({
+          nr: String(r['Nr_Aluno'] || '').trim().padStart(2,'0'),
+          sit: String(r['Situação'] || '').trim(),
+          autoconfianca: parseFloat(r['AUTOCONFIANÇA']) || null,
+          cooperacao: parseFloat(r['COOPERAÇÃO']) || null,
+          decisao: parseFloat(r['DECISÃO']) || null,
+          equilibrio: parseFloat(r['EQUILÍBRIO EMOCIONAL']) || null,
+          meticulosidade: parseFloat(r['METICULOSIDADE']) || null,
+          persistencia: parseFloat(r['PERSISTÊNCIA']) || null,
+          planejamento: parseFloat(r['PLANEJAMENTO']) || null,
+          resolucao: parseFloat(r['RESOLUÇÃO DE PROBLEMAS']) || null,
+          rusticidade: parseFloat(r['RUSTICIDADE']) || null,
+          tecnico: parseFloat(r['TÉCNICO-PROFISSIONAL']) || null,
+          media: parseFloat(r['Média Cct Vtc']) || null,
+          mencao: String(r['Menção Cct Vtc'] || '').trim(),
+          classif: r['Classificação'] !== undefined ? parseInt(r['Classificação']) : null,
+          status: String(r['Status'] || '').trim(),
+        }));
+        addLog('ok', `CONCEITO: ${conceitoData.length} alunos carregados.`);
+      }
+
+      // ─ Ler AVALIACOES ─
+      const avalSheet = wb.Sheets['AVALIACOES'];
+      if (avalSheet) {
+        const avalJson = XLSX.utils.sheet_to_json(avalSheet, { raw: true });
+        avaliacaoData = parseAvaliacoes(avalJson, log);
+        addLog('ok', `AVALIACOES: ${avaliacaoData.length} registros processados.`);
+      }
+
+      const students = [...new Set(processed.map(r => r.aluno))].sort((a,b) => +a - +b);
+      pendingProcessedData = { frad: processed, situacao: situacaoData, conceito: conceitoData, avaliacoes: avaliacaoData };
       rawData = processed.map(r => ({ ...r, data: r.dateStr ? new Date(r.dateStr) : null }));
-      allStudents = students.sort((a,b) => +a - +b);
+      allStudents = students;
       const meta = { updatedAt: new Date().toISOString(), recordCount: processed.length, studentCount: students.length };
       updateHeaderInfo(meta);
       populateFilters();
+      populateNewModuleFilters();
       renderAll();
-      // Mostra resumo e botão de download
       showAdminSummary(processed, students, meta);
       addLog('ok', '✓ Dashboard atualizado. Baixe o HTML para publicar.');
     } catch(err) {
@@ -728,39 +1077,87 @@ function addLog(type, msg) {
 /* ─── DOWNLOAD HTML ATUALIZADO ───────────── */
 function downloadUpdatedHTML() {
   if (!pendingProcessedData) { alert('Nenhum dado processado.'); return; }
+
+  // Prepara os dados limpos
+  const isNewFormat = pendingProcessedData && typeof pendingProcessedData === 'object' && !Array.isArray(pendingProcessedData);
+  let cleanFrad = [], cleanSit = [], cleanCct = [], cleanAval = [];
+  if (isNewFormat) {
+    cleanFrad = (pendingProcessedData.frad || []).map(r => { const { data, ...rest } = r; return rest; });
+    cleanSit  = pendingProcessedData.situacao  || [];
+    cleanCct  = pendingProcessedData.conceito  || [];
+    cleanAval = pendingProcessedData.avaliacoes || [];
+  } else {
+    cleanFrad = (pendingProcessedData || []).map(r => { const { data, ...rest } = r; return rest; });
+  }
+  const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval });
   const meta = {
     updatedAt: new Date().toISOString(),
-    recordCount: pendingProcessedData.length,
-    studentCount: [...new Set(pendingProcessedData.map(r=>r.aluno))].length
+    recordCount: cleanFrad.length,
+    studentCount: [...new Set(cleanFrad.map(r=>r.aluno))].length
   };
-  const cleanData = pendingProcessedData.map(r => {
-    const { data, ...rest } = r;
-    return rest;
-  });
-  const dataJson = JSON.stringify(cleanData);
   const metaJson = JSON.stringify(meta);
 
-  // Busca o arquivo HTML original do servidor (não o DOM em memória)
-  // para garantir que o download nunca contenha estado de runtime (modo admin, etc.)
-  fetch(window.location.href)
-    .then(r => r.text())
-    .then(originalHtml => {
-      let out = originalHtml
-        .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
-          '<script id="embeddedData" type="application/json">\n' + dataJson + '\n<\/script>')
-        .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
-          '<script id="embeddedMeta" type="application/json">\n' + metaJson + '\n<\/script>');
-      const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    })
-    .catch(() => {
-      // Fallback para arquivo local (protocolo file://) onde fetch não funciona
-      alert('Atenção: você está abrindo o arquivo localmente.\n\nPara o download funcionar corretamente sem modo admin, hospede o arquivo no GitHub Pages e acesse via link https://');
-    });
+  // Gera o HTML final a partir do código-fonte embutido no próprio arquivo
+  // Funciona tanto em file:// quanto em https:// sem depender de fetch
+  function buildAndDownload(sourceHtml) {
+    let out = sourceHtml
+      .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
+        '<script id="embeddedData" type="application/json">
+' + dataJson + '
+<\/script>')
+      .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
+        '<script id="embeddedMeta" type="application/json">
+' + metaJson + '
+<\/script>');
+    // Garante que o arquivo baixado nunca saia em modo admin
+    out = out
+      .replace(/id="adminBar" class="admin-bar" style="display:flex;"/g,
+               'id="adminBar" class="admin-bar" style="display:none;"')
+      .replace(/id="adminNavSection" style="display:block;"/g,
+               'id="adminNavSection" style="display:none;"')
+      .replace(/id="authModal" class="modal-overlay" style="display:flex;"/g,
+               'id="authModal" class="modal-overlay" style="display:none;"');
+    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+
+  // Tenta fetch (funciona no GitHub Pages)
+  // Se falhar (file://), usa o innerHTML do documento como fonte
+  if (window.location.protocol === 'file:') {
+    // Modo local: serializa o HTML do documento e aplica as substituições
+    // Reseta os elementos de UI do admin antes de serializar
+    const adminBar = document.getElementById('adminBar');
+    const adminNav = document.getElementById('adminNavSection');
+    const authModal = document.getElementById('authModal');
+    const prevBar  = adminBar  ? adminBar.style.display  : '';
+    const prevNav  = adminNav  ? adminNav.style.display  : '';
+    const prevModal = authModal ? authModal.style.display : '';
+    if (adminBar)  adminBar.style.display  = 'none';
+    if (adminNav)  adminNav.style.display  = 'none';
+    if (authModal) authModal.style.display = 'none';
+    const source = '<!DOCTYPE html>
+' + document.documentElement.outerHTML;
+    if (adminBar)  adminBar.style.display  = prevBar;
+    if (adminNav)  adminNav.style.display  = prevNav;
+    if (authModal) authModal.style.display = prevModal;
+    buildAndDownload(source);
+  } else {
+    // Modo servidor (GitHub Pages): busca o arquivo original limpo
+    fetch(window.location.href)
+      .then(r => r.text())
+      .then(buildAndDownload)
+      .catch(() => {
+        // Fallback: mesmo método do file://
+        const source = '<!DOCTYPE html>
+' + document.documentElement.outerHTML;
+        buildAndDownload(source);
+      });
+  }
 }
 
 /* ─── NAVEGAÇÃO ──────────────────────────── */
@@ -832,7 +1229,699 @@ function renderAll() {
   renderTemporal();
   renderInteligente();
   renderAlertas();
+  renderSituacao();
+  renderAvalGeral();
+  renderCctTurma();
 }
+
+/* ─── HELPERS NOVOS ──────────────────────── */
+function getAlunoCadastro(nr) {
+  const nrPad = String(nr).padStart(2,'0');
+  return situacaoData.find(s => s.nr === nrPad) || null;
+}
+function getAlunoConceito(nr) {
+  const nrPad = String(nr).padStart(2,'0');
+  return conceitoData.find(c => c.nr === nrPad) || null;
+}
+function getAlunoAvaliacoes(nr) {
+  const nrPad = String(nr).padStart(2,'0');
+  return avaliacaoData.filter(a => a.aluno === nrPad);
+}
+function notaBadge(nota) {
+  if (nota === null || nota === undefined || isNaN(nota)) return '<span class="nota-badge" style="background:var(--surface-3);color:var(--text-faint);">—</span>';
+  const n = parseFloat(nota);
+  const cls = n >= 8 ? 'nota-alta' : n >= 7 ? 'nota-media' : n >= 5 ? 'nota-baixa' : 'nota-critica';
+  return `<span class="nota-badge ${cls}">${n.toFixed(1)}</span>`;
+}
+function sitBadge(sit) {
+  if (!sit) return '';
+  const cls = sit.includes('Matriculado') ? 'sit-Matriculado' : sit.includes('Desl') ? 'sit-Desligado' : 'sit-NaoApresentado';
+  return `<span class="sit-badge ${cls}">${sit}</span>`;
+}
+function mencaoBadge(m) {
+  if (!m) return '—';
+  return `<span class="mention-badge mention-${m}">${m}</span>`;
+}
+function tipoBadge(t) {
+  return `<span class="badge tipo-${t}" style="font-size:10px;">${t} — ${TIPO_LABEL[t]||t}</span>`;
+}
+function avg(arr) {
+  const valid = arr.filter(v => v !== null && v !== undefined && !isNaN(v));
+  return valid.length ? valid.reduce((a,b) => a+b, 0) / valid.length : null;
+}
+
+function populateNewModuleFilters() {
+  // Situação
+  const sits = [...new Set(situacaoData.map(s=>s.sit).filter(Boolean))].sort();
+  const oms = [...new Set(situacaoData.map(s=>s.om).filter(Boolean))].sort();
+  const postos = [...new Set(situacaoData.map(s=>s.posto).filter(Boolean))].sort();
+  const sitEl = document.getElementById('sitSitFilter');
+  if (sitEl) { sitEl.innerHTML='<option value="">Todas</option>'; sits.forEach(s=>sitEl.add(new Option(s,s))); }
+  const omEl = document.getElementById('sitOMFilter');
+  if (omEl) { omEl.innerHTML='<option value="">Todas</option>'; oms.forEach(o=>omEl.add(new Option(o,o))); }
+  const postoEl = document.getElementById('sitPostoFilter');
+  if (postoEl) { postoEl.innerHTML='<option value="">Todos</option>'; postos.forEach(p=>postoEl.add(new Option(p,p))); }
+
+  // Avaliações
+  const avalSel = document.getElementById('avalStudentSelect');
+  if (avalSel) {
+    avalSel.innerHTML='<option value="">Selecionar aluno...</option>';
+    allStudents.forEach(s=>{
+      const cad = getAlunoCadastro(s);
+      avalSel.add(new Option(`${s} — ${cad?cad.guerra:'Aluno '+s}`, s));
+    });
+  }
+  const discSel = document.getElementById('avalDiscSelect');
+  const discs = [...new Set(avaliacaoData.map(a=>a.disciplina).filter(Boolean))].sort();
+  if (discSel) { discSel.innerHTML='<option value="">Selecionar disciplina...</option>'; discs.forEach(d=>discSel.add(new Option(d,d))); }
+
+  // Conceito
+  const cctSel = document.getElementById('cctStudentSelect');
+  if (cctSel) {
+    cctSel.innerHTML='<option value="">Selecionar aluno...</option>';
+    conceitoData.forEach(c=>{
+      const cad = getAlunoCadastro(c.nr);
+      cctSel.add(new Option(`${c.nr} — ${cad?cad.guerra:'Aluno '+c.nr}`, c.nr));
+    });
+  }
+  ['cctCompA','cctCompB'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.innerHTML='<option value="">Selecionar aluno...</option>';
+      conceitoData.forEach(c=>{
+        const cad = getAlunoCadastro(c.nr);
+        el.add(new Option(`${c.nr} — ${cad?cad.guerra:'Aluno '+c.nr}`, c.nr));
+      });
+    }
+  });
+
+  // Perfil 360
+  const perfSel = document.getElementById('perfilStudentSelect');
+  if (perfSel) {
+    perfSel.innerHTML='<option value="">Selecionar aluno...</option>';
+    allStudents.forEach(s=>{
+      const cad = getAlunoCadastro(s);
+      perfSel.add(new Option(`${s} — ${cad?cad.guerra:'Aluno '+s}`, s));
+    });
+  }
+}
+
+/* ─── PARSE AVALIAÇÕES ───────────────────── */
+function parseAvaliacoes(json, log) {
+  const result = [];
+  json.forEach(row => {
+    const instrutor = String(row['Instrutor:'] || row['Instrutor'] || '').trim();
+    const tipo = String(row['Avaliação'] || '').trim();
+    const disc = String(row['Disciplina'] || '').trim();
+    const desc = String(row['Descrição'] || '').trim();
+    let dateStr = '';
+    if (row['Data']) {
+      const d = new Date(row['Data']);
+      if (!isNaN(d)) dateStr = d.toISOString().split('T')[0];
+    }
+    // Columns 01..30 = aluno numbers
+    for (let i = 1; i <= 30; i++) {
+      const col = String(i).padStart(2,'0');
+      const nota = row[col];
+      if (nota !== null && nota !== undefined && nota !== '') {
+        const n = parseFloat(nota);
+        if (!isNaN(n)) {
+          result.push({ aluno: col, instrutor, tipo, disciplina: disc, descricao: desc, dateStr, nota: n });
+        }
+      }
+    }
+  });
+  return result;
+}
+
+/* ─── RENDER: SITUAÇÃO DO ALUNO ─────────── */
+function renderSituacao() {
+  const sitFilter = document.getElementById('sitSitFilter')?.value || '';
+  const omFilter = document.getElementById('sitOMFilter')?.value || '';
+  const postoFilter = document.getElementById('sitPostoFilter')?.value || '';
+  const search = (document.getElementById('sitSearch')?.value || '').toLowerCase();
+
+  const filtered = situacaoData.filter(s => {
+    if (sitFilter && s.sit !== sitFilter) return false;
+    if (omFilter && s.om !== omFilter) return false;
+    if (postoFilter && s.posto !== postoFilter) return false;
+    if (search && !s.nome.toLowerCase().includes(search) &&
+        !s.guerra.toLowerCase().includes(search) &&
+        !s.nr.includes(search)) return false;
+    return true;
+  });
+
+  // Cards
+  const total = situacaoData.length;
+  const matr = situacaoData.filter(s=>s.sit==='Matriculado').length;
+  const desl = situacaoData.filter(s=>s.sit.includes('Desl')).length;
+  const nap = situacaoData.filter(s=>s.sit==='Não apresentado').length;
+  const oms = [...new Set(situacaoData.map(s=>s.om).filter(Boolean))].length;
+  const cardsEl = document.getElementById('sitCards');
+  if (cardsEl) cardsEl.innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total de Alunos</div><div class="metric-value">${total}</div></div>
+    <div class="metric-card success"><div class="metric-label">Matriculados</div><div class="metric-value">${matr}</div></div>
+    <div class="metric-card danger"><div class="metric-label">Desligados</div><div class="metric-value">${desl}</div></div>
+    <div class="metric-card warning"><div class="metric-label">Não Apresentados</div><div class="metric-value">${nap}</div></div>
+    <div class="metric-card"><div class="metric-label">OMs Representadas</div><div class="metric-value">${oms}</div></div>
+  `;
+
+  // Grid de cards
+  const grid = document.getElementById('situacaoGrid');
+  if (grid) grid.innerHTML = filtered.map(s => `
+    <div class="student-card" onclick="goToPerfil('${s.nr}')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+        <span style="font-size:18px;font-weight:800;color:var(--olive);">${s.nr}</span>
+        ${sitBadge(s.sit)}
+      </div>
+      <div style="font-weight:700;font-size:13px;margin-bottom:2px;">${s.guerra}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">${s.posto} · ${s.qas}</div>
+      <div style="font-size:11px;color:var(--text-faint);">${s.om}</div>
+    </div>`).join('');
+
+  // Tabela
+  const tbody = document.getElementById('situacaoTableBody');
+  if (tbody) tbody.innerHTML = filtered.map(s => `<tr>
+    <td><strong>${s.nr}</strong></td>
+    <td><strong>${s.guerra}</strong></td>
+    <td style="font-size:12px;">${s.nome}</td>
+    <td>${s.posto}</td>
+    <td>${s.qas}</td>
+    <td style="font-size:12px;">${s.om}</td>
+    <td>${sitBadge(s.sit)}</td>
+    <td><button class="btn btn-outline btn-sm" onclick="goToPerfil('${s.nr}')">Perfil 360°</button></td>
+  </tr>`).join('');
+}
+
+function clearSitFilters() {
+  ['sitSitFilter','sitOMFilter','sitPostoFilter'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  const s=document.getElementById('sitSearch');if(s)s.value='';
+  renderSituacao();
+}
+
+function goToPerfil(nr) {
+  const sel = document.getElementById('perfilStudentSelect');
+  if (sel) { sel.value = nr; }
+  showPage('perfil', document.querySelector('.nav-item'));
+  // highlight correct nav item
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.textContent.includes('Perfil')) { n.classList.add('active'); }
+    else n.classList.remove('active');
+  });
+  renderPerfil360();
+}
+
+/* ─── RENDER: AVALIAÇÕES GERAL ───────────── */
+function renderAvalGeral() {
+  if (!avaliacaoData.length) return;
+
+  // Cards
+  const tipos = { AS:[], AF:[], AR:[] };
+  avaliacaoData.forEach(a => { if(tipos[a.tipo]) tipos[a.tipo].push(a.nota); });
+  const mediaGeral = avg(avaliacaoData.map(a=>a.nota));
+  const cardsEl = document.getElementById('avalCards');
+  if (cardsEl) cardsEl.innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total de Avaliações</div><div class="metric-value">${avaliacaoData.length}</div></div>
+    <div class="metric-card"><div class="metric-label">Média Geral</div><div class="metric-value" style="color:var(--olive);">${mediaGeral?mediaGeral.toFixed(2):'—'}</div></div>
+    <div class="metric-card success"><div class="metric-label">Somativas (AS)</div><div class="metric-value">${tipos.AS.length}</div><div class="metric-sub">Média: ${avg(tipos.AS)?avg(tipos.AS).toFixed(1):'—'}</div></div>
+    <div class="metric-card info" style="--info:#185fa5;"><div class="metric-label">Formativas (AF)</div><div class="metric-value" style="color:var(--info);">${tipos.AF.length}</div><div class="metric-sub">Média: ${avg(tipos.AF)?avg(tipos.AF).toFixed(1):'—'}</div></div>
+    <div class="metric-card warning"><div class="metric-label">Recuperação (AR)</div><div class="metric-value">${tipos.AR.length}</div><div class="metric-sub">Média: ${avg(tipos.AR)?avg(tipos.AR).toFixed(1):'—'}</div></div>
+  `;
+
+  // Média por disciplina
+  const discMap = {};
+  avaliacaoData.forEach(a => {
+    if (!discMap[a.disciplina]) discMap[a.disciplina] = [];
+    discMap[a.disciplina].push(a.nota);
+  });
+  const discs = Object.entries(discMap).sort((a,b)=>(avg(b[1])||0)-(avg(a[1])||0));
+  const discH = Math.max(200, discs.length * 38 + 60);
+  const dwEl = document.getElementById('avalDiscWrap');
+  if (dwEl) dwEl.style.height = discH + 'px';
+  destroyChart('avalDiscChart');
+  const avalDiscEl = document.getElementById('avalDiscChart');
+  if (avalDiscEl) charts['avalDiscChart'] = new Chart(avalDiscEl, {
+    type:'bar',
+    data:{ labels: discs.map(([d])=>d.length>25?d.slice(0,23)+'…':d),
+      datasets:[{ data: discs.map(([,v])=>avg(v)?parseFloat(avg(v).toFixed(2)):0),
+        backgroundColor: discs.map(([,v])=>{const a=avg(v)||0;return a>=8?'#639922':a>=7?'#185fa5':a>=5?'#854f0b':'#a32d2d';}),
+        borderRadius:4 }]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false}},
+      scales:{x:{beginAtZero:true,max:10,ticks:{precision:1}}}}
+  });
+
+  // Tipo donut
+  destroyChart('avalTipoChart');
+  const tipoEl = document.getElementById('avalTipoChart');
+  if (tipoEl) charts['avalTipoChart'] = new Chart(tipoEl, {
+    type:'doughnut',
+    data:{labels:['Somativa (AS)','Formativa (AF)','Recuperação (AR)'],
+      datasets:[{data:[tipos.AS.length,tipos.AF.length,tipos.AR.length],
+        backgroundColor:['#185fa5','#639922','#854f0b'],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'bottom'}}}
+  });
+
+  // Ranking
+  const byAluno = {};
+  avaliacaoData.forEach(a => {
+    if (!byAluno[a.aluno]) byAluno[a.aluno] = { AS:[], AF:[], AR:[] };
+    if (byAluno[a.aluno][a.tipo]) byAluno[a.aluno][a.tipo].push(a.nota);
+  });
+  const ranked = Object.entries(byAluno).map(([nr,t]) => {
+    const all = [...t.AS,...t.AF,...t.AR];
+    return { nr, mediaAS:avg(t.AS), mediaAF:avg(t.AF), mediaAR:avg(t.AR), media:avg(all) };
+  }).sort((a,b)=>(b.media||0)-(a.media||0));
+
+  const rb = document.getElementById('avalRankingBody');
+  if (rb) rb.innerHTML = ranked.map((r,i) => {
+    const cad = getAlunoCadastro(r.nr);
+    return `<tr>
+      <td><span class="rank-badge ${i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'rank-normal'}">${i+1}</span></td>
+      <td><strong>${r.nr}</strong></td>
+      <td>${cad?cad.guerra:'—'}</td>
+      <td>${notaBadge(r.mediaAS)}</td>
+      <td>${notaBadge(r.mediaAF)}</td>
+      <td>${notaBadge(r.mediaAR)}</td>
+      <td>${notaBadge(r.media)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function switchAvalTab(tab, el) {
+  document.querySelectorAll('#page-avaliacoes .tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#page-avaliacoes .tab-content').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const tc = document.getElementById('aval-tab-'+tab);
+  if(tc) tc.classList.add('active');
+}
+
+function renderAvalIndividual() {
+  const nr = document.getElementById('avalStudentSelect')?.value;
+  const container = document.getElementById('avalIndividualContent');
+  if (!container) return;
+  if (!nr) { container.innerHTML='<div class="empty-state">Selecione um aluno.</div>'; return; }
+  const avals = getAlunoAvaliacoes(nr).sort((a,b)=>a.dateStr<b.dateStr?-1:1);
+  const cad = getAlunoCadastro(nr);
+  if (!avals.length) { container.innerHTML='<div class="empty-state">Nenhuma avaliação registrada para este aluno.</div>'; return; }
+  const mediaG = avg(avals.map(a=>a.nota));
+  const melhor = Math.max(...avals.map(a=>a.nota));
+  const menor = Math.min(...avals.map(a=>a.nota));
+  container.innerHTML = `
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Avaliações</div><div class="metric-value">${avals.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Média Geral</div><div class="metric-value" style="color:var(--olive);">${mediaG?mediaG.toFixed(2):'—'}</div></div>
+      <div class="metric-card success"><div class="metric-label">Melhor Nota</div><div class="metric-value">${melhor.toFixed(1)}</div></div>
+      <div class="metric-card danger"><div class="metric-label">Menor Nota</div><div class="metric-value">${menor.toFixed(1)}</div></div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Evolução das Notas</div>
+        <div class="chart-wrap" style="height:200px;"><canvas id="avalEvolChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Por Disciplina</div>
+        <div class="chart-wrap" id="avalIndDiscWrap" style="position:relative;"><canvas id="avalIndDiscChart"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Histórico Completo</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Data</th><th>Tipo</th><th>Disciplina</th><th>Instrutor</th><th>Descrição</th><th>Nota</th></tr></thead>
+        <tbody>${avals.map(a=>`<tr>
+          <td>${a.dateStr||'—'}</td>
+          <td>${tipoBadge(a.tipo)}</td>
+          <td style="font-size:12px;">${a.disciplina}</td>
+          <td>${a.instrutor}</td>
+          <td style="font-size:11px;color:var(--text-muted);max-width:200px;">${a.descricao||'—'}</td>
+          <td>${notaBadge(a.nota)}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+
+  destroyChart('avalEvolChart'); destroyChart('avalIndDiscChart');
+  charts['avalEvolChart'] = new Chart(document.getElementById('avalEvolChart'), {
+    type:'line',
+    data:{ labels: avals.map(a=>a.dateStr||a.disciplina.slice(0,10)),
+      datasets:[{ label:'Nota', data:avals.map(a=>a.nota), borderColor:'#4a5240', backgroundColor:'rgba(74,82,64,.1)', tension:.3, fill:true, pointRadius:5 }]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:10}}}
+  });
+  const byDisc = {};
+  avals.forEach(a=>{ if(!byDisc[a.disciplina])byDisc[a.disciplina]=[];byDisc[a.disciplina].push(a.nota); });
+  const discEntries = Object.entries(byDisc);
+  const idH = Math.max(150, discEntries.length*36+40);
+  document.getElementById('avalIndDiscWrap').style.height = idH+'px';
+  charts['avalIndDiscChart'] = new Chart(document.getElementById('avalIndDiscChart'), {
+    type:'bar',
+    data:{ labels:discEntries.map(([d])=>d.length>20?d.slice(0,18)+'…':d),
+      datasets:[{ data:discEntries.map(([,v])=>avg(v)?parseFloat(avg(v).toFixed(2)):0),
+        backgroundColor:'#4a5240', borderRadius:4 }]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{min:0,max:10}}}
+  });
+}
+
+function renderAvalDisciplina() {
+  const disc = document.getElementById('avalDiscSelect')?.value;
+  const container = document.getElementById('avalDisciplinaContent');
+  if (!container) return;
+  if (!disc) { container.innerHTML='<div class="empty-state">Selecione uma disciplina.</div>'; return; }
+  const avals = avaliacaoData.filter(a=>a.disciplina===disc);
+  const byAluno = {};
+  avals.forEach(a=>{ if(!byAluno[a.aluno])byAluno[a.aluno]=[];byAluno[a.aluno].push(a.nota); });
+  const ranked = Object.entries(byAluno).map(([nr,notas])=>({nr,media:avg(notas)})).sort((a,b)=>(b.media||0)-(a.media||0));
+  const mediaDisc = avg(avals.map(a=>a.nota));
+  container.innerHTML = `
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Avaliações</div><div class="metric-value">${avals.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Média da Turma</div><div class="metric-value" style="color:var(--olive);">${mediaDisc?mediaDisc.toFixed(2):'—'}</div></div>
+      <div class="metric-card success"><div class="metric-label">Melhor Média</div><div class="metric-value">${ranked[0]?ranked[0].media.toFixed(1):'—'}</div></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Ranking de Alunos — ${disc}</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>Aluno</th><th>Nome de Guerra</th><th>Média</th><th>vs Turma</th></tr></thead>
+        <tbody>${ranked.map((r,i)=>{
+          const cad=getAlunoCadastro(r.nr);
+          const diff = mediaDisc ? r.media - mediaDisc : 0;
+          return `<tr>
+            <td><span class="rank-badge ${i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'rank-normal'}">${i+1}</span></td>
+            <td><strong>${r.nr}</strong></td>
+            <td>${cad?cad.guerra:'—'}</td>
+            <td>${notaBadge(r.media)}</td>
+            <td style="color:${diff>=0?'var(--success)':'var(--danger)'}; font-weight:700; font-size:12px;">${diff>=0?'+':''}${diff.toFixed(1)}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>
+    </div>`;
+}
+
+/* ─── RENDER: CONCEITO VERTICAL ──────────── */
+function renderCctTurma() {
+  if (!conceitoData.length) return;
+  const aprov = conceitoData.filter(c=>c.status==='Aprovado').length;
+  const mediaG = avg(conceitoData.map(c=>c.media).filter(v=>v!==null));
+  const melhor = conceitoData.reduce((a,b)=>(b.media||0)>(a.media||0)?b:a, conceitoData[0]);
+  const cards = document.getElementById('cctCards');
+  if (cards) cards.innerHTML = `
+    <div class="metric-card"><div class="metric-label">Alunos Avaliados</div><div class="metric-value">${conceitoData.length}</div></div>
+    <div class="metric-card"><div class="metric-label">Média Geral</div><div class="metric-value" style="color:var(--olive);">${mediaG?mediaG.toFixed(2):'—'}</div></div>
+    <div class="metric-card success"><div class="metric-label">Aprovados</div><div class="metric-value">${aprov}</div></div>
+    <div class="metric-card"><div class="metric-label">Melhor Média</div><div class="metric-value" style="color:var(--success);">${melhor&&melhor.media?melhor.media.toFixed(2):'—'}</div><div class="metric-sub">Aluno ${melhor?melhor.nr:'—'}</div></div>
+  `;
+
+  // Média por atributo
+  const attrKeys = ['autoconfianca','cooperacao','decisao','equilibrio','meticulosidade','persistencia','planejamento','resolucao','rusticidade','tecnico'];
+  const attrAvgs = attrKeys.map(k => avg(conceitoData.map(c=>c[k]).filter(v=>v!==null)));
+  destroyChart('cctAttrChart');
+  const cctEl = document.getElementById('cctAttrChart');
+  if (cctEl) charts['cctAttrChart'] = new Chart(cctEl, {
+    type:'bar',
+    data:{ labels:CONCEITO_ATTRS.map(a=>a.length>18?a.slice(0,16)+'…':a),
+      datasets:[{ data:attrAvgs.map(v=>v?parseFloat(v.toFixed(2)):0),
+        backgroundColor:'rgba(74,82,64,.75)', borderRadius:4 }]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false}},
+      scales:{x:{min:0,max:10,ticks:{precision:1}}}}
+  });
+
+  // Menções donut
+  const mencMap = {};
+  conceitoData.forEach(c=>{ if(c.mencao) mencMap[c.mencao]=(mencMap[c.mencao]||0)+1; });
+  destroyChart('cctMencaoChart');
+  const mencEl = document.getElementById('cctMencaoChart');
+  if (mencEl) charts['cctMencaoChart'] = new Chart(mencEl, {
+    type:'doughnut',
+    data:{ labels:Object.keys(mencMap), datasets:[{ data:Object.values(mencMap),
+        backgroundColor:['#639922','#185fa5','#854f0b','#a32d2d'], borderWidth:0 }]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'bottom'}}}
+  });
+
+  // Ranking
+  const sorted = [...conceitoData].sort((a,b)=>(a.classif||99)-(b.classif||99));
+  const rb = document.getElementById('cctRankingBody');
+  if (rb) rb.innerHTML = sorted.map((c,i) => {
+    const cad = getAlunoCadastro(c.nr);
+    return `<tr>
+      <td><span class="rank-badge ${i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'rank-normal'}">${c.classif||i+1}</span></td>
+      <td><strong>${c.nr}</strong></td>
+      <td>${cad?cad.guerra:'—'}</td>
+      <td>${notaBadge(c.media)}</td>
+      <td>${mencaoBadge(c.mencao)}</td>
+      <td><span class="badge ${c.status==='Aprovado'?'badge-pos':'badge-neg'}">${c.status}</span></td>
+      <td><button class="btn btn-outline btn-sm" onclick="goToPerfil('${c.nr}')">Ver Perfil</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function switchCctTab(tab, el) {
+  document.querySelectorAll('#page-conceito .tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#page-conceito .tab-content').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const tc = document.getElementById('cct-tab-'+tab); if(tc) tc.classList.add('active');
+}
+
+function renderCctIndividual() {
+  const nr = document.getElementById('cctStudentSelect')?.value;
+  const container = document.getElementById('cctIndividualContent');
+  if (!container) return;
+  if (!nr) { container.innerHTML='<div class="empty-state">Selecione um aluno.</div>'; return; }
+  const c = getAlunoConceito(nr);
+  const cad = getAlunoCadastro(nr);
+  if (!c) { container.innerHTML='<div class="empty-state">Sem dados de Conceito Vertical para este aluno.</div>'; return; }
+  const attrKeys = ['autoconfianca','cooperacao','decisao','equilibrio','meticulosidade','persistencia','planejamento','resolucao','rusticidade','tecnico'];
+  const attrAvgsAll = attrKeys.map(k => avg(conceitoData.map(d=>d[k]).filter(v=>v!==null)));
+  container.innerHTML = `
+    ${cad?`<div class="profile-header"><div class="profile-avatar">${nr}</div><div><div class="profile-name">${cad.guerra}</div><div class="profile-sub">${cad.nome}</div><div class="profile-tags"><span class="profile-tag">${cad.posto} · ${cad.qas}</span><span class="profile-tag">${cad.om}</span></div></div></div>`:''}
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Média Cct Vtc</div><div class="metric-value" style="color:var(--olive);">${c.media?c.media.toFixed(2):'—'}</div></div>
+      <div class="metric-card"><div class="metric-label">Menção</div><div class="metric-value">${mencaoBadge(c.mencao)}</div></div>
+      <div class="metric-card"><div class="metric-label">Classificação</div><div class="metric-value" style="color:var(--olive);">${c.classif||'—'}º</div></div>
+      <div class="metric-card"><div class="metric-label">Status</div><div class="metric-value" style="font-size:16px;"><span class="badge ${c.status==='Aprovado'?'badge-pos':'badge-neg'}">${c.status}</span></div></div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Radar de Atributos</div>
+        <div class="radar-wrap" style="height:300px;"><canvas id="cctRadarChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Atributos Individuais</div>
+        ${attrKeys.map((k,i)=>`
+          <div class="attr-bar">
+            <div class="attr-label">${CONCEITO_ATTRS[i].length>22?CONCEITO_ATTRS[i].slice(0,20)+'…':CONCEITO_ATTRS[i]}</div>
+            <div class="attr-track"><div class="attr-fill" style="width:${(c[k]||0)*10}%"></div></div>
+            <div class="attr-value">${c[k]?c[k].toFixed(1):'—'}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  destroyChart('cctRadarChart');
+  const radarEl = document.getElementById('cctRadarChart');
+  if (radarEl) charts['cctRadarChart'] = new Chart(radarEl, {
+    type:'radar',
+    data:{ labels:CONCEITO_ATTRS.map(a=>a.length>14?a.slice(0,12)+'…':a),
+      datasets:[
+        { label:'Aluno '+nr, data:attrKeys.map(k=>c[k]||0), borderColor:'#4a5240', backgroundColor:'rgba(74,82,64,.15)', pointRadius:4, borderWidth:2 },
+        { label:'Média Turma', data:attrAvgsAll.map(v=>v?parseFloat(v.toFixed(2)):0), borderColor:'#8b8b5a', backgroundColor:'rgba(139,139,90,.08)', borderDash:[4,2], pointRadius:3, borderWidth:1.5 }
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{beginAtZero:true,max:10,min:0,ticks:{stepSize:2,font:{size:9}},pointLabels:{font:{size:9}}}},
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11}}}}}
+  });
+}
+
+function renderCctComparar() {
+  const nrA = document.getElementById('cctCompA')?.value;
+  const nrB = document.getElementById('cctCompB')?.value;
+  const container = document.getElementById('cctCompararContent');
+  if (!container) return;
+  if (!nrA || !nrB) { container.innerHTML='<div class="empty-state">Selecione dois alunos.</div>'; return; }
+  const cA = getAlunoConceito(nrA), cB = getAlunoConceito(nrB);
+  if (!cA || !cB) { container.innerHTML='<div class="empty-state">Dados insuficientes.</div>'; return; }
+  const cadA = getAlunoCadastro(nrA), cadB = getAlunoCadastro(nrB);
+  const attrKeys = ['autoconfianca','cooperacao','decisao','equilibrio','meticulosidade','persistencia','planejamento','resolucao','rusticidade','tecnico'];
+  container.innerHTML = `
+    <div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Comparativo — ${cadA?cadA.guerra:'Aluno '+nrA} vs ${cadB?cadB.guerra:'Aluno '+nrB}</div>
+      <div class="chart-wrap" style="height:320px;"><canvas id="cctCompChart"></canvas></div>
+    </div>
+    <div class="two-col">
+      <div class="chart-card"><div class="chart-title" style="margin-bottom:.75rem;">Aluno ${nrA} — ${cadA?cadA.guerra:''}</div>
+        <div class="cards-grid" style="grid-template-columns:1fr 1fr 1fr;">
+          <div class="metric-card"><div class="metric-label">Média</div><div class="metric-value" style="font-size:20px;">${cA.media?cA.media.toFixed(2):'—'}</div></div>
+          <div class="metric-card"><div class="metric-label">Menção</div><div class="metric-value" style="font-size:16px;">${mencaoBadge(cA.mencao)}</div></div>
+          <div class="metric-card"><div class="metric-label">Classif.</div><div class="metric-value" style="font-size:20px;">${cA.classif||'—'}º</div></div>
+        </div>
+      </div>
+      <div class="chart-card"><div class="chart-title" style="margin-bottom:.75rem;">Aluno ${nrB} — ${cadB?cadB.guerra:''}</div>
+        <div class="cards-grid" style="grid-template-columns:1fr 1fr 1fr;">
+          <div class="metric-card"><div class="metric-label">Média</div><div class="metric-value" style="font-size:20px;">${cB.media?cB.media.toFixed(2):'—'}</div></div>
+          <div class="metric-card"><div class="metric-label">Menção</div><div class="metric-value" style="font-size:16px;">${mencaoBadge(cB.mencao)}</div></div>
+          <div class="metric-card"><div class="metric-label">Classif.</div><div class="metric-value" style="font-size:20px;">${cB.classif||'—'}º</div></div>
+        </div>
+      </div>
+    </div>`;
+  destroyChart('cctCompChart');
+  charts['cctCompChart'] = new Chart(document.getElementById('cctCompChart'), {
+    type:'radar',
+    data:{ labels:CONCEITO_ATTRS.map(a=>a.length>14?a.slice(0,12)+'…':a),
+      datasets:[
+        { label:cadA?cadA.guerra:'Aluno '+nrA, data:attrKeys.map(k=>cA[k]||0), borderColor:'#3b6d11', backgroundColor:'rgba(59,109,17,.12)', pointRadius:4, borderWidth:2 },
+        { label:cadB?cadB.guerra:'Aluno '+nrB, data:attrKeys.map(k=>cB[k]||0), borderColor:'#a32d2d', backgroundColor:'rgba(163,45,45,.12)', pointRadius:4, borderWidth:2 }
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{beginAtZero:true,max:10,min:0,ticks:{stepSize:2,font:{size:9}},pointLabels:{font:{size:9}}}},
+      plugins:{legend:{display:true,position:'bottom'}}}
+  });
+}
+
+/* ─── RENDER: PERFIL 360° ────────────────── */
+function renderPerfil360() {
+  const nr = document.getElementById('perfilStudentSelect')?.value;
+  const container = document.getElementById('perfil360Content');
+  if (!container) return;
+  if (!nr) { container.innerHTML='<div class="empty-state"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-1a9 9 0 0118 0v1"/></svg>Selecione um aluno para ver seu prontuário completo.</div>'; return; }
+  const cad = getAlunoCadastro(nr);
+  const cct = getAlunoConceito(nr);
+  const avals = getAlunoAvaliacoes(nr).sort((a,b)=>a.dateStr<b.dateStr?-1:1);
+  const frad = rawData.filter(r=>r.aluno===nr).sort((a,b)=>a.dateStr<b.dateStr?-1:1);
+  const fradPos = frad.filter(r=>r.tipo==='Positivo').length;
+  const fradNeg = frad.filter(r=>r.tipo==='Negativo').length;
+  const mediaAval = avg(avals.map(a=>a.nota));
+  const attrKeys = ['autoconfianca','cooperacao','decisao','equilibrio','meticulosidade','persistencia','planejamento','resolucao','rusticidade','tecnico'];
+  const attrAvgsAll = attrKeys.map(k => avg(conceitoData.map(d=>d[k]).filter(v=>v!==null)));
+
+  // Alertas automáticos
+  const alerts360 = [];
+  if (fradNeg > fradPos * 1.5 && fradNeg >= 3) alerts360.push({type:'danger', icon:'🔴', txt:'Saldo comportamental negativo — acúmulo de fatos negativos.'});
+  if (cct && cct.media && cct.media < 7) alerts360.push({type:'warning', icon:'⚠️', txt:`Conceito Vertical abaixo da média (${cct.media.toFixed(2)}).`});
+  if (mediaAval && mediaAval < 7) alerts360.push({type:'warning', icon:'📉', txt:`Média acadêmica abaixo de 7,0 (${mediaAval.toFixed(2)}).`});
+  if (cad && cad.sit.includes('Desl')) alerts360.push({type:'danger', icon:'🚫', txt:`Situação: ${cad.sit}.`});
+  if (cct && cct.media && cct.media >= 9) alerts360.push({type:'success', icon:'★', txt:`Destaque — Conceito Vertical ${cct.media.toFixed(2)} (Menção ${cct.mencao}).`});
+  if (fradPos >= 5 && fradNeg <= 1) alerts360.push({type:'success', icon:'✅', txt:`Perfil comportamental excelente: ${fradPos} positivos, ${fradNeg} negativos.`});
+
+  // Timeline 360
+  const events = [];
+  frad.forEach(r => events.push({ dateStr:r.dateStr, tipo:r.tipo==='Positivo'?'pos':'neg', label:r.tipo, text:r.fato, sub:r.atividade }));
+  avals.forEach(a => events.push({ dateStr:a.dateStr, tipo:'aval', label:`Avaliação ${a.tipo}`, text:`${a.disciplina}: ${a.nota.toFixed(1)}`, sub:a.instrutor }));
+  events.sort((a,b)=>a.dateStr<b.dateStr?-1:1);
+
+  const sitColor = cad ? (cad.sit.includes('Matriculado')?'sit-Matriculado':cad.sit.includes('Desl')?'sit-Desligado':'sit-NaoApresentado') : '';
+
+  container.innerHTML = `
+    ${cad?`<div class="profile-header">
+      <div class="profile-avatar">${nr}</div>
+      <div style="flex:1;">
+        <div class="profile-name">${cad.guerra}</div>
+        <div class="profile-sub">${cad.nome}</div>
+        <div class="profile-tags" style="margin-top:6px;">
+          <span class="profile-tag">${cad.posto}</span>
+          <span class="profile-tag">${cad.qas}</span>
+          <span class="profile-tag">${cad.om}</span>
+          <span class="profile-tag ${cad.sit.includes('Matriculado')?'sit-mat':cad.sit.includes('Desl')?'sit-desl':'sit-nap'}">${cad.sit}</span>
+          ${cct?`<span class="profile-tag">Classif. ${cct.classif||'—'}º · ${cct.mencao}</span>`:''}
+        </div>
+      </div>
+    </div>`:''}
+
+    <div class="cards-grid">
+      <div class="metric-card"><div class="metric-label">Fatos Positivos</div><div class="metric-value success">${fradPos}</div></div>
+      <div class="metric-card"><div class="metric-label">Fatos Negativos</div><div class="metric-value danger">${fradNeg}</div></div>
+      <div class="metric-card"><div class="metric-label">Média Acadêmica</div><div class="metric-value" style="color:var(--olive);">${mediaAval?mediaAval.toFixed(2):'—'}</div></div>
+      <div class="metric-card"><div class="metric-label">Média Cct Vtc</div><div class="metric-value" style="color:var(--olive);">${cct&&cct.media?cct.media.toFixed(2):'—'}</div></div>
+      <div class="metric-card"><div class="metric-label">Avaliações</div><div class="metric-value">${avals.length}</div></div>
+      <div class="metric-card"><div class="metric-label">Classificação Geral</div><div class="metric-value" style="color:var(--olive);">${cct&&cct.classif?cct.classif+'º':'—'}</div></div>
+    </div>
+
+    ${alerts360.length?`<div class="chart-card" style="margin-bottom:1.25rem;">
+      <div class="chart-title" style="margin-bottom:.75rem;">Painel de Alertas e Destaques</div>
+      ${alerts360.map(a=>`<div class="alert-360 alert-360-${a.type}"><span>${a.icon}</span><span>${a.txt}</span></div>`).join('')}
+    </div>`:''}
+
+    <div class="two-col">
+      ${cct?`<div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Conceito Vertical — Radar</div>
+        <div class="radar-wrap" style="height:270px;"><canvas id="p360RadarChart"></canvas></div>
+      </div>`:'<div></div>'}
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Evolução Acadêmica</div>
+        <div class="chart-wrap" style="height:${avals.length?'270':'80'}px;">
+          ${avals.length?`<canvas id="p360AvalChart"></canvas>`:'<div class="empty-state" style="padding:1rem;">Sem avaliações registradas.</div>'}
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">FRAD — Comportamento</div>
+        <div class="chart-wrap" style="height:180px;"><canvas id="p360FradChart"></canvas></div>
+      </div>
+      ${cct?`<div class="chart-card">
+        <div class="chart-title" style="margin-bottom:1rem;">Atributos do Conceito Vertical</div>
+        ${attrKeys.map((k,i)=>`
+          <div class="attr-bar">
+            <div class="attr-label" style="width:160px;font-size:10px;">${CONCEITO_ATTRS[i].length>20?CONCEITO_ATTRS[i].slice(0,18)+'…':CONCEITO_ATTRS[i]}</div>
+            <div class="attr-track"><div class="attr-fill" style="width:${(cct[k]||0)*10}%"></div></div>
+            <div class="attr-value" style="font-size:11px;">${cct[k]?cct[k].toFixed(1):'—'}</div>
+          </div>`).join('')}
+      </div>`:''}
+    </div>
+
+    ${avals.length?`<div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Histórico de Avaliações</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Data</th><th>Tipo</th><th>Disciplina</th><th>Instrutor</th><th>Nota</th></tr></thead>
+        <tbody>${avals.map(a=>`<tr><td>${a.dateStr||'—'}</td><td>${tipoBadge(a.tipo)}</td><td style="font-size:12px;">${a.disciplina}</td><td>${a.instrutor}</td><td>${notaBadge(a.nota)}</td></tr>`).join('')}</tbody>
+      </table></div>
+    </div>`:''}
+
+    <div class="chart-card">
+      <div class="chart-title" style="margin-bottom:1rem;">Linha do Tempo Completa (FRAD + Avaliações)</div>
+      <div class="timeline-360">
+        ${events.slice(0,30).map(e=>`
+          <div class="tl360-item">
+            <div class="tl360-dot tl360-${e.tipo}">${e.tipo==='pos'?'+':e.tipo==='neg'?'−':'A'}</div>
+            <div class="tl360-content">
+              <div class="tl360-date">${e.dateStr||'—'}</div>
+              <div class="tl360-text">${e.text}</div>
+              ${e.sub?`<div class="tl360-meta"><span class="tl-tag">${e.sub}</span></div>`:''}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+
+  // Charts
+  destroyChart('p360RadarChart'); destroyChart('p360AvalChart'); destroyChart('p360FradChart');
+  if (cct) {
+    const rEl = document.getElementById('p360RadarChart');
+    if (rEl) charts['p360RadarChart'] = new Chart(rEl, {
+      type:'radar',
+      data:{ labels:CONCEITO_ATTRS.map(a=>a.length>12?a.slice(0,10)+'…':a),
+        datasets:[
+          { label:'Aluno '+nr, data:attrKeys.map(k=>cct[k]||0), borderColor:'#4a5240', backgroundColor:'rgba(74,82,64,.15)', pointRadius:3, borderWidth:2 },
+          { label:'Média Turma', data:attrAvgsAll.map(v=>v?parseFloat(v.toFixed(2)):0), borderColor:'#8b8b5a', backgroundColor:'rgba(139,139,90,.06)', borderDash:[3,2], pointRadius:2, borderWidth:1.5 }
+        ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        scales:{r:{beginAtZero:true,max:10,min:0,ticks:{stepSize:2,font:{size:8}},pointLabels:{font:{size:8}}}},
+        plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10}}}}}
+    });
+  }
+  if (avals.length) {
+    const aEl = document.getElementById('p360AvalChart');
+    if (aEl) charts['p360AvalChart'] = new Chart(aEl, {
+      type:'line',
+      data:{ labels:avals.map(a=>a.dateStr||a.disciplina.slice(0,8)),
+        datasets:[{ label:'Nota', data:avals.map(a=>a.nota), borderColor:'#4a5240', backgroundColor:'rgba(74,82,64,.1)', tension:.3, fill:true, pointRadius:4 }]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:10}}}
+    });
+  }
+  const fEl = document.getElementById('p360FradChart');
+  if (fEl) charts['p360FradChart'] = new Chart(fEl, {
+    type:'doughnut',
+    data:{ labels:['Positivos','Negativos'], datasets:[{ data:[fradPos,fradNeg], backgroundColor:['#639922','#a32d2d'], borderWidth:0 }]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'bottom',labels:{font:{size:11}}}}}
+  });
+}
+
 
 /* ─── RENDER: VISÃO GERAL ────────────────── */
 function renderOverview() {
