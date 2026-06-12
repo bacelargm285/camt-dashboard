@@ -1754,7 +1754,9 @@ function renderPerfil360() {
   const frad = rawData.filter(r=>r.aluno===nr).sort((a,b)=>a.dateStr<b.dateStr?-1:1);
   const fradPos = frad.filter(r=>r.tipo==='Positivo').length;
   const fradNeg = frad.filter(r=>r.tipo==='Negativo').length;
-  const mediaAval = avg(avals.map(a=>a.nota));
+  const mediaAvalAF = avg(avals.filter(a=>a.tipo==='AF').map(a=>a.nota));
+  const mediaAvalAS = avg(avals.filter(a=>a.tipo==='AS').map(a=>a.nota));
+  const mediaAvalAR = avg(avals.filter(a=>a.tipo==='AR').map(a=>a.nota));
   const attrKeys = ['autoconfianca','cooperacao','decisao','equilibrio','meticulosidade','persistencia','planejamento','resolucao','rusticidade','tecnico'];
   const attrAvgsAll = attrKeys.map(k => avg(conceitoData.map(d=>d[k]).filter(v=>v!==null)));
 
@@ -1762,7 +1764,7 @@ function renderPerfil360() {
   const alerts360 = [];
   if (fradNeg > fradPos * 1.5 && fradNeg >= 3) alerts360.push({type:'danger', icon:'🔴', txt:'Saldo comportamental negativo — acúmulo de fatos negativos.'});
   if (cct && cct.media && cct.media < 7) alerts360.push({type:'warning', icon:'⚠️', txt:`Conceito Vertical abaixo da média (${cct.media.toFixed(2)}).`});
-  if (mediaAval && mediaAval < 7) alerts360.push({type:'warning', icon:'📉', txt:`Média acadêmica abaixo de 7,0 (${mediaAval.toFixed(2)}).`});
+  if (mediaAvalAS && mediaAvalAS < 7) alerts360.push({type:'warning', icon:'📉', txt:`Média Somativa abaixo de 7,0 (${mediaAvalAS.toFixed(2)}).`});
   if (cad && cad.sit.includes('Desl')) alerts360.push({type:'danger', icon:'🚫', txt:`Situação: ${cad.sit}.`});
   if (cct && cct.media && cct.media >= 9) alerts360.push({type:'success', icon:'★', txt:`Destaque — Conceito Vertical ${cct.media.toFixed(2)} (Menção ${cct.mencao}).`});
   if (fradPos >= 5 && fradNeg <= 1) alerts360.push({type:'success', icon:'✅', txt:`Perfil comportamental excelente: ${fradPos} positivos, ${fradNeg} negativos.`});
@@ -1794,9 +1796,10 @@ function renderPerfil360() {
     <div class="cards-grid">
       <div class="metric-card"><div class="metric-label">Fatos Positivos</div><div class="metric-value success">${fradPos}</div></div>
       <div class="metric-card"><div class="metric-label">Fatos Negativos</div><div class="metric-value danger">${fradNeg}</div></div>
-      <div class="metric-card"><div class="metric-label">Média Acadêmica</div><div class="metric-value" style="color:var(--olive);">${mediaAval?mediaAval.toFixed(2):'—'}</div></div>
+      <div class="metric-card info" style="--info:#185fa5;"><div class="metric-label">Desempenho Formativo</div><div class="metric-value" style="color:var(--info);">${mediaAvalAF?mediaAvalAF.toFixed(2):'—'}</div></div>
+      <div class="metric-card success"><div class="metric-label">Desempenho Somativo</div><div class="metric-value">${mediaAvalAS?mediaAvalAS.toFixed(2):'—'}</div></div>
+      <div class="metric-card warning"><div class="metric-label">Recuperação</div><div class="metric-value">${mediaAvalAR?mediaAvalAR.toFixed(2):'Não Aplicável'}</div></div>
       <div class="metric-card"><div class="metric-label">Média Cct Vtc</div><div class="metric-value" style="color:var(--olive);">${cct&&cct.media?cct.media.toFixed(2):'—'}</div></div>
-      <div class="metric-card"><div class="metric-label">Avaliações</div><div class="metric-value">${avals.length}</div></div>
       <div class="metric-card"><div class="metric-label">Classificação Geral</div><div class="metric-value" style="color:var(--olive);">${cct&&cct.classif?cct.classif+'º':'—'}</div></div>
     </div>
 
@@ -1811,8 +1814,8 @@ function renderPerfil360() {
         <div class="radar-wrap" style="height:270px;"><canvas id="p360RadarChart"></canvas></div>
       </div>`:'<div></div>'}
       <div class="chart-card">
-        <div class="chart-title" style="margin-bottom:1rem;">Evolução Acadêmica</div>
-        <div class="chart-wrap" style="height:${avals.length?'270':'80'}px;">
+        <div class="chart-title" style="margin-bottom:1rem;">Desempenho por Disciplina (Formativa / Somativa / Recuperação)</div>
+        <div class="chart-wrap" id="p360AvalWrap" style="position:relative;height:${avals.length?'270':'80'}px;">
           ${avals.length?`<canvas id="p360AvalChart"></canvas>`:'<div class="empty-state" style="padding:1rem;">Sem avaliações registradas.</div>'}
         </div>
       </div>
@@ -1834,13 +1837,26 @@ function renderPerfil360() {
       </div>`:''}
     </div>
 
-    ${avals.length?`<div class="chart-card">
-      <div class="chart-title" style="margin-bottom:1rem;">Histórico de Avaliações</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Data</th><th>Tipo</th><th>Disciplina</th><th>Instrutor</th><th>Nota</th></tr></thead>
-        <tbody>${avals.map(a=>`<tr><td>${a.dateStr||'—'}</td><td>${tipoBadge(a.tipo)}</td><td style="font-size:12px;">${a.disciplina}</td><td>${a.instrutor}</td><td>${notaBadge(a.nota)}</td></tr>`).join('')}</tbody>
-      </table></div>
-    </div>`:''}
+    ${avals.length?(() => {
+      const byDisc = {};
+      avals.forEach(a => { if(!byDisc[a.disciplina]) byDisc[a.disciplina]={AF:[],AS:[],AR:[]}; if(byDisc[a.disciplina][a.tipo]) byDisc[a.disciplina][a.tipo].push(a); });
+      return Object.entries(byDisc).map(([disc,t]) => {
+        const mAF=avg(t.AF.map(a=>a.nota)), mAS=avg(t.AS.map(a=>a.nota)), mAR=avg(t.AR.map(a=>a.nota));
+        const linha = [...t.AF,...t.AS,...t.AR].sort((a,b)=>a.dateStr<b.dateStr?-1:1);
+        return `<div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">${disc}</div>
+          <div class="cards-grid" style="margin-bottom:1rem;">
+            <div class="metric-card info" style="--info:#185fa5;"><div class="metric-label">Formativa</div><div class="metric-value" style="color:var(--info);">${mAF?mAF.toFixed(2):'—'}</div><div class="metric-sub">${t.AF.length} avaliação(ões)</div></div>
+            <div class="metric-card success"><div class="metric-label">Somativa</div><div class="metric-value">${mAS?mAS.toFixed(2):'—'}</div><div class="metric-sub">${t.AS.length} avaliação(ões)</div></div>
+            <div class="metric-card warning"><div class="metric-label">Recuperação</div><div class="metric-value">${mAR?mAR.toFixed(2):(t.AR.length?'—':'Não Aplicável')}</div><div class="metric-sub">${t.AR.length} avaliação(ões)</div></div>
+          </div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Data</th><th>Tipo</th><th>Instrutor</th><th>Nota</th></tr></thead>
+            <tbody>${linha.map(a=>`<tr><td>${a.dateStr||'—'}</td><td>${tipoBadge(a.tipo)}</td><td>${a.instrutor}</td><td>${notaBadge(a.nota)}</td></tr>`).join('')}</tbody>
+          </table></div>
+        </div>`;
+      }).join('');
+    })():''}
 
     <div class="chart-card">
       <div class="chart-title" style="margin-bottom:1rem;">Linha do Tempo Completa (FRAD + Avaliações)</div>
@@ -1875,12 +1891,21 @@ function renderPerfil360() {
     });
   }
   if (avals.length) {
+    const byDiscChart = {};
+    avals.forEach(a => { if(!byDiscChart[a.disciplina]) byDiscChart[a.disciplina]={AF:[],AS:[],AR:[]}; if(byDiscChart[a.disciplina][a.tipo]) byDiscChart[a.disciplina][a.tipo].push(a.nota); });
+    const discEntriesChart = Object.entries(byDiscChart);
+    const pH = Math.max(200, discEntriesChart.length*70+60);
+    document.getElementById('p360AvalWrap').style.height = pH+'px';
     const aEl = document.getElementById('p360AvalChart');
     if (aEl) charts['p360AvalChart'] = new Chart(aEl, {
-      type:'line',
-      data:{ labels:avals.map(a=>a.dateStr||a.disciplina.slice(0,8)),
-        datasets:[{ label:'Nota', data:avals.map(a=>a.nota), borderColor:'#4a5240', backgroundColor:'rgba(74,82,64,.1)', tension:.3, fill:true, pointRadius:4 }]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:10}}}
+      type:'bar',
+      data:{ labels:discEntriesChart.map(([d])=>d.length>22?d.slice(0,20)+'…':d),
+        datasets:[
+          { label:'Formativa (AF)', data:discEntriesChart.map(([,v])=>avg(v.AF)?parseFloat(avg(v.AF).toFixed(2)):0), backgroundColor:'#639922', borderRadius:4 },
+          { label:'Somativa (AS)', data:discEntriesChart.map(([,v])=>avg(v.AS)?parseFloat(avg(v.AS).toFixed(2)):0), backgroundColor:'#185fa5', borderRadius:4 },
+          { label:'Recuperação (AR)', data:discEntriesChart.map(([,v])=>avg(v.AR)?parseFloat(avg(v.AR).toFixed(2)):0), backgroundColor:'#854f0b', borderRadius:4 }
+        ]},
+      options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:true,position:'bottom'}},scales:{x:{min:0,max:10}}}
     });
   }
   const fEl = document.getElementById('p360FradChart');
