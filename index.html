@@ -1042,10 +1042,13 @@ function addLog(type, msg) {
 /* ─── DOWNLOAD HTML ATUALIZADO ───────────── */
 function downloadUpdatedHTML() {
   if (!pendingProcessedData) { alert('Nenhum dado processado.'); return; }
+  const fradForMeta = (pendingProcessedData && !Array.isArray(pendingProcessedData))
+    ? (pendingProcessedData.frad || [])
+    : (pendingProcessedData || []);
   const meta = {
     updatedAt: new Date().toISOString(),
-    recordCount: pendingProcessedData.length,
-    studentCount: [...new Set(pendingProcessedData.map(r=>r.aluno))].length
+    recordCount: fradForMeta.length,
+    studentCount: [...new Set(fradForMeta.map(r=>r.aluno))].length
   };
   // pendingProcessedData now contains { frad, situacao, conceito, avaliacoes }
   const isNewFormat = pendingProcessedData && typeof pendingProcessedData === 'object' && !Array.isArray(pendingProcessedData);
