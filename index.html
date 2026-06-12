@@ -774,9 +774,12 @@ let allStudents = [];
 let charts = {};
 let isAdminMode = false;
 let pendingProcessedData = null; // dados processados aguardando publicação
+let ORIGINAL_HTML = null; // snapshot do HTML original (capturado antes de qualquer alteração)
 
 /* ─── INICIALIZAÇÃO ──────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
+  // Captura o HTML original assim que a página carrega, antes de qualquer modificação do DOM
+  ORIGINAL_HTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
   // Verifica se veio com ?admin na URL
   const params = new URLSearchParams(window.location.search);
   if (params.has('admin')) {
@@ -1058,27 +1061,25 @@ function downloadUpdatedHTML() {
   const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval });
   const metaJson = JSON.stringify(meta);
 
-  // Busca o arquivo HTML original do servidor (não o DOM em memória)
-  // para garantir que o download nunca contenha estado de runtime (modo admin, etc.)
-  fetch(window.location.href)
-    .then(r => r.text())
-    .then(originalHtml => {
-      let out = originalHtml
-        .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
-          '<script id="embeddedData" type="application/json">\n' + dataJson + '\n<\/script>')
-        .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
-          '<script id="embeddedMeta" type="application/json">\n' + metaJson + '\n<\/script>');
-      const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    })
-    .catch(() => {
-      // Fallback para arquivo local (protocolo file://) onde fetch não funciona
-      alert('Atenção: você está abrindo o arquivo localmente.\n\nPara o download funcionar corretamente sem modo admin, hospede o arquivo no GitHub Pages e acesse via link https://');
-    });
+  // Usa o snapshot do HTML original capturado no carregamento da página
+  // (evita problemas de fetch/CORS/cache em GitHub Pages e funciona também via file://)
+  if (!ORIGINAL_HTML) {
+    alert('Erro: HTML original não disponível. Recarregue a página e tente novamente.');
+    return;
+  }
+  let out = ORIGINAL_HTML
+    .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
+      '<script id="embeddedData" type="application/json">\n' + dataJson + '\n<\/script>')
+    .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
+      '<script id="embeddedMeta" type="application/json">\n' + metaJson + '\n<\/script>');
+  const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
 /* ─── NAVEGAÇÃO ──────────────────────────── */
