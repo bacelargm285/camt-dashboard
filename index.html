@@ -1039,80 +1039,46 @@ function addLog(type, msg) {
 /* ─── DOWNLOAD HTML ATUALIZADO ───────────── */
 function downloadUpdatedHTML() {
   if (!pendingProcessedData) { alert('Nenhum dado processado.'); return; }
-
-  // Prepara dados limpos
-  const isNewFmt = typeof pendingProcessedData === 'object' && !Array.isArray(pendingProcessedData) && pendingProcessedData.frad;
-  const cleanFrad = (isNewFmt ? pendingProcessedData.frad : pendingProcessedData || [])
-    .map(r => { const { data, ...rest } = r; return rest; });
-  const cleanSit  = isNewFmt ? (pendingProcessedData.situacao  || []) : [];
-  const cleanCct  = isNewFmt ? (pendingProcessedData.conceito  || []) : [];
-  const cleanAval = isNewFmt ? (pendingProcessedData.avaliacoes || []) : [];
-
-  const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval });
-  const metaJson = JSON.stringify({
+  const meta = {
     updatedAt: new Date().toISOString(),
-    recordCount: cleanFrad.length,
-    studentCount: [...new Set(cleanFrad.map(r => r.aluno))].length
-  });
-
-  function injectAndDownload(src) {
-    let out = src;
-    const d1 = out.indexOf('<script id="embeddedData"');
-    const d2 = out.indexOf('</script>', d1) + 9;
-    if (d1 !== -1 && d2 > d1) {
-      out = out.slice(0, d1)
-        + '<script id="embeddedData" type="application/json">\n'
-        + dataJson + '\n</script>'
-        + out.slice(d2);
-    }
-    const m1 = out.indexOf('<script id="embeddedMeta"');
-    const m2 = out.indexOf('</script>', m1) + 9;
-    if (m1 !== -1 && m2 > m1) {
-      out = out.slice(0, m1)
-        + '<script id="embeddedMeta" type="application/json">\n'
-        + metaJson + '\n</script>'
-        + out.slice(m2);
-    }
-    out = out.split('id="adminBar" class="admin-bar" style="display:flex;"')
-             .join('id="adminBar" class="admin-bar" style="display:none;"');
-    out = out.split('id="adminNavSection" style="display:block;"')
-             .join('id="adminNavSection" style="display:none;"');
-    out = out.split('id="authModal" class="modal-overlay" style="display:flex;"')
-             .join('id="authModal" class="modal-overlay" style="display:none;"');
-    const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'dashboard-camt-' + new Date().toISOString().slice(0, 10) + '.html';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-  }
-
-  function serializeAndDownload() {
-    const bar   = document.getElementById('adminBar');
-    const nav   = document.getElementById('adminNavSection');
-    const modal = document.getElementById('authModal');
-    const pBar   = bar   ? bar.style.display   : '';
-    const pNav   = nav   ? nav.style.display   : '';
-    const pModal = modal ? modal.style.display : '';
-    if (bar)   bar.style.display   = 'none';
-    if (nav)   nav.style.display   = 'none';
-    if (modal) modal.style.display = 'none';
-    const src = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    if (bar)   bar.style.display   = pBar;
-    if (nav)   nav.style.display   = pNav;
-    if (modal) modal.style.display = pModal;
-    injectAndDownload(src);
-  }
-
-  if (window.location.protocol === 'file:') {
-    serializeAndDownload();
+    recordCount: pendingProcessedData.length,
+    studentCount: [...new Set(pendingProcessedData.map(r=>r.aluno))].length
+  };
+  // pendingProcessedData now contains { frad, situacao, conceito, avaliacoes }
+  const isNewFormat = pendingProcessedData && typeof pendingProcessedData === 'object' && !Array.isArray(pendingProcessedData);
+  let cleanFrad = [], cleanSit = [], cleanCct = [], cleanAval = [];
+  if (isNewFormat) {
+    cleanFrad = (pendingProcessedData.frad || []).map(r => { const { data, ...rest } = r; return rest; });
+    cleanSit = pendingProcessedData.situacao || [];
+    cleanCct = pendingProcessedData.conceito || [];
+    cleanAval = pendingProcessedData.avaliacoes || [];
   } else {
-    fetch(window.location.href)
-      .then(r => r.text())
-      .then(injectAndDownload)
-      .catch(serializeAndDownload);
+    cleanFrad = (pendingProcessedData || []).map(r => { const { data, ...rest } = r; return rest; });
   }
+  const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval });
+  const metaJson = JSON.stringify(meta);
+
+  // Busca o arquivo HTML original do servidor (não o DOM em memória)
+  // para garantir que o download nunca contenha estado de runtime (modo admin, etc.)
+  fetch(window.location.href)
+    .then(r => r.text())
+    .then(originalHtml => {
+      let out = originalHtml
+        .replace(/<script id="embeddedData"[^>]*>[\s\S]*?<\/script>/,
+          '<script id="embeddedData" type="application/json">\n' + dataJson + '\n<\/script>')
+        .replace(/<script id="embeddedMeta"[^>]*>[\s\S]*?<\/script>/,
+          '<script id="embeddedMeta" type="application/json">\n' + metaJson + '\n<\/script>');
+      const blob = new Blob([out], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'dashboard-camt-' + new Date().toISOString().slice(0,10) + '.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch(() => {
+      // Fallback para arquivo local (protocolo file://) onde fetch não funciona
+      alert('Atenção: você está abrindo o arquivo localmente.\n\nPara o download funcionar corretamente sem modo admin, hospede o arquivo no GitHub Pages e acesse via link https://');
+    });
 }
 
 /* ─── NAVEGAÇÃO ──────────────────────────── */
