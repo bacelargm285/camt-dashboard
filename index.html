@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head>
+<html lang="pt-BR">
+<head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -301,6 +302,99 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 .alert-360-warning{background:var(--warning-bg);border-color:var(--warning);}
 .alert-360-success{background:var(--success-bg);border-color:var(--success);}
 
+
+/* ── RANKING CONSOLIDADO ── */
+.rank-consolidado-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px;}
+.peso-info{font-size:11px;color:var(--text-faint);background:var(--surface-3);padding:5px 12px;border-radius:20px;}
+.score-bar-wrap{display:flex;align-items:center;gap:6px;min-width:120px;}
+.score-bar-track{flex:1;height:8px;background:var(--surface-3);border-radius:4px;overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--khaki),var(--olive));}
+.score-value{font-size:13px;font-weight:800;color:var(--olive);width:38px;text-align:right;}
+.col-frad{color:var(--success);}
+.col-aval{color:var(--info);}
+.col-cct{color:var(--khaki);}
+.sub-score{font-size:10px;color:var(--text-faint);display:block;line-height:1.3;}
+.trend-up{color:var(--success);font-size:12px;font-weight:700;}
+.trend-down{color:var(--danger);font-size:12px;font-weight:700;}
+.trend-eq{color:var(--text-faint);font-size:12px;}
+.peso-toggle{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.peso-group{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text-muted);}
+.peso-group label{font-weight:600;letter-spacing:.3px;}
+.peso-input{width:50px;padding:3px 6px;font-size:12px;text-align:center;}
+
+
+/* ── OPERAÇÕES DO CURSO / COP ─────────────────────── */
+.ops-header-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:1.25rem;}
+.ops-time-card{background:var(--olive);color:#fff;border-radius:var(--radius-lg);padding:1.25rem 1.5rem;text-align:center;}
+.ops-time-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.65;margin-bottom:4px;}
+.ops-time-value{font-size:32px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;}
+.ops-time-sub{font-size:11px;opacity:.6;margin-top:4px;}
+
+.ops-now{background:linear-gradient(135deg,#2d3a1e 0%,#3b5220 100%);border:2px solid #639922;border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.25rem;color:#fff;position:relative;overflow:hidden;}
+.ops-now::before{content:'EM EXECUÇÃO';position:absolute;top:10px;right:14px;font-size:9px;font-weight:800;letter-spacing:2px;color:#8bc34a;background:rgba(99,153,34,.2);padding:3px 10px;border-radius:20px;border:1px solid rgba(99,153,34,.4);}
+.ops-now-title{font-size:22px;font-weight:800;margin-bottom:6px;line-height:1.2;}
+.ops-now-disc{font-size:13px;color:#8bc34a;font-weight:600;margin-bottom:1rem;letter-spacing:.5px;}
+.ops-now-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1rem;}
+.ops-now-item{background:rgba(255,255,255,.08);border-radius:var(--radius);padding:8px 12px;}
+.ops-now-item-label{font-size:10px;opacity:.6;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;}
+.ops-now-item-value{font-size:13px;font-weight:600;}
+.ops-countdown{background:rgba(0,0,0,.3);border-radius:var(--radius);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ops-countdown-label{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;}
+.ops-countdown-value{font-size:28px;font-weight:800;color:#8bc34a;font-variant-numeric:tabular-nums;}
+.ops-objetivos{background:rgba(255,255,255,.06);border-radius:var(--radius);padding:12px 16px;margin-top:10px;}
+.ops-objetivos-label{font-size:10px;opacity:.6;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
+.ops-obj-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;font-size:12px;line-height:1.5;}
+.ops-obj-icon{color:#8bc34a;flex-shrink:0;margin-top:1px;}
+
+.ops-next{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;border-left:3px solid var(--info);}
+.ops-next-header{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--info);margin-bottom:.75rem;}
+.ops-next-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.ops-next-disc{font-size:12px;color:var(--info);font-weight:600;margin-bottom:.75rem;}
+.ops-next-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;}
+.ops-next-item{font-size:12px;color:var(--text-muted);}
+.ops-next-item strong{display:block;font-size:11px;color:var(--text);font-weight:600;}
+
+.ops-prev{background:var(--surface-2);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1.25rem;opacity:.8;}
+.ops-prev-header{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-faint);margin-bottom:.5rem;}
+
+.ops-timeline-day{display:flex;flex-direction:column;gap:0;}
+.ops-tl-item{display:flex;gap:10px;padding-bottom:.75rem;position:relative;}
+.ops-tl-item::before{content:'';position:absolute;left:18px;top:26px;bottom:0;width:1px;background:var(--border);}
+.ops-tl-item:last-child::before{display:none;}
+.ops-tl-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid;}
+.ops-tl-done{background:var(--surface-3);color:var(--text-faint);border-color:var(--border-strong);}
+.ops-tl-now{background:#2d3a1e;color:#8bc34a;border-color:#639922;box-shadow:0 0 0 3px rgba(99,153,34,.2);}
+.ops-tl-future{background:var(--surface);color:var(--text-muted);border-color:var(--border);}
+.ops-tl-content{flex:1;padding:6px 0;}
+.ops-tl-time{font-size:11px;color:var(--text-faint);font-weight:600;font-variant-numeric:tabular-nums;}
+.ops-tl-disc{font-size:13px;font-weight:700;color:var(--text);margin:2px 0;}
+.ops-tl-meta{font-size:11px;color:var(--text-muted);}
+
+.ops-progress-bar{height:12px;background:var(--surface-3);border-radius:6px;overflow:hidden;margin:8px 0;}
+.ops-progress-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--khaki),var(--olive));transition:width .4s;}
+
+/* COP - Centro de Operações (fullscreen) */
+.cop-overlay{position:fixed;inset:0;background:#0d1108;z-index:99990;display:none;flex-direction:column;padding:2rem;font-family:system-ui,sans-serif;overflow:auto;}
+.cop-overlay.open{display:flex;}
+.cop-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
+.cop-title{color:#8bc34a;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;}
+.cop-clock{font-size:48px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;line-height:1;}
+.cop-date{font-size:14px;color:rgba(255,255,255,.5);margin-top:4px;text-align:right;}
+.cop-body{display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex:1;}
+.cop-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.5rem;}
+.cop-card-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.75rem;}
+.cop-card-main{font-size:24px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:.5rem;}
+.cop-card-sub{font-size:13px;color:rgba(255,255,255,.55);}
+.cop-now-card{background:linear-gradient(135deg,rgba(59,109,17,.3),rgba(45,58,30,.5));border-color:#639922;grid-column:1/-1;}
+.cop-countdown-big{font-size:56px;font-weight:800;color:#8bc34a;font-variant-numeric:tabular-nums;line-height:1;}
+.cop-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:rgba(99,153,34,.2);color:#8bc34a;border:1px solid rgba(99,153,34,.3);}
+.cop-progress{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin:12px 0 4px;}
+.cop-progress-fill{height:100%;background:linear-gradient(90deg,#639922,#8bc34a);border-radius:4px;}
+.cop-btn-exit{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;}
+.cop-btn-exit:hover{background:rgba(255,255,255,.2);}
+.ops-no-data{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:40vh;text-align:center;gap:1rem;color:var(--text-faint);}
+.ops-no-data-icon{font-size:48px;opacity:.3;}
+
 </style>
 </head>
 <body>
@@ -311,7 +405,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 <div id="authModal" class="modal-overlay" style="display:none;">
   <div class="modal">
     <div class="modal-title">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
       Acesso Administrativo
     </div>
     <div class="modal-sub">Esta área é restrita ao administrador do curso. Informe a senha para continuar.</div>
@@ -342,11 +436,11 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <span id="dataInfo" style="font-size:11px;color:rgba(255,255,255,.5);"></span>
     <span id="dataTimestamp" style="font-size:11px;color:rgba(255,255,255,.35);"></span>
     <button class="btn btn-ghost btn-sm" onclick="exportPDF()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       PDF
     </button>
     <button class="btn btn-ghost btn-sm" onclick="exportExcel()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="3"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="3"/></svg>
       Excel
     </button>
   </div>
@@ -368,34 +462,38 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <div class="nav-section">
       <div class="nav-label">Painel</div>
       <div class="nav-item active" onclick="showPage('overview',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         Visão Geral
       </div>
       <div class="nav-item" onclick="showPage('ranking',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         Ranking de Alunos
+      </div>
+      <div class="nav-item" onclick="showPage('rankingconsolidado',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/><circle cx="18" cy="7" r="3"/><circle cx="12" cy="4" r="3" fill="currentColor" opacity=".3"/><circle cx="6" cy="11" r="3"/></svg>
+        Ranking Consolidado
       </div>
     </div>
     <div class="nav-section">
       <div class="nav-label">Análises</div>
       <div class="nav-item" onclick="showPage('atividades',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         Por Atividade
       </div>
       <div class="nav-item" onclick="showPage('atitudinal',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         Conteúdo Atitudinal
       </div>
       <div class="nav-item" onclick="showPage('temporal',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Evolução Temporal
       </div>
       <div class="nav-item" onclick="showPage('inteligente',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
         Análise Inteligente
       </div>
       <div class="nav-item" onclick="showPage('alertas',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 01-3.46 0"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         Alertas
       </div>
     </div>
@@ -403,31 +501,38 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
     <div class="nav-section" id="newModulesNav">
       <div class="nav-label">Módulos</div>
       <div class="nav-item" onclick="showPage('situacao',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         Situação do Aluno
       </div>
       <div class="nav-item" onclick="showPage('avaliacoes',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         Avaliações
       </div>
       <div class="nav-item" onclick="showPage('conceito',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         Conceito Vertical
       </div>
       <div class="nav-item" onclick="showPage('perfil',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"></circle><path d="M3 21v-1a9 9 0 0118 0v1"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M3 21v-1a9 9 0 0118 0v1"/></svg>
         Perfil 360°
       </div>
       <div class="nav-item" onclick="showPage('individual',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         FRAD
       </div>
     </div>
         <!-- Item admin visível apenas no modo admin -->
-    <div class="nav-section" id="adminNavSection" style="display:none;">
+    <div class="nav-section">
+      <div class="nav-label">Operações</div>
+      <div class="nav-item" onclick="showPage('operacoes',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        CAM em Tempo Real
+      </div>
+    </div>
+        <div class="nav-section" id="adminNavSection" style="display:none;">
       <div class="nav-label">Administração</div>
       <div class="nav-item" onclick="showPage('admin',this)" style="color:rgba(255,160,160,.8);">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
         Gerenciar Dados
       </div>
     </div>
@@ -459,6 +564,83 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
     </div>
 
+    
+    <!-- ── RANKING CONSOLIDADO ── -->
+    <div id="page-rankingconsolidado" class="page">
+      <div class="section-title">Ranking Consolidado</div>
+
+      <!-- Explicação dos pesos -->
+      <div class="chart-card" style="margin-bottom:1rem;padding:.875rem 1.25rem;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Como é calculado</div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+              A pontuação final combina três dimensões: comportamental (FRAD), acadêmica (Avaliações) e atitudinal (Conceito Vertical).<br>
+              Cada dimensão é normalizada de 0 a 10 e ponderada pelos pesos abaixo. Ajuste os pesos conforme o momento do curso.
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Pesos (%)</div>
+            <div class="peso-toggle">
+              <div class="peso-group"><label class="col-frad">FRAD</label><input class="peso-input" type="number" id="pesoFRAD" value="33" min="0" max="100" onchange="renderRankingConsolidado()">%</div>
+              <div class="peso-group"><label class="col-aval">Avaliações</label><input class="peso-input" type="number" id="pesoAval" value="34" min="0" max="100" onchange="renderRankingConsolidado()">%</div>
+              <div class="peso-group"><label class="col-cct">Cct Vertical</label><input class="peso-input" type="number" id="pesoCCT" value="33" min="0" max="100" onchange="renderRankingConsolidado()">%</div>
+            </div>
+            <div id="pesoAviso" style="font-size:11px;color:var(--danger);margin-top:4px;display:none;">⚠ Os pesos devem somar 100%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards resumo -->
+      <div class="cards-grid" id="consCards"></div>
+
+      <!-- Gráfico de barras da pontuação final -->
+      <div class="chart-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <div class="chart-title">Pontuação Final — Todos os Alunos</div>
+          <span class="peso-info">Barras empilhadas por dimensão</span>
+        </div>
+        <div class="chart-wrap" id="consChartWrap" style="position:relative;"><canvas id="consChart"></canvas></div>
+      </div>
+
+      <!-- Tabela detalhada -->
+      <div class="chart-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <div class="chart-title">Classificação Detalhada</div>
+          <span class="peso-info">Clique em qualquer aluno para ver o Perfil 360°</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Aluno</th>
+                <th>Nome de Guerra</th>
+                <th style="color:var(--success);">FRAD<br><span style="font-weight:400;font-size:10px;">Saldo comportamental</span></th>
+                <th style="color:var(--info);">Avaliações<br><span style="font-weight:400;font-size:10px;">Média geral</span></th>
+                <th style="color:var(--khaki);">Cct Vertical<br><span style="font-weight:400;font-size:10px;">Média / Menção</span></th>
+                <th>Pontuação<br><span style="font-weight:400;font-size:10px;">Score final (0–10)</span></th>
+                <th>Situação</th>
+              </tr>
+            </thead>
+            <tbody id="consRankingBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dispersão: FRAD vs Acadêmico -->
+      <div class="two-col">
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">FRAD vs Média Acadêmica</div>
+          <div class="chart-wrap" style="height:280px;"><canvas id="consScatterChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Distribuição de Pontuação Final</div>
+          <div class="chart-wrap" style="height:280px;"><canvas id="consHistChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── INDIVIDUAL ── -->
     <div id="page-individual" class="page">
       <div class="section-title">FRAD</div>
@@ -467,7 +649,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
       <div id="individualContent">
         <div class="empty-state">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Selecione um aluno para ver sua análise individual.
         </div>
       </div>
@@ -561,11 +743,14 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 
       <div class="admin-panel">
         <div class="admin-panel-title">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           Importar nova planilha FRAD
         </div>
 
-        <div id="uploadZone" class="upload-zone" onclick="document.getElementById('adminFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)">
+        <div id="uploadZone" class="upload-zone" onclick="document.getElementById('adminFileInput').click()"
+             ondragover="event.preventDefault();this.classList.add('drag-over')"
+             ondragleave="this.classList.remove('drag-over')"
+             ondrop="handleDrop(event)">
           <div class="upload-icon">📊</div>
           <div class="upload-title">Arraste o arquivo .xlsx aqui ou clique para selecionar</div>
           <div class="upload-sub">Planilha exportada do Google Forms/Sheets<br>Colunas: Nº Aluno · Data · Registro · Conteúdo Atitudinal · Atividade · Fato Observado · Rspnl</div>
@@ -581,7 +766,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
 
       <div id="downloadSection" class="admin-panel" style="display:none;">
         <div class="admin-panel-title">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Publicar dashboard atualizado
         </div>
         <div class="download-section">
@@ -594,7 +779,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
             <div class="step-item">Todos os acessos ao link público verão os novos dados imediatamente.</div>
           </div>
           <button class="btn btn-primary" onclick="downloadUpdatedHTML()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Baixar HTML atualizado
           </button>
         </div>
@@ -623,7 +808,7 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
       <div class="search-wrap">
         <span class="search-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </span>
         <input type="text" class="search-input" id="sitSearch" placeholder="Pesquisar por nome, nome de guerra ou número..." oninput="renderSituacao()">
       </div>
@@ -754,10 +939,86 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
       <div id="perfil360Content">
         <div class="empty-state">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"></circle><path d="M3 21v-1a9 9 0 0118 0v1"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21v-1a9 9 0 0118 0v1"/></svg>
           Selecione um aluno para ver seu prontuário completo.
         </div>
       </div>
+    </div>
+
+
+    <!-- ── OPERAÇÕES DO CURSO ── -->
+    <div id="page-operacoes" class="page">
+      <div class="section-title">CAM em Tempo Real
+        <button class="btn btn-primary btn-sm" style="margin-left:.5rem;" onclick="openCOP()">&#9654; Modo COP — Tela Cheia</button>
+      </div>
+
+      <!-- Cards de tempo -->
+      <div class="ops-header-grid" id="opsHeaderCards"></div>
+
+      <!-- Progresso geral -->
+      <div class="chart-card" style="padding:1rem 1.25rem;margin-bottom:1.25rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+          <div class="chart-title">Progresso Geral do Curso</div>
+          <span id="opsProgressPct" style="font-size:13px;font-weight:700;color:var(--olive);"></span>
+        </div>
+        <div class="ops-progress-bar"><div class="ops-progress-fill" id="opsProgressFill" style="width:0%"></div></div>
+        <div id="opsProgressSub" style="font-size:11px;color:var(--text-faint);"></div>
+      </div>
+
+      <!-- Painel executivo -->
+      <div class="two-col" style="margin-bottom:1.25rem;">
+        <!-- AGORA -->
+        <div>
+          <div id="opsNowPanel"></div>
+          <!-- Anterior -->
+          <div id="opsPrevPanel"></div>
+        </div>
+        <!-- PRÓXIMA + 24h -->
+        <div>
+          <div id="opsNextPanel"></div>
+          <div class="chart-card" style="margin-top:0;">
+            <div class="chart-title" style="margin-bottom:.75rem;">Próximas 24 Horas</div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Horário</th><th>Disciplina</th><th>Assunto</th><th>Local</th></tr></thead>
+                <tbody id="ops24hBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline do dia + Semana -->
+      <div class="two-col">
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;" id="opsDayTitle">Cronograma do Dia</div>
+          <div id="opsDayTimeline"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" style="margin-bottom:1rem;">Visão Semanal</div>
+          <div id="opsWeekPanel"></div>
+          <div style="margin-top:1rem;">
+            <div class="chart-title" style="margin-bottom:.75rem;font-size:12px;">Disciplinas da Semana</div>
+            <div id="opsWeekDiscs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COP - Centro de Operações (tela cheia) -->
+    <div id="copOverlay" class="cop-overlay">
+      <div class="cop-header">
+        <div>
+          <div class="cop-title">&#9670; CAMt 2026 — Centro de CAM em Tempo Real</div>
+          <div id="copProgresso" style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;"></div>
+        </div>
+        <div style="text-align:right;">
+          <div class="cop-clock" id="copClock">--:--:--</div>
+          <div class="cop-date" id="copDate"></div>
+          <div style="margin-top:8px;"><button class="cop-btn-exit" onclick="closeCOP()">&#x2715; Fechar</button></div>
+        </div>
+      </div>
+      <div class="cop-body" id="copBody"></div>
     </div>
 
   </main>
@@ -768,10 +1029,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
      NÃO altere manualmente esta seção
 ════════════════════════════════════════════ -->
 <script id="embeddedData" type="application/json">
-{"frad":[{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Cooperação, Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Disciplina Consciente, Valor: Espírito de corpo","atividade":"Cerimonial","fato":"por ocasião do cerimonial, ter montado o armamento e mochila antes de todos os alunos, no entanto quando ficou pronto, demonstrou individualidade ao não ajudar outros alunos na montagem da mochila, aparentando estar “enrolando” ao arrumar sua mochila com calma ao invés de ajudar os outros","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente, Valor: Disciplina, Valor: Espírito de corpo","atividade":"Aula Inaugural","fato":"Dormindo na aula inaugural","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Aula Inaugural","fato":"Único aluno a deixar o fuzil com reforçador para tiro de festim no auditório","rspnl":"CE","semana":"2026-S24","mes":"2026-06"},{"aluno":"10","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"28","dateStr":"2026-06-09","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"Por participação positiva na instrução de reciclagem de Escalada Operacional, por ocasião da demonstração realizada na torre da PTM.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Escalada operacional","fato":"Por bradar verbalmento comandos durante sua guiada com Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"02","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Moral: Autoconhecimento","atividade":"Escalada operacional","fato":"Por não saber montar e/ou utilizar corretamente o freio ATC quando na função de Nr 2 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"22","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático","atividade":"Escalada operacional","fato":"Por deixar de executar a atividade diurna ao não escalar a Rota 3 do Paredão 3 quando na função de Nr 1de Cdd, por ocasião da prática de Escalada Operacional.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático, Cpcd Fis: Equilíbrio recuperado","atividade":"Escalada operacional","fato":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3.\r\n\r\nApós alguns “caindos” o referido aluno pediu desligamento voluntário, sendo desescalado pelo instrutor/avaliador para conversar com o Coordenador do Curso. Ao chegar no areal solicitou visita médica, sendo examinado pelo Sgt APH. Após o atendimento médico e/ou conversa com o Coordenador, o referido aluno foi reintegrado ao turno para execução do restante da atividade.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Moral: Autoconhecimento","atividade":"Escalada operacional","fato":"Ao desescalar com o freio Stop o referido aluno pressionou a alavanca do freio ocasionando a liberação total do sistema de travamento, vindo a despencar alguns metros em queda livre, atentando contra a segurança, por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Cpcd Fis: Equilíbrio dinâmico, Cpcd Fis: Equilíbrio estático, Cpcd Fis: Equilíbrio recuperado","atividade":"Escalada operacional","fato":"Por executar parcialmente a atividade noturna ao não conseguir equipar a sua via quando na função de Nr 1 de Cdd, por ocasião da prática de Escalada Operacional no Paredão 3. Durante a atividade, por 2 (duas) vezes houve a necessidade de realizar um auto resgate no referido aluno.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"13","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"16","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Valor: Disciplina","atividade":"Escalada operacional","fato":"Por não estarem com suas lanternas de cabeça veladas por ocasião da prática de Escalada Operacional no Paredão 3.","rspnl":"SS","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Autoconfiança, Att:  Coragem física, Att: Decisão, Att: Persistência, Cpcd Cognitiva: Avaliação, Cpcd Fis: Agilidade","atividade":"Escalada operacional","fato":"por não concluir a tarefa que a ele foi determinada (escalador 1 da rota 3 paredão 3) vindo a pedir desligamento ao ser interpelado pelo instrutor.","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Avaliação, Cpcd Fis: Resistência aeróbica, Valor: Aprimoramento técnico profissional","atividade":"TCM - 3ª parte - Orientação","fato":"Em virtude da não conclusão da pista de orientação prevista no TCM – 3ª Parte, teve sua situação alterada de \"Normal\" para \"Observação\".","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Avaliação, Cpcd Fis: Resistência aeróbica, Valor: Aprimoramento técnico profissional","atividade":"TCM - 3ª parte - Orientação","fato":"Em virtude da não conclusão da pista de orientação prevista no TCM – 3ª Parte, teve sua situação alterada de \"Normal\" para \"Observação\".","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Decisão, Cpcd Cognitiva: Avaliação, Cpcd Fis: Resistência muscular localizada, Valor: Aprimoramento técnico profissional","atividade":"TCM - 3ª parte - Orientação","fato":"Em virtude da não conclusão da pista de orientação prevista no TCM – 3ª Parte, não pegou nenhum ponto, teve sua situação alterada de \"Normal\" para \"Xeque\".","rspnl":"BA","semana":"2026-S24","mes":"2026-06"},{"aluno":"02","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"07","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"12","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"18","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"23","dateStr":"2026-06-08","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Cognitiva: Planejamento, Cpcd Cognitiva: Resolução de Problemas, Valor: Aprimoramento técnico profissional","atividade":"Pista de Orientação Mista","fato":"Por não terem informado a equipe de instrução que o GPS para a atividade de orientação noturna foi apagado pelos seus integrantes através de (Pane do Operador), realizando a atividade de Navegação/Orientação de forma não segura, atentando contra a segurança e não cumprindo recomendações da equipe de instrução para tal ocorrência.","rspnl":"LG, LE e AT","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Fis: Agilidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"por deixar 3 meios mal empregados, vindo a soltar da via e deixar materiais como mosquetão e fita com o 2 de cordada que seria necessário para a escalada","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Resolução de Problemas","atividade":"Escalada operacional","fato":"por não saber utilizar o saca cunha, apresentando dificuldades para retirar meios","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Moral: Disciplina Consciente","atividade":"Escalada operacional","fato":"por retirar o capacete na base do paredão para arrumar a lanterna de cabeça","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Att: Persistência, Cpcd Fis: Agilidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"pela técnica de escalada horrível, demonstrando inexperiência no emprego de meios e na confecção de equalização, além da desorganização do material no boldrier, não sabendo onde estava o meio a ser empregado, perdendo tempo na escalada para procurar o material","rspnl":"FB","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Meticulosidade, Cpcd Fis: Agilidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"Por não conduzir lanterna de cabeça para a atividade de escalada noturna.","rspnl":"FA","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Persistência, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"Pela técnica de escalada horrível, ficando 2 horas na mesma posição da rota 7 , demonstrando falta de técnica e falta de querencia","rspnl":"FA","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Meticulosidade","atividade":"Condução Fogos de Artilharia","fato":"Por não estar com a identificação na placa do guarda mão do fuzil.","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Rusticidade, Cpcd Moral: Disciplina Consciente","atividade":"Condução Fogos de Artilharia","fato":"Por estar dormindo durante a instrução","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"15","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Persistência, Att: Rusticidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"por não concluir a tarefa que a ele foi determinada (escalador 1 da rota 3) vindo a pedir desligamento ao interpelado por este instrutor;","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"19","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Planejamento","atividade":"Escalada operacional","fato":"por apresentar baixo desempenho na função de 2 de cordada, e por ter atentado contra segurança após dar  o pronto para o instrutor com os mosquetões de seg do freio e do backup abertos;","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"08","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Cpcd Cognitiva: Avaliação","atividade":"Escalada operacional","fato":"por apresentar baixo desempenho na função de 1 de cordada, Al sem determinação.","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"20","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Valor: Aprimoramento técnico profissional","atividade":"Escalada operacional","fato":"por demonstrar baixo desempenho na função de 2 de cordada, o referido aluno demonstra muita dúvida e falta de conhecimento dos procedimentos.","rspnl":"ED","semana":"2026-S24","mes":"2026-06"},{"aluno":"14","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Resolução de Problemas, Cpcd Fis: Agilidade, Valor: Disciplina","atividade":"Cerimonial","fato":"Por não seguirem a sequência correta do cerimonial, montando o armamento antes de municiar o carregador","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"21","dateStr":"2026-06-10","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade, Cpcd Cognitiva: Resolução de Problemas, Cpcd Fis: Agilidade, Valor: Disciplina","atividade":"Cerimonial","fato":"Por não seguirem a sequência correta do cerimonial, montando o armamento antes de municiar o carregador","rspnl":"WE","semana":"2026-S24","mes":"2026-06"},{"aluno":"09","dateStr":"2026-06-09","tipo":"Negativo","conteudo":"Att: Decisão, Att: Meticulosidade","atividade":"Escalada operacional","fato":"por estar com o encordamento no loop e não no caminho do loop","rspnl":"MM","semana":"2026-S24","mes":"2026-06"},{"aluno":"03","dateStr":"2026-06-11","tipo":"Positivo","conteudo":"Cpcd Cognitiva: Resolução de Problemas, Cpcd Moral: Autoconhecimento, Valor: Aprimoramento técnico profissional","atividade":"GAA","fato":"por apresentar bom rendimento durante prática de simulação para GAA.","rspnl":"MC","semana":"2026-S24","mes":"2026-06"}],"situacao":[{"nr":"01","sit":"Desl Sol Própria","identidade":"220231948","posto":"Cap","qas":"Inf","nome":"Rodolpho Gomes do Sacramento","guerra":"SACRAMENTO","om":"12º BI Mth"},{"nr":"02","sit":"Matriculado","identidade":"220934145","posto":"Cap","qas":"Inf","nome":"Augusto César de Oliveira Matos","guerra":"AUGUSTO CÉSAR","om":"29° BIB"},{"nr":"03","sit":"Matriculado","identidade":"101196459","posto":"1º Ten","qas":"Inf","nome":"Moiseis Mendes Moreira","guerra":"MENDES","om":"12° BI Mth"},{"nr":"04","sit":"Não apresentado","identidade":"1103188551","posto":"1º Ten","qas":"Inf","nome":"Bruno Ricardo dos Santos Dias Paz","guerra":"BRUNO PAZ","om":"11º BI Mth"},{"nr":"05","sit":"Matriculado","identidade":"828492942","posto":"1º Ten","qas":"Inf","nome":"Gustavo Henrique Das Chagas Mozeleski","guerra":"MOZELESKI","om":"11º BI Mth"},{"nr":"06","sit":"Matriculado","identidade":"701090953","posto":"1º Ten","qas":"Inf","nome":"Anderson Guerreiro Lemos","guerra":"GUERREIRO LEMOS","om":"11º BI Mth"},{"nr":"07","sit":"Matriculado","identidade":"403455272","posto":"1º Ten","qas":"Inf","nome":"Vinicius Moreira Mendes","guerra":"VINICIUS MOREIRA","om":"10º BI Mth"},{"nr":"08","sit":"Matriculado","identidade":"053757994-8","posto":"1º Ten","qas":"Art","nome":"Daniel de Oliveira Pimentel da Silva","guerra":"PIMENTEL","om":"4º GAC Mth"},{"nr":"09","sit":"Matriculado","identidade":"400670451","posto":"2º Ten","qas":"Art","nome":"Higor Ladeira de Sousa","guerra":"DE SOUSA","om":"4º GAC Mth"},{"nr":"10","sit":"Matriculado","identidade":"210214177","posto":"2º Ten","qas":"Art","nome":"Guilherme Batista Iabrudi","guerra":"IABRUDI","om":"4º GAC Mth"},{"nr":"11","sit":"Desl Sol Própria","identidade":"210212379","posto":"2º Ten","qas":"Inf","nome":"Matheus José de Oliveira","guerra":"MATHEUS OLIVEIRA","om":"11° BI Mth"},{"nr":"12","sit":"Matriculado","identidade":"210212270","posto":"2º Ten","qas":"Inf","nome":"Mclean da Costa Dias","guerra":"MCLEAN","om":"32º BI Mth"},{"nr":"13","sit":"Matriculado","identidade":"211071873","posto":"Asp Of","qas":"Inf","nome":"João Pedro Gusmão Vilas Boas","guerra":"GUSMÃO","om":"11º BI Mth"},{"nr":"14","sit":"Matriculado","identidade":"401446257","posto":"1º Sgt","qas":"Art","nome":"Saulo Rodrigues de Oliveira","guerra":"SAULO RODRIGUES","om":"4º GAC Mth"},{"nr":"15","sit":"Matriculado","identidade":"202169777","posto":"2º Sgt","qas":"Inf","nome":"João Victor Benedito Camarano","guerra":"BENEDITO","om":"12° BI Mth"},{"nr":"16","sit":"Desl Sol Própria","identidade":"504249178","posto":"2º Sgt","qas":"Com","nome":"RAFAEL RODRIGUES DA PAZ","guerra":"RAFAEL","om":"4º Esqd C Mec"},{"nr":"17","sit":"Desl Sol Própria","identidade":"104088372","posto":"3º Sgt","qas":"Cav","nome":"Julio Bergallo","guerra":"BERGALLO","om":"4º Esqd C Mec"},{"nr":"18","sit":"Matriculado","identidade":"402205074","posto":"3º Sgt","qas":"Com","nome":"Guilherme Eustáquio Teixeira","guerra":"EUSTÁQUIO","om":"10° BI Mth"},{"nr":"19","sit":"Matriculado","identidade":"1002988572","posto":"3º Sgt","qas":"Inf","nome":"Joe Heber Raimundo de Souza","guerra":"HEBER","om":"32º BI Mth"},{"nr":"20","sit":"Matriculado","identidade":"1002992475","posto":"3º Sgt","qas":"Com","nome":"Harlan Gabriel Lopes","guerra":"HARLAN","om":"4º GAC Mth"},{"nr":"21","sit":"Matriculado","identidade":"7969082","posto":"3º Sgt","qas":"Inf","nome":"Vinícius da Cruz Ferreira","guerra":"VINÍCIUS CRUZ","om":"Btl OpEsp Fuz Nav"},{"nr":"22","sit":"Desl Sol Própria","identidade":"406648279","posto":"3º Sgt","qas":"Inf","nome":"Miguel Augusto Resende Rocha","guerra":"MIGUEL","om":"11° BI Mth"},{"nr":"23","sit":"Desl Sol Própria","identidade":"911026672","posto":"3º Sgt","qas":"Inf","nome":"Gustavo Nunes Vieira Braga","guerra":"GUSTAVO VIEIRA","om":"10° BI Mth"}],"conceito":[{"nr":"01","sit":"Matriculado","autoconfianca":8.765,"cooperacao":8.65,"decisao":9,"equilibrio":9.429,"meticulosidade":8.9,"persistencia":8.857,"planejamento":9.143,"resolucao":9,"rusticidade":8.9,"tecnico":9.214,"media":8.986,"mencao":"MB","classif":2,"status":"Aprovado"},{"nr":"02","sit":"Matriculado","autoconfianca":6.941,"cooperacao":6.5,"decisao":7.591,"equilibrio":8,"meticulosidade":8.4,"persistencia":8.571,"planejamento":8.214,"resolucao":8,"rusticidade":6.55,"tecnico":8.214,"media":7.698,"mencao":"B","classif":12,"status":"Aprovado"},{"nr":"03","sit":"Matriculado","autoconfianca":7.438,"cooperacao":8.368,"decisao":8.524,"equilibrio":7.857,"meticulosidade":8.2,"persistencia":7.857,"planejamento":8.538,"resolucao":8.308,"rusticidade":8.105,"tecnico":8.615,"media":8.181,"mencao":"MB","classif":8,"status":"Aprovado"},{"nr":"04","sit":"Matriculado","autoconfianca":7.294,"cooperacao":8.4,"decisao":8.182,"equilibrio":8.857,"meticulosidade":7.9,"persistencia":8.714,"planejamento":8.214,"resolucao":8,"rusticidade":8.4,"tecnico":8.571,"media":8.253,"mencao":"MB","classif":6,"status":"Aprovado"},{"nr":"05","sit":"Matriculado","autoconfianca":6.941,"cooperacao":7.3,"decisao":7.455,"equilibrio":7.857,"meticulosidade":8.4,"persistencia":8.429,"planejamento":7.929,"resolucao":8.143,"rusticidade":6.9,"tecnico":7.714,"media":7.707,"mencao":"B","classif":11,"status":"Aprovado"},{"nr":"06","sit":"Matriculado","autoconfianca":6.941,"cooperacao":8.05,"decisao":7.545,"equilibrio":8.143,"meticulosidade":7.9,"persistencia":8.571,"planejamento":7.786,"resolucao":7.786,"rusticidade":7.85,"tecnico":8,"media":7.857,"mencao":"B","classif":9,"status":"Aprovado"},{"nr":"07","sit":"Matriculado","autoconfianca":5.824,"cooperacao":6.75,"decisao":6.364,"equilibrio":7.571,"meticulosidade":7.2,"persistencia":6.833,"planejamento":6.786,"resolucao":6.429,"rusticidade":6.947,"tecnico":6.786,"media":6.749,"mencao":"B","classif":14,"status":"Aprovado"},{"nr":"08","sit":"Matriculado","autoconfianca":9.412,"cooperacao":9.25,"decisao":9.227,"equilibrio":9.429,"meticulosidade":8.9,"persistencia":8.833,"planejamento":9.5,"resolucao":9.429,"rusticidade":9.15,"tecnico":9.214,"media":9.234,"mencao":"MB","classif":1,"status":"Aprovado"},{"nr":"09","sit":"Matriculado","autoconfianca":7.706,"cooperacao":8.3,"decisao":8,"equilibrio":8.286,"meticulosidade":8.1,"persistencia":8.714,"planejamento":8.286,"resolucao":8.214,"rusticidade":8.3,"tecnico":8.286,"media":8.219,"mencao":"MB","classif":7,"status":"Aprovado"},{"nr":"11","sit":"Matriculado","autoconfianca":7.412,"cooperacao":8.3,"decisao":8.182,"equilibrio":8.143,"meticulosidade":8.2,"persistencia":9,"planejamento":8.429,"resolucao":8.143,"rusticidade":8.7,"tecnico":8.357,"media":8.287,"mencao":"MB","classif":5,"status":"Aprovado"},{"nr":"13","sit":"Matriculado","autoconfianca":6.333,"cooperacao":6.944,"decisao":7,"equilibrio":7,"meticulosidade":6.778,"persistencia":8.833,"planejamento":7.462,"resolucao":7,"rusticidade":6.833,"tecnico":7.615,"media":7.18,"mencao":"B","classif":13,"status":"Aprovado"},{"nr":"14","sit":"Matriculado","autoconfianca":7.067,"cooperacao":7.647,"decisao":7.5,"equilibrio":8.333,"meticulosidade":7.889,"persistencia":8.667,"planejamento":7.692,"resolucao":7.846,"rusticidade":7.889,"tecnico":7.923,"media":7.845,"mencao":"B","classif":10,"status":"Aprovado"},{"nr":"16","sit":"Matriculado","autoconfianca":8.294,"cooperacao":8.55,"decisao":8.455,"equilibrio":8.571,"meticulosidade":8.3,"persistencia":9,"planejamento":9.143,"resolucao":8.857,"rusticidade":8.25,"tecnico":8.786,"media":8.621,"mencao":"MB","classif":3,"status":"Aprovado"},{"nr":"18","sit":"Matriculado","autoconfianca":7.941,"cooperacao":8.1,"decisao":8.429,"equilibrio":8.714,"meticulosidade":7.9,"persistencia":9,"planejamento":8.538,"resolucao":8.538,"rusticidade":8.421,"tecnico":8.857,"media":8.444,"mencao":"MB","classif":4,"status":"Aprovado"},{"nr":"Média Turno","sit":"","autoconfianca":7.451,"cooperacao":7.936,"decisao":7.961,"equilibrio":8.299,"meticulosidade":8.069,"persistencia":8.563,"planejamento":8.261,"resolucao":8.121,"rusticidade":7.942,"tecnico":8.297,"media":8.09,"mencao":"","classif":null,"status":""}],"avaliacoes":[{"aluno":"01","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8.6},{"aluno":"02","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8.6},{"aluno":"03","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8.6},{"aluno":"04","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":4.3},{"aluno":"05","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":7.1},{"aluno":"06","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":5.8},{"aluno":"07","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8},{"aluno":"08","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8.6},{"aluno":"09","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":7.4},{"aluno":"11","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":6},{"aluno":"13","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8.6},{"aluno":"14","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":9},{"aluno":"15","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":6.8},{"aluno":"16","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":7.4},{"aluno":"18","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":7.5},{"aluno":"20","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":8.1},{"aluno":"21","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":9.1},{"aluno":"22","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":6.1},{"aluno":"23","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":4.8},{"aluno":"25","instrutor":"LL","tipo":"AS","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-28","nota":7.3},{"aluno":"04","instrutor":"LL","tipo":"AR","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-29","nota":5},{"aluno":"23","instrutor":"LL","tipo":"AR","disciplina":"Armamento Munição e Tiro","descricao":"","dateStr":"2025-06-29","nota":5},{"aluno":"01","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.83},{"aluno":"02","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.1},{"aluno":"03","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":6.58},{"aluno":"04","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":6.75},{"aluno":"05","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.12},{"aluno":"06","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.26},{"aluno":"07","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.39},{"aluno":"08","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.69},{"aluno":"09","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":6.56},{"aluno":"11","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.51},{"aluno":"13","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":8.2},{"aluno":"14","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":6.45},{"aluno":"15","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":6.54},{"aluno":"16","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":7.29},{"aluno":"18","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":5.71},{"aluno":"22","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":5.26},{"aluno":"23","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":5.44},{"aluno":"25","instrutor":"RN","tipo":"AS","disciplina":"Avaliação Teórica","descricao":"","dateStr":"2025-07-05","nota":6.17},{"aluno":"01","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"02","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":6.4},{"aluno":"03","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.2},{"aluno":"04","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"05","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"06","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":6.4},{"aluno":"07","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.2},{"aluno":"08","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"09","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"11","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":6.4},{"aluno":"13","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.2},{"aluno":"14","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"15","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"16","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":6.4},{"aluno":"18","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.2},{"aluno":"22","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"23","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":7.9},{"aluno":"25","instrutor":"LL","tipo":"AF","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-04","nota":6.4},{"aluno":"01","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":8.1},{"aluno":"02","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":7.8},{"aluno":"03","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":8.1},{"aluno":"04","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":6.8},{"aluno":"05","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":7.2},{"aluno":"06","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":7.6},{"aluno":"07","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":5.1},{"aluno":"08","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":8.5},{"aluno":"09","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":7.6},{"aluno":"11","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":8.2},{"aluno":"13","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":6.3},{"aluno":"14","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":6.4},{"aluno":"15","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":5.6},{"aluno":"16","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":6.7},{"aluno":"18","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":6.4},{"aluno":"22","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":5.8},{"aluno":"23","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":2.6},{"aluno":"25","instrutor":"LL","tipo":"AS","disciplina":"Observação e Vigilância em Montanha","descricao":"RIPI (São José)","dateStr":"2025-07-15","nota":3.7},{"aluno":"01","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.6},{"aluno":"02","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.3},{"aluno":"03","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":7.8},{"aluno":"04","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":6.8},{"aluno":"05","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.6},{"aluno":"06","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.3},{"aluno":"07","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":7.8},{"aluno":"08","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":6.8},{"aluno":"09","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.6},{"aluno":"11","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.3},{"aluno":"13","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":7.8},{"aluno":"14","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":6.8},{"aluno":"15","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.6},{"aluno":"16","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.3},{"aluno":"18","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":7.8},{"aluno":"22","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":6.8},{"aluno":"23","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.6},{"aluno":"25","instrutor":"CO","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"Ouro Preto","dateStr":"2025-07-12","nota":8.3},{"aluno":"01","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.2},{"aluno":"02","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7},{"aluno":"03","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":8.6},{"aluno":"04","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.5},{"aluno":"05","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.4},{"aluno":"06","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.2},{"aluno":"07","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":8.4},{"aluno":"08","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":8.2},{"aluno":"09","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.5},{"aluno":"11","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":6.8},{"aluno":"13","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.4},{"aluno":"14","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.4},{"aluno":"15","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7},{"aluno":"16","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":6.5},{"aluno":"18","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":8},{"aluno":"22","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7.7},{"aluno":"23","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":7},{"aluno":"25","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Reconhecimento de Itinerário","descricao":"São José","dateStr":"2025-07-14","nota":5},{"aluno":"01","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.88},{"aluno":"02","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":7.63},{"aluno":"03","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.75},{"aluno":"04","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.05},{"aluno":"05","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.88},{"aluno":"06","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":7.63},{"aluno":"07","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.75},{"aluno":"08","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.05},{"aluno":"09","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.88},{"aluno":"11","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":7.63},{"aluno":"13","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.75},{"aluno":"14","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.05},{"aluno":"15","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.88},{"aluno":"16","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":7.63},{"aluno":"18","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.75},{"aluno":"22","instrutor":"Cap Coelho","tipo":"AF","disciplina":"Reconhecimento de Itinerário","descricao":"Cruzeirinho","dateStr":"2025-07-09","nota":8.05},{"aluno":"01","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":9.7},{"aluno":"02","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.5},{"aluno":"03","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.8},{"aluno":"04","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":8.2},{"aluno":"05","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":9.7},{"aluno":"06","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.5},{"aluno":"07","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.8},{"aluno":"09","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":9.7},{"aluno":"11","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.5},{"aluno":"13","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.8},{"aluno":"14","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":8.2},{"aluno":"15","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":9.7},{"aluno":"16","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.5},{"aluno":"18","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.8},{"aluno":"22","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":8.2},{"aluno":"23","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":9.7},{"aluno":"25","instrutor":"MA","tipo":"AF","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão IV","dateStr":"2025-07-08","nota":6.5},{"aluno":"01","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"02","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":8.8},{"aluno":"03","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"04","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.4},{"aluno":"05","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"06","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":8.8},{"aluno":"07","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"08","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.4},{"aluno":"09","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"11","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":8.8},{"aluno":"13","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"14","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.4},{"aluno":"15","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"16","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":8.8},{"aluno":"18","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"22","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.4},{"aluno":"23","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":9.7},{"aluno":"25","instrutor":"MA","tipo":"AS","disciplina":"Reconhecimento de Obstáculos","descricao":"Paredão III","dateStr":"2025-07-09","nota":8.8},{"aluno":"01","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":8.5},{"aluno":"02","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.7},{"aluno":"03","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":7.6},{"aluno":"04","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":8.2},{"aluno":"05","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":7},{"aluno":"06","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.1},{"aluno":"07","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":7},{"aluno":"08","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":8.5},{"aluno":"09","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.4},{"aluno":"11","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.7},{"aluno":"13","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":5.2},{"aluno":"14","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.7},{"aluno":"15","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.1},{"aluno":"16","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":6.4},{"aluno":"18","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":5.2},{"aluno":"22","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":5.5},{"aluno":"23","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":3.3},{"aluno":"25","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"Pista","dateStr":"2025-06-30","nota":4},{"aluno":"01","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":8.33},{"aluno":"02","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"03","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"04","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"05","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"06","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9},{"aluno":"07","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":8.33},{"aluno":"08","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"09","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"10","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"11","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"12","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9},{"aluno":"13","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":8.33},{"aluno":"14","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"15","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"16","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"17","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"18","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9},{"aluno":"19","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":8.33},{"aluno":"20","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"21","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"22","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"23","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"24","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9},{"aluno":"25","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":9.33},{"aluno":"26","instrutor":"RS","tipo":"AF","disciplina":"Vida e Movimento em Montanha","descricao":"Mista","dateStr":"2025-07-07","nota":7.66},{"aluno":"01","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":9},{"aluno":"02","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":10},{"aluno":"03","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":10},{"aluno":"04","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":10},{"aluno":"05","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":8.5},{"aluno":"06","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":10},{"aluno":"07","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":8},{"aluno":"08","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":9.5},{"aluno":"09","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":8.5},{"aluno":"11","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":9.5},{"aluno":"13","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":9.5},{"aluno":"14","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":10},{"aluno":"15","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":9.5},{"aluno":"16","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":8.5},{"aluno":"18","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":10},{"aluno":"22","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":8},{"aluno":"23","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":7},{"aluno":"25","instrutor":"RS","tipo":"AS","disciplina":"Vida e Movimento em Montanha","descricao":"GPS","dateStr":"2025-07-02","nota":8},{"aluno":"01","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8.1},{"aluno":"02","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8.4},{"aluno":"03","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":7.7},{"aluno":"04","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":5.1},{"aluno":"05","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8.3},{"aluno":"06","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":6},{"aluno":"07","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":7.8},{"aluno":"08","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":9},{"aluno":"09","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8.2},{"aluno":"11","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":7.3},{"aluno":"13","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":6.1},{"aluno":"14","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8},{"aluno":"15","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":6.7},{"aluno":"16","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":9.2},{"aluno":"18","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8.2},{"aluno":"22","instrutor":"SS","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzito","dateStr":"2025-07-16","nota":8.1},{"aluno":"01","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7.4},{"aluno":"02","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":5.6},{"aluno":"03","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7.8},{"aluno":"04","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7.4},{"aluno":"05","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7.9},{"aluno":"06","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":6.3},{"aluno":"07","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":6.6},{"aluno":"08","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":8.5},{"aluno":"09","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7.1},{"aluno":"11","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":8.8},{"aluno":"13","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7.3},{"aluno":"14","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":7},{"aluno":"15","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":4.6},{"aluno":"16","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":9.2},{"aluno":"18","instrutor":"BA e CO","tipo":"AS","disciplina":"Patrulhas","descricao":"Basalto","dateStr":"2025-07-31","nota":5.8},{"aluno":"01","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.4},{"aluno":"02","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":6.4},{"aluno":"03","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.1},{"aluno":"04","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.2},{"aluno":"05","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":7.7},{"aluno":"06","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":6.2},{"aluno":"07","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":4.1},{"aluno":"08","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.5},{"aluno":"09","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.8},{"aluno":"11","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.7},{"aluno":"13","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":8.1},{"aluno":"14","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":6.7},{"aluno":"16","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":7.8},{"aluno":"18","instrutor":"JO","tipo":"AR","disciplina":"Patrulhas","descricao":"Mármore","dateStr":"2025-07-31","nota":5},{"aluno":"01","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":7.1},{"aluno":"02","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":3.1},{"aluno":"03","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":0},{"aluno":"04","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":4.4},{"aluno":"05","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":7.2},{"aluno":"06","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":6.4},{"aluno":"07","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":5.3},{"aluno":"08","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":7.2},{"aluno":"09","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":6},{"aluno":"11","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":7.4},{"aluno":"13","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":5.2},{"aluno":"14","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":7.7},{"aluno":"15","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":0},{"aluno":"16","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":9.2},{"aluno":"18","instrutor":"LL","tipo":"AF","disciplina":"Patrulhas","descricao":"Quartzo","dateStr":"2025-07-29","nota":7.5},{"aluno":"01","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":8.9},{"aluno":"02","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":5.1},{"aluno":"03","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":7.9},{"aluno":"04","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":7.9},{"aluno":"05","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":7},{"aluno":"06","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":5.5},{"aluno":"07","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":5.5},{"aluno":"08","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":9},{"aluno":"09","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":7},{"aluno":"11","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":6.7},{"aluno":"13","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":6.1},{"aluno":"14","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":5},{"aluno":"16","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":7.9},{"aluno":"18","instrutor":"SS","tipo":"AF","disciplina":"Operações","descricao":"Lavras","dateStr":"2025-08-06","nota":6},{"aluno":"01","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.1},{"aluno":"02","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.6},{"aluno":"03","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.3},{"aluno":"04","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":9.1},{"aluno":"05","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":7.6},{"aluno":"06","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":9.2},{"aluno":"07","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.8},{"aluno":"08","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.4},{"aluno":"09","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.1},{"aluno":"11","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":9.4},{"aluno":"13","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":9.4},{"aluno":"14","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":9.2},{"aluno":"16","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":9.4},{"aluno":"18","instrutor":"LL","tipo":"AS","disciplina":"Operações","descricao":"Caparaó","dateStr":"2025-08-13","nota":8.1},{"aluno":"01","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":7.8},{"aluno":"02","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":8.7},{"aluno":"03","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":8},{"aluno":"04","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":5.1},{"aluno":"05","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":8.6},{"aluno":"06","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":5.1},{"aluno":"07","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":5.5},{"aluno":"08","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":9.6},{"aluno":"09","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":7.4},{"aluno":"11","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":9},{"aluno":"13","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":5.8},{"aluno":"14","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":7.1},{"aluno":"16","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":8.6},{"aluno":"18","instrutor":"JO","tipo":"AS","disciplina":"Operações","descricao":"Carmópolis","dateStr":"2025-08-08","nota":8.1},{"aluno":"01","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7.9},{"aluno":"02","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7.4},{"aluno":"03","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7.8},{"aluno":"04","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":8.1},{"aluno":"05","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7},{"aluno":"06","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":5.1},{"aluno":"07","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":6.6},{"aluno":"08","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":8.5},{"aluno":"09","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7.5},{"aluno":"11","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7.6},{"aluno":"13","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":7.2},{"aluno":"14","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":6.5},{"aluno":"16","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":8.7},{"aluno":"18","instrutor":"Cap Coelho","tipo":"AS","disciplina":"Operações","descricao":"Papagaio","dateStr":"2025-08-18","nota":6.5}]}
+null
 </script>
 <script id="embeddedMeta" type="application/json">
-{"updatedAt":"2026-06-12T11:54:53.162Z","recordCount":44,"studentCount":18}
+{"updatedAt":null,"recordCount":0,"studentCount":0}
 </script>
 
 <!-- ══════════════════════════════════════════
@@ -800,7 +1061,10 @@ let rawData = [];
 let allStudents = [];
 let charts = {};
 let isAdminMode = false;
-let pendingProcessedData = null; // dados processados aguardando publicação
+let pendingProcessedData = null;
+let cronogramaData = []; // agenda processada do curso
+let opsTimer = null;     // timer de atualização do módulo operações
+let copTimer = null;     // timer do COP // dados processados aguardando publicação
 let ORIGINAL_HTML = null; // snapshot do HTML original (capturado antes de qualquer alteração)
 
 /* ─── INICIALIZAÇÃO ──────────────────────── */
@@ -831,6 +1095,7 @@ function loadEmbeddedData() {
         situacaoData = raw.situacao || [];
         conceitoData = raw.conceito || [];
         avaliacaoData = raw.avaliacoes || [];
+        cronogramaData = raw.cronograma || [];
       }
       updateHeaderInfo(meta);
       populateFilters();
@@ -989,8 +1254,15 @@ function processAdminFile(file) {
         addLog('ok', `AVALIACOES: ${avaliacaoData.length} registros processados.`);
       }
 
+      // ─ Ler CRONOGRAMA ─
+      if (wb.Sheets['CRONOGRAMA']) {
+        const cronoJson = XLSX.utils.sheet_to_json(wb.Sheets['CRONOGRAMA'], { raw: true, defval: null });
+        cronogramaData = parseCronograma(cronoJson);
+        addLog('ok', `CRONOGRAMA: ${cronogramaData.length} atividades processadas.`);
+      }
+
       const students = [...new Set(processed.map(r => r.aluno))].sort((a,b) => +a - +b);
-      pendingProcessedData = { frad: processed, situacao: situacaoData, conceito: conceitoData, avaliacoes: avaliacaoData };
+      pendingProcessedData = { frad: processed, situacao: situacaoData, conceito: conceitoData, avaliacoes: avaliacaoData, cronograma: cronogramaData };
       rawData = processed.map(r => ({ ...r, data: r.dateStr ? new Date(r.dateStr) : null }));
       allStudents = students;
       const meta = { updatedAt: new Date().toISOString(), recordCount: processed.length, studentCount: students.length };
@@ -1085,10 +1357,11 @@ function downloadUpdatedHTML() {
     cleanSit = pendingProcessedData.situacao || [];
     cleanCct = pendingProcessedData.conceito || [];
     cleanAval = pendingProcessedData.avaliacoes || [];
+    const cleanCrono = pendingProcessedData.cronograma || [];
   } else {
     cleanFrad = (pendingProcessedData || []).map(r => { const { data, ...rest } = r; return rest; });
   }
-  const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval });
+  const dataJson = JSON.stringify({ frad: cleanFrad, situacao: cleanSit, conceito: cleanCct, avaliacoes: cleanAval, cronograma: cleanCrono });
   const metaJson = JSON.stringify(meta);
 
   // Usa o snapshot do HTML original capturado no carregamento da página
@@ -1184,6 +1457,7 @@ function populateFilters() {
 function renderAll() {
   renderOverview();
   renderRanking();
+  renderRankingConsolidado();
   renderAtividades();
   renderAtitudinal();
   renderTemporal();
@@ -1192,6 +1466,8 @@ function renderAll() {
   renderSituacao();
   renderAvalGeral();
   renderCctTurma();
+  renderOperacoes();
+  startOpsTimer();
 }
 
 /* ─── HELPERS NOVOS ──────────────────────── */
@@ -2545,6 +2821,686 @@ function renderAlertas() {
   container.innerHTML=rg('Situação Crítica',groups.danger,'danger')+rg('Requer Atenção',groups.warning,'warning')+rg('Evolução Positiva',groups.success,'success');
 }
 
+
+/* ─── RANKING CONSOLIDADO ──────────────────────────────────────────
+   Score final = (scoreFRAD × pesoFRAD) + (scoreAval × pesoAval) + (scoreCCT × pesoCCT)
+   Cada dimensão normalizada de 0 a 10.
+   FRAD:  scoreFRAD = min(10, max(0, 5 + saldo * 0.5))   → saldo 0 = 5pts, +10 = 10pts, -10 = 0pts
+   Aval:  scoreAval = média geral (já está em 0–10)
+   CCT:   scoreCCT  = média Conceito Vertical (já está em 0–10)
+──────────────────────────────────────────────────────────────────── */
+function renderRankingConsolidado() {
+  const pesoF = parseFloat(document.getElementById('pesoFRAD')?.value || 33) / 100;
+  const pesoA = parseFloat(document.getElementById('pesoAval')?.value || 34) / 100;
+  const pesoC = parseFloat(document.getElementById('pesoCCT')?.value  || 33) / 100;
+
+  // Valida soma dos pesos
+  const soma = Math.round((pesoF + pesoA + pesoC) * 100);
+  const aviso = document.getElementById('pesoAviso');
+  if (aviso) aviso.style.display = soma !== 100 ? 'block' : 'none';
+
+  // Monta lista de alunos com score em cada dimensão
+  const fradStats = getStudentStats(rawData); // {aluno, pos, neg, saldo}
+  const fradMap = {};
+  fradStats.forEach(s => { fradMap[s.aluno] = s; });
+
+  // Descobre set de todos os alunos (union de todas as fontes)
+  const allNrs = [...new Set([
+    ...allStudents,
+    ...conceitoData.map(c => c.nr),
+    ...[...new Set(avaliacaoData.map(a => a.aluno))]
+  ])].sort((a,b) => +a - +b);
+
+  const rows = allNrs.map(nr => {
+    // FRAD
+    const frad = fradMap[nr] || { pos:0, neg:0, saldo:0 };
+    const scoreFRAD = Math.min(10, Math.max(0, 5 + frad.saldo * 0.5));
+
+    // Avaliações
+    const avals = getAlunoAvaliacoes(nr);
+    const mediaAval = avg(avals.map(a => a.nota));
+    const scoreAval = mediaAval !== null ? mediaAval : null;
+
+    // Conceito Vertical
+    const cct = getAlunoConceito(nr);
+    const scoreCCT = cct ? cct.media : null;
+
+    // Score final — só conta as dimensões com dados
+    let totalPeso = 0, totalScore = 0;
+    if (frad.pos + frad.neg > 0) { totalScore += scoreFRAD * pesoF; totalPeso += pesoF; }
+    if (scoreAval !== null)        { totalScore += scoreAval * pesoA; totalPeso += pesoA; }
+    if (scoreCCT !== null)         { totalScore += scoreCCT * pesoC; totalPeso += pesoC; }
+    const scoreFinal = totalPeso > 0 ? totalScore / totalPeso : null;
+
+    const cad = getAlunoCadastro(nr);
+    return {
+      nr, cad,
+      frad, scoreFRAD,
+      mediaAval, scoreAval,
+      cct, scoreCCT,
+      scoreFinal,
+      hasDados: totalPeso > 0
+    };
+  })
+  .filter(r => r.hasDados)
+  .sort((a,b) => (b.scoreFinal||0) - (a.scoreFinal||0));
+
+  // ── CARDS ──
+  const cardsEl = document.getElementById('consCards');
+  if (cardsEl && rows.length) {
+    const withScore = rows.filter(r => r.scoreFinal !== null);
+    const mediaGeral = avg(withScore.map(r => r.scoreFinal));
+    const lider = rows[0];
+    const critico = rows[rows.length - 1];
+    const completos = rows.filter(r => r.scoreAval !== null && r.scoreCCT !== null && (r.frad.pos+r.frad.neg) > 0).length;
+    cardsEl.innerHTML = `
+      <div class="metric-card"><div class="metric-label">Alunos no Ranking</div><div class="metric-value">${rows.length}</div><div class="metric-sub">${completos} com dados completos</div></div>
+      <div class="metric-card"><div class="metric-label">Pontuação Média</div><div class="metric-value" style="color:var(--olive);">${mediaGeral !== null ? mediaGeral.toFixed(2) : '—'}</div></div>
+      <div class="metric-card success"><div class="metric-label">1º Colocado</div><div class="metric-value" style="font-size:20px;">Aluno ${lider.nr}</div><div class="metric-sub">${lider.cad ? lider.cad.guerra : ''} · ${lider.scoreFinal !== null ? lider.scoreFinal.toFixed(2) : '—'} pts</div></div>
+      <div class="metric-card danger"><div class="metric-label">Último Colocado</div><div class="metric-value" style="font-size:20px;">Aluno ${critico.nr}</div><div class="metric-sub">${critico.cad ? critico.cad.guerra : ''} · ${critico.scoreFinal !== null ? critico.scoreFinal.toFixed(2) : '—'} pts</div></div>
+    `;
+  }
+
+  // ── GRÁFICO DE BARRAS EMPILHADAS ──
+  const labels = rows.map(r => r.nr);
+  const fradScores  = rows.map(r => r.hasDados && (r.frad.pos+r.frad.neg) > 0 ? parseFloat((r.scoreFRAD * pesoF).toFixed(2)) : 0);
+  const avalScores  = rows.map(r => r.scoreAval !== null ? parseFloat((r.scoreAval * pesoA).toFixed(2)) : 0);
+  const cctScores   = rows.map(r => r.scoreCCT  !== null ? parseFloat((r.scoreCCT  * pesoC).toFixed(2)) : 0);
+  const barH = Math.max(240, rows.length * 28 + 60);
+  const wrapEl = document.getElementById('consChartWrap');
+  if (wrapEl) wrapEl.style.height = barH + 'px';
+  destroyChart('consChart');
+  const consEl = document.getElementById('consChart');
+  if (consEl) charts['consChart'] = new Chart(consEl, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'FRAD',        data: fradScores, backgroundColor: 'rgba(59,109,17,.75)',  borderRadius: 0 },
+        { label: 'Avaliações',  data: avalScores, backgroundColor: 'rgba(24,95,165,.7)',   borderRadius: 0 },
+        { label: 'Cct Vertical',data: cctScores,  backgroundColor: 'rgba(139,139,90,.8)',  borderRadius: 4  }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: { legend: { display: true, position: 'top', labels: { font: { size: 11 } } } },
+      scales: {
+        x: { stacked: true, beginAtZero: true, max: 10, ticks: { precision: 1 } },
+        y: { stacked: true }
+      }
+    }
+  });
+
+  // ── TABELA ──
+  const tbody = document.getElementById('consRankingBody');
+  if (!tbody) return;
+  tbody.innerHTML = rows.map((r, i) => {
+    const rank = i + 1;
+    const bc = rank===1?'rank-gold':rank===2?'rank-silver':rank===3?'rank-bronze':'rank-normal';
+    const rowClass = rank <= 3 ? 'highlight-row' : rank > rows.length - 3 ? 'attn-row' : '';
+    const pct = r.scoreFinal !== null ? Math.round(r.scoreFinal * 10) : 0;
+
+    // FRAD cell
+    const fradCell = (r.frad.pos + r.frad.neg) > 0
+      ? `<span class="badge badge-pos">+${r.frad.pos}</span> <span class="badge badge-neg">-${r.frad.neg}</span><span class="sub-score">Score: ${r.scoreFRAD.toFixed(1)}</span>`
+      : `<span style="color:var(--text-faint);font-size:11px;">Sem dados</span>`;
+
+    // Aval cell
+    const avalCell = r.mediaAval !== null
+      ? `${notaBadge(r.mediaAval)}<span class="sub-score">${r.frad.pos+r.frad.neg > 0 ? (avals => avals.length + ' avaliações')(getAlunoAvaliacoes(r.nr)) : ''}</span>`
+      : `<span style="color:var(--text-faint);font-size:11px;">Sem dados</span>`;
+
+    // CCT cell
+    const cctCell = r.cct
+      ? `${notaBadge(r.cct.media)} <span class="mention-badge mention-${r.cct.mencao}" style="width:28px;height:28px;font-size:11px;">${r.cct.mencao}</span>`
+      : `<span style="color:var(--text-faint);font-size:11px;">Sem dados</span>`;
+
+    // Score cell
+    const scoreCell = r.scoreFinal !== null
+      ? `<div class="score-bar-wrap"><div class="score-bar-track"><div class="score-bar-fill" style="width:${pct}%"></div></div><div class="score-value">${r.scoreFinal.toFixed(2)}</div></div>`
+      : '—';
+
+    // Situação
+    const sit = r.cad ? r.cad.sit : '';
+    const sitClass = sit.includes('Matriculado') ? 'badge-pos' : sit.includes('Desl') ? 'badge-neg' : 'badge-warn';
+    const sitCell = sit ? `<span class="badge ${sitClass}">${sit}</span>` : '—';
+
+    return `<tr class="${rowClass}" style="cursor:pointer;" onclick="goToPerfilFromRanking('${r.nr}')">
+      <td><span class="rank-badge ${bc}">${rank}</span></td>
+      <td><strong>Aluno ${r.nr}</strong></td>
+      <td>${r.cad ? r.cad.guerra : '—'}</td>
+      <td>${fradCell}</td>
+      <td>${avalCell}</td>
+      <td>${cctCell}</td>
+      <td>${scoreCell}</td>
+      <td>${sitCell}</td>
+    </tr>`;
+  }).join('');
+
+  // ── GRÁFICO DISPERSÃO FRAD vs AVAL ──
+  destroyChart('consScatterChart');
+  const scEl = document.getElementById('consScatterChart');
+  const scatterData = rows
+    .filter(r => r.scoreAval !== null && (r.frad.pos + r.frad.neg) > 0)
+    .map(r => ({ x: parseFloat(r.scoreFRAD.toFixed(2)), y: parseFloat(r.scoreAval.toFixed(2)), label: r.nr }));
+  if (scEl && scatterData.length) {
+    charts['consScatterChart'] = new Chart(scEl, {
+      type: 'scatter',
+      data: { datasets: [{
+        label: 'Alunos',
+        data: scatterData,
+        backgroundColor: scatterData.map(d => d.x >= 5 && d.y >= 7 ? 'rgba(59,109,17,.7)' : d.x < 5 || d.y < 7 ? 'rgba(163,45,45,.7)' : 'rgba(139,139,90,.7)'),
+        pointRadius: 8, pointHoverRadius: 10
+      }]},
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => `Aluno ${scatterData[ctx.dataIndex].label} — FRAD: ${ctx.parsed.x} | Aval: ${ctx.parsed.y}` } }
+        },
+        scales: {
+          x: { title: { display: true, text: 'Score FRAD (comportamental)' }, min: 0, max: 10 },
+          y: { title: { display: true, text: 'Média Acadêmica' }, min: 0, max: 10 }
+        }
+      }
+    });
+  }
+
+  // ── HISTOGRAMA DE DISTRIBUIÇÃO ──
+  destroyChart('consHistChart');
+  const histEl = document.getElementById('consHistChart');
+  if (histEl) {
+    const bins = [0,0,0,0,0]; // 0-2, 2-4, 4-6, 6-8, 8-10
+    rows.forEach(r => {
+      if (r.scoreFinal === null) return;
+      const idx = Math.min(4, Math.floor(r.scoreFinal / 2));
+      bins[idx]++;
+    });
+    charts['consHistChart'] = new Chart(histEl, {
+      type: 'bar',
+      data: {
+        labels: ['0–2','2–4','4–6','6–8','8–10'],
+        datasets: [{ label: 'Alunos', data: bins,
+          backgroundColor: ['#a32d2d','#854f0b','#8b8b5a','#185fa5','#3b6d11'],
+          borderRadius: 6 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+      }
+    });
+  }
+}
+
+function goToPerfilFromRanking(nr) {
+  const sel = document.getElementById('perfilStudentSelect');
+  if (sel) sel.value = nr;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const pg = document.getElementById('page-perfil'); if (pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => { if (n.textContent.trim().includes('Perfil')) n.classList.add('active'); });
+  if (typeof renderPerfil360 === 'function') renderPerfil360();
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO OPERAÇÕES DO CURSO — PARSER + RENDER + COP
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── PARSER DE CRONOGRAMA ─────────────────────────────────── */
+function parseCronograma(json) {
+  const result = [];
+  let currentDate = null; // data atual propagada para baixo
+  const MONTH_MAP = {
+    'jan':0,'fev':1,'feb':1,'mar':2,'abr':3,'apr':3,'mai':4,'may':4,
+    'jun':5,'jul':6,'ago':7,'aug':7,'set':8,'sep':8,'out':9,'oct':9,
+    'nov':10,'dez':11,'dec':11
+  };
+
+  function parseHourStr(h) {
+    // Handles: "1300\n1700", 1300 (number), "530", "0600\n1200"
+    if (h === null || h === undefined) return null;
+    const s = String(h).replace(/\n.*/, '').trim(); // pega só a parte antes do \n
+    const n = parseInt(s.replace(/\D/g,''));
+    if (isNaN(n)) return null;
+    const hh = Math.floor(n / 100), mm = n % 100;
+    return { h: hh % 24, m: mm };
+  }
+
+  function parseEndHour(h) {
+    if (h === null || h === undefined) return null;
+    const s = String(h);
+    if (s.includes('\n')) {
+      const parts = s.split('\n');
+      const n = parseInt(parts[1].trim().replace(/\D/g,''));
+      if (!isNaN(n)) { const hh = Math.floor(n/100), mm = n%100; return { h: hh%24, m: mm }; }
+    }
+    return null;
+  }
+
+  function parseDate(raw) {
+    // "Sex 12 junho" / "Sab 13\nJUNHO" / "QUINTA 11 junho" / "Ter\n7\nJULHO"
+    if (!raw) return null;
+    const s = raw.replace(/\n/g,' ').toLowerCase().trim();
+    // extract number
+    const numMatch = s.match(/(\d+)[°º]?/);
+    const day = numMatch ? parseInt(numMatch[1]) : null;
+    // extract month
+    let month = null;
+    for (const [k,v] of Object.entries(MONTH_MAP)) {
+      if (s.includes(k)) { month = v; break; }
+    }
+    if (day === null || month === null) return null;
+    const year = 2026; // curso é 2026
+    return new Date(year, month, day);
+  }
+
+  json.forEach(row => {
+    if (!row || Object.values(row).every(v => v === null)) return;
+
+    // Update current date if this row has one
+    const rawDate = row['DATA'];
+    if (rawDate && String(rawDate).trim() !== '' && String(rawDate).toLowerCase() !== 'data') {
+      const d = parseDate(String(rawDate));
+      if (d) currentDate = d;
+    }
+
+    // Only process rows with HORA in formato inicio\nfim (atividade real)
+    const rawHora = row['HORA'];
+    if (!rawHora || !String(rawHora).includes('\n')) return;
+
+    const disc = row['DISCIPLINA'] ? String(row['DISCIPLINA']).trim() : null;
+    if (!disc || disc.toLowerCase() === 'disciplina') return;
+
+    const inicio = parseHourStr(rawHora);
+    const fim = parseEndHour(rawHora);
+    if (!inicio || !currentDate) return;
+
+    // Build datetime objects
+    const dtInicio = new Date(currentDate);
+    dtInicio.setHours(inicio.h, inicio.m, 0, 0);
+
+    let dtFim = null;
+    if (fim) {
+      dtFim = new Date(currentDate);
+      // Handle overnight: if fim < inicio, add a day
+      dtFim.setHours(fim.h, fim.m, 0, 0);
+      if (dtFim <= dtInicio && (fim.h * 60 + fim.m) < (inicio.h * 60 + inicio.m)) {
+        dtFim.setDate(dtFim.getDate() + 1);
+      }
+    }
+
+    const assunto = row['ASSUNTO'] ? String(row['ASSUNTO']).replace(/^[-—]\s*/, '').trim() : '';
+    const objetivos = row['OBJETIVOS DE APRENDIZAGEM'] ? String(row['OBJETIVOS DE APRENDIZAGEM']).trim() : '';
+    const local = row['LOCAL'] ? String(row['LOCAL']).replace(/\n/g,' ').trim() : '';
+    const uniforme = row['UNIFORME'] ? String(row['UNIFORME']).replace(/\n/g,' ').trim() : '';
+    const instrutor = row['INSTRUTOR'] ? String(row['INSTRUTOR']).replace(/\n/g,' ').trim() : '';
+    const tu = row['TU INSTR'] ? String(row['TU INSTR']).trim() : '';
+
+    result.push({
+      data: currentDate.toISOString().slice(0,10),
+      dtInicio: dtInicio.toISOString(),
+      dtFim: dtFim ? dtFim.toISOString() : null,
+      horaInicioStr: String(inicio.h).padStart(2,'0') + ':' + String(inicio.m).padStart(2,'0'),
+      horaFimStr: fim ? String(fim.h%24).padStart(2,'0') + ':' + String(fim.m%24).padStart(2,'0') : null,
+      disciplina: disc,
+      assunto: assunto !== '---' ? assunto : '',
+      objetivos,
+      local,
+      uniforme,
+      instrutor,
+      tu
+    });
+  });
+
+  // Sort by dtInicio
+  result.sort((a,b) => new Date(a.dtInicio) - new Date(b.dtInicio));
+  return result;
+}
+
+/* ─── HELPERS OPERAÇÕES ────────────────────────────────────── */
+function getCursoStatus() {
+  if (!cronogramaData.length) return null;
+  const now = new Date();
+  const atv = cronogramaData;
+
+  const atual = atv.find(a => {
+    if (!a.dtFim) return false;
+    return new Date(a.dtInicio) <= now && now <= new Date(a.dtFim);
+  });
+
+  const proxima = atv.find(a => new Date(a.dtInicio) > now);
+
+  const anterior = [...atv].reverse().find(a => {
+    const fim = a.dtFim ? new Date(a.dtFim) : new Date(a.dtInicio);
+    return fim < now;
+  });
+
+  const hoje = now.toISOString().slice(0,10);
+  const doDia = atv.filter(a => a.data === hoje);
+
+  const total = atv.length;
+  const realizadas = atv.filter(a => {
+    const fim = a.dtFim ? new Date(a.dtFim) : new Date(a.dtInicio);
+    return fim < now;
+  }).length;
+  const pct = total > 0 ? Math.round(realizadas/total*100) : 0;
+
+  const primeiraData = new Date(atv[0].dtInicio);
+  const ultimaData = new Date(atv[atv.length-1].dtInicio);
+  const diasTotais = Math.ceil((ultimaData - primeiraData)/(1000*60*60*24)) + 1;
+  const diasDecorridos = Math.ceil((now - primeiraData)/(1000*60*60*24));
+  const semanaAtual = Math.max(1, Math.ceil(diasDecorridos/7));
+  const semanasTotal = Math.ceil(diasTotais/7);
+  const diaInstrucao = Math.max(1, diasDecorridos);
+
+  return { atual, proxima, anterior, doDia, total, realizadas, pct, semanaAtual, semanasTotal, diaInstrucao, diasTotais, primeiraData, ultimaData };
+}
+
+function formatCountdown(ms) {
+  if (ms <= 0) return '00:00';
+  const totalMin = Math.floor(ms/60000);
+  const h = Math.floor(totalMin/60), m = totalMin%60;
+  return h > 0 ? `${h}h ${String(m).padStart(2,'0')}min` : `${m}min`;
+}
+
+function weekLabel(s) {
+  return `Semana ${String(s).padStart(2,'0')}`;
+}
+
+/* ─── RENDER PRINCIPAL ─────────────────────────────────────── */
+function renderOperacoes() {
+  if (!cronogramaData.length) {
+    const noData = '<div class="ops-no-data"><div class="ops-no-data-icon">📅</div><div style="font-size:16px;font-weight:600;color:var(--olive);">Cronograma não carregado</div><div style="font-size:13px;max-width:350px;line-height:1.6;">Importe a planilha CAM_2026 com a aba CRONOGRAMA pelo modo admin para ativar este painel.</div></div>';
+    ['opsHeaderCards','opsNowPanel','opsNextPanel','opsPrevPanel','opsDayTimeline','opsWeekPanel','ops24hBody'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.innerHTML = noData;
+    });
+    return;
+  }
+
+  const st = getCursoStatus();
+  const now = new Date();
+
+  // ── CARDS DE TEMPO ──
+  const cardsEl = document.getElementById('opsHeaderCards');
+  if (cardsEl) {
+    const nowStr = now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+    const timeStr = now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    cardsEl.innerHTML = `
+      <div class="ops-time-card"><div class="ops-time-label">Data</div><div class="ops-time-value" style="font-size:16px;line-height:1.3;">${nowStr}</div></div>
+      <div class="ops-time-card" style="background:var(--olive-light);"><div class="ops-time-label">Hora</div><div class="ops-time-value" id="opsClockCard">${timeStr}</div></div>
+      <div class="ops-time-card" style="background:#2d3026;"><div class="ops-time-label">Semana do Curso</div><div class="ops-time-value">${weekLabel(st.semanaAtual)}</div><div class="ops-time-sub">de ${st.semanasTotal} semanas</div></div>
+      <div class="ops-time-card" style="background:#3b4a28;"><div class="ops-time-label">Dia de Instrução</div><div class="ops-time-value">Dia ${st.diaInstrucao}</div><div class="ops-time-sub">de ${st.diasTotais} dias</div></div>
+    `;
+  }
+
+  // ── PROGRESSO ──
+  const pFill = document.getElementById('opsProgressFill');
+  const pPct = document.getElementById('opsProgressPct');
+  const pSub = document.getElementById('opsProgressSub');
+  if (pFill) pFill.style.width = st.pct + '%';
+  if (pPct) pPct.textContent = st.pct + '%';
+  if (pSub) pSub.textContent = `${st.realizadas} de ${st.total} atividades concluídas · ${st.total - st.realizadas} restantes`;
+
+  // ── ATIVIDADE ATUAL ──
+  const nowEl = document.getElementById('opsNowPanel');
+  if (nowEl) {
+    if (st.atual) {
+      const a = st.atual;
+      const msLeft = a.dtFim ? new Date(a.dtFim) - now : 0;
+      const objs = a.objetivos ? a.objetivos.split(/\n|;\s*|-\s+/).filter(o=>o.trim().length>3) : [];
+      nowEl.innerHTML = `
+        <div class="ops-now">
+          <div class="ops-now-disc">${a.disciplina}</div>
+          <div class="ops-now-title">${a.assunto || a.disciplina}</div>
+          <div class="ops-now-grid">
+            <div class="ops-now-item"><div class="ops-now-item-label">Local</div><div class="ops-now-item-value">${a.local||'—'}</div></div>
+            <div class="ops-now-item"><div class="ops-now-item-label">Instrutor</div><div class="ops-now-item-value">${a.instrutor||'—'}</div></div>
+            <div class="ops-now-item"><div class="ops-now-item-label">Uniforme</div><div class="ops-now-item-value">${a.uniforme||'—'}</div></div>
+            <div class="ops-now-item"><div class="ops-now-item-label">Horário</div><div class="ops-now-item-value">${a.horaInicioStr}–${a.horaFimStr||'?'}</div></div>
+          </div>
+          <div class="ops-countdown">
+            <div><div class="ops-countdown-label">Tempo restante</div><div class="ops-countdown-value" id="opsCountdownNow">${formatCountdown(msLeft)}</div></div>
+            <span class="status" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#8bc34a;font-weight:700;">&#9679; EM EXECUÇÃO</span>
+          </div>
+          ${objs.length ? `<div class="ops-objetivos"><div class="ops-objetivos-label">Objetivos de Aprendizagem</div>${objs.map(o=>`<div class="ops-obj-item"><span class="ops-obj-icon">✓</span><span>${o.trim()}</span></div>`).join('')}</div>` : ''}
+        </div>`;
+    } else {
+      nowEl.innerHTML = `<div class="chart-card" style="text-align:center;padding:2rem;border-left:3px solid var(--border);margin-bottom:1.25rem;"><div style="font-size:32px;margin-bottom:.5rem;">⏸</div><div style="font-weight:600;color:var(--olive);">Sem atividade em execução</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Intervalo ou fora do horário de instrução</div></div>`;
+    }
+  }
+
+  // ── ATIVIDADE ANTERIOR ──
+  const prevEl = document.getElementById('opsPrevPanel');
+  if (prevEl && st.anterior) {
+    const a = st.anterior;
+    prevEl.innerHTML = `<div class="ops-prev"><div class="ops-prev-header">&#9679; Última Atividade Realizada</div><div style="font-weight:600;font-size:13px;">${a.disciplina}${a.assunto?' — '+a.assunto:''}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">${a.horaInicioStr}–${a.horaFimStr||'?'} &nbsp;|&nbsp; ${a.local||'—'} &nbsp;|&nbsp; ${a.instrutor||'—'}</div></div>`;
+  }
+
+  // ── PRÓXIMA ATIVIDADE ──
+  const nextEl = document.getElementById('opsNextPanel');
+  if (nextEl) {
+    if (st.proxima) {
+      const a = st.proxima;
+      const msAte = new Date(a.dtInicio) - now;
+      nextEl.innerHTML = `
+        <div class="ops-next">
+          <div class="ops-next-header">&#9654; Próxima Instrução</div>
+          <div class="ops-next-title">${a.assunto || a.disciplina}</div>
+          <div class="ops-next-disc">${a.disciplina}</div>
+          <div class="ops-next-grid">
+            <div class="ops-next-item"><strong>Horário</strong>${a.horaInicioStr}${a.horaFimStr?'–'+a.horaFimStr:''}</div>
+            <div class="ops-next-item"><strong>Local</strong>${a.local||'—'}</div>
+            <div class="ops-next-item"><strong>Instrutor</strong>${a.instrutor||'—'}</div>
+            <div class="ops-next-item"><strong>Uniforme</strong>${a.uniforme||'—'}</div>
+          </div>
+          <div style="font-size:12px;color:var(--info);margin-top:.75rem;font-weight:600;">Início em: ${formatCountdown(msAte)}</div>
+        </div>`;
+    } else {
+      nextEl.innerHTML = `<div class="ops-next"><div class="ops-next-header">Próxima Instrução</div><div style="color:var(--text-faint);font-size:13px;">Não há mais atividades previstas.</div></div>`;
+    }
+  }
+
+  // ── TIMELINE DO DIA ──
+  const tlEl = document.getElementById('opsDayTimeline');
+  const titleEl = document.getElementById('opsDayTitle');
+  if (tlEl) {
+    const hoje = now.toISOString().slice(0,10);
+    const doDia = st.doDia;
+    if (titleEl) titleEl.textContent = 'Cronograma do Dia — ' + now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+    if (!doDia.length) {
+      tlEl.innerHTML = '<div style="color:var(--text-faint);font-size:13px;text-align:center;padding:1rem;">Sem atividades registradas para hoje.</div>';
+    } else {
+      tlEl.innerHTML = '<div class="ops-timeline-day">' + doDia.map(a => {
+        const done = a.dtFim && new Date(a.dtFim) < now;
+        const running = st.atual && st.atual.dtInicio === a.dtInicio;
+        const dotCls = running ? 'ops-tl-now' : done ? 'ops-tl-done' : 'ops-tl-future';
+        const icon = running ? '▶' : done ? '✓' : '○';
+        return `<div class="ops-tl-item">
+          <div class="ops-tl-dot ${dotCls}">${icon}</div>
+          <div class="ops-tl-content">
+            <div class="ops-tl-time">${a.horaInicioStr}${a.horaFimStr?'–'+a.horaFimStr:''}</div>
+            <div class="ops-tl-disc">${a.disciplina}${a.assunto?' — '+a.assunto:''}</div>
+            <div class="ops-tl-meta">${[a.local,a.instrutor].filter(Boolean).join(' · ')}</div>
+          </div>
+        </div>`;
+      }).join('') + '</div>';
+    }
+  }
+
+  // ── PRÓXIMAS 24H ──
+  const tbody24 = document.getElementById('ops24hBody');
+  if (tbody24) {
+    const h24 = new Date(now.getTime() + 24*60*60*1000);
+    const prox24 = cronogramaData.filter(a => {
+      const dt = new Date(a.dtInicio);
+      return dt > now && dt <= h24;
+    }).slice(0, 15);
+    tbody24.innerHTML = prox24.map(a => `<tr>
+      <td style="font-variant-numeric:tabular-nums;white-space:nowrap;">${a.horaInicioStr}${a.horaFimStr?'–'+a.horaFimStr:''}</td>
+      <td style="font-size:12px;">${a.disciplina}</td>
+      <td style="font-size:12px;color:var(--text-muted);">${a.assunto||'—'}</td>
+      <td style="font-size:12px;">${a.local||'—'}</td>
+    </tr>`).join('') || '<tr><td colspan="4" style="color:var(--text-faint);text-align:center;">Sem atividades nas próximas 24h</td></tr>';
+  }
+
+  // ── VISÃO SEMANAL ──
+  const weekEl = document.getElementById('opsWeekPanel');
+  if (weekEl) {
+    const semInicio = new Date(now); semInicio.setDate(semInicio.getDate() - semInicio.getDay() + 1); semInicio.setHours(0,0,0,0);
+    const semFim = new Date(semInicio); semFim.setDate(semFim.getDate() + 6); semFim.setHours(23,59,59,999);
+    const daSemana = cronogramaData.filter(a => { const d = new Date(a.dtInicio); return d >= semInicio && d <= semFim; });
+    const semRealizadas = daSemana.filter(a => a.dtFim && new Date(a.dtFim) < now).length;
+    const semRestantes = daSemana.length - semRealizadas;
+    let hPrev = 0, hReal = 0;
+    daSemana.forEach(a => {
+      if (a.dtFim) {
+        const dur = (new Date(a.dtFim) - new Date(a.dtInicio))/3600000;
+        hPrev += dur;
+        if (new Date(a.dtFim) < now) hReal += dur;
+      }
+    });
+    weekEl.innerHTML = `
+      <div class="cards-grid" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="metric-card"><div class="metric-label">Previstas</div><div class="metric-value" style="font-size:22px;">${daSemana.length}</div></div>
+        <div class="metric-card success"><div class="metric-label">Realizadas</div><div class="metric-value" style="font-size:22px;">${semRealizadas}</div></div>
+        <div class="metric-card"><div class="metric-label">Restantes</div><div class="metric-value" style="font-size:22px;">${semRestantes}</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:.5rem;">
+        Horas previstas: <strong>${hPrev.toFixed(1)}h</strong> &nbsp;|&nbsp; Realizadas: <strong>${hReal.toFixed(1)}h</strong> &nbsp;|&nbsp; Restantes: <strong>${(hPrev-hReal).toFixed(1)}h</strong>
+      </div>`;
+
+    // Disciplinas da semana
+    const discWeekEl = document.getElementById('opsWeekDiscs');
+    if (discWeekEl) {
+      const discMap = {};
+      daSemana.forEach(a => { discMap[a.disciplina] = (discMap[a.disciplina]||0)+1; });
+      const sorted = Object.entries(discMap).sort((a,b)=>b[1]-a[1]);
+      discWeekEl.innerHTML = sorted.map(([d,n]) => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:.5px solid var(--border);font-size:12px;">
+          <span>${d}</span><span class="badge badge-info">${n}</span>
+        </div>`).join('') || '<div style="color:var(--text-faint);font-size:12px;">Sem dados desta semana.</div>';
+    }
+  }
+}
+
+/* ─── COP — CENTRO DE OPERAÇÕES (TELA CHEIA) ──────────────── */
+function openCOP() {
+  const overlay = document.getElementById('copOverlay');
+  if (overlay) overlay.classList.add('open');
+  updateCOP();
+  copTimer = setInterval(updateCOP, 1000);
+}
+
+function closeCOP() {
+  const overlay = document.getElementById('copOverlay');
+  if (overlay) overlay.classList.remove('open');
+  if (copTimer) { clearInterval(copTimer); copTimer = null; }
+}
+
+function updateCOP() {
+  const now = new Date();
+  // Clock
+  const clockEl = document.getElementById('copClock');
+  if (clockEl) clockEl.textContent = now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const dateEl = document.getElementById('copDate');
+  if (dateEl) dateEl.textContent = now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+
+  if (!cronogramaData.length) {
+    const body = document.getElementById('copBody');
+    if (body) body.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:14px;grid-column:1/-1;text-align:center;padding:3rem;">Cronograma não carregado.</div>';
+    return;
+  }
+
+  const st = getCursoStatus();
+  const progEl = document.getElementById('copProgresso');
+  if (progEl) progEl.textContent = `CAMt 2026 · ${weekLabel(st.semanaAtual)} de ${st.semanasTotal} · Progresso: ${st.pct}% (${st.realizadas}/${st.total} atividades)`;
+
+  const body = document.getElementById('copBody');
+  if (!body) return;
+
+  const a = st.atual, p = st.proxima;
+  const msLeft = a && a.dtFim ? new Date(a.dtFim) - now : 0;
+  const msAte  = p ? new Date(p.dtInicio) - now : 0;
+  const pctAtv = a && a.dtFim ?
+    Math.round((now - new Date(a.dtInicio))/(new Date(a.dtFim)-new Date(a.dtInicio))*100) : 0;
+
+  body.innerHTML = `
+    <div class="cop-card cop-now-card">
+      <div class="cop-card-label">&#9670; Atividade em Execução</div>
+      ${a ? `
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+          <div style="flex:1;">
+            <div style="font-size:13px;color:#8bc34a;font-weight:600;letter-spacing:.5px;margin-bottom:6px;">${a.disciplina}</div>
+            <div class="cop-card-main" style="font-size:30px;">${a.assunto||a.disciplina}</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:1rem;">
+              <div><div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;">Local</div><div style="font-size:14px;color:#fff;font-weight:600;">${a.local||'—'}</div></div>
+              <div><div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;">Instrutor</div><div style="font-size:14px;color:#fff;font-weight:600;">${a.instrutor||'—'}</div></div>
+              <div><div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;">Uniforme</div><div style="font-size:14px;color:#fff;font-weight:600;">${a.uniforme||'—'}</div></div>
+              <div><div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;">Horário</div><div style="font-size:14px;color:#fff;font-weight:600;">${a.horaInicioStr}–${a.horaFimStr||'?'}</div></div>
+            </div>
+            <div class="cop-progress"><div class="cop-progress-fill" style="width:${pctAtv}%"></div></div>
+            <div style="font-size:11px;color:rgba(255,255,255,.4);">${pctAtv}% concluído</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:rgba(0,0,0,.3);border-radius:10px;min-width:160px;">
+            <div style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;">Tempo Restante</div>
+            <div class="cop-countdown-big">${formatCountdown(msLeft)}</div>
+          </div>
+        </div>
+        ${a.objetivos ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08);">
+          <div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;">Objetivos de Aprendizagem</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">${a.objetivos.split(/\n|;\s*|-\s+/).filter(o=>o.trim().length>3).map(o=>`<div style="font-size:12px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.06);padding:4px 10px;border-radius:6px;">✓ ${o.trim()}</div>`).join('')}</div>
+        </div>` : ''}
+      ` : `<div style="font-size:18px;color:rgba(255,255,255,.5);padding:1rem 0;">⏸ Sem atividade em execução no momento</div>`}
+    </div>
+
+    <div class="cop-card">
+      <div class="cop-card-label">&#9654; Próxima Instrução</div>
+      ${p ? `
+        <div style="font-size:12px;color:#8bc34a;font-weight:600;margin-bottom:4px;">${p.disciplina}</div>
+        <div class="cop-card-main">${p.assunto||p.disciplina}</div>
+        <div class="cop-card-sub" style="margin-top:.5rem;">${p.horaInicioStr}${p.horaFimStr?'–'+p.horaFimStr:''} · ${p.local||'—'}</div>
+        <div class="cop-card-sub">${p.instrutor||''}</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:.75rem;">Início em <span style="color:#fff;font-weight:700;">${formatCountdown(msAte)}</span></div>
+      ` : '<div class="cop-card-sub">Sem próximas atividades.</div>'}
+    </div>
+
+    <div class="cop-card">
+      <div class="cop-card-label">&#128197; Progresso Geral</div>
+      <div class="cop-card-main">${st.pct}%</div>
+      <div class="cop-progress"><div class="cop-progress-fill" style="width:${st.pct}%"></div></div>
+      <div class="cop-card-sub">${st.realizadas} de ${st.total} atividades concluídas</div>
+      <div style="margin-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+        <div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;">Semana</div><div style="font-size:18px;font-weight:700;color:#fff;">${weekLabel(st.semanaAtual)}</div></div>
+        <div><div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;">Dia de Instrução</div><div style="font-size:18px;font-weight:700;color:#fff;">Dia ${st.diaInstrucao}</div></div>
+      </div>
+    </div>
+  `;
+}
+
+/* ─── TIMER DE ATUALIZAÇÃO AUTOMÁTICA ──────────────────────── */
+function startOpsTimer() {
+  if (opsTimer) clearInterval(opsTimer);
+  opsTimer = setInterval(() => {
+    const pg = document.getElementById('page-operacoes');
+    if (pg && pg.classList.contains('active')) renderOperacoes();
+    // Atualiza countdown dentro do painel ativo
+    const countEl = document.getElementById('opsCountdownNow');
+    if (countEl && cronogramaData.length) {
+      const st = getCursoStatus();
+      if (st && st.atual && st.atual.dtFim) {
+        countEl.textContent = formatCountdown(new Date(st.atual.dtFim) - new Date());
+      }
+    }
+    // Atualiza relógio card
+    const clockCard = document.getElementById('opsClockCard');
+    if (clockCard) clockCard.textContent = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }, 1000);
+}
+
+
 /* ─── EXPORT ─────────────────────────────── */
 function exportPDF() { window.print(); }
 function exportExcel() {
@@ -2556,6 +3512,5 @@ function exportExcel() {
   XLSX.writeFile(wb,`CAMt_Ranking_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
