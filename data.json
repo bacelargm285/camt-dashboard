@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-07-23T11:24:14.779Z",
+    "updatedAt": "2026-07-23T11:26:17.117Z",
     "recordCount": 367,
     "studentCount": 19
   },
@@ -4108,7 +4108,7 @@
       {
         "nr": "07",
         "sit": "Matriculado",
-        "sitCurso": "Xeque",
+        "sitCurso": "Observação",
         "posto": "1º Ten",
         "qas": "Inf",
         "nome": "Vinicius Moreira Mendes",
@@ -4178,7 +4178,7 @@
       {
         "nr": "14",
         "sit": "Matriculado",
-        "sitCurso": "Observação",
+        "sitCurso": "Xeque",
         "posto": "1º Sgt",
         "qas": "Art",
         "nome": "Saulo Rodrigues de Oliveira",
@@ -4218,7 +4218,7 @@
       {
         "nr": "18",
         "sit": "Matriculado",
-        "sitCurso": "Normal",
+        "sitCurso": "Observação",
         "posto": "3º Sgt",
         "qas": "Com",
         "nome": "Guilherme Eustáquio Teixeira",
