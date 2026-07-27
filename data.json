@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-07-27T16:07:44.842Z",
+    "updatedAt": "2026-07-27T16:28:41.770Z",
     "recordCount": 367,
     "studentCount": 19
   },
@@ -7121,6 +7121,132 @@
         "descricao": "Transmantiqueira 1",
         "dateStr": "2026-07-22",
         "nota": 5.5
+      },
+      {
+        "aluno": "02",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 7.09
+      },
+      {
+        "aluno": "03",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 5.81
+      },
+      {
+        "aluno": "05",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 7.29
+      },
+      {
+        "aluno": "06",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 8.42
+      },
+      {
+        "aluno": "07",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 8.07
+      },
+      {
+        "aluno": "08",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 6.12
+      },
+      {
+        "aluno": "09",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 8.22
+      },
+      {
+        "aluno": "10",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 6.93
+      },
+      {
+        "aluno": "12",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 6.94
+      },
+      {
+        "aluno": "13",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 8.21
+      },
+      {
+        "aluno": "14",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 5.63
+      },
+      {
+        "aluno": "18",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 5.76
+      },
+      {
+        "aluno": "19",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 4.83
+      },
+      {
+        "aluno": "20",
+        "instrutor": "LE",
+        "tipo": "AS",
+        "disciplina": "Operações",
+        "descricao": "Transmantiqueira 2",
+        "dateStr": "2026-07-27",
+        "nota": 8.17
       }
     ],
     "cronograma": [
