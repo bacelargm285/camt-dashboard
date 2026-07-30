@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-07-30T14:59:51.034Z",
+    "updatedAt": "2026-07-30T15:15:35.219Z",
     "recordCount": 367,
     "studentCount": 19
   },
@@ -7114,7 +7114,7 @@
         "nota": 5.98
       },
       {
-        "aluno": "20",
+        "aluno": "21",
         "instrutor": "JO",
         "tipo": "AF",
         "disciplina": "Operações",
@@ -7240,7 +7240,7 @@
         "nota": 4.83
       },
       {
-        "aluno": "20",
+        "aluno": "21",
         "instrutor": "LE",
         "tipo": "AS",
         "disciplina": "Operações",
@@ -7264,7 +7264,7 @@
         "disciplina": "Operações",
         "descricao": "Feldspato",
         "dateStr": "2026-07-30",
-        "nota": 5.04
+        "nota": 7.5
       },
       {
         "aluno": "05",
@@ -7318,7 +7318,7 @@
         "disciplina": "Operações",
         "descricao": "Feldspato",
         "dateStr": "2026-07-30",
-        "nota": 5.51
+        "nota": 7.22
       },
       {
         "aluno": "12",
@@ -7363,7 +7363,7 @@
         "disciplina": "Operações",
         "descricao": "Feldspato",
         "dateStr": "2026-07-30",
-        "nota": 5.11
+        "nota": 6.5
       },
       {
         "aluno": "21",
@@ -7372,7 +7372,7 @@
         "disciplina": "Operações",
         "descricao": "Feldspato",
         "dateStr": "2026-07-30",
-        "nota": 4.94
+        "nota": 7.01
       }
     ],
     "cronograma": [
@@ -15726,6 +15726,15 @@
         "final": 5.5
       },
       {
+        "id": "d080a596",
+        "nr": "12",
+        "operacao": "Op Transmantiqueira 1",
+        "funcao": "Cmt",
+        "plan": 7.5,
+        "exec": 6,
+        "final": 7.3
+      },
+      {
         "id": "ba1305de",
         "nr": "02",
         "operacao": "Op Transmantiqueira 2",
@@ -15920,8 +15929,8 @@
         "operacao": "Op Feldspato",
         "funcao": "HC",
         "plan": 6.09,
-        "exec": 5.37,
-        "final": 5.51
+        "exec": 7.5,
+        "final": 7.218
       },
       {
         "id": "279290f3",
@@ -15965,8 +15974,8 @@
         "operacao": "Op Feldspato",
         "funcao": "SCmt",
         "plan": 3.72,
-        "exec": 5.46,
-        "final": 5.11
+        "exec": 6.8,
+        "final": 6.5
       },
       {
         "id": "244ce0da",
