@@ -20,6 +20,8 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 :root {
   --olive:#4a5240;--olive-light:#6b7260;--olive-faint:#f0f1ec;--olive-mid:#d4d8cc;
@@ -1105,6 +1107,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div class="nav-item" onclick="showPage('comparar',this)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
         Comparar
+      </div>
+      <div class="nav-item" onclick="showPage('mapa',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+        Mapa das Operações
       </div>
     </div>
         <!-- Item admin visível apenas no modo admin -->
@@ -5852,6 +5858,31 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <div id="compararContent"><div class="empty-state" style="padding:2.5rem;text-align:center;color:var(--text-muted);"><div style="font-size:2rem;margin-bottom:.5rem;">👆</div>Selecione ao menos <strong>2 alunos</strong> acima para gerar o comparativo.</div></div>
     </div>
 
+    <div id="page-mapa" class="page">
+      <div class="section-title">🗺️ Mapa das Operações — CAM 2026</div>
+      <div class="chart-card" style="margin-bottom:1rem;">
+        <div style="font-size:12px;color:var(--text-muted);">Localização geográfica real de cada operação e dos pontos de reconhecimento realizados durante o curso. Clique em um marcador para ver detalhes.</div>
+        <div style="display:flex;gap:10px;margin-top:.6rem;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(74,82,64,.12);color:#4a5240;">⭐ Operações (Fase IV)</span>
+            <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(24,95,165,.12);color:#185fa5;">🔍 Reconhecimento (Fase II)</span>
+          </div>
+          <button onclick="tourShowAll()" style="font-size:12px;font-weight:700;padding:8px 14px;border-radius:var(--radius);border:none;background:#4a5240;color:#fff;cursor:pointer;">🗺️ Ver Área Completa</button>
+        </div>
+      </div>
+      <div class="chart-card" style="padding:0;overflow:hidden;">
+        <div id="opsMapDiv" style="height:560px;width:100%;"></div>
+      </div>
+      <div class="chart-card" style="margin-top:1rem;">
+        <div class="chart-title" style="margin-bottom:.6rem;">🎬 Percurso do Curso</div>
+        <div id="opsTourPlayerWrap"></div>
+      </div>
+      <div class="chart-card" style="margin-top:1rem;">
+        <div class="chart-title" style="margin-bottom:.75rem;">📍 Locais no Mapa <span style="font-weight:400;font-size:11px;color:var(--text-muted);">— clique numa linha para o mapa ir até lá</span></div>
+        <div id="opsMapListaWrap" class="table-wrap"></div>
+      </div>
+    </div>
+
     <div id="page-caderneta" class="page">
       <div class="section-title">📓 Caderneta de Planejamento</div>
       <div class="filter-bar" id="cadFilterBar" style="">
@@ -6821,6 +6852,7 @@ function showPage(pageId, el) {
   if (pg) pg.classList.add('active');
   if (el) el.classList.add('active');
   if (pageId === 'tcm') renderTCM();
+  if (pageId === 'mapa') setTimeout(renderMapaOperacoes, 50);
   // Volta ao topo ao trocar de aba
   window.scrollTo({ top: 0, behavior: 'smooth' });
   // Sincroniza topbar e drawer mobile
@@ -6834,6 +6866,214 @@ function goToModule(pageId) {
     .find(n => (n.getAttribute('onclick')||'').includes(`'${pageId}'`));
   showPage(pageId, navEl);
 }
+
+/* ─── MAPA DAS OPERAÇÕES ─────────────────────────────────────────
+   Coordenadas reais informadas por Mauricio (instrutor) — locais efetivamente
+   usados nas operações e reconhecimentos do CAM 2026. */
+const OPERACOES_LOCAIS = [
+  { ordem:1,  nome:'Serra de São José',    opKey:null,                   local:'Serra de São José',  cidade:'Tiradentes/MG',          lat:-21.1016192, lng:-44.1948666, tipo:'reconhecimento', fase:'Fase II' },
+  { ordem:2,  nome:'Serra de Ouro Preto',  opKey:null,                   local:'Pico do Itacolomi',  cidade:'Ouro Preto-Mariana/MG',  lat:-20.4333333, lng:-43.4833333, tipo:'reconhecimento', fase:'Fase II' },
+  { ordem:3,  nome:'Serra dos Órgãos',     opKey:null,                   local:'Parque Nacional da Serra dos Órgãos', cidade:'Teresópolis/RJ', lat:-22.4489694, lng:-42.9850703, tipo:'reconhecimento', fase:'Fase II' },
+  { ordem:4,  nome:'Op Quartzito',         opKey:'Op Quartzito',         local:'Serra do Lenheiro',  cidade:'São João del Rei/MG',   lat:-21.1277237, lng:-44.2758287, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:5,  nome:'Op Bocaina',           opKey:'Op Bocaina',           local:'Lavras',             cidade:'Lavras/MG',              lat:-21.240885,  lng:-45.0011657, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:6,  nome:'Op Basalto',           opKey:'Op Basalto',           local:'Serra de São José',  cidade:'Tiradentes/MG',          lat:-21.1016192, lng:-44.1948666, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:7,  nome:'Op Mármore',           opKey:'Op Mármore',           local:'Serra do Lenheiro',  cidade:'São João del Rei/MG',   lat:-21.1247237, lng:-44.2718287, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:8,  nome:'Op Transmantiqueira 1', opKey:'Op Transmantiqueira 1', local:'Serra Fina',        cidade:'Itamonte/MG',            lat:-22.3525952, lng:-44.7958537, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:9,  nome:'Op Transmantiqueira 2', opKey:'Op Transmantiqueira 2', local:'Serra do Papagaio', cidade:'Aiuruoca/MG',            lat:-22.142179,  lng:-44.7287213, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:10, nome:'Op Feldspato',         opKey:'Op Feldspato',         local:'Pedra da Laje',      cidade:'Carmópolis de Minas/MG', lat:-20.540812,  lng:-44.6386557, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:11, nome:'Op Quartzo',           opKey:'Op Quartzo',           local:'Atalaia',            cidade:'Três Corações/MG',       lat:-21.6900608, lng:-45.2575145, tipo:'operacao',       fase:'Fase IV' },
+  { ordem:12, nome:'Op Argila',            opKey:null,                   local:'Carrancas',          cidade:'Carrancas/MG',           lat:-21.488467,  lng:-44.6436719, tipo:'operacao',       fase:'Fase IV' },
+];
+
+let opsMapInstance = null;
+let opsMapMarkers = [];   // marcadores na mesma ordem de OPERACOES_LOCAIS
+let opsRoutePolyline = null;
+let tourIndex = 0;
+let tourPlaying = false;
+let tourTimer = null;
+
+const ICON_NORMAL_H = 26, ICON_ACTIVE_H = 38;
+function mapPinIcon(cor, ativo) {
+  const h = ativo ? ICON_ACTIVE_H : ICON_NORMAL_H;
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${h}px;height:${h}px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:${cor};border:${ativo?3:2}px solid #fff;box-shadow:0 ${ativo?3:1}px ${ativo?10:4}px rgba(0,0,0,${ativo?.55:.4});${ativo?'animation:pinPulse 1s ease-in-out infinite alternate;':''}"></div>`,
+    iconSize: [h,h], iconAnchor: [h/2,h], popupAnchor: [0,-h]
+  });
+}
+
+function renderMapaOperacoes() {
+  const mapDiv = document.getElementById('opsMapDiv');
+  if (!mapDiv || typeof L === 'undefined') return;
+
+  // Evita recriar o mapa (Leaflet não permite reinicializar o mesmo container)
+  if (opsMapInstance) { opsMapInstance.invalidateSize(); return; }
+
+  // Injeta keyframe de pulso do pino ativo (uma vez só)
+  if (!document.getElementById('mapPinPulseStyle')) {
+    const st = document.createElement('style');
+    st.id = 'mapPinPulseStyle';
+    st.textContent = '@keyframes pinPulse{from{transform:rotate(-45deg) scale(1);}to{transform:rotate(-45deg) scale(1.12);}}';
+    document.head.appendChild(st);
+  }
+
+  const map = L.map('opsMapDiv', { scrollWheelZoom: true }).setView([-21.4, -44.6], 8);
+  opsMapInstance = map;
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  const bounds = [];
+  opsMapMarkers = OPERACOES_LOCAIS.map((loc, idx) => {
+    const cor = loc.tipo === 'operacao' ? '#4a5240' : '#185fa5';
+    const marker = L.marker([loc.lat, loc.lng], { icon: mapPinIcon(cor, false) }).addTo(map);
+    bounds.push([loc.lat, loc.lng]);
+
+    // Se for uma operação com dados de notas, mostra a nota final média
+    let notaHtml = '';
+    if (loc.opKey && typeof analisarNotasOp === 'function') {
+      try {
+        const A = analisarNotasOp(loc.opKey);
+        if (A && A.ranking && A.ranking.length) {
+          const finais = A.ranking.map(r=>r.final).filter(v=>v!=null);
+          if (finais.length) {
+            const media = finais.reduce((a,b)=>a+b,0)/finais.length;
+            notaHtml = `<div style="margin-top:4px;font-size:11px;"><strong>Nota Final média:</strong> <span style="color:${media>=8?'#2d6a0a':media>=7?'#185fa5':media>=5?'#854f0b':'#a32d2d'};font-weight:800;">${media.toFixed(2)}</span> <span style="color:#999;">(${finais.length} alunos)</span></div>`;
+          }
+        }
+      } catch(e) {}
+    }
+
+    marker.bindPopup(`
+      <div style="font-family:Arial,sans-serif;min-width:180px;">
+        <div style="font-weight:800;font-size:13px;color:${cor};">${loc.tipo==='operacao'?'⭐':'🔍'} ${loc.ordem}. ${loc.nome}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px;">${loc.local} — ${loc.cidade}</div>
+        <div style="font-size:10px;font-weight:700;color:${cor};margin-top:3px;">${loc.fase}</div>
+        ${notaHtml}
+      </div>
+    `);
+    marker.on('click', () => tourGoTo(idx, false));
+    return marker;
+  });
+
+  // Linha pontilhada mostrando o percurso completo do curso, em ordem cronológica
+  opsRoutePolyline = L.polyline(OPERACOES_LOCAIS.map(l => [l.lat, l.lng]), {
+    color: '#4a5240', weight: 2, opacity: .45, dashArray: '6,8'
+  }).addTo(map);
+
+  if (bounds.length) map.fitBounds(bounds, { padding: [30,30] });
+
+  tourIndex = 0;
+  tourGoTo(0, false);
+}
+
+function renderMapaLista() {
+  const wrap = document.getElementById('opsMapListaWrap');
+  if (!wrap) return;
+  wrap.innerHTML = `<table><thead><tr><th>#</th><th></th><th>Nome</th><th>Local</th><th>Cidade/UF</th><th>Fase</th></tr></thead><tbody>
+    ${OPERACOES_LOCAIS.map((loc, idx) => `<tr id="mapaRow${idx}" onclick="tourGoTo(${idx})" style="cursor:pointer;${idx===tourIndex?'background:var(--olive-faint);':''}">
+      <td style="font-weight:700;color:var(--text-faint);">${loc.ordem}</td>
+      <td>${loc.tipo==='operacao'?'⭐':'🔍'}</td>
+      <td style="font-weight:700;">${loc.nome}</td>
+      <td>${loc.local}</td>
+      <td>${loc.cidade}</td>
+      <td>${loc.fase}</td>
+    </tr>`).join('')}
+  </tbody></table>`;
+}
+
+function renderTourPlayer() {
+  const wrap = document.getElementById('opsTourPlayerWrap');
+  if (!wrap) return;
+  const loc = OPERACOES_LOCAIS[tourIndex];
+  wrap.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <button onclick="tourPrev()" style="font-size:16px;font-weight:700;padding:8px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);cursor:pointer;">⏮</button>
+      <button onclick="tourTogglePlay()" id="tourPlayBtn" style="font-size:12px;font-weight:700;padding:8px 16px;border-radius:var(--radius);border:none;background:#4a5240;color:#fff;cursor:pointer;">${tourPlaying?'⏸ Pausar':'▶ Reproduzir Percurso'}</button>
+      <button onclick="tourNext()" style="font-size:16px;font-weight:700;padding:8px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);cursor:pointer;">⏭</button>
+      <div style="flex:1;min-width:160px;">
+        <div style="font-size:9px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;">Local ${tourIndex+1} de ${OPERACOES_LOCAIS.length} · ${loc.fase}</div>
+        <div style="font-size:15px;font-weight:800;color:${loc.tipo==='operacao'?'#4a5240':'#185fa5'};">${loc.tipo==='operacao'?'⭐':'🔍'} ${loc.nome} <span style="font-weight:400;font-size:12px;color:var(--text-muted);">— ${loc.local}, ${loc.cidade}</span></div>
+      </div>
+    </div>
+    <div style="height:5px;border-radius:3px;background:var(--surface-2);margin-top:.6rem;overflow:hidden;">
+      <div style="height:100%;width:${((tourIndex+1)/OPERACOES_LOCAIS.length*100).toFixed(1)}%;background:#4a5240;transition:width .3s;"></div>
+    </div>`;
+}
+
+// Leva o mapa até o local de índice idx (voo suave), destaca o pino, abre o popup e sincroniza a lista/player
+function tourGoTo(idx, fly) {
+  if (!opsMapInstance || !OPERACOES_LOCAIS[idx]) return;
+  if (fly === undefined) fly = true;
+
+  // volta o pino anterior ao tamanho normal
+  const prevLoc = OPERACOES_LOCAIS[tourIndex];
+  if (opsMapMarkers[tourIndex] && prevLoc) {
+    opsMapMarkers[tourIndex].setIcon(mapPinIcon(prevLoc.tipo==='operacao'?'#4a5240':'#185fa5', false));
+  }
+
+  tourIndex = idx;
+  const loc = OPERACOES_LOCAIS[idx];
+  const cor = loc.tipo === 'operacao' ? '#4a5240' : '#185fa5';
+  const marker = opsMapMarkers[idx];
+  if (marker) {
+    marker.setIcon(mapPinIcon(cor, true));
+    marker.setZIndexOffset(1000);
+    if (fly) opsMapInstance.flyTo([loc.lat, loc.lng], 11, { duration: 1.1 });
+    setTimeout(() => marker.openPopup(), fly ? 700 : 0);
+  }
+
+  renderMapaLista();
+  renderTourPlayer();
+}
+
+function tourNext() {
+  const next = (tourIndex + 1) % OPERACOES_LOCAIS.length;
+  tourGoTo(next);
+  if (next === 0 && tourPlaying) tourTogglePlay(); // termina o loop ao voltar ao início
+}
+function tourPrev() {
+  tourGoTo((tourIndex - 1 + OPERACOES_LOCAIS.length) % OPERACOES_LOCAIS.length);
+}
+function tourTogglePlay() {
+  tourPlaying = !tourPlaying;
+  if (tourPlaying) {
+    tourTimer = setInterval(tourNext, 2600);
+  } else {
+    clearInterval(tourTimer);
+  }
+  renderTourPlayer();
+}
+
+// Mostra a área inteira das operações de uma vez, com o nome de cada local fixo no mapa
+function tourShowAll() {
+  if (tourPlaying) tourTogglePlay();
+  if (!opsMapInstance || !opsMapMarkers.length) return;
+
+  // Injeta o estilo dos rótulos fixos (uma vez só)
+  if (!document.getElementById('mapLabelStyle')) {
+    const st = document.createElement('style');
+    st.id = 'mapLabelStyle';
+    st.textContent = '.ops-map-label{background:#fff;border:1.5px solid #4a5240;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:700;color:#2e3327;box-shadow:0 1px 4px rgba(0,0,0,.25);}.ops-map-label::before{border-top-color:#4a5240 !important;}';
+    document.head.appendChild(st);
+  }
+
+  const bounds = OPERACOES_LOCAIS.map(l => [l.lat, l.lng]);
+  opsMapInstance.flyToBounds(bounds, { padding: [50,50], duration: 1.2 });
+
+  opsMapMarkers.forEach((marker, idx) => {
+    const loc = OPERACOES_LOCAIS[idx];
+    if (!marker.getTooltip()) {
+      marker.bindTooltip(`${loc.ordem}. ${loc.nome}`, {
+        permanent: true, direction: 'top', offset: [0,-30],
+        className: 'ops-map-label'
+      });
+    }
+    marker.openTooltip();
+  });
+}
+
 
 /* ─── HELPERS ────────────────────────────── */
 function getWeekKey(d) {
@@ -16039,7 +16279,8 @@ const MOB_PAGE_LABELS = {
   alertas:'Alertas', situacao:'Situação do Aluno', avaliacoes:'Avaliações',
   conceito:'Conceito Vertical', conceitoh:'Conceito Horizontal',
   perfil:'Perfil 360°', individual:'FRAD', tcm:'TCM',
-  operacoes:'CAM em Tempo Real', funcoes:'Funções', admin:'Gerenciar Dados'
+  operacoes:'CAM em Tempo Real', funcoes:'Funções', admin:'Gerenciar Dados',
+  mapa:'Mapa das Operações'
 };
 
 function mobOpen() {
