@@ -1003,6 +1003,10 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="3"></line></svg>
       Excel
     </button>
+    <button class="btn btn-ghost btn-sm" onclick="gerarRelatorioFinalCurso()" style="border-color:#c8a24a;color:#e8c874;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line><line x1="9" y1="11" x2="15" y2="11"></line></svg>
+      Relatório Final do Curso
+    </button>
   </div>
 </header>
 
@@ -1084,38 +1088,45 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l4-8 4 5 3-3 4 6"></path><path d="M21 21H3"></path></svg>
         TCM
       </div>
-      <div class="nav-item" onclick="showPage('funcoes',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
-        Funções
-      </div>
       <div class="nav-item" onclick="showPage('sociometria',this)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"></circle><circle cx="5" cy="19" r="2"></circle><circle cx="19" cy="19" r="2"></circle><line x1="12" y1="7" x2="5" y2="17"></line><line x1="12" y1="7" x2="19" y2="17"></line><line x1="7" y1="19" x2="17" y2="19"></line></svg>
         Sociometria
-      </div>
-      <div class="nav-item" onclick="showPage('edl',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.8 5.6H20l-4.6 3.4L17 17l-5-3.6L7 17l1.6-6L4 7.6h6.2z"></path></svg>
-        EDL
-      </div>
-      <div class="nav-item" onclick="showPage('notasops',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z"></path></svg>
-        Notas de Operações
-      </div>
-      <div class="nav-item" onclick="showPage('caderneta',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="9" y1="7" x2="16" y2="7"></line><line x1="9" y1="11" x2="16" y2="11"></line></svg>
-        Caderneta
       </div>
       <div class="nav-item" onclick="showPage('comparar',this)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
         Comparar
       </div>
-      <div class="nav-item" onclick="showPage('mapa',this)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-        Mapa das Operações
-      </div>
     </div>
         <!-- Item admin visível apenas no modo admin -->
     <div class="nav-section">
       <div class="nav-label">Operações</div>
+      <div class="nav-item" onclick="showPage('situacaogeral',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Situação Geral
+      </div>
+      <div class="nav-item" onclick="showPage('mapa',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+        Mapa das Operações
+      </div>
+      <div class="nav-item" onclick="showPage('caderneta',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="9" y1="7" x2="16" y2="7"></line><line x1="9" y1="11" x2="16" y2="11"></line></svg>
+        Caderneta
+      </div>
+      <div class="nav-item" onclick="showPage('notasops',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z"></path></svg>
+        Notas de Operações
+      </div>
+      <div class="nav-item" onclick="showPage('edl',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l1.8 5.6H20l-4.6 3.4L17 17l-5-3.6L7 17l1.6-6L4 7.6h6.2z"></path></svg>
+        EDL
+      </div>
+      <div class="nav-item" onclick="showPage('funcoes',this)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+        Funções
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Curso</div>
       <div class="nav-item" onclick="showPage('operacoes',this)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
         CAM em Tempo Real
@@ -5883,6 +5894,36 @@ select:focus,input:focus{outline:2px solid var(--khaki);}
       </div>
     </div>
 
+    <div id="page-situacaogeral" class="page">
+      <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;">
+        <span>📄 Situação Geral — CAM 2026</span>
+        <button id="sgFullscreenBtn" onclick="toggleSituacaoGeralFullscreen()" style="font-size:12px;font-weight:700;padding:8px 14px;border-radius:var(--radius);border:none;background:#4a5240;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"></path></svg>
+          <span id="sgFullscreenBtnLabel">Maximizar</span>
+        </button>
+      </div>
+      <div class="chart-card" id="sgHintCard" style="margin-bottom:1rem;">
+        <div style="font-size:12px;color:var(--text-muted);">Contexto histórico, antagonismo entre os países e carta de manobra do exercício. Este conteúdo abre num quadro dentro da própria aba — carrega só na primeira vez que você entra aqui.</div>
+      </div>
+      <style>
+        #sgFullscreenContainer:fullscreen,
+        #sgFullscreenContainer:-webkit-full-screen { width:100vw; height:100vh; background:#1a1f16; }
+        #sgFullscreenContainer:fullscreen > .chart-card,
+        #sgFullscreenContainer:-webkit-full-screen > .chart-card { height:100% !important; border-radius:0; }
+        #sgFullscreenContainer:fullscreen #situacaoGeralFrameWrap,
+        #sgFullscreenContainer:-webkit-full-screen #situacaoGeralFrameWrap { height:100% !important; }
+      </style>
+      <div id="sgFullscreenContainer" style="position:relative;">
+        <div class="chart-card" style="padding:0;overflow:hidden;height:calc(100vh - 220px);min-height:600px;">
+          <div id="situacaoGeralFrameWrap" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-faint);font-size:12px;">Carregando…</div>
+        </div>
+        <button id="sgExitBtn" onclick="toggleSituacaoGeralFullscreen()" style="display:none;position:absolute;top:12px;right:12px;z-index:50;font-size:13px;font-weight:700;padding:10px 16px;border-radius:var(--radius);border:none;background:#4a5240;color:#fff;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35);align-items:center;gap:6px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Voltar
+        </button>
+      </div>
+    </div>
+
     <div id="page-caderneta" class="page">
       <div class="section-title">📓 Caderneta de Planejamento</div>
       <div class="filter-bar" id="cadFilterBar" style="">
@@ -6853,6 +6894,7 @@ function showPage(pageId, el) {
   if (el) el.classList.add('active');
   if (pageId === 'tcm') renderTCM();
   if (pageId === 'mapa') setTimeout(renderMapaOperacoes, 50);
+  if (pageId === 'situacaogeral') renderSituacaoGeral();
   // Volta ao topo ao trocar de aba
   window.scrollTo({ top: 0, behavior: 'smooth' });
   // Sincroniza topbar e drawer mobile
@@ -6866,6 +6908,39 @@ function goToModule(pageId) {
     .find(n => (n.getAttribute('onclick')||'').includes(`'${pageId}'`));
   showPage(pageId, navEl);
 }
+
+// Carrega o iframe da Situação Geral só na primeira vez que a aba é aberta
+// (evita pesar o carregamento inicial do dashboard) — depois fica em cache no DOM.
+function renderSituacaoGeral() {
+  const container = document.getElementById('situacaoGeralFrameWrap');
+  if (!container || container.dataset.loaded === '1') return;
+  container.innerHTML = '<iframe src="situacao-geral.html" title="Situação Geral — CAM 2026" '
+    + 'style="width:100%;height:100%;border:0;display:block;" loading="lazy"></iframe>';
+  container.dataset.loaded = '1';
+}
+
+// Maximiza (tela cheia) só a área da Situação Geral, com botão de voltar fácil.
+function toggleSituacaoGeralFullscreen() {
+  const el = document.getElementById('sgFullscreenContainer');
+  if (!el) return;
+  const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+  if (!isFs) {
+    (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen || function(){}).call(el);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen || function(){}).call(document);
+  }
+}
+function syncSituacaoGeralFullscreenUI() {
+  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const exitBtn = document.getElementById('sgExitBtn');
+  const topBtnLabel = document.getElementById('sgFullscreenBtnLabel');
+  const container = document.getElementById('sgFullscreenContainer');
+  if (exitBtn) exitBtn.style.display = isFs ? 'flex' : 'none';
+  if (topBtnLabel) topBtnLabel.textContent = isFs ? 'Sair da tela cheia' : 'Maximizar';
+  if (container) container.style.background = isFs ? 'var(--surface)' : '';
+}
+document.addEventListener('fullscreenchange', syncSituacaoGeralFullscreenUI);
+document.addEventListener('webkitfullscreenchange', syncSituacaoGeralFullscreenUI);
 
 /* ─── MAPA DAS OPERAÇÕES ─────────────────────────────────────────
    Coordenadas reais informadas por Mauricio (instrutor) — locais efetivamente
@@ -11952,7 +12027,255 @@ function gerarPDFRankingConsolidado() {
   else alert('Permita pop-ups para gerar o PDF.');
 }
 
-function goToPerfilFromRanking(nr) {
+/* ═══════════════════════════════════════════════════════════════════════
+   RELATÓRIO FINAL DO CURSO — visão consolidada de tudo (evolução, operações,
+   comportamento, acadêmico). Sempre calculado a partir dos dados atuais —
+   conforme mais informações forem lançadas no sistema, o relatório já sai
+   atualizado sozinho, sem precisar mexer neste botão.
+   ═══════════════════════════════════════════════════════════════════════ */
+function gerarRelatorioFinalCurso() {
+  const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const nc  = v => v==null?'#999':v>=8?'#2d6a0a':v>=7?'#185fa5':v>=5?'#854f0b':'#a32d2d';
+  const f2  = v => v==null?'—':v.toFixed(2);
+  const geradoEm = new Date().toLocaleString('pt-BR');
+
+  const status = (typeof getCursoStatus === 'function') ? getCursoStatus() : null;
+  const pctCurso = status ? status.pct : null;
+  const cursoConcluido = pctCurso != null && pctCurso >= 100;
+  const situacaoLabel = cursoConcluido ? 'RELATÓRIO FINAL — CURSO CONCLUÍDO' : 'RELATÓRIO PARCIAL — CURSO EM ANDAMENTO ('+(pctCurso!=null?pctCurso+'%':'—')+')';
+
+  // ── Resumo da turma ──
+  const totalAlunos = situacaoData.length;
+  const matriculados = situacaoData.filter(s=>s.sit&&s.sit.toLowerCase().includes('matriculado'));
+  const desligados = situacaoData.filter(s=>s.sit&&s.sit.toLowerCase().includes('desl'));
+  const naoApresentados = situacaoData.filter(s=>s.sit&&s.sit.toLowerCase().includes('não apresentado'));
+  const xeques = situacaoData.filter(s=>s.sitCurso==='Xeque'&&matriculados.includes(s));
+  const observacao = situacaoData.filter(s=>s.sitCurso==='Observação'&&matriculados.includes(s));
+
+  // ── Ranking Consolidado ──
+  const rankingRows = (typeof calcRankingConsolidadoRows === 'function') ? calcRankingConsolidadoRows() : [];
+  const completos = rankingRows.filter(r=>r.completo);
+
+  // ── Desempenho Acadêmico por Fase (médias da turma matriculada) ──
+  const fasesResumo = (typeof FASES_CAM !== 'undefined') ? FASES_CAM.map(fase => {
+    const medias = matriculados.map(s => calcFaseMedia(s.nr, fase).mediaFase).filter(v=>v!=null);
+    return { num: fase.num, nome: fase.nome, media: medias.length?avg(medias):null, n: medias.length };
+  }) : [];
+
+  // ── FRAD — comportamento ──
+  const fradMatriculados = rawData.filter(r => matriculados.some(m=>m.nr===r.aluno));
+  const fradPosTotal = fradMatriculados.filter(r=>r.tipo==='Positivo').length;
+  const fradNegTotal = fradMatriculados.filter(r=>r.tipo==='Negativo').length;
+  const statsAlunos = getStudentStats(fradMatriculados);
+  const saldoPorAluno = statsAlunos.map(s => ({ ...s, saldo: s.pos-s.neg, cad: getAlunoCadastro(s.aluno) }))
+    .sort((a,b)=>b.saldo-a.saldo);
+  const top5Frad = saldoPorAluno.slice(0,5);
+  const bottom5Frad = saldoPorAluno.slice(-5).reverse();
+
+  // ── Conceito Vertical / Horizontal — turma ──
+  const mediaVtcTurma = avg(conceitoData.filter(c=>matriculados.some(m=>m.nr===c.nr)).map(c=>c.media));
+  const mediaHztTurma = avg(conceitoHorizontalData.filter(c=>matriculados.some(m=>m.nr===c.nr)).map(c=>c.media));
+
+  // ── Operações — ranking consolidado (todas as operações) ──
+  const AOp = (typeof analisarNotasOp === 'function') ? analisarNotasOp(null) : null;
+  let opsRankingHtml = '';
+  if (AOp && AOp.regs && AOp.regs.length) {
+    const porAluno = new Map();
+    AOp.regs.forEach(r => {
+      if (!porAluno.has(r.nr)) porAluno.set(r.nr, { nr:r.nr, finais:[], plans:[], execs:[] });
+      const e = porAluno.get(r.nr);
+      if (r.final!=null) e.finais.push(r.final);
+      if (r.plan!=null) e.plans.push(r.plan);
+      if (r.exec!=null) e.execs.push(r.exec);
+    });
+    const opRanking = [...porAluno.values()].map(e => ({
+      nr: e.nr, final: e.finais.length?avg(e.finais):null,
+      plan: e.plans.length?avg(e.plans):null, exec: e.execs.length?avg(e.execs):null,
+    })).sort((a,b)=>(b.final??-1)-(a.final??-1));
+    opsRankingHtml = opRanking.map((r,i) => {
+      const cad = getAlunoCadastro(r.nr);
+      return `<tr><td>${i+1}</td><td>${esc(cad?cad.guerra:'Aluno '+r.nr)}</td>
+        <td style="text-align:center;">${f2(r.plan)}</td><td style="text-align:center;">${f2(r.exec)}</td>
+        <td style="text-align:center;font-weight:800;color:${nc(r.final)};">${f2(r.final)}</td></tr>`;
+    }).join('');
+  }
+
+  // ── Caderneta — itens mais deficientes recorrentes (turma toda) ──
+  const itemAggTurma = {};
+  cadernetaData.forEach(r => {
+    Object.entries(r.itens||{}).forEach(([k,v]) => {
+      if (v==null) return;
+      if (!itemAggTurma[k]) itemAggTurma[k] = [];
+      itemAggTurma[k].push(v);
+    });
+  });
+  const itensDeficientesTurma = Object.entries(itemAggTurma)
+    .map(([nome, vals]) => ({ nome, media: vals.reduce((a,b)=>a+b,0)/vals.length, n: vals.length }))
+    .filter(i => i.media <= 2.3)
+    .sort((a,b)=>a.media-b.media)
+    .slice(0,8);
+
+  // ── TCM ──
+  const tcmMedia = avg(TCM_DATA.filter(t=>matriculados.some(m=>Number(m.nr)===Number(t.nr))).map(t=>t.grau));
+
+  // ── Sociometria ──
+  const socioEntries = Object.entries(sociometricoData).filter(([nr]) => matriculados.some(m=>m.nr===nr));
+  const estrelas = socioEntries.filter(([,v])=>v.status==='Estrela').map(([nr])=>nr);
+  const rejeitados = socioEntries.filter(([,v])=>v.status==='Rejeitado').map(([nr])=>nr);
+
+  // ── EDL ──
+  const edlMedia = avg(edlMediaData.filter(e=>matriculados.some(m=>m.nr===e.aluno)).map(e=>e.media));
+
+  // ── Situação final por aluno (tabela completa) ──
+  const situacaoFinalHtml = matriculados.map(s => {
+    const rk = rankingRows.find(r=>r.nr===s.nr);
+    const cor = s.sitCurso==='Xeque' ? '#a32d2d' : s.sitCurso==='Observação' ? '#854f0b' : '#2d6a0a';
+    return `<tr><td>${s.nr}</td><td style="font-weight:700;">${esc(s.guerra)}</td><td>${esc(s.posto)}</td><td>${esc(s.om)}</td>
+      <td style="font-weight:700;color:${cor};">${esc(s.sitCurso)}</td>
+      <td style="text-align:center;font-weight:800;color:${rk?nc(rk.scoreFinal):'#999'};">${rk&&rk.completo?f2(rk.scoreFinal):'Incompleto'}</td></tr>`;
+  }).join('');
+
+  // ── Pontos de Atenção ──
+  const pontosAtencao = [];
+  matriculados.forEach(s => {
+    if (s.sitCurso === 'Xeque') pontosAtencao.push({ nr:s.nr, nome:s.guerra, txt:'Situação Xeque no curso.' });
+  });
+  saldoPorAluno.filter(s=>s.saldo<=-10).forEach(s => {
+    pontosAtencao.push({ nr:s.aluno, nome: s.cad?s.cad.guerra:'Aluno '+s.aluno, txt:'Saldo comportamental crítico ('+s.saldo+') no FRAD.' });
+  });
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório Final — CAM 2026</title>
+<style>
+  @page { size:A4 portrait; margin:9mm; }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;color:#1a1a1a;}
+  #sheet{width:192mm;}
+  .hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2.5px solid #4a5240;padding-bottom:6px;margin-bottom:6px;}
+  .hdr h1{font-size:15pt;color:#1e2a14;}
+  .hdr .sub{font-size:7.5pt;color:#666;margin-top:1px;}
+  .hdr .rt{text-align:right;font-size:7pt;color:#777;}
+  .status-badge{display:inline-block;font-size:8pt;font-weight:800;padding:4px 12px;border-radius:14px;margin-bottom:10px;}
+  .cards{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+  .card{flex:1;min-width:80px;background:#f2f5ec;border:1px solid #c8d4b8;border-radius:6px;padding:6px 8px;text-align:center;}
+  .card .v{font-size:13pt;font-weight:800;color:#4a5240;}
+  .card .l{font-size:6.5pt;color:#666;text-transform:uppercase;letter-spacing:.3px;}
+  .sec{margin-bottom:12px;page-break-inside:avoid;}
+  .sec-t{font-size:9.5pt;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#4a5240;border-bottom:1.5px solid #c8d4b8;padding-bottom:3px;margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;font-size:7.5pt;}
+  th{background:#4a5240;color:#fff;padding:4px 5px;text-align:center;font-size:7pt;font-weight:700;}
+  td{padding:3.5px 5px;border-bottom:1px solid #e5e5e5;}
+  tr:nth-child(even) td{background:#fafbf8;}
+  .attn{background:#fdeaea;border-left:3px solid #a32d2d;border-radius:4px;padding:5px 9px;margin-bottom:4px;font-size:7.5pt;}
+  .ftr{margin-top:10px;border-top:1px solid #ccc;padding-top:4px;display:flex;justify-content:space-between;font-size:6.5pt;color:#999;}
+  .twocol{display:flex;gap:10px;}
+  .twocol > div{flex:1;}
+</style></head><body><div id="sheet">
+<div class="hdr">
+  <div><h1>📋 Relatório Final do Curso</h1>
+  <div class="sub">CAM 2026 · Curso Avançado de Montanhismo · Visão consolidada de desempenho e evolução</div></div>
+  <div class="rt"><div style="font-weight:700;color:#4a5240;">11º BIMth — Regimento Tiradentes</div>
+  <div>${geradoEm}</div><div style="color:#a32d2d;font-weight:700;">USO RESTRITO À CADEIA DE COMANDO</div></div>
+</div>
+<span class="status-badge" style="background:${cursoConcluido?'#e8f4dc':'#fdf1d9'};color:${cursoConcluido?'#2d6a0a':'#854f0b'};">${situacaoLabel}</span>
+
+<div class="cards">
+  <div class="card"><div class="v">${totalAlunos}</div><div class="l">Total de Alunos</div></div>
+  <div class="card"><div class="v">${matriculados.length}</div><div class="l">Matriculados</div></div>
+  <div class="card"><div class="v">${desligados.length}</div><div class="l">Desligados</div></div>
+  <div class="card"><div class="v">${naoApresentados.length}</div><div class="l">Não Apresentados</div></div>
+  <div class="card"><div class="v" style="color:#a32d2d;">${xeques.length}</div><div class="l">Em Xeque</div></div>
+  <div class="card"><div class="v" style="color:#854f0b;">${observacao.length}</div><div class="l">Em Observação</div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">🏆 Ranking Consolidado</div>
+  <div class="twocol">
+    <div class="card" style="flex:1;"><div class="v">${completos.length}</div><div class="l">Com Nota Completa</div></div>
+    <div class="card" style="flex:1;"><div class="v">${f2(avg(completos.map(r=>r.scoreFinal)))}</div><div class="l">Pontuação Média</div></div>
+    <div class="card" style="flex:1;"><div class="v" style="font-size:9pt;">${completos[0]?esc(completos[0].cad?.guerra||''):'—'}</div><div class="l">1º Colocado ${completos[0]?'('+f2(completos[0].scoreFinal)+' pts)':''}</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">📚 Desempenho Acadêmico por Fase</div>
+  <table><thead><tr><th>Fase</th><th>Média AS da Turma</th><th>Alunos com Nota</th></tr></thead><tbody>
+    ${fasesResumo.map(f=>`<tr><td>Fase ${f.num} — ${esc(f.nome)}</td><td style="text-align:center;font-weight:800;color:${nc(f.media)};">${f2(f.media)}</td><td style="text-align:center;">${f.n}</td></tr>`).join('')}
+  </tbody></table>
+</div>
+
+<div class="sec">
+  <div class="sec-t">📋 Comportamento — FRAD</div>
+  <div class="cards">
+    <div class="card"><div class="v" style="color:#2d6a0a;">+${fradPosTotal}</div><div class="l">Fatos Positivos</div></div>
+    <div class="card"><div class="v" style="color:#a32d2d;">-${fradNegTotal}</div><div class="l">Fatos Negativos</div></div>
+    <div class="card"><div class="v">${fradPosTotal-fradNegTotal>=0?'+':''}${fradPosTotal-fradNegTotal}</div><div class="l">Saldo da Turma</div></div>
+  </div>
+  <div class="twocol">
+    <div>
+      <div style="font-size:7.5pt;font-weight:800;color:#2d6a0a;margin-bottom:3px;">✅ Melhores Saldos</div>
+      <table><tbody>${top5Frad.map(s=>`<tr><td style="font-weight:700;">${esc(s.cad?s.cad.guerra:'Aluno '+s.aluno)}</td><td style="text-align:right;color:#2d6a0a;font-weight:800;">${s.saldo>=0?'+':''}${s.saldo}</td></tr>`).join('')}</tbody></table>
+    </div>
+    <div>
+      <div style="font-size:7.5pt;font-weight:800;color:#a32d2d;margin-bottom:3px;">⚠ Requerem Atenção</div>
+      <table><tbody>${bottom5Frad.map(s=>`<tr><td style="font-weight:700;">${esc(s.cad?s.cad.guerra:'Aluno '+s.aluno)}</td><td style="text-align:right;color:#a32d2d;font-weight:800;">${s.saldo>=0?'+':''}${s.saldo}</td></tr>`).join('')}</tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">⭐ Conceito Vertical (Instrutores) × Horizontal (Pares)</div>
+  <div class="cards">
+    <div class="card"><div class="v">${f2(mediaVtcTurma)}</div><div class="l">Média Conceito Vertical</div></div>
+    <div class="card"><div class="v">${f2(mediaHztTurma)}</div><div class="l">Média Conceito Horizontal</div></div>
+  </div>
+</div>
+
+${opsRankingHtml ? `<div class="sec">
+  <div class="sec-t">🎖️ Operações — Ranking Consolidado (todas as operações)</div>
+  <table><thead><tr><th>#</th><th style="text-align:left;">Aluno</th><th>Plan</th><th>Exec</th><th>Final</th></tr></thead>
+  <tbody>${opsRankingHtml}</tbody></table>
+</div>` : ''}
+
+${itensDeficientesTurma.length ? `<div class="sec">
+  <div class="sec-t">📓 Caderneta de Planejamento — Deficiências Recorrentes da Turma</div>
+  <div style="font-size:7.5pt;color:#555;line-height:1.6;">${itensDeficientesTurma.map(i=>'<strong>'+esc(i.nome)+'</strong> (méd. '+i.media.toFixed(2)+', '+i.n+' lançamentos)').join(' · ')}</div>
+</div>` : ''}
+
+<div class="sec">
+  <div class="sec-t">🏔️ TCM · 🔗 Sociometria · 🎖️ EDL</div>
+  <div class="cards">
+    <div class="card"><div class="v">${f2(tcmMedia)}</div><div class="l">Média TCM (Entrada)</div></div>
+    <div class="card"><div class="v">${estrelas.length}</div><div class="l">Estrelas Sociométricas</div></div>
+    <div class="card"><div class="v">${rejeitados.length}</div><div class="l">Rejeitados</div></div>
+    <div class="card"><div class="v">${f2(edlMedia)}</div><div class="l">Média Geral EDL</div></div>
+  </div>
+</div>
+
+${pontosAtencao.length ? `<div class="sec">
+  <div class="sec-t">⚠ Pontos de Atenção</div>
+  ${pontosAtencao.map(p=>`<div class="attn"><strong>${esc(p.nome)} (Nº${p.nr})</strong> — ${esc(p.txt)}</div>`).join('')}
+</div>` : ''}
+
+<div class="sec" style="page-break-before:always;">
+  <div class="sec-t">👤 Situação Final — Todos os Alunos Matriculados</div>
+  <table><thead><tr><th>Nº</th><th style="text-align:left;">Nome de Guerra</th><th>Posto</th><th>OM</th><th>Situação</th><th>Nota Final</th></tr></thead>
+  <tbody>${situacaoFinalHtml}</tbody></table>
+</div>
+
+<div class="ftr">
+  <span>CAM 2026 — Relatório Final do Curso · ${situacaoLabel}</span>
+  <span>Documento Controlado — ${geradoEm}</span>
+</div>
+</div>
+<script>
+  window.onload=function(){ setTimeout(function(){window.print();},300); };
+<\/script>
+</body></html>`;
+
+  const win2 = window.open('','_blank','width=1000,height=820');
+  if (win2) { win2.document.write(html); win2.document.close(); }
+  else alert('Permita pop-ups para gerar o PDF.');
+}function goToPerfilFromRanking(nr) {
   const sel = document.getElementById('perfilStudentSelect');
   if (sel) sel.value = nr;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));

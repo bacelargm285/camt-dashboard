@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Situação Geral — CAM 2026 | Carta de Manobra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- interface ---- */
+  --ink:#0d1218;
+  --panel:#151d26;
+  --panel-2:#1b2632;
+  --panel-3:#22303e;
+  --line:#2b3947;
+  --txt:#e2e9f0;
+  --muted:#8fa2b4;
+  --dim:#5d6f80;
+
+  /* ---- carta (mapa) ---- */
+  --terr-base:#d5cfbc;
+  --terr-mid:#c3c6a6;
+  --terr-high:#a9b58c;
+  --terr-peak:#8d9b74;
+  --water:#9db9c7;
+  --road:#5d5443;
+  --grid-map:#b3ab97;
+
+  /* ---- forças ---- */
+  --az:#12468f;      --az-fill:#cfe0f6;
+  --vm:#a81c28;      --vm-fill:#f4cbcd;
+  --ma:#7a4718;      --ma-fill:#e9d6bd;
+  --am:#8a6d10;
+  --gold:#b8860b;
+  --alert:#d84315;
+
+  --fd:'Barlow Condensed', sans-serif;
+  --fb:'IBM Plex Sans', sans-serif;
+  --fm:'IBM Plex Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--txt);font-family:var(--fb);font-size:15px;line-height:1.55}
+::selection{background:var(--gold);color:#0d1218}
+h1,h2,h3,h4{font-family:var(--fd);font-weight:600;line-height:1.1;letter-spacing:.01em}
+
+/* ================= TOPO ================= */
+.topbar{
+  position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:0 24px;height:56px;background:rgba(13,18,24,.95);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand .mark{
+  width:30px;height:30px;flex:0 0 auto;border:1.5px solid var(--gold);border-radius:3px;
+  display:grid;place-items:center;font-family:var(--fm);font-size:9px;color:var(--gold);letter-spacing:.02em
+}
+.brand .t{font-family:var(--fd);font-size:19px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.brand .s{font-family:var(--fm);font-size:10px;color:var(--dim);letter-spacing:.12em}
+.topnav{display:flex;gap:4px}
+.topnav a{
+  font-family:var(--fm);font-size:11px;letter-spacing:.08em;color:var(--muted);text-decoration:none;
+  padding:7px 12px;border-radius:3px;text-transform:uppercase;transition:.15s
+}
+.topnav a:hover{color:var(--txt);background:var(--panel-2)}
+@media(max-width:900px){.topnav{display:none}}
+
+/* ================= SEÇÕES ================= */
+.wrap{max-width:1560px;margin:0 auto;padding:0 24px}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.eyebrow{font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+h2{font-size:clamp(26px,3vw,38px);text-transform:uppercase;letter-spacing:.02em}
+.sec-head p{color:var(--muted);max-width:620px;font-size:14px}
+
+/* ================= CAPA ================= */
+.cover{padding:76px 0 68px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.cover .grid-bg{
+  position:absolute;inset:0;opacity:.35;
+  background-image:linear-gradient(#182430 1px,transparent 1px),linear-gradient(90deg,#182430 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(ellipse at 20% 40%,#000 20%,transparent 75%)
+}
+.cover-inner{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
+@media(max-width:1000px){.cover-inner{grid-template-columns:1fr;gap:36px}}
+.cover h1{font-size:clamp(38px,5.6vw,74px);text-transform:uppercase;letter-spacing:.01em}
+.cover h1 em{font-style:normal;color:var(--vm)}
+.cover .lead{color:var(--muted);font-size:16.5px;max-width:640px;margin-top:18px}
+.classif{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:10.5px;letter-spacing:.14em;
+  color:var(--gold);border:1px solid #4a3c14;background:#1d1809;padding:5px 11px;border-radius:2px;margin-bottom:20px
+}
+.factstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:38px}
+@media(max-width:760px){.factstrip{grid-template-columns:repeat(2,1fr)}}
+.factstrip div{background:var(--panel);padding:14px 16px}
+.factstrip b{display:block;font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin-bottom:5px}
+.factstrip span{font-family:var(--fd);font-size:20px;color:var(--txt)}
+.cover-sym{display:grid;place-items:center}
+.cover-sym svg{width:100%;max-width:420px;height:auto}
+
+/* ================= HISTÓRICO ================= */
+.tl{position:relative;padding-left:0}
+.tl-row{display:grid;grid-template-columns:132px 24px 1fr;gap:0;align-items:stretch}
+@media(max-width:760px){.tl-row{grid-template-columns:96px 20px 1fr}}
+.tl-date{
+  text-align:right;padding:22px 18px 22px 0;font-family:var(--fm);font-size:12px;color:var(--gold);
+  letter-spacing:.04em;font-weight:500
+}
+.tl-date small{display:block;color:var(--dim);font-size:10px;letter-spacing:.1em;margin-top:4px;text-transform:uppercase}
+.tl-axis{position:relative}
+.tl-axis::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-.5px)}
+.tl-axis i{
+  position:absolute;left:50%;top:28px;width:11px;height:11px;border-radius:50%;transform:translate(-50%,-50%);
+  background:var(--panel);border:2px solid var(--gold)
+}
+.tl-row:first-child .tl-axis::before{top:28px}
+.tl-row:last-child .tl-axis::before{bottom:auto;height:28px}
+.tl-body{padding:16px 0 30px 22px}
+.tl-body h3{font-size:21px;margin-bottom:6px}
+.tl-body p{color:var(--muted);font-size:14.2px;max-width:860px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tl-tags span{
+  font-family:var(--fm);font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);
+  border-left:2px solid var(--vm);padding:7px 11px;border-radius:2px;max-width:420px
+}
+.tl-tags span b{color:var(--txt);display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.tl-row.key .tl-axis i{background:var(--vm);border-color:var(--vm);box-shadow:0 0 0 4px rgba(168,28,40,.18)}
+.tl-row.key .tl-date{color:var(--vm)}
+
+/* ================= ATORES ================= */
+.actors{display:grid;grid-template-columns:112px repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);overflow-x:auto}
+@media(max-width:1000px){.actors{grid-template-columns:96px repeat(4,minmax(180px,1fr))}}
+.actors>div{background:var(--panel);padding:14px 16px;font-size:13.2px;color:var(--muted)}
+.actors .rowlab{
+  font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  background:var(--ink);display:flex;align-items:center
+}
+.actors .hd{background:var(--panel-2);padding:18px 16px}
+.actors .hd .nm{font-family:var(--fd);font-size:26px;text-transform:uppercase;letter-spacing:.03em}
+.actors .hd .rl{font-family:var(--fm);font-size:10.5px;letter-spacing:.08em;color:var(--muted);margin-top:2px}
+.actors .hd.az{border-top:3px solid var(--az)} .actors .hd.az .nm{color:#5b9bee}
+.actors .hd.vm{border-top:3px solid var(--vm)} .actors .hd.vm .nm{color:#e2606c}
+.actors .hd.ma{border-top:3px solid var(--ma)} .actors .hd.ma .nm{color:#c98f4a}
+.actors .hd.am{border-top:3px solid var(--am)} .actors .hd.am .nm{color:#dfbc3c}
+
+/* ================= MAPA ================= */
+.mapshell{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden}
+.mapbar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;
+  background:var(--panel-2);border-bottom:1px solid var(--line)
+}
+.tbtn{
+  display:inline-grid;place-items:center;width:36px;height:34px;background:var(--panel-3);color:var(--txt);
+  border:1px solid var(--line);border-radius:3px;cursor:pointer;transition:.15s
+}
+.tbtn:hover{background:#2c3d4e;border-color:#3d5163}
+.tbtn.play{background:var(--gold);color:#0d1218;border-color:var(--gold);width:44px}
+.tbtn.play:hover{filter:brightness(1.12)}
+.tbtn svg{width:15px;height:15px;fill:currentColor}
+.phasecount{font-family:var(--fm);font-size:12px;color:var(--muted);letter-spacing:.06em;min-width:132px}
+.phasecount b{color:var(--gold)}
+.layers{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.layers label{
+  font-family:var(--fm);font-size:10.5px;letter-spacing:.06em;color:var(--muted);background:var(--panel);
+  border:1px solid var(--line);padding:6px 10px;border-radius:3px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  text-transform:uppercase;user-select:none
+}
+.layers label:has(input:checked){color:var(--txt);border-color:#3d5163;background:var(--panel-3)}
+.layers input{accent-color:var(--gold);width:12px;height:12px}
+
+/* scrubber */
+.scrub{display:flex;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto}
+.scrub button{
+  flex:1 1 0;min-width:132px;background:none;border:none;border-right:1px solid var(--line);cursor:pointer;
+  padding:11px 13px;text-align:left;color:var(--muted);transition:.18s;position:relative
+}
+.scrub button:last-child{border-right:none}
+.scrub button:hover{background:var(--panel-2)}
+.scrub button .d{font-family:var(--fm);font-size:10px;letter-spacing:.08em;color:var(--dim)}
+.scrub button .t{font-family:var(--fd);font-size:15px;line-height:1.15;margin-top:3px;display:block}
+.scrub button.on{background:var(--panel-3);color:var(--txt)}
+.scrub button.on .d{color:var(--gold)}
+.scrub button.on::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold)}
+.scrub button.done .d{color:var(--muted)}
+
+.mapgrid{display:grid;grid-template-columns:1fr 330px}
+@media(max-width:1100px){.mapgrid{grid-template-columns:1fr}}
+.mapview{background:var(--terr-base);position:relative}
+.mapview svg{display:block;width:100%;height:auto}
+.sidepanel{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;max-height:760px;overflow-y:auto}
+@media(max-width:1100px){.sidepanel{border-left:none;border-top:1px solid var(--line);max-height:none}}
+.sp-block{padding:18px 18px 16px;border-bottom:1px solid var(--line)}
+.sp-block:last-child{border-bottom:none}
+.sp-lab{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
+.sp-title{font-family:var(--fd);font-size:22px;line-height:1.1;margin-bottom:8px}
+.sp-date{font-family:var(--fm);font-size:11px;color:var(--gold);letter-spacing:.06em;margin-bottom:10px}
+.sp-text{font-size:13.6px;color:var(--muted)}
+.sp-list{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.sp-list li{
+  font-size:12.6px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line);
+  padding:8px 10px;border-radius:2px;display:flex;gap:9px;align-items:flex-start
+}
+.sp-list li em{font-style:normal;font-family:var(--fm);font-size:10px;letter-spacing:.06em;color:var(--dim);display:block;margin-top:2px}
+.sp-list li .sw{width:3px;align-self:stretch;flex:0 0 3px;border-radius:2px}
+.sp-empty{color:var(--dim);font-size:12.6px;font-family:var(--fm)}
+.unitcard .uc-head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.unitcard .uc-head svg{flex:0 0 auto}
+.unitcard .uc-head .nm{font-family:var(--fd);font-size:19px;line-height:1.1}
+.unitcard .uc-head .sd{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.uc-row{margin-bottom:10px}
+.uc-row b{display:block;font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin-bottom:3px}
+.uc-row p{font-size:13.2px;color:var(--muted)}
+
+.maplegend{display:flex;flex-wrap:wrap;gap:16px;padding:12px 16px;background:var(--panel-2);border-top:1px solid var(--line);font-family:var(--fm);font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+.maplegend span{display:inline-flex;align-items:center;gap:7px}
+.maplegend i{width:14px;height:10px;display:inline-block;border:1.5px solid var(--dim)}
+.maplegend i.az{border-color:var(--az);background:var(--az-fill)}
+.maplegend i.vm{border-color:var(--vm);background:var(--vm-fill);transform:rotate(45deg);width:11px;height:11px}
+.maplegend i.ma{border-color:var(--ma);background:var(--ma-fill);transform:rotate(45deg);width:11px;height:11px}
+.maplegend i.rd{border:none;height:3px;width:20px;background:var(--road)}
+.maplegend i.pz{border:none;height:0;width:20px;border-top:2.5px dotted var(--gold)}
+
+/* símbolos no mapa */
+.unit{cursor:pointer;transition:transform 1.05s cubic-bezier(.45,.05,.35,1),opacity .5s}
+.unit .hit{fill:transparent}
+.unit:hover .frame{filter:brightness(1.06)}
+.unit.sel .selring{opacity:1}
+.unit .selring{opacity:0;transition:opacity .2s}
+.unit .contact{opacity:0;transition:opacity .35s}
+.unit.in-contact .contact{opacity:1;animation:cpulse 1.6s ease-out infinite}
+@keyframes cpulse{0%{transform:scale(.85);opacity:.85}70%{transform:scale(1.5);opacity:0}100%{opacity:0}}
+.unit .ulabel{font-family:var(--fm);font-size:10.5px;fill:#3a4048;font-weight:500;pointer-events:none}
+.arrow{opacity:0;transition:opacity .4s}
+.arrow.on{opacity:1}
+.mapnote{font-family:var(--fm);font-size:10.5px;fill:#5a5344}
+.citylab{font-family:var(--fb);font-size:12px;fill:#3d4550;font-weight:600}
+.terrlab{font-family:var(--fd);font-size:19px;letter-spacing:.16em;font-weight:600}
+
+/* ================= ORBAT ================= */
+.orbat{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:900px){.orbat{grid-template-columns:1fr}}
+.ob{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden}
+.ob-head{padding:14px 18px;font-family:var(--fd);font-size:18px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+.ob.az .ob-head{color:#5b9bee;background:linear-gradient(90deg,rgba(18,70,143,.22),transparent)}
+.ob.vm .ob-head{color:#e2606c;background:linear-gradient(90deg,rgba(168,28,40,.22),transparent)}
+.ob-body{padding:18px}
+.ob-root{font-family:var(--fm);font-size:12px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);padding:10px 13px;border-radius:2px;margin-bottom:16px}
+.ob-list{list-style:none;display:flex;flex-direction:column;gap:9px;padding-left:20px;border-left:1px dashed var(--line)}
+.ob-list li{display:flex;gap:12px;align-items:center;background:var(--panel-2);border:1px solid var(--line);padding:9px 12px;border-radius:2px;position:relative}
+.ob-list li::before{content:'';position:absolute;left:-20px;top:50%;width:18px;height:1px;background:var(--line)}
+.ob-list li svg{flex:0 0 auto}
+.ob-list .nm{font-family:var(--fd);font-size:16.5px;line-height:1.1}
+.ob-list .rl{font-family:var(--fm);font-size:10.5px;color:var(--dim);letter-spacing:.04em;margin-top:1px}
+
+footer{padding:34px 24px 60px;text-align:center;font-family:var(--fm);font-size:10.5px;color:var(--dim);letter-spacing:.1em}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="mark">CIOp<br>Mth</div>
+    <div>
+      <div class="t">Situação Geral — CAM 2026</div>
+      <div class="s">CONTINENTE AUSTRAL · TEATRO DE OPERAÇÕES</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="#historico">01 Histórico</a>
+    <a href="#atores">02 Atores</a>
+    <a href="#manobra">03 Carta de Manobra</a>
+    <a href="#orbat">04 ORBAT</a>
+  </nav>
+</div>
+
+<!-- ===================== CAPA ===================== -->
+<div class="cover">
+  <div class="grid-bg"></div>
+  <div class="wrap cover-inner">
+    <div>
+      <div class="classif">● MATERIAL DIDÁTICO · CURSO AVANÇADO DE MONTANHA 2026</div>
+      <h1>A escalada no<br>continente <em>Austral</em></h1>
+      <p class="lead">Do antagonismo histórico de 1655 à invasão do Quadrilátero Ferrífero em 14 de junho de 2026 — o cenário que fundamenta todas as operações do curso.</p>
+      <div class="factstrip">
+        <div><b>Origem do conflito</b><span>Guerra das Vertentes · 1655</span></div>
+        <div><b>Ativação do TOT</b><span>01 JUN 2026</span></div>
+        <div><b>Dia D</b><span>14 JUN 2026</span></div>
+        <div><b>Comando do Teatro</b><span>Gen Ex MINA</span></div>
+      </div>
+    </div>
+    <div class="cover-sym" id="coverSym"></div>
+  </div>
+</div>
+
+<!-- ===================== 01 HISTÓRICO ===================== -->
+<section id="historico"><div class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">01 · Antecedentes</div>
+      <h2>Como se chegou ao Dia D</h2>
+    </div>
+    <p>Sete marcos ligam uma disputa territorial do século XVII à ofensiva convencional de 2026. A leitura é contínua — nada está escondido atrás de cliques.</p>
+  </div>
+  <div class="tl" id="timeline"></div>
+</div></section>
+
+<!-- ===================== 02 ATORES ===================== -->
+<section id="atores"><div class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">02 · Inteligência geopolítica</div>
+      <h2>Matriz de atores</h2>
+    </div>
+    <p>Quatro países, quatro lógicas de poder. Comparação direta de perfil, vantagem, vulnerabilidade e papel no conflito.</p>
+  </div>
+  <div class="actors" id="actorsGrid"></div>
+</div></section>
+
+<!-- ===================== 03 MANOBRA ===================== -->
+<section id="manobra"><div class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">03 · Carta de manobra</div>
+      <h2>A manobra, fase a fase</h2>
+    </div>
+    <p>Use <b>▶</b> para rodar a sequência ou navegue pelas fases. As peças de manobra se deslocam na carta; clique em qualquer símbolo para ver missão e situação da unidade.</p>
+  </div>
+
+  <div class="mapshell">
+    <div class="mapbar">
+      <button class="tbtn" id="btnPrev" title="Fase anterior (←)"><svg viewBox="0 0 16 16"><path d="M11 2 4 8l7 6z"/></svg></button>
+      <button class="tbtn play" id="btnPlay" title="Reproduzir a manobra"><svg viewBox="0 0 16 16" id="playIcon"><path d="M4 2l9 6-9 6z"/></svg></button>
+      <button class="tbtn" id="btnNext" title="Próxima fase (→)"><svg viewBox="0 0 16 16"><path d="M5 2l7 6-7 6z"/></svg></button>
+      <div class="phasecount">FASE <b id="phNum">1</b> DE <span id="phTot">7</span></div>
+      <div class="layers">
+        <label><input type="checkbox" id="lyRoads" checked> Eixos rodoviários</label>
+        <label><input type="checkbox" id="lyPipe" checked> Eixo Petrozul</label>
+        <label><input type="checkbox" id="lyRelief" checked> Relevo</label>
+        <label><input type="checkbox" id="lyLabels" checked> Rótulos</label>
+      </div>
+    </div>
+
+    <div class="scrub" id="scrub"></div>
+
+    <div class="mapgrid">
+      <div class="mapview" id="mapView"></div>
+      <aside class="sidepanel">
+        <div class="sp-block" id="phasePanel"></div>
+        <div class="sp-block" id="unitPanel">
+          <div class="sp-lab">Unidade selecionada</div>
+          <p class="sp-empty">Clique em um símbolo na carta.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="maplegend">
+      <span><i class="az"></i>Forças de AZUL (amigas)</span>
+      <span><i class="vm"></i>Forças de VERMELHO (inimigas)</span>
+      <span><i class="ma"></i>MARQ — força irregular</span>
+      <span><i class="rd"></i>Rodovia (BR-265 / BR-381)</span>
+      <span><i class="pz"></i>Eixo Energético Petrozul</span>
+      <span style="color:var(--alert)">◉ unidade em contato</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ===================== 04 ORBAT ===================== -->
+<section id="orbat" style="border-bottom:none"><div class="wrap">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">04 · Dossiê</div>
+      <h2>Ordem de batalha</h2>
+    </div>
+    <p>Estrutura de comando das forças em confronto no Teatro de Operações, com a simbologia empregada na carta.</p>
+  </div>
+  <div class="orbat">
+    <div class="ob az">
+      <div class="ob-head">Forças de defesa · AZUL</div>
+      <div class="ob-body">
+        <div class="ob-root">TOT (Gen Ex MINA) → 1º Corpo de Exército Azul (1º C Ex Az)</div>
+        <ul class="ob-list" id="obAz"></ul>
+      </div>
+    </div>
+    <div class="ob vm">
+      <div class="ob-head">Forças invasoras · VERMELHO</div>
+      <div class="ob-body">
+        <div class="ob-root">2º Corpo de Exército (2º C Ex Vm) — concentrado na fronteira em 10 JUN 2026</div>
+        <ul class="ob-list" id="obVm"></ul>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<footer>SITUAÇÃO GERAL — CAM 2026 · CENTRO DE INSTRUÇÃO DE OPERAÇÕES DE MONTANHA · MATERIAL DIDÁTICO</footer>
+
+<script>
+/* ============================================================================
+   COMO ACRESCENTAR NOVAS SITUAÇÕES PARTICULARES
+   ----------------------------------------------------------------------------
+   1) Unidade nova .... acrescente um objeto em UNITS (id único, side, echelon,
+                        branch, name, role, detail).
+   2) Fase nova ....... acrescente um objeto ao final de PHASES com:
+                        date, title, text, units:{ idDaUnidade:{x,y,contact:true} },
+                        arrows:[ 'idDaSeta' ], notes:[ {t,s,c} ]
+                        (unidade sem posição na fase mantém a última conhecida)
+   3) Seta nova ....... acrescente em ARROWS (d = path SVG no sistema 1400x900).
+   Nada mais precisa ser alterado — scrubber, painel e animação se ajustam.
+============================================================================ */
+
+/* ---------------------------------------------------------------- HISTÓRICO */
+const TIMELINE = [
+ {date:"1655", tag:"Marco fundador", key:true,
+  title:"Guerra das Vertentes e o Tratado do Ouro",
+  text:"A disputa territorial inicial pelo Quadrilátero Ferrífero é selada pelo Tratado do Ouro. O documento permanece como a raiz do revanchismo histórico de VERMELHO em relação às nações de matriz lusa.",
+  tags:[]},
+ {date:"2ª metade séc. XX", tag:"Quebra de equilíbrio",
+  title:"A ascensão econômica de AZUL",
+  text:"A exploração mineral — em especial o nióbio do Quadrilátero Ferrífero — impulsiona AZUL e altera o equilíbrio de poder continental. A assimetria resultante passa a ser explorada por VERMELHO e MARROM como justificativa para estratégias de contestação.",
+  tags:[{b:"Petrozul",p:"A exploração de petróleo em AMARELO consolida o eixo energético Belo Horizonte–Rio de Janeiro, centro de gravidade econômico e militar de AZUL."}]},
+ {date:"2022 – 2024", tag:"Preparação do Ambiente Operacional",
+  title:"VERMELHO estrutura uma ofensiva não-cinética",
+  text:"Com a ascensão do regime ultranacionalista em 2022, inicia-se uma campanha integrada de preparação, sem emprego direto da força.",
+  tags:[
+   {b:"Informacional e diplomático",p:"Em 2024 os mecanismos do Organismo de Segurança Mundial (OSM) mostram-se incapazes de conter a escalada, mesmo com a ratificação do Tratado do Ouro."},
+   {b:"Cibernético e tecnológico",p:"Intensificação do reconhecimento por VANT e aprimoramento das capacidades de Guerra Eletrônica."},
+   {b:"Estruturação insurgente",p:"Com apoio de MARROM, criação de núcleos irregulares voltados à retaguarda operacional de AZUL."}]},
+ {date:"2025", tag:"Guerra híbrida",
+  title:"A crise se aprofunda sobre o eixo energético",
+  text:"A infraestrutura da Petrozul é atacada antes de qualquer confronto físico: o centro de gravidade logístico é sangrado ainda em tempo de paz.",
+  tags:[
+   {b:"Ataques cibernéticos",p:"Ofensiva direta contra a rede da Petrozul."},
+   {b:"Guerra eletrônica",p:"Interferências críticas em sistemas de posicionamento global."},
+   {b:"Incursões aéreas",p:"Violações reiteradas do espaço aéreo azulino por VANT de VERMELHO."}]},
+ {date:"Jan – Mai 2026", tag:"Ponto de ruptura",
+  title:"Ameaça convencional e ameaça irregular convergem",
+  text:"Em janeiro, os ataques cibernéticos comprometem a sustentação logística de AZUL. Simultaneamente consolida-se o MARQ na Serra da Mantiqueira, impondo a condução simultânea de operações convencionais e de contrainsurgência.",
+  tags:[
+   {b:"Na fronteira",p:"Incremento da defesa antiaérea e da GE de VERMELHO restringe o emprego do poder aeroespacial azulino."},
+   {b:"Na retaguarda",p:"Sabotagem de oleodutos e interdição de eixos logísticos dispersam o poder de combate de AZUL."},
+   {b:"15 MAI 2026 — DPED",p:"O governo de AZUL emite a Diretriz Presidencial de Emprego de Defesa: garantir a integridade territorial, proteger a Petrozul e as jazidas de nióbio, barrar a invasão e reduzir o poder militar terrestre de VERMELHO, sob os princípios do DICA."}]},
+ {date:"01 – 10 JUN 2026", tag:"Mobilização",
+  title:"Ativação do TOT e concentração inimiga",
+  text:"Em 01 JUN o Teatro de Operações é ativado sob comando do Gen Ex MINA, com dispositivo defensivo em profundidade destinado a absorver o choque inicial e preservar a capacidade de contra-ataque das reservas. Em 10 JUN a inteligência confirma a concentração final do 2º C Ex Vm junto à fronteira.",
+  tags:[]},
+ {date:"14 JUN 2026", tag:"Dia D", key:true,
+  title:"A invasão do Quadrilátero Ferrífero",
+  text:"VERMELHO transpõe a fronteira internacional em dois eixos coordenados, combinando forças convencionais, aeromóveis, capacidades cibernéticas e ações irregulares — um ambiente de guerra multidomínio, restrito a meios convencionais e irregulares e submetido ao Direito Internacional dos Conflitos Armados.",
+  tags:[]}
+];
+
+/* ------------------------------------------------------------------ ATORES */
+const ACTORS = [
+ {k:"az",nome:"Azul",papel:"Defensor estratégico",
+  perfil:"Potência regional industrial-extrativista, de condição interiorana.",
+  vantagem:"Domínio tecnológico e exploração de nióbio no Quadrilátero Ferrífero.",
+  vulner:"Alta dependência dos corredores logísticos e do eixo energético com AMARELO."},
+ {k:"vm",nome:"Vermelho",papel:"Agressor principal",
+  perfil:"Regime autoritário ultranacionalista, com inflexão político-estratégica em 2022.",
+  vantagem:"Preparo para guerra híbrida, ofensiva em montanha e guerra eletrônica.",
+  vulner:"Revanchismo histórico que o isola diplomaticamente."},
+ {k:"ma",nome:"Marrom",papel:"Patrocinador indireto",
+  perfil:"Potência industrial-tecnológica, ex-colônia da metrópole Franquia.",
+  vantagem:"Domínio cibernético e bélico de alta complexidade.",
+  vulner:"Escassez de recursos minerais estratégicos."},
+ {k:"am",nome:"Amarelo",papel:"Suporte logístico vital",
+  perfil:"Relevância geoeconômica pela exploração de petróleo offshore.",
+  vantagem:"Principal parceiro energético de AZUL — base da Petrozul.",
+  vulner:"Elevada dependência tecnológica."}
+];
+
+/* ---------------------------------------------------- GEOGRAFIA (1400x900) */
+const CITIES = [
+ {n:"Perdões",            x:352, y:298},
+ {n:"Carmópolis de Minas",x:566, y:236},
+ {n:"Lavras",             x:330, y:492},
+ {n:"São João del Rei",   x:706, y:432},
+ {n:"Três Corações",      x:398, y:658},
+ {n:"Tiradentes",         x:816, y:498}
+];
+
+/* --------------------------------------------------------------- UNIDADES */
+const UNITS = [
+ // ---- AZUL ----
+ {id:"cav1", side:"az", ech:"X",  branch:"cavMec", short:"1", name:"1ª Bda Cav Mec",
+  role:"Ação retardadora", detail:"Opera no eixo da BR-265 trocando espaço por tempo, retardando o avanço mecanizado inimigo até que a defesa em posição esteja em condições de receber o choque.", gu:"1ª DE"},
+ {id:"mth",  side:"az", ech:"X",  branch:"infMth", short:"Mth", name:"Bda Inf Mth",
+  role:"Defesa em posição — São João del Rei", detail:"Defende em posição São João del Rei, nó decisivo do eixo principal e ponto de junção pretendido pelo inimigo com suas tropas aeromóveis na Serra do Lenheiro.", gu:"1ª DE"},
+ {id:"b9",   side:"az", ech:"X",  branch:"infMtz", short:"9", name:"9ª Bda Inf Mtz",
+  role:"Defesa em posição — Três Corações", detail:"Defende em posição a região de Três Corações, protegendo o flanco sul do dispositivo e o traçado do eixo energético.", gu:"1ª DE"},
+ {id:"b14",  side:"az", ech:"X",  branch:"infMtz", short:"14", name:"14ª Bda Inf Mtz",
+  role:"Defesa em posição — Lavras", detail:"Defende em posição a região de Lavras, primeira grande resistência no eixo principal de invasão (BR-265).", gu:"2ª DE"},
+ {id:"b10",  side:"az", ech:"X",  branch:"infMtz", short:"10", name:"10ª Bda Inf Mtz",
+  role:"Defesa em posição — Carmópolis", detail:"Defende em posição a região de Carmópolis de Minas, disputando com o inimigo as cristas topográficas dominantes do eixo secundário.", gu:"2ª DE"},
+ {id:"b3",   side:"az", ech:"X",  branch:"infMec", short:"3", name:"3ª Bda Inf Mec",
+  role:"Reserva móvel — Tiradentes", detail:"Mantida em reserva na região de Tiradentes, aguardando a definição do desdobramento principal inimigo para o contra-ataque.", gu:"2ª DE"},
+ {id:"de4",  side:"az", ech:"XX", branch:"infMec", short:"4", name:"4ª Divisão de Exército",
+  role:"Reserva do TOT", detail:"Empregada integralmente como reserva do Teatro de Operações, mantida fechada na retaguarda para preservar a liberdade de ação do Comando.", gu:"TOT"},
+ {id:"tot",  side:"az", ech:"HQ", branch:"hq", short:"TOT", name:"Comando do TOT",
+  role:"Posto de Comando — Gen Ex MINA", detail:"Ativado em 01 JUN 2026. Conduz o dispositivo de defesa em profundidade orientado à absorção do choque inicial e à preservação das reservas móveis.", gu:"TOT"},
+ // ---- VERMELHO ----
+ {id:"b41",  side:"vm", ech:"X",  branch:"infMec", short:"41", name:"41ª Bda Inf Mec",
+  role:"Eixo principal — BR-265", detail:"Avança de Lavras sobre São João del Rei para desarticular o sistema defensivo azulino e realizar junção com o 1º Rgt Inf Amv na Serra do Lenheiro.", gu:"2º C Ex Vm"},
+ {id:"b42",  side:"vm", ech:"X",  branch:"infL",   short:"42", name:"42ª Bda Inf L",
+  role:"Eixo secundário — BR-381", detail:"Desloca-se na direção Perdões–Carmópolis para conquistar cristas topográficas dominantes, isolar operacionalmente o centro do Quadrilátero e interditar os fluxos logísticos de AZUL.", gu:"2º C Ex Vm"},
+ {id:"b43",  side:"vm", ech:"X",  branch:"infL",   short:"43", name:"43ª Bda Inf L",
+  role:"Reserva estratégica", detail:"Agrupada na retaguarda para exploração do êxito, a ser lançada no eixo que apresentar maior progresso.", gu:"2º C Ex Vm"},
+ {id:"amv1", side:"vm", ech:"III",branch:"infAmv", short:"1", name:"1º Rgt Inf Amv",
+  role:"Infiltração aeromóvel", detail:"Infiltra-se por via aérea para estabelecer cabeça de ponte na Serra do Lenheiro, na retaguarda imediata de São João del Rei, ao encontro do eixo principal.", gu:"2º C Ex Vm"},
+ // ---- IRREGULAR ----
+ {id:"marq", side:"ma", ech:"IRR", branch:"irr", short:"MARQ", name:"MARQ",
+  role:"Força insurgente — Serra da Mantiqueira", detail:"Movimento Armado Revolucionário do Quadrilátero, apoiado por MARROM. Conduz sabotagem de oleodutos e desorganiza a retaguarda operacional de AZUL, ampliando o campo de batalha.", gu:"Apoio de MARROM"}
+];
+const U = {}; UNITS.forEach(u=>U[u.id]=u);
+
+/* ------------------------------------------------------------------ SETAS */
+const ARROWS = {
+ axP1:{side:"vm", d:"M228,150 C240,220 252,270 268,318"},
+ axP2:{side:"vm", d:"M272,330 C292,392 306,436 322,470"},
+ axP3:{side:"vm", d:"M352,486 C470,478 560,462 646,440"},
+ axS1:{side:"vm", d:"M352,148 C346,196 344,240 348,272"},
+ axS2:{side:"vm", d:"M372,288 C438,268 490,250 536,240"},
+ axAir:{side:"vm", dash:true, d:"M712,120 C812,180 862,268 872,352"},
+ retard:{side:"az", dash:true, d:"M282,296 C316,378 346,452 372,516"},
+ reserva:{side:"az", d:"M812,522 C784,500 758,478 736,462"},
+ sabot:{side:"ma", dash:true, d:"M896,648 C838,624 776,600 712,584"}
+};
+
+/* ------------------------------------------------------------------ FASES */
+const PHASES = [
+ {date:"01 JUN 2026", title:"Ativação do Teatro de Operações",
+  text:"O TOT é ativado sob comando do Gen Ex MINA. AZUL organiza defesa em profundidade: ação retardadora no eixo da BR-265, defesa em posição nas regiões-chave e reservas preservadas. Na retaguarda, o MARQ já opera na Serra da Mantiqueira.",
+  units:{ cav1:{x:262,y:262}, b10:{x:596,y:280}, b14:{x:300,y:534}, mth:{x:672,y:400}, b9:{x:372,y:698},
+          b3:{x:838,y:540}, de4:{x:700,y:760}, tot:{x:566,y:770}, marq:{x:906,y:648} },
+  arrows:[],
+  notes:[{t:"Defesa em profundidade",s:"Três camadas: retardamento, defesa em posição e reservas móveis.",c:"az"},
+         {t:"Ameaça já instalada",s:"MARQ atua na retaguarda desde o início de 2026.",c:"ma"}]},
+
+ {date:"10 JUN 2026", title:"Concentração final do 2º C Ex Vm",
+  text:"A inteligência de AZUL confirma a concentração de meios do 2º Corpo de Exército de VERMELHO junto à linha de fronteira: uma brigada mecanizada, duas brigadas de infantaria leve e um regimento aeromóvel — indício inequívoco de ofensiva iminente em larga escala.",
+  units:{ b41:{x:232,y:82}, b42:{x:404,y:70}, b43:{x:566,y:88}, amv1:{x:716,y:84} },
+  arrows:[],
+  notes:[{t:"Armas combinadas",s:"41ª Bda Inf Mec, 42ª e 43ª Bda Inf L e 1º Rgt Inf Amv.",c:"vm"}]},
+
+ {date:"14 JUN 2026 — Dia D", title:"Transposição da fronteira internacional",
+  text:"As forças de VERMELHO transpõem a fronteira em dois eixos coordenados. A 1ª Bda Cav Mec entra em contato no eixo principal e inicia a ação retardadora, trocando espaço por tempo.",
+  units:{ b41:{x:262,y:206,contact:true}, b42:{x:352,y:190}, cav1:{x:280,y:300,contact:true} },
+  arrows:["axP1","axS1"],
+  notes:[{t:"Eixo principal — BR-265",s:"41ª Bda Inf Mec sobre Lavras.",c:"vm"},
+         {t:"Eixo secundário — BR-381",s:"42ª Bda Inf L sobre Perdões–Carmópolis.",c:"vm"}]},
+
+ {date:"14 – 15 JUN", title:"Ação retardadora no eixo principal",
+  text:"A 1ª Bda Cav Mec desengaja e recua ao longo da BR-265, desgastando a progressão mecanizada e ganhando tempo para a 14ª Bda Inf Mtz consolidar a defesa em posição em Lavras.",
+  units:{ b41:{x:288,y:394,contact:true}, cav1:{x:378,y:530}, b14:{x:300,y:534,contact:true} },
+  arrows:["axP1","axS1","axP2","retard"],
+  notes:[{t:"Troca de espaço por tempo",s:"Cavalaria mecanizada preserva o poder de combate das brigadas de defesa.",c:"az"}]},
+
+ {date:"15 JUN", title:"Salto aeromóvel sobre a Serra do Lenheiro",
+  text:"O 1º Rgt Inf Amv infiltra-se por via aérea e estabelece cabeça de ponte na Serra do Lenheiro, na retaguarda imediata de São João del Rei. A Bda Inf Mth passa a defender com ameaça à frente e à retaguarda.",
+  units:{ amv1:{x:872,y:366,contact:true}, mth:{x:672,y:400,contact:true}, b41:{x:436,y:474} },
+  arrows:["axP1","axS1","axP2","retard","axP3","axAir"],
+  notes:[{t:"Junção pretendida",s:"Cabeça de ponte aeromóvel ao encontro do eixo principal.",c:"vm"},
+         {t:"Terreno decisivo",s:"Domínio de cristas sustenta o C² e a ligação com escalões superiores.",c:"vm"}]},
+
+ {date:"15 – 16 JUN", title:"Disputa das cristas em Carmópolis",
+  text:"No eixo secundário, a 42ª Bda Inf L progride sobre Perdões–Carmópolis buscando as cristas topográficas dominantes. A 10ª Bda Inf Mtz defende em posição para impedir o isolamento operacional do centro do Quadrilátero.",
+  units:{ b42:{x:508,y:250,contact:true}, b10:{x:596,y:280,contact:true} },
+  arrows:["axP1","axS1","axP2","retard","axP3","axAir","axS2"],
+  notes:[{t:"Isolamento operacional",s:"Objetivo inimigo: interditar os fluxos logísticos de AZUL.",c:"vm"},
+         {t:"Combate em montanha",s:"A posse das cristas define a liberdade de ação nos dois eixos.",c:"az"}]},
+
+ {date:"16 JUN", title:"Retaguarda sob ataque e emprego das reservas",
+  text:"O MARQ intensifica a sabotagem sobre o eixo energético, dispersando o poder de combate azulino. A 3ª Bda Inf Mec é acionada da reserva na região de Tiradentes; a 43ª Bda Inf L permanece agrupada para exploração do êxito. Este é o quadro a partir do qual se desdobram as situações particulares do curso.",
+  units:{ marq:{x:906,y:648,contact:true}, b3:{x:756,y:474}, b43:{x:320,y:132} },
+  arrows:["axP1","axS1","axP2","retard","axP3","axAir","axS2","reserva","sabot"],
+  sabotage:true,
+  notes:[{t:"Guerra multidomínio",s:"Ações simultâneas nos campos físico, informacional e cibernético.",c:"ma"},
+         {t:"Contra-ataque",s:"Reserva móvel lançada para restabelecer a integridade do dispositivo.",c:"az"}]}
+];
+
+/* ==========================================================================
+   SIMBOLOGIA MILITAR
+========================================================================== */
+const COL = {az:{s:"#12468f",f:"#cfe0f6"}, vm:{s:"#a81c28",f:"#f4cbcd"}, ma:{s:"#7a4718",f:"#e9d6bd"}};
+
+function symbol(u, scale){
+  scale = scale || 1;
+  const c = COL[u.side], W=54, H=36;
+  let frame, inner="";
+  if(u.side==="az"){
+    frame = `<rect class="frame" x="${-W/2}" y="${-H/2}" width="${W}" height="${H}" fill="${c.f}" stroke="${c.s}" stroke-width="2.4"/>`;
+  }else{
+    const w=W*0.62, h=H*0.98;
+    frame = `<polygon class="frame" points="0,${-h} ${w},0 0,${h} ${-w},0" fill="${c.f}" stroke="${c.s}" stroke-width="2.4"/>`;
+  }
+  const X = `<path d="M${-W/2+6},${-H/2+6} L${W/2-6},${H/2-6} M${W/2-6},${-H/2+6} L${-W/2+6},${H/2-6}" stroke="${c.s}" stroke-width="2" fill="none"/>`;
+  switch(u.branch){
+    case "infL": inner = X; break;
+    case "infMtz": inner = X + `<circle cx="0" cy="${H/2-3}" r="3.4" fill="none" stroke="${c.s}" stroke-width="2"/>`; break;
+    case "infMec": inner = X + `<ellipse cx="0" cy="0" rx="12" ry="8.5" fill="none" stroke="${c.s}" stroke-width="2"/>`; break;
+    case "cavMec": inner = `<path d="M${-W/2+6},${H/2-6} L${W/2-6},${-H/2+6}" stroke="${c.s}" stroke-width="2.2"/>`
+                          + `<ellipse cx="0" cy="0" rx="12" ry="8.5" fill="none" stroke="${c.s}" stroke-width="2"/>`; break;
+    case "infMth": inner = X + `<path d="M-9,${H/2-5} L0,${H/2-13} L9,${H/2-5} Z" fill="${c.s}"/>`; break;
+    case "infAmv": inner = X + `<path d="M-11,${-H/2+7} L11,${-H/2+7} M0,${-H/2+7} L0,${-H/2+12}" stroke="${c.s}" stroke-width="2" fill="none"/>`; break;
+    case "irr":    inner = `<path d="M${-W/2+9},0 L${W/2-9},0" stroke="${c.s}" stroke-width="2.2"/>`
+                          + `<path d="M-7,-8 L7,8 M7,-8 L-7,8" stroke="${c.s}" stroke-width="2" fill="none"/>`; break;
+    case "hq":     inner = `<path d="M${-W/2+7},${-H/2+7} L${-W/2+7},${H/2-7} M${-W/2+7},0 L${W/2-9},0 M${W/2-9},${-H/2+7} L${W/2-9},${H/2-7}" stroke="${c.s}" stroke-width="2.2" fill="none"/>`; break;
+  }
+  const ech = u.ech==="HQ" ? "" :
+    `<text x="0" y="${-H/2-7}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="${c.s}">${u.ech}</text>`;
+  const side = `<text x="${W/2+8}" y="4.5" font-family="IBM Plex Mono" font-size="12.5" font-weight="600" fill="${c.s}">${u.short}</text>`;
+  return `<g transform="scale(${scale})">${ech}${frame}${inner}${side}</g>`;
+}
+
+/* ==========================================================================
+   HISTÓRICO + ATORES
+========================================================================== */
+document.getElementById('timeline').innerHTML = TIMELINE.map(t=>`
+ <div class="tl-row ${t.key?'key':''}">
+   <div class="tl-date">${t.date}<small>${t.tag}</small></div>
+   <div class="tl-axis"><i></i></div>
+   <div class="tl-body">
+     <h3>${t.title}</h3>
+     <p>${t.text}</p>
+     ${t.tags.length?`<div class="tl-tags">${t.tags.map(g=>`<span><b>${g.b}</b>${g.p}</span>`).join('')}</div>`:''}
+   </div>
+ </div>`).join('');
+
+const ag = document.getElementById('actorsGrid');
+let ah = `<div class="rowlab"></div>` + ACTORS.map(a=>`
+  <div class="hd ${a.k}"><div class="nm">${a.nome}</div><div class="rl">${a.papel}</div></div>`).join('');
+[["Perfil","perfil"],["Vantagem","vantagem"],["Vulnerabilidade","vulner"]].forEach(([lab,key])=>{
+  ah += `<div class="rowlab">${lab}</div>` + ACTORS.map(a=>`<div>${a[key]}</div>`).join('');
+});
+ag.innerHTML = ah;
+
+document.getElementById('coverSym').innerHTML = `
+<svg viewBox="0 0 420 300">
+  <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#22303e"/><stop offset="100%" stop-color="#141c25"/></linearGradient></defs>
+  <rect x="10" y="10" width="400" height="280" rx="4" fill="url(#cg)" stroke="#2b3947"/>
+  <g opacity=".5" stroke="#2b3947">
+    ${[...Array(7)].map((_,i)=>`<line x1="10" y1="${10+i*40}" x2="410" y2="${10+i*40}"/>`).join('')}
+    ${[...Array(11)].map((_,i)=>`<line x1="${10+i*40}" y1="10" x2="${10+i*40}" y2="290"/>`).join('')}
+  </g>
+  <g transform="translate(120,96)">${symbol(U.b41,1)}</g>
+  <g transform="translate(120,206)">${symbol(U.b42,1)}</g>
+  <g transform="translate(300,96)">${symbol(U.mth,1)}</g>
+  <g transform="translate(300,206)">${symbol(U.b14,1)}</g>
+  <path d="M168,110 L252,110" stroke="#a81c28" stroke-width="3" marker-end="url(#cvArrow)"/>
+  <path d="M168,214 L252,214" stroke="#a81c28" stroke-width="3" marker-end="url(#cvArrow)"/>
+  <defs><marker id="cvArrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+    <path d="M0,0 L7,3 L0,6 Z" fill="#a81c28"/></marker></defs>
+  <text x="210" y="286" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#5d6f80" letter-spacing="2">SIMBOLOGIA DA CARTA DE MANOBRA</text>
+</svg>`;
+
+/* ORBAT */
+document.getElementById('obAz').innerHTML = [
+  {id:"cav1",g:"1ª DE · ação retardadora no eixo BR-265"},
+  {id:"mth", g:"1ª DE · defesa em posição — São João del Rei"},
+  {id:"b9",  g:"1ª DE · defesa em posição — Três Corações"},
+  {id:"b14", g:"2ª DE · defesa em posição — Lavras"},
+  {id:"b10", g:"2ª DE · defesa em posição — Carmópolis"},
+  {id:"b3",  g:"2ª DE · reserva móvel — Tiradentes"},
+  {id:"de4", g:"Reserva do TOT — mantida integralmente fechada"}
+].map(o=>`<li><svg width="86" height="52" viewBox="-45 -26 90 52">${symbol(U[o.id],.72)}</svg>
+  <div><div class="nm">${U[o.id].name}</div><div class="rl">${o.g}</div></div></li>`).join('');
+
+document.getElementById('obVm').innerHTML = [
+  {id:"b41", g:"Eixo principal — BR-265"},
+  {id:"amv1",g:"Infiltração e cabeça de ponte — Serra do Lenheiro"},
+  {id:"b42", g:"Eixo secundário — BR-381"},
+  {id:"b43", g:"Reserva estratégica — exploração do êxito"},
+  {id:"marq",g:"Força insurgente apoiada por MARROM"}
+].map(o=>`<li><svg width="86" height="52" viewBox="-45 -26 90 52">${symbol(U[o.id],.72)}</svg>
+  <div><div class="nm">${U[o.id].name}</div><div class="rl">${o.g}</div></div></li>`).join('');
+
+/* ==========================================================================
+   CARTA DE MANOBRA
+========================================================================== */
+const mapView = document.getElementById('mapView');
+
+const BR265 = "M222,142 C240,220 252,300 282,392 C300,448 312,470 330,492 C420,486 560,466 706,432 C760,452 790,478 816,498";
+const BR381 = "M348,140 C342,200 340,254 352,298 C420,278 494,254 566,236";
+const PIPE  = "M40,742 C180,712 300,676 412,640 C520,606 620,586 706,584 C812,582 900,614 1000,660 C1090,700 1180,724 1360,742";
+
+function terrain(){
+  return `
+  <defs>
+    <pattern id="contour" width="70" height="70" patternUnits="userSpaceOnUse">
+      <path d="M0,35 Q17,14 35,35 T70,35" fill="none" stroke="#b8b09b" stroke-width="1" opacity=".55"/>
+      <path d="M0,70 Q17,49 35,70 T70,70" fill="none" stroke="#b8b09b" stroke-width="1" opacity=".35"/>
+    </pattern>
+    <pattern id="qfHatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#8a7a3f" stroke-width="2" opacity=".45"/>
+    </pattern>
+    <marker id="mkVm" markerWidth="7" markerHeight="7" refX="5.2" refY="2.6" orient="auto">
+      <path d="M0,0 L5.4,2.6 L0,5.2 Z" fill="#a81c28"/></marker>
+    <marker id="mkAz" markerWidth="7" markerHeight="7" refX="5.2" refY="2.6" orient="auto">
+      <path d="M0,0 L5.4,2.6 L0,5.2 Z" fill="#12468f"/></marker>
+    <marker id="mkMa" markerWidth="7" markerHeight="7" refX="5.2" refY="2.6" orient="auto">
+      <path d="M0,0 L5.4,2.6 L0,5.2 Z" fill="#7a4718"/></marker>
+  </defs>
+
+  <rect width="1400" height="900" fill="var(--terr-base)"/>
+
+  <!-- relevo -->
+  <g id="layerRelief">
+    <path d="M0,0 H1400 V150 C1100,196 820,168 520,140 C320,122 160,140 0,178 Z" fill="#c8c0aa"/>
+    <path d="M760,300 C880,330 980,420 1040,540 C1090,646 1080,760 1020,860 L1400,900 L1400,240 Z" fill="var(--terr-mid)"/>
+    <path d="M800,520 C900,548 990,626 1030,724 C1050,776 1052,830 1040,880 L820,880 C790,760 780,640 800,520 Z" fill="var(--terr-high)"/>
+    <path d="M846,586 C910,616 964,684 992,760 L880,800 C852,730 842,660 846,586 Z" fill="var(--terr-peak)"/>
+    <path d="M812,330 C862,344 902,376 924,414 L836,452 C812,414 806,370 812,330 Z" fill="var(--terr-high)"/>
+    <rect width="1400" height="900" fill="url(#contour)"/>
+    <!-- serras: marcas de crista -->
+    <g stroke="#6f7c59" stroke-width="2" fill="none" opacity=".75">
+      <path d="M856,600 l16,-22 16,22 M894,632 l16,-22 16,22 M930,678 l16,-22 16,22 M958,730 l16,-22 16,22"/>
+      <path d="M836,368 l14,-19 14,19 M868,394 l14,-19 14,19"/>
+    </g>
+  </g>
+
+  <!-- hidrografia -->
+  <path d="M120,880 C240,760 300,700 420,660 C540,620 640,600 706,584" fill="none" stroke="var(--water)" stroke-width="4" opacity=".7"/>
+  <path d="M1400,470 C1240,486 1120,520 1040,566" fill="none" stroke="var(--water)" stroke-width="3.5" opacity=".6"/>
+
+  <!-- territórios -->
+  <path d="M0,0 H1400 V132 C1100,180 820,152 520,124 C320,106 160,124 0,162 Z" fill="#a81c28" opacity=".13"/>
+  <path d="M0,782 C160,760 300,776 452,808 L440,900 L0,900 Z" fill="#8a6d10" opacity=".16"/>
+  <path d="M1078,180 C1220,300 1276,520 1220,720 C1190,824 1140,880 1090,900 L1400,900 L1400,120 Z" fill="#7a4718" opacity=".14"/>
+
+  <!-- fronteira internacional -->
+  <path d="M0,162 C160,124 320,106 520,124 C820,152 1100,180 1400,132" fill="none" stroke="#8a2530" stroke-width="2.6" stroke-dasharray="14 6 3 6"/>
+  <text x="34" y="200" class="mapnote" fill="#8a2530">FRONTEIRA INTERNACIONAL</text>
+
+  <!-- quadrilátero ferrífero -->
+  <polygon points="560,176 782,214 742,410 556,372" fill="url(#qfHatch)" stroke="#8a7a3f" stroke-width="1.6"/>
+  <text x="596" y="300" class="mapnote" fill="#6f6231" font-size="12">QUADRILÁTERO FERRÍFERO</text>
+  <text x="596" y="318" class="mapnote" fill="#6f6231" font-size="10.5">CENTRO DE GRAVIDADE — JAZIDAS DE NIÓBIO</text>
+  `;
+}
+
+function staticLabels(){
+  return `
+  <g id="layerLabels">
+    <text x="40" y="66" class="terrlab" fill="#8a2530" opacity=".8">PAÍS VERMELHO</text>
+    <text x="40" y="866" class="terrlab" fill="#7d6512" opacity=".8" font-size="15">PAÍS AMARELO</text>
+    <text x="1180" y="300" class="terrlab" fill="#7a4718" opacity=".8" font-size="15">PAÍS MARROM</text>
+    <text x="70" y="420" class="terrlab" fill="#2f5f96" opacity=".55">PAÍS AZUL</text>
+    <text x="880" y="700" class="mapnote" font-size="12" fill="#4f5a3f">SERRA DA MANTIQUEIRA</text>
+    <text x="900" y="356" class="mapnote" font-size="12" fill="#4f5a3f">SERRA DO LENHEIRO</text>
+    ${CITIES.map(c=>`<circle cx="${c.x}" cy="${c.y}" r="4" fill="#3d4550"/>
+      <text x="${c.x+9}" y="${c.y+15}" class="citylab">${c.n}</text>`).join('')}
+  </g>`;
+}
+
+function buildMap(){
+  let s = `<svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" id="opSvg">`;
+  s += terrain();
+
+  // rodovias
+  s += `<g id="layerRoads">
+    <path d="${BR265}" fill="none" stroke="#efe9d8" stroke-width="9" stroke-linecap="round"/>
+    <path d="${BR265}" fill="none" stroke="var(--road)" stroke-width="4" stroke-linecap="round"/>
+    <path d="${BR381}" fill="none" stroke="#efe9d8" stroke-width="9" stroke-linecap="round"/>
+    <path d="${BR381}" fill="none" stroke="var(--road)" stroke-width="4" stroke-linecap="round"/>
+    <text x="196" y="248" class="mapnote" font-size="12" font-weight="600">BR-265</text>
+    <text x="300" y="176" class="mapnote" font-size="12" font-weight="600">BR-381</text>
+  </g>`;
+
+  // dutovia
+  s += `<g id="layerPipe">
+    <path d="${PIPE}" fill="none" stroke="#b8860b" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>
+    <text x="120" y="768" class="mapnote" font-size="12" fill="#8a6608" font-weight="600">EIXO ENERGÉTICO PETROZUL</text>
+  </g>`;
+
+  s += staticLabels();
+
+  // setas de manobra
+  s += `<g id="arrows">` + Object.entries(ARROWS).map(([id,a])=>{
+    const col = a.side==="vm" ? "#a81c28" : a.side==="az" ? "#12468f" : "#7a4718";
+    const mk  = a.side==="vm" ? "mkVm" : a.side==="az" ? "mkAz" : "mkMa";
+    return `<path class="arrow" id="ar-${id}" d="${a.d}" fill="none" stroke="${col}" stroke-width="7"
+      stroke-linecap="round" marker-end="url(#${mk})" opacity="0"
+      ${a.dash?'stroke-dasharray="16 12"':''}/>`;
+  }).join('') + `</g>`;
+
+  // sabotagem
+  s += `<g id="sabotage" opacity="0">
+    ${[[520,614],[706,584],[860,616]].map(([x,y])=>`
+      <g transform="translate(${x},${y})">
+        <circle r="13" fill="none" stroke="#d84315" stroke-width="2.4"/>
+        <path d="M-5,-7 L2,-1 L-2,1 L5,8" fill="none" stroke="#d84315" stroke-width="2.6"/>
+      </g>`).join('')}
+    <text x="716" y="558" class="mapnote" font-size="11.5" fill="#d84315" font-weight="600">SABOTAGEM MARQ — OLEODUTOS</text>
+  </g>`;
+
+  // unidades
+  s += `<g id="units">` + UNITS.map(u=>`
+    <g class="unit" id="u-${u.id}" data-id="${u.id}" transform="translate(-500,-500)" opacity="0">
+      <circle class="contact" r="34" fill="none" stroke="#d84315" stroke-width="3"/>
+      <rect class="selring" x="-42" y="-32" width="84" height="64" fill="none" stroke="#0d1218" stroke-width="1.6" stroke-dasharray="5 4"/>
+      ${symbol(u,1)}
+      <text class="ulabel" x="0" y="${u.side==='az'?34:40}" text-anchor="middle">${u.name}</text>
+      <rect class="hit" x="-46" y="-36" width="92" height="82"/>
+    </g>`).join('') + `</g>`;
+
+  s += `</svg>`;
+  mapView.innerHTML = s;
+
+  mapView.querySelectorAll('.unit').forEach(el=>{
+    el.addEventListener('click', ()=>selectUnit(el.dataset.id));
+  });
+}
+
+/* ------------------------------------------------- estado / renderização */
+let idx = 0, playing = false, timer = null, selected = null;
+
+function resolvePos(uid, upTo){
+  for(let i=upTo;i>=0;i--){ const p = PHASES[i].units[uid]; if(p) return p; }
+  return null;
+}
+
+function render(){
+  const ph = PHASES[idx];
+
+  UNITS.forEach(u=>{
+    const g = document.getElementById('u-'+u.id);
+    const p = resolvePos(u.id, idx);
+    if(p){
+      g.setAttribute('transform', `translate(${p.x},${p.y})`);
+      g.style.opacity = 1;
+    }else{
+      g.style.opacity = 0;
+      g.setAttribute('transform','translate(-500,-500)');
+    }
+    const inContact = !!(ph.units[u.id] && ph.units[u.id].contact);
+    g.classList.toggle('in-contact', inContact);
+  });
+
+  Object.keys(ARROWS).forEach(id=>{
+    document.getElementById('ar-'+id).classList.toggle('on', ph.arrows.includes(id));
+  });
+  document.getElementById('sabotage').style.opacity = ph.sabotage ? 1 : 0;
+
+  // scrubber
+  document.querySelectorAll('#scrub button').forEach((b,i)=>{
+    b.classList.toggle('on', i===idx);
+    b.classList.toggle('done', i<idx);
+  });
+  document.getElementById('phNum').textContent = idx+1;
+
+  // painel da fase
+  document.getElementById('phasePanel').innerHTML = `
+    <div class="sp-lab">Fase ${idx+1} de ${PHASES.length}</div>
+    <div class="sp-date">${ph.date}</div>
+    <div class="sp-title">${ph.title}</div>
+    <p class="sp-text">${ph.text}</p>
+    ${ph.notes && ph.notes.length ? `<ul class="sp-list">${ph.notes.map(n=>`
+      <li><span class="sw" style="background:${n.c==='az'?'var(--az)':n.c==='vm'?'var(--vm)':'var(--ma)'}"></span>
+      <div><b>${n.t}</b><em>${n.s}</em></div></li>`).join('')}</ul>` : ''}
+  `;
+}
+
+function selectUnit(id){
+  selected = id;
+  document.querySelectorAll('.unit').forEach(el=>el.classList.toggle('sel', el.dataset.id===id));
+  const u = U[id];
+  const ph = PHASES[idx];
+  const inContact = !!(ph.units[id] && ph.units[id].contact);
+  const sideName = u.side==='az' ? 'Força de AZUL' : u.side==='vm' ? 'Força de VERMELHO' : 'Força irregular';
+  document.getElementById('unitPanel').innerHTML = `
+    <div class="sp-lab">Unidade selecionada</div>
+    <div class="unitcard">
+      <div class="uc-head">
+        <svg width="96" height="58" viewBox="-48 -29 96 58">${symbol(u,.78)}</svg>
+        <div><div class="nm">${u.name}</div><div class="sd">${sideName} · ${u.gu}</div></div>
+      </div>
+      <div class="uc-row"><b>Missão / função</b><p>${u.role}</p></div>
+      <div class="uc-row"><b>Detalhamento</b><p>${u.detail}</p></div>
+      <div class="uc-row"><b>Situação nesta fase</b><p style="color:${inContact?'#ff7043':'var(--muted)'}">${inContact?'Em contato com o inimigo.':'Sem contato registrado nesta fase.'}</p></div>
+    </div>`;
+}
+
+/* ------------------------------------------------------------- controles */
+const scrub = document.getElementById('scrub');
+scrub.innerHTML = PHASES.map((p,i)=>`<button data-i="${i}"><span class="d">${p.date}</span><span class="t">${p.title}</span></button>`).join('');
+scrub.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ stop(); idx=+b.dataset.i; render(); }));
+document.getElementById('phTot').textContent = PHASES.length;
+
+function go(n){ idx = Math.max(0, Math.min(PHASES.length-1, n)); render(); if(selected) selectUnit(selected); }
+document.getElementById('btnPrev').addEventListener('click',()=>{ stop(); go(idx-1); });
+document.getElementById('btnNext').addEventListener('click',()=>{ stop(); go(idx+1); });
+
+const playIcon = document.getElementById('playIcon');
+function play(){
+  playing = true;
+  playIcon.innerHTML = '<path d="M4 3h3v10H4zM9 3h3v10H9z"/>';
+  timer = setInterval(()=>{
+    if(idx >= PHASES.length-1){ stop(); return; }
+    go(idx+1);
+  }, 4200);
+}
+function stop(){
+  playing = false; clearInterval(timer);
+  playIcon.innerHTML = '<path d="M4 2l9 6-9 6z"/>';
+}
+document.getElementById('btnPlay').addEventListener('click',()=>{
+  if(playing){ stop(); return; }
+  if(idx >= PHASES.length-1) idx = 0;
+  render(); play();
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'){ stop(); go(idx+1); }
+  if(e.key==='ArrowLeft'){ stop(); go(idx-1); }
+});
+
+/* camadas */
+const bind = (cb, target) => document.getElementById(cb).addEventListener('change',e=>{
+  document.getElementById(target).style.display = e.target.checked ? '' : 'none';
+});
+bind('lyRoads','layerRoads'); bind('lyPipe','layerPipe'); bind('lyRelief','layerRelief'); bind('lyLabels','layerLabels');
+
+/* start */
+buildMap();
+render();
+</script>
+</body>
+</html>
