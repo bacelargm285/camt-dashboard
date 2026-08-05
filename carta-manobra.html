@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAM 2026 — Carta de Manobra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d1218;--panel:#151d26;--panel-2:#1b2632;--panel-3:#22303e;--line:#2b3947;
+  --txt:#e2e9f0;--muted:#8fa2b4;--dim:#5d6f80;
+  --terr:#dcd6c2;--terr2:#cbcba8;--terr3:#b2bd92;--terr4:#95a47b;--water:#9db9c7;--road:#5d5443;
+  --az:#12468f;--vm:#a81c28;--ma:#7a4718;--pr:#0f6b52;--gold:#b8860b;--alert:#d84315;
+  --fd:'Barlow Condensed',sans-serif;--fb:'IBM Plex Sans',sans-serif;--fm:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--txt);font-family:var(--fb);font-size:15px;line-height:1.55}
+h1,h2,h3{font-family:var(--fd);font-weight:600;line-height:1.1}
+.wrap{max-width:1660px;margin:0 auto;padding:0 20px}
+.topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:0 22px;height:54px;background:rgba(13,18,24,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:13px}
+.brand .mark{width:29px;height:29px;border:1.5px solid var(--gold);border-radius:3px;display:grid;place-items:center;
+  font-family:var(--fm);font-size:8px;color:var(--gold);text-align:center;line-height:1.1}
+.brand .t{font-family:var(--fd);font-size:19px;letter-spacing:.04em;text-transform:uppercase}
+.brand .s{font-family:var(--fm);font-size:10px;color:var(--dim);letter-spacing:.1em}
+.hint{font-family:var(--fm);font-size:10px;color:var(--dim)}
+section{padding:26px 0 50px}
+.eyebrow{font-family:var(--fm);font-size:10.5px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
+h2{font-size:clamp(23px,2.5vw,32px);text-transform:uppercase}
+.sec-head{margin-bottom:18px}
+.sec-head p{color:var(--muted);max-width:900px;font-size:13.6px;margin-top:7px}
+
+.mapshell{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden}
+.mapbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 15px;background:var(--panel-2);border-bottom:1px solid var(--line)}
+.tbtn{display:inline-grid;place-items:center;width:36px;height:33px;background:var(--panel-3);color:var(--txt);
+  border:1px solid var(--line);border-radius:3px;cursor:pointer}
+.tbtn:hover{background:#2c3d4e}
+.tbtn.play{background:var(--gold);color:#0d1218;border-color:var(--gold);width:44px}
+.tbtn.wide{width:auto;padding:0 12px;font-family:var(--fm);font-size:10.5px;letter-spacing:.06em}
+.tbtn svg{width:15px;height:15px;fill:currentColor}
+.phasecount{font-family:var(--fm);font-size:12px;color:var(--muted);min-width:108px}
+.phasecount b{color:var(--gold)}
+.layers{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.layers label{font-family:var(--fm);font-size:10.5px;color:var(--muted);background:var(--panel);border:1px solid var(--line);
+  padding:6px 10px;border-radius:3px;cursor:pointer;display:flex;align-items:center;gap:6px;text-transform:uppercase;user-select:none}
+.layers label:has(input:checked){color:var(--txt);border-color:#3d5163;background:var(--panel-3)}
+.layers input{accent-color:var(--gold);width:12px;height:12px}
+.chapters{display:flex;background:var(--panel-2);border-bottom:1px solid var(--line)}
+.chapters button{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--dim);cursor:pointer}
+.chapters button.on{color:#0d1218;background:var(--gold);font-weight:600}
+.scrub{display:flex;background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto}
+.scrub button{flex:1 1 0;min-width:124px;background:none;border:none;border-right:1px solid var(--line);cursor:pointer;
+  padding:9px 11px;text-align:left;color:var(--muted);position:relative}
+.scrub button:hover{background:var(--panel-2)}
+.scrub button .d{font-family:var(--fm);font-size:9.5px;color:var(--dim)}
+.scrub button .t{font-family:var(--fd);font-size:15px;line-height:1.1;margin-top:2px;display:block}
+.scrub button .l{font-family:var(--fm);font-size:9px;color:var(--dim);display:block}
+.scrub button.on{background:var(--panel-3);color:var(--txt)}
+.scrub button.on .d{color:var(--gold)}
+.scrub button.on::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold)}
+.scrub button.era-g{box-shadow:inset 0 3px 0 rgba(168,28,40,.55)}
+.scrub button.era-o{box-shadow:inset 0 3px 0 rgba(15,107,82,.55)}
+.mapgrid{display:grid;grid-template-columns:1fr 350px}
+.mapview{background:var(--terr);height:clamp(460px,78vh,940px);overflow:hidden}
+.mapview svg{display:block;width:100%;height:100%}
+.sidepanel{border-left:1px solid var(--line);background:var(--panel);height:clamp(460px,78vh,940px);overflow-y:auto}
+@media(max-width:1150px){.mapgrid{grid-template-columns:1fr}.mapview,.sidepanel{height:auto;min-height:420px}
+  .sidepanel{border-left:none;border-top:1px solid var(--line)}}
+.mapshell.fs{position:fixed;inset:0;z-index:999;border:none;border-radius:0;display:flex;flex-direction:column;background:var(--ink)}
+.mapshell.fs .mapgrid{flex:1;min-height:0}
+.mapshell.fs .mapview,.mapshell.fs .sidepanel{height:100%}
+body.fs-on{overflow:hidden}
+.sp-block{padding:17px;border-bottom:1px solid var(--line)}
+.sp-lab{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-bottom:7px}
+.sp-op{font-family:var(--fd);font-size:25px;line-height:1;margin-bottom:3px}
+.sp-loc{font-family:var(--fm);font-size:11px;color:#3ec99f;margin-bottom:3px}
+.sp-date{font-family:var(--fm);font-size:11px;color:var(--gold);margin-bottom:11px}
+.sp-text{font-size:13.5px;color:var(--muted)}
+.sp-h{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin:15px 0 7px}
+.sp-mission{font-size:13.3px;color:var(--txt);background:var(--panel-2);border:1px solid var(--line);border-left:2px solid #3ec99f;padding:11px;border-radius:2px}
+.sp-mission b{color:#3ec99f}
+.objs{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.objs li{font-size:14px;font-weight:600;color:#f4dfa6;background:linear-gradient(90deg,rgba(184,134,11,.20),rgba(184,134,11,.05));
+  border:1px solid #4a3c14;border-left:3px solid var(--gold);padding:9px 12px;border-radius:2px;display:flex;gap:9px;align-items:baseline}
+.objs li::before{content:'▸';color:var(--gold);font-size:12px}
+.sp-h.obj{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.chips span{font-family:var(--fm);font-size:10px;color:var(--muted);border:1px solid var(--line);background:var(--panel-2);padding:5px 8px;border-radius:2px}
+.sp-list{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.sp-list li{font-size:12.5px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line);padding:8px 10px;border-radius:2px;display:flex;gap:9px}
+.sp-list li .sw{width:3px;align-self:stretch;flex:0 0 3px;border-radius:2px}
+.sp-list li em{font-style:normal;font-family:var(--fm);font-size:10px;color:var(--dim);display:block;margin-top:2px}
+.sp-empty{color:var(--dim);font-size:12.5px;font-family:var(--fm)}
+.uc-head{display:flex;gap:11px;align-items:center;margin-bottom:11px}
+.uc-head .nm{font-family:var(--fd);font-size:19px;line-height:1.1}
+.uc-head .sd{font-family:var(--fm);font-size:10px;text-transform:uppercase;color:var(--dim)}
+.uc-row{margin-bottom:9px}
+.uc-row b{display:block;font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin-bottom:3px}
+.uc-row p{font-size:13.1px;color:var(--muted)}
+.maplegend{display:flex;flex-wrap:wrap;gap:14px;padding:11px 15px;background:var(--panel-2);border-top:1px solid var(--line);
+  font-family:var(--fm);font-size:10.5px;color:var(--muted)}
+.maplegend span{display:inline-flex;align-items:center;gap:7px}
+.maplegend i{width:14px;height:10px;display:inline-block;border:1.5px solid var(--dim)}
+.maplegend i.pr{border-color:#0f6b52;background:#c8ecdd}
+.maplegend i.az{border-color:var(--az);background:#cfe0f6}
+.maplegend i.vm{border-color:var(--vm);background:#f4cbcd;transform:rotate(45deg);width:11px;height:11px}
+.maplegend i.ma{border-color:var(--ma);background:#e9d6bd;transform:rotate(45deg);width:11px;height:11px}
+.maplegend i.l1{border:none;height:0;width:20px;border-top:4px solid #12468f}
+.maplegend i.l2{border:none;height:0;width:20px;border-top:3px dashed #0f6b52}
+.maplegend i.l3{border:none;height:0;width:20px;border-top:3px dotted #12468f}
+.maplegend i.l4{border:none;height:0;width:20px;border-top:5px solid #a81c28}
+.maplegend i.l5{border:none;height:0;width:20px;border-top:3px dashed #7a4718}
+.maplegend i.l6{border:none;height:0;width:20px;border-top:3px dotted #b8860b}
+.maplegend i.rd{border:none;height:3px;width:20px;background:var(--road)}
+/* textos do mapa — tamanho constante em tela graças a --k */
+svg text{font-family:var(--fm)}
+.citylab{font-family:var(--fb);font-weight:600;font-size:calc(var(--k)*12.5px);fill:#333b45}
+.citybig{font-family:var(--fb);font-weight:600;font-size:calc(var(--k)*14px);fill:#22282f}
+.serralab{font-size:calc(var(--k)*11px);fill:#4a5a3c;font-weight:600;letter-spacing:.06em}
+.roadlab{font-size:calc(var(--k)*11px);fill:#4d4535;font-weight:600}
+.ctrylab{font-family:var(--fd);font-weight:700;letter-spacing:.16em;font-size:calc(var(--k)*24px)}
+.notelab{font-size:calc(var(--k)*10.5px);fill:#5a5344}
+.ulabel{font-size:calc(var(--k)*10.5px);fill:#2f353d;font-weight:600}
+.mklab{font-size:calc(var(--k)*10.5px);fill:#3a4148;font-weight:600}
+.axislab{font-family:var(--fd);font-weight:700;font-size:calc(var(--k)*17px);fill:#8a1420;letter-spacing:.05em}
+.unit{cursor:pointer}
+.unit .selring{opacity:0}
+.unit.sel .selring{opacity:1}
+.unit .ct{opacity:0}
+.unit.in-contact .ct{opacity:1;animation:cp 1.7s ease-out infinite}
+@keyframes cp{0%{transform:scale(.8);opacity:.9}70%{transform:scale(1.6);opacity:0}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="mark">11º<br>BI Mth</div>
+    <div><div class="t">CAM 2026 — Carta de Manobra</div>
+    <div class="s">SITUAÇÃO GERAL + FASE DE OPERAÇÕES · PEL REC / 11º BI MTH</div></div>
+  </div>
+  <div class="hint">países e forças fictícios · cidades e serras reais · carta esquemática, distâncias aproximadas</div>
+</div>
+
+<section><div class="wrap">
+  <div class="sec-head">
+    <div class="eyebrow">Carta única, dois capítulos</div>
+    <h2>Da invasão de Vermelho às nove operações do Pel Rec</h2>
+    <p>A carta se aproxima sozinha da área de cada fase — nas fases da Situação Geral abre para todo o teatro; nas operações fecha na serra onde a fração está atuando. Use ▶ para percorrer, as setas ← → para avançar, F para tela cheia. Clique num símbolo para ver a unidade.</p>
+  </div>
+
+  <div class="mapshell" id="shell">
+    <div class="mapbar">
+      <button class="tbtn" id="btnPrev" title="Anterior (←)"><svg viewBox="0 0 16 16"><path d="M11 2 4 8l7 6z"/></svg></button>
+      <button class="tbtn play" id="btnPlay" title="Reproduzir"><svg viewBox="0 0 16 16" id="playIcon"><path d="M4 2l9 6-9 6z"/></svg></button>
+      <button class="tbtn" id="btnNext" title="Próxima (→)"><svg viewBox="0 0 16 16"><path d="M5 2l7 6-7 6z"/></svg></button>
+      <div class="phasecount">FASE <b id="phNum">1</b> DE <span id="phTot">17</span></div>
+      <button class="tbtn" id="btnFs" title="Tela cheia (F)"><svg viewBox="0 0 16 16"><path d="M2 2h5v2H4v3H2V2zm12 0v5h-2V4H9V2h5zM2 9h2v3h3v2H2V9zm10 0h2v5H9v-2h3V9z"/></svg></button>
+      <button class="tbtn wide" id="btnAll">VER TODO O TEATRO</button>
+      <div class="layers">
+        <label><input type="checkbox" id="lyZoom" checked> Aproximar na fase</label>
+        <label><input type="checkbox" id="lyAO" checked> AO do curso</label>
+        <label><input type="checkbox" id="lyPz" checked> Petrozul</label>
+        <label><input type="checkbox" id="lyRoads" checked> Rodovias</label>
+        <label><input type="checkbox" id="lyRelief" checked> Relevo</label>
+      </div>
+    </div>
+    <div class="chapters" id="chapters">
+      <button data-c="all" class="on">Sequência completa</button>
+      <button data-c="geral">I · Situação Geral</button>
+      <button data-c="ops">II · Fase de Operações</button>
+    </div>
+    <div class="scrub" id="scrub"></div>
+    <div class="mapgrid">
+      <div class="mapview" id="mapView"></div>
+      <aside class="sidepanel">
+        <div class="sp-block" id="phasePanel"></div>
+        <div class="sp-block" id="unitPanel"><div class="sp-lab">Unidade selecionada</div>
+          <p class="sp-empty">Clique em um símbolo na carta.</p></div>
+      </aside>
+    </div>
+    <div class="maplegend">
+      <span><i class="pr"></i>Pel Rec / 11º BI Mth</span><span><i class="az"></i>Forças de AZUL</span>
+      <span><i class="vm"></i>Forças de VERMELHO</span><span><i class="ma"></i>MARQ</span>
+      <span><i class="l4"></i>Eixo de ataque</span><span><i class="l1"></i>Deslocamento motorizado</span>
+      <span><i class="l2"></i>Infiltração a pé</span><span><i class="l3"></i>Aeromóvel</span>
+      <span><i class="l5"></i>Deslocamento do MARQ</span><span><i class="l6"></i>Petrozul</span>
+      <span><i class="rd"></i>Rodovia</span>
+    </div>
+  </div>
+</div></section>
+
+<script>
+/* ============ projeção conforme: 1 km = 6,37 px em qualquer direção ====== */
+/* Carta esquemática: escala horizontal ampliada para ocupar a tela inteira.
+   As posições relativas e as proporções entre distâncias são mantidas dentro de
+   cada sentido (L-O e N-S); a escala L-O é ~1,7x a N-S. */
+const LON0=-45.75, LAT0=-20.35, KX=900, KY=560, OX=90, OY=60;
+const PXKM=900/103.6;                       /* px por km no sentido leste-oeste */
+const pt=(lat,lon)=>({x:+(OX+(lon-LON0)*KX).toFixed(1), y:+(OY+(LAT0-lat)*KY).toFixed(1)});
+const off=(p,dx,dy)=>({x:p.x+dx,y:p.y+dy});
+const W=2160, H=1330, KBASE=1500;           /* extensão da carta e base de escala dos símbolos */
+
+const P={
+ carmopolis:pt(-20.549,-44.633), laje:pt(-20.575,-44.660), perdoes:pt(-21.089,-45.096),
+ lavras:pt(-21.245,-44.999), nepomuceno:pt(-21.232,-45.235), faria:pt(-21.290,-45.060),
+ tresCoracoes:pt(-21.696,-45.252), saoBento:pt(-21.598,-45.107), saoThome:pt(-21.723,-44.986),
+ cigmal:pt(-21.621,-44.964), carrancas:pt(-21.487,-44.647), serraCarrancas:pt(-21.464,-44.672),
+ itutinga:pt(-21.297,-44.657), sjdr:pt(-21.136,-44.262), lenheiro:pt(-21.113,-44.296),
+ tiradentes:pt(-21.110,-44.174), saoJose:pt(-21.086,-44.205), barroso:pt(-21.189,-43.978),
+ aiuruoca:pt(-21.977,-44.603), papagaio:pt(-22.050,-44.680), alagoa:pt(-22.170,-44.640),
+ itamonte:pt(-22.283,-44.869), itanhandu:pt(-22.293,-44.936), passaQuatro:pt(-22.390,-44.970),
+ serraFina:pt(-22.340,-44.800)
+};
+/* pontos de entrada de VERMELHO (a oeste da fronteira) */
+const ENT={principal:pt(-21.24,-45.47), secundario:pt(-21.02,-45.46), reserva:pt(-20.80,-45.43), amv:pt(-20.62,-45.40)};
+
+/* ===================== unidades ======================================== */
+const UNITS=[
+ {id:"pelrec",side:"pr",ech:"pel",branch:"recMth",short:"Rec",name:"Pel Rec / 11º BI Mth",gu:"11º BI Mth · Bda Inf Mth",
+  role:"Peça de manobra empregada no terreno",
+  detail:"Reconhecimento especializado em montanha: infiltra dissimuladamente, reconhece faixas de infiltração e obstáculos, ocupa PO, mobilia vias em obstáculo vertical e horizontal e conduz ações diretas quando determinado."},
+ {id:"bcmb",side:"az",ech:"base",branch:"base",short:"B Cmb",name:"B Cmb 11º BI Mth",gu:"São João del Rei",
+  role:"Base de combate do Batalhão",detail:"Ponto de partida e de retorno de praticamente todas as operações da fase."},
+ {id:"bavc",side:"az",ech:"base",branch:"base",short:"B Avç",name:"Base avançada — Itamonte",gu:"11º BI Mth",
+  role:"Base avançada na Mantiqueira",detail:"Estabelecida para as operações Transmantiqueira I e II, na região de Itamonte, Alagoa e Passa Quatro."},
+ {id:"cia1",side:"az",ech:"cia",branch:"infMth",short:"1ª",name:"1ª/11º BI Mth",gu:"11º BI Mth",role:"Cia Fuz Mth",
+  detail:"Conforme a operação: reserva na B Cmb em ordem de marcha, patrulha motorizada em São João del Rei, PBCVU, patrulhamento em Itamonte ou ataque a PBCE em Carrancas."},
+ {id:"cia2",side:"az",ech:"cia",branch:"infMth",short:"2ª",name:"2ª/11º BI Mth",gu:"11º BI Mth",role:"Cia Fuz Mth",
+  detail:"PBCVU nos eixos que cortam o perímetro urbano de São João del Rei (BR-265, BR-494 e MG-383); na Mantiqueira, patrulha Alagoa."},
+ {id:"cia3",side:"az",ech:"cia",branch:"infMth",short:"3ª",name:"3ª/11º BI Mth",gu:"11º BI Mth",role:"Cia Fuz Mth",
+  detail:"Em condições de infiltrar pela Fx Infl Araucária e atacar posição do MARQ na região de casario, após confirmação do Pel Rec."},
+ {id:"gac",side:"az",ech:"cia",branch:"artMth",short:"1ª/4º",name:"1ª/4º GAC L Mth",gu:"Bda Inf Mth",role:"Apoio de fogo",
+  detail:"Seis obuses 105 mm com alcance de até 13 km em Lavras; na Mantiqueira, quatro obuses L118 em Itanhandu."},
+ {id:"b10bil",side:"az",ech:"btl",branch:"infMth",short:"10º",name:"10º BIL Mth",gu:"4ª Bda Inf L Mth",role:"Ataque / patrulhamento",
+  detail:"Ataca a C Pnt Amv Vm no Lenheiro após a transposição do obstáculo mobiliado pelo 11º BI Mth. Na Mantiqueira, patrulha a BR-354."},
+ {id:"b12bil",side:"az",ech:"btl",branch:"infMth",short:"12º",name:"12º BIL Mth",gu:"4ª Bda Inf L Mth",role:"Patrulhamento / isolamento",
+  detail:"Patrulha a estrada da Fé e a linha férrea; em Argila, isola a porção oeste de Carrancas."},
+ {id:"b32bil",side:"az",ech:"btl",branch:"infMth",short:"32º",name:"32º BIL Mth",gu:"4ª Bda Inf L Mth",role:"Reserva",
+  detail:"Em condições de reforçar ou substituir o 10º BIL Mth; na Mantiqueira patrulha a MG-158."},
+ {id:"b551",side:"az",ech:"btl",branch:"infAmv",short:"551º",name:"551º BI Amv",gu:"10ª Bda Inf Amv",role:"Ponto forte — P Cot 1259",
+  detail:"Vigia o avanço da 42ª Bda Inf L pela BR-381. O 1º/2ª Cia fica aferrado no terreno, sem via de retraimento praticável."},
+ {id:"b14",side:"az",ech:"bda",branch:"infMtz",short:"14",name:"14ª Bda Inf Mtz",gu:"2ª DE",role:"Defesa em posição — Lavras",
+  detail:"Primeira grande resistência do eixo principal; depois estabelece posição defensiva em Lavras aguardando reforços."},
+ {id:"b3",side:"az",ech:"bda",branch:"infMec",short:"3",name:"3ª Bda Inf Mec",gu:"2ª DE",role:"Reserva móvel",
+  detail:"Reserva na região de Tiradentes; depois reforça o controle das rodovias que incidem sobre Lavras."},
+ {id:"b10",side:"az",ech:"bda",branch:"infMtz",short:"10",name:"10ª Bda Inf Mtz",gu:"2ª DE",role:"Defesa em posição — Carmópolis",
+  detail:"Disputa as cristas de Carmópolis com a 42ª Bda Inf L; expulsa, retrai pelo eixo Carmópolis–São Tiago."},
+ {id:"b9",side:"az",ech:"bda",branch:"infMtz",short:"9",name:"9ª Bda Inf Mtz",gu:"1ª DE",role:"Defesa em posição — Três Corações",
+  detail:"Defesa em posição na porção sul do dispositivo."},
+ {id:"bdamth",side:"az",ech:"bda",branch:"infMth",short:"Mth",name:"Bda Inf Mth",gu:"1ª DE",role:"Grande unidade enquadrante",
+  detail:"Única GU de AZUL com capacidade plena em montanha. Base em São João del Rei; emprega o 11º BI Mth em todas as operações."},
+ {id:"cav1",side:"az",ech:"bda",branch:"cavMec",short:"1",name:"1ª Bda Cav Mec",gu:"1ª DE",role:"Ação retardadora — BR-265",
+  detail:"Troca espaço por tempo no eixo principal, desgastando a progressão mecanizada até a defesa em posição estar pronta."},
+ {id:"de4",side:"az",ech:"div",branch:"infMec",short:"4",name:"4ª Divisão de Exército",gu:"TOT",role:"Reserva do Teatro",
+  detail:"Mantida integralmente fechada na retaguarda como reserva do Teatro de Operações."},
+ {id:"tot",side:"az",ech:"base",branch:"base",short:"TOT",name:"Comando do TOT",gu:"Gen Ex MINA",role:"Posto de Comando do Teatro",
+  detail:"Ativado em 01 JUN 2026; conduz a defesa em profundidade e preserva as reservas móveis."},
+ {id:"amv1",side:"vm",ech:"rgt",branch:"infAmv",short:"1º",name:"1º Rgt Inf Amv Vm",gu:"2º C Ex Vm",role:"C Pnt Amv — Serra do Lenheiro",
+  detail:"Cabeça de ponte aeromóvel para bloquear a BR-265 e barrar o ressuprimento azulino a oeste, em condições de junção com a 41ª Bda."},
+ {id:"b41",side:"vm",ech:"bda",branch:"infMec",short:"41",name:"41ª Bda Inf Mec Vm",gu:"2º C Ex Vm",role:"Eixo principal — BR-265",
+  detail:"Progride Lavras–São João del Rei; enfraquecida, retrai pela BR-265 rumo a Nepomuceno."},
+ {id:"b42",side:"vm",ech:"bda",branch:"infL",short:"42",name:"42ª Bda Inf L Vm",gu:"2º C Ex Vm",role:"Eixo secundário — BR-381",
+  detail:"Avança Perdões–Carmópolis para conquistar cristas dominantes; depois desloca-se para reforçar a 41ª e retrai pela BR-494 para Carrancas."},
+ {id:"b43",side:"vm",ech:"bda",branch:"infL",short:"43",name:"43ª Bda Inf L Vm",gu:"2º C Ex Vm",role:"Reserva estratégica",
+  detail:"Agrupada para exploração do êxito, a ser lançada no eixo de maior progresso."},
+ {id:"pelrecvm",side:"vm",ech:"pel",branch:"infL",short:"Rec",name:"Pel Rec Vm",gu:"42ª Bda Inf L Vm",role:"P Cot 1191 e 1199",
+  detail:"Bate por fogos as vias de acesso ao P Cot 1259, restringindo o movimento do 551º BI Amv."},
+ {id:"fevm",side:"vm",ech:"eqp",branch:"fe",short:"FE",name:"Elm FE Vm",gu:"Forças Especiais Vm",role:"Centro de Op de Drones",
+  detail:"Operam drones categoria 0 com alcance de até 9 km, além de operações psicológicas e cooptação da população."},
+ {id:"pqdt8",side:"vm",ech:"btl",branch:"pqdt",short:"8º",name:"8º Btl Pqdt Vm",gu:"2º C Ex Vm",role:"Domínio de Carrancas",
+  detail:"Tropa recém-mobilizada, sem adestramento em montanha, capaz de reforçar áreas adjacentes em até 60 minutos."},
+ {id:"bil5",side:"vm",ech:"btl",branch:"infL",short:"5º",name:"5º Btl Inf L Vm",gu:"2º C Ex Vm",role:"Vigilância — Lavras",
+  detail:"Vigilância nas principais vias de acesso e na região da Serra do Campestre."},
+ {id:"marq",side:"ma",ech:"eqp",branch:"irr",short:"MARQ",name:"MARQ",gu:"Apoio de MARROM",role:"Força insurgente",
+  detail:"Sabota os oleodutos da Petrozul na Mantiqueira, investe em inteligência e recrutamento e guarnece posições com efetivos de 3 a 5 homens."}
+];
+const U={}; UNITS.forEach(u=>U[u.id]=u);
+
+/* ===================== fases =========================================== */
+const GERAL=6;
+const PHASES=[
+{op:"Ativação do TOT",local:"Teatro de Operações — defesa em profundidade",date:"01 JUN 26",wide:true,
+ sit:"Emitida a DPED em 15 MAI, o Teatro é ativado em 01 JUN sob o Gen Ex MINA, com defesa em profundidade: ação retardadora nos eixos, defesa em posição nas regiões-chave e reservas preservadas. Na retaguarda, o MARQ já atua na Mantiqueira sobre os dutos da Petrozul.",
+ manobra:"Absorver o choque inicial, desgastar o inimigo em profundidade e <b>preservar o contra-ataque das reservas</b>, protegendo a Petrozul e as jazidas de nióbio.",
+ chips:["1º C Ex Az — 1ª, 2ª e 4ª DE","Defesa em profundidade","4ª DE como reserva do TOT"],
+ units:{tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180),cav1:off(P.nepomuceno,-90,-30),
+  b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
+  bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14)},
+ notes:[{t:"Camadas do dispositivo",s:"Retardamento (1ª Bda Cav Mec) · defesa em posição (Mth, 14ª, 10ª, 9ª) · reservas (3ª Bda e 4ª DE).",c:"az"},
+        {t:"Ameaça na retaguarda",s:"MARQ sabota os dutos da Petrozul e interdita eixos logísticos na Mantiqueira.",c:"ma"}]},
+
+{op:"Concentração inimiga",local:"Linha de fronteira — 2º C Ex Vm",date:"10 JUN 26",wide:true,
+ sit:"A inteligência confirma a concentração final do 2º Corpo de Exército de VERMELHO junto à fronteira: uma brigada mecanizada, duas brigadas de infantaria leve e um regimento aeromóvel — ofensiva em larga escala iminente.",
+ manobra:"Operação de armas combinadas orientada à <b>ruptura e ao isolamento</b> do centro do Quadrilátero, apoiada por guerra eletrônica, ações cibernéticas e forças irregulares.",
+ chips:["41ª Bda Inf Mec","42ª e 43ª Bda Inf L","1º Rgt Inf Amv"],
+ units:{tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180),cav1:off(P.nepomuceno,-90,-30),
+  b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
+  bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14),
+  b41:off(ENT.principal,-40,0),b42:off(ENT.secundario,-40,0),b43:off(ENT.reserva,-60,0),amv1:off(ENT.amv,-40,0)},
+ notes:[{t:"Restrição aeroespacial",s:"Defesa antiaérea e GE de VERMELHO limitam o poder aéreo — superioridade local e temporária.",c:"vm"}]},
+
+{op:"Dia D — a invasão",local:"Transposição da fronteira internacional",date:"14 JUN 26",wide:true,
+ sit:"VERMELHO transpõe a fronteira em dois eixos coordenados: mecanizados pela BR-265 rumo a Lavras–São João del Rei e forças leves pela BR-381 rumo a Perdões–Carmópolis. A 1ª Bda Cav Mec entra em contato e inicia a ação retardadora.",
+ manobra:"Eixo principal (BR-265): <b>41ª Bda Inf Mec</b>. Eixo secundário (BR-381): <b>42ª Bda Inf L</b>, para conquistar cristas dominantes e isolar o Quadrilátero.",
+ chips:["Ofensiva em dois eixos","Guerra multidomínio","43ª Bda Inf L em reserva"],
+ units:{tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180),cav1:{...off(P.nepomuceno,-40,-24),contact:true},
+  b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
+  bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14),
+  b41:{...off(ENT.principal,60,-6),contact:true},b42:off(ENT.secundario,70,10),b43:off(ENT.reserva,-40,0),amv1:off(ENT.amv,-40,0)},
+ axes:true,
+ routes:[{a:ENT.principal,b:off(ENT.principal,90,-4),k:"atk"},{a:ENT.secundario,b:off(ENT.secundario,100,14),k:"atk"}],
+ notes:[{t:"Ação retardadora",s:"1ª Bda Cav Mec troca espaço por tempo no eixo da BR-265.",c:"az"},
+        {t:"Objetivo inimigo",s:"Dominar cristas topográficas para sustentar o Comando e Controle.",c:"vm"}]},
+
+{op:"Choque em Lavras",local:"Eixo principal BR-265 — Lavras",date:"14 – 15 JUN 26",
+ sit:"A cavalaria mecanizada desengaja e recua pela BR-265, desgastando a progressão inimiga e dando tempo à 14ª Bda Inf Mtz para consolidar a defesa em posição em Lavras. No eixo secundário, a 42ª Bda Inf L progride para as cristas de Carmópolis.",
+ manobra:"Desgastar o inimigo no eixo e <b>fixá-lo diante da defesa em posição</b>, preservando a liberdade de ação das reservas móveis.",
+ chips:["Troca de espaço por tempo","Defesa em posição em Lavras","Reservas não empenhadas"],
+ units:{cav1:off(P.lavras,110,40),b14:{...off(P.lavras,-40,26),contact:true},b10:off(P.carmopolis,-30,30),
+  b9:off(P.tresCoracoes,-30,30),bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),
+  b41:{...off(P.nepomuceno,-40,-26),contact:true},b42:off(P.perdoes,-70,-70),b43:off(ENT.reserva,10,20),marq:off(P.serraFina,20,-14)},
+ axes:true,
+ routes:[{a:off(ENT.principal,80,-6),b:off(P.nepomuceno,-70,-22),k:"atk"},
+   {a:off(ENT.secundario,90,14),b:off(P.perdoes,-100,-60),k:"atk"},
+   {a:off(P.nepomuceno,10,-10),b:off(P.lavras,90,34),k:"retard",bend:.12}],
+ notes:[{t:"Peça-chave",s:"A 14ª Bda Inf Mtz é a primeira grande resistência do eixo principal.",c:"az"}]},
+
+{op:"Salto aeromóvel e cristas",local:"Serra do Lenheiro e Carmópolis",date:"15 JUN 26",wide:true,
+ sit:"O 1º Rgt Inf Amv infiltra-se por via aérea e estabelece cabeça de ponte na Serra do Lenheiro, na retaguarda imediata de São João del Rei, buscando junção com o eixo principal e o bloqueio da BR-265. Ao norte, a 42ª Bda Inf L disputa com a 10ª Bda Inf Mtz as cristas de Carmópolis.",
+ manobra:"Junção do eixo principal com a <b>cabeça de ponte aeromóvel</b> no Lenheiro e isolamento operacional do Quadrilátero pela conquista das cristas.",
+ chips:["C Pnt Amv na Serra do Lenheiro","Bloqueio da BR-265","Combate pelas cristas"],
+ units:{cav1:off(P.lavras,150,60),b14:{...off(P.lavras,-40,26),contact:true},
+  b10:{...off(P.carmopolis,-40,44),contact:true},b9:off(P.tresCoracoes,-30,30),
+  bdamth:{...off(P.sjdr,-10,-34),contact:true},b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14),
+  b41:off(P.lavras,110,-24),b42:{...off(P.carmopolis,-110,66),contact:true},b43:off(P.nepomuceno,-150,-40),
+  amv1:{...off(P.lenheiro,-20,-24),contact:true}},
+ axes:true,
+ routes:[{a:off(P.nepomuceno,10,-26),b:off(P.lavras,90,-24),k:"atk"},
+   {a:off(P.perdoes,-40,-70),b:off(P.carmopolis,-130,80),k:"atk"},
+   {a:off(ENT.amv,20,0),b:off(P.lenheiro,-46,-30),k:"atkAir",bend:.16}],
+ notes:[{t:"Terreno decisivo",s:"A posse das cristas define a liberdade de ação nos dois eixos.",c:"vm"},
+        {t:"Bda Inf Mth",s:"Passa a defender São João del Rei com ameaça à frente e à retaguarda.",c:"az"}]},
+
+{op:"A ofensiva é barrada",local:"Teatro de Operações — retomada da iniciativa",date:"Meados a fim de JUN 26",wide:true,
+ sit:"Em meados de junho a ofensiva perde força, barrada pelos dispositivos defensivos de AZUL. No fim do mês AZUL retoma a iniciativa e conduz operações ofensivas de larga escala, forçando VERMELHO a movimentos retrógrados. Enfraquecida, a 41ª Bda Inf Mec é empurrada para além de Lavras e retrai pela BR-265 rumo a Nepomuceno.",
+ manobra:"Retomar a iniciativa, <b>empurrar VERMELHO em direção às fronteiras originais</b> e limpar a retaguarda — daqui nascem as situações particulares da fase de operações.",
+ chips:["Movimento retrógrado de VERMELHO","14ª Bda retoma Lavras","Remanescentes no Lenheiro e na Mantiqueira"],
+ units:{b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
+  bdamth:off(P.sjdr,-10,-34),b3:off(P.itutinga,60,-40),marq:{...off(P.serraFina,20,-14),contact:true},
+  b41:off(P.nepomuceno,-30,-26),b42:off(P.carmopolis,-90,70),amv1:{...off(P.lenheiro,-20,-24),contact:true},
+  tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180)},
+ routes:[{a:off(P.lavras,60,-24),b:off(P.nepomuceno,10,-26),k:"retro"},
+   {a:off(P.tiradentes,40,34),b:off(P.itutinga,80,-30),k:"pe",bend:.12}],
+ notes:[{t:"O que sobra no terreno",s:"C Pnt Amv no Lenheiro, Elm FE Vm infiltrados e o MARQ na Mantiqueira.",c:"vm"},
+        {t:"Consequência",s:"A Bda Inf Mth passa a empregar suas peças de manobra — começa a fase de operações.",c:"az"}]},
+
+{op:"Dispositivo inicial",local:"São João del Rei — Campo das Vertentes",date:"06 JUL 26",wide:true,
+ sit:"O 11º BI Mth ocupa o Campo das Vertentes com base de combate em São João del Rei. A cabeça de ponte permanece no Lenheiro bloqueando a BR-265, a 41ª Bda pressiona pelo eixo principal e o MARQ segue na Mantiqueira.",
+ missao:"<b>Reconhecer, vigiar e monitorar RIPI</b> com máximo sigilo e dissimulação, otimizando o emprego tático das peças de manobra do Batalhão.",
+ chips:["B Cmb: São João del Rei"],
+ units:{pelrec:off(P.sjdr,-34,26),bcmb:off(P.sjdr,30,26),bdamth:off(P.sjdr,-10,-34),
+  amv1:off(P.lenheiro,-20,-24),b41:off(P.lavras,90,-26),b14:off(P.lavras,-40,26),
+  b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14)},
+ notes:[{t:"Ambiente de montanha",s:"Terreno compartimentado, de acesso restritivo, com escarpas que exigem técnicas de montanhismo.",c:"az"}]},
+
+{op:"Op QUARTZITO",local:"Serra do Lenheiro — São João del Rei",date:"10 – 11 JUL 26",carta:"Carta São João del Rei 1/25.000",
+ sit:"O 1º Rgt Inf Amv Vm mantém a C Pnt Amv na Serra do Lenheiro para bloquear a BR-265 e barrar o ressuprimento das unidades azulinas a oeste, em condições de junção com a 41ª Bda Inf Mec. O terreno restritivo pode ter permitido a cooptação de parcela da população local.",
+ missao:"<b>RECONHECER</b> a Fx Infl “ESCOLA UNO” de 101600 a 110130JUL26. <b>RECONHECER</b> obstáculo vertical rochoso na Q (05-76) de 110500 a 111200JUL26. <b>OCUPAR</b> PO e <b>MONITORAR</b> a P Def Ini na porção NE da Serra do Lenheiro de 111200 a 111800JUL26.",
+ chips:["Rec de itinerário","Rec de obstáculo vertical","PO e monitoramento","1ª Prio F: 1ª Cia"],
+ units:{pelrec:off(P.lenheiro,-26,-30),bcmb:off(P.sjdr,30,26),cia1:off(P.sjdr,-44,44),cia2:off(P.sjdr,48,-6),
+  amv1:{...off(P.lenheiro,34,-6),contact:true},b41:off(P.lavras,90,-26),b14:off(P.lavras,-40,26),marq:off(P.serraFina,20,-14)},
+ marks:[{t:"fx",p:off(P.lenheiro,-92,-56),l:"Fx Infl ESCOLA UNO"},
+  {t:"obst",p:off(P.lenheiro,-16,6),l:"Obst Vtc — Q (05-76)"},
+  {t:"po",p:off(P.lenheiro,20,-42),l:"PO — P Def Ini (NE do Lenheiro)"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.lenheiro,-70,-46),k:"mtz",bend:.16},
+  {a:off(P.lenheiro,-70,-46),b:off(P.lenheiro,-8,-14),k:"pe",bend:-.3}],
+ notes:[{t:"Inimigo",s:"C Pnt Amv do 1º Rgt Inf Amv Vm — armamento similar ao nosso, braçais vermelhos.",c:"vm"},
+        {t:"2ª/11º BI Mth",s:"PBCVU nos eixos que cortam o perímetro urbano de São João del Rei.",c:"az"}]},
+
+{op:"Op BOCAINA",local:"Serra do Faria — Lavras",date:"13 – 14 JUL 26",carta:"Carta Lavras 1/50.000",
+ sit:"Enfraquecida, a 41ª Bda Inf Mec é empurrada para além de Lavras e retrai pela BR-265 rumo a Nepomuceno. A 14ª Bda Inf Mtz estabelece posição defensiva em Lavras. A AAI informa que elementos de Forças Especiais ocupam instalações na área rural da Serra do Faria, operando um Centro de Operações de Drones com alcance de até 9 km.",
+ missao:"<b>RECONHECER</b> a Fx Infl “CAMPESTRE” de 131800 a 140600JUL26. <b>MOBILIAR</b> via em obstáculo vertical rochoso para ocupação dissimulada de PO. <b>MONITORAR</b> o Centro de Operações de Drones e, confirmando-se, <b>CONDUZIR FOGOS</b> de artilharia para <b>DESTRUIR</b> os SARPs e/ou <b>NEUTRALIZAR</b> as tropas.",
+ chips:["Infiltração dissimulada","Mobiliamento de via","Observação de tiro","Apoio: 1ª/4º GAC L Mth"],
+ units:{pelrec:off(P.faria,-46,-20),bcmb:off(P.sjdr,30,26),fevm:{...off(P.faria,34,28),contact:true},
+  gac:off(P.lavras,10,32),b14:off(P.lavras,-52,4),b3:off(P.lavras,60,30),b41:off(P.nepomuceno,-20,-26),marq:off(P.serraFina,20,-14)},
+ marks:[{t:"fx",p:off(P.faria,-104,-48),l:"Fx Infl CAMPESTRE"},
+  {t:"obst",p:off(P.faria,-18,6),l:"Obst Vtc — via mobiliada"},
+  {t:"alvo",p:off(P.faria,48,50),l:"Centro de Op de Drones — destruído"},
+  {t:"exfl",p:off(P.faria,10,-70),l:"Pt de Extração Mtz"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.faria,-88,-34),k:"mtz",bend:.1},
+  {a:off(P.faria,-88,-34),b:off(P.faria,-26,-8),k:"pe",bend:-.3}],
+ notes:[{t:"Apoio de fogo",s:"Seis obuses 105 mm em Lavras, alcance de até 13 km.",c:"az"},
+        {t:"Contingência",s:"14ª Bda Inf Mtz com dois Pel Fuz Mtz como Força de Ação Rápida.",c:"az"},
+        {t:"Sem apoio aéreo",s:"Não há possibilidade de suporte aéreo durante as fases da operação.",c:"vm"}]},
+
+{op:"Op BASALTO",local:"Serra de São José — Tiradentes",date:"15 – 16 JUL 26",carta:"Carta Santa Cruz de Minas 1/50.000",
+ sit:"Confirmada a C Pnt Amv pela Op Quartzito (D-7), a Bda Inf Mth desencadeia a Op DIABÁSIO II em D-5. Em D-2 é acionada a Op de reconhecimento aéreo FALCÃO NEGRO: a aeronave decola da região de Tiradentes, perde contato e cai na Serra de São José. Em D-1 os destroços indicam a área provável; em D, o 11º BI Mth é empregado para a ABRM.",
+ missao:"<b>LOCALIZAR</b> e <b>RESGATAR</b> a tripulação desaparecida. <b>EVACUAR</b> os feridos para o Pt EVAM até 160600JUL26. <b>RETRAIR</b> para a base do Batalhão. Infiltração aeromóvel a partir de 151200JUL26.",
+ chips:["Infiltração aeromóvel","Busca e resgate em montanha","ECD CASEVAC"],
+ units:{pelrec:off(P.saoJose,-20,-32),bcmb:off(P.sjdr,30,26),cia1:off(P.sjdr,-44,48),cia2:off(P.sjdr,44,4),
+  amv1:off(P.lenheiro,-30,-22),marq:off(P.serraFina,20,-14)},
+ marks:[{t:"resgate",p:off(P.saoJose,18,-4),l:"Área de busca — Q (8870)"},
+  {t:"exfl",p:off(P.saoJose,-26,40),l:"Pt EVAM"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.saoJose,-34,-16),k:"amv",bend:-.24},
+  {a:off(P.saoJose,10,4),b:off(P.saoJose,-26,40),k:"pe",bend:.25}],
+ notes:[{t:"Segurança tática",s:"1º/1ª/11º BI Mth garante a exfiltração da tripulação até o Pt EVAM.",c:"az"},
+        {t:"Remanescentes",s:"Elementos do 1º Rgt Inf Amv Vm ainda ocupam o Lenheiro.",c:"vm"}]},
+
+{op:"Op MÁRMORE",local:"Serra do Lenheiro — São João del Rei",date:"16 – 17 JUL 26",carta:"Carta São João del Rei 1/25.000",
+ sit:"Resgatado, o piloto informa ter identificado posição semelhante a uma C Pnt Ae no Lenheiro e movimento de tropas nas vias de acesso. A análise determina uma faixa de menor presença inimiga — com um obstáculo rochoso no percurso. A 1ª DE determina que a 4ª Bda Inf L Mth reconheça e ataque: o 11º BI Mth reconhece e mobilia, o 10º BIL Mth ataca.",
+ missao:"<b>RECONHECER</b> a Fx Infl CINZA. <b>MOBILIAR</b> de 4 a 6 vias equipadas no obstáculo vertical rochoso. <b>AUXILIAR</b> a transposição do 10º BIL Mth e <b>APOIAR</b> suas missões e a evacuação de feridos. <b>RETRAIR</b> mediante ordem.",
+ chips:["Mobiliamento de 4–6 vias","Apoio a ataque de Btl","Azm de fuga 310º","GPS restrito"],
+ units:{pelrec:off(P.lenheiro,-30,-10),bcmb:off(P.sjdr,30,26),b10bil:off(P.lenheiro,-8,34),
+  b12bil:off(P.lenheiro,-70,-44),b32bil:off(P.sjdr,50,-14),cia2:off(P.sjdr,-34,52),
+  amv1:{...off(P.lenheiro,44,-6),contact:true},marq:off(P.serraFina,20,-14)},
+ marks:[{t:"fx",p:off(P.lenheiro,-88,-52),l:"Fx Infl CINZA"},
+  {t:"obst",p:off(P.lenheiro,-6,-26),l:"Obst rochoso — 4 a 6 vias"},
+  {t:"alvo",p:off(P.lenheiro,58,12),l:"Ataque à C Pnt Amv Vm"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.lenheiro,-58,-36),k:"mtz",bend:.16},
+  {a:off(P.lenheiro,-58,-36),b:off(P.lenheiro,-18,-18),k:"pe",bend:-.3}],
+ notes:[{t:"Finalidade",s:"Retomar o controle da Serra do Lenheiro e reativar suas vias de acesso.",c:"az"},
+        {t:"Guerra eletrônica",s:"Navegação por GPS somente em caso de extrema necessidade.",c:"vm"}]},
+
+{op:"Op TRANSMANTIQUEIRA I",local:"Serra Fina — Itamonte",date:"20 – 23 JUL 26",carta:"Cartas Passa Quatro e Itamonte 1/50.000",
+ sit:"Populares de Itamonte, Passa-Quatro e Maromba relatam intensificação do MARQ. Agentes da AAI apontam o líder, o chefe de segurança (“MONSTRO”) e auxiliares logísticos homiziados entre a população, adquirindo comunicações, armamento e explosivos. Há relatos de pousos na Serra Fina e tratativas para sabotar o oleoduto entre Passa Quatro e Aiuruoca. Os insurgentes evitam a Serra Fina — não têm adestramento de montanha.",
+ missao:"<b>RECONHECER</b> a Fx Infl “LOBO – IVOS” a partir de 210400JUL26 e ficar em condições de <b>MONITORAR</b> possível RIPI. Em caso de contato com Elm MARQ, informar de imediato e aguardar autorização para neutralização.",
+ chips:["Infiltração dissimulada de 3 dias","Pernoites obrigatórios","Sem apoio aéreo","Base avançada em Itamonte"],
+ units:{pelrec:off(P.serraFina,-30,-34),bavc:off(P.itamonte,-10,30),bcmb:off(P.sjdr,30,26),
+  marq:{...off(P.serraFina,44,18),contact:true}},
+ marks:[{t:"fx",p:off(P.serraFina,-102,-10),l:"Fx Infl LOBO – IVOS"},
+  {t:"ripi",p:off(P.serraFina,36,-18),l:"RIPI — Alto dos Ivos"},
+  {t:"po",p:off(P.serraFina,-44,30),l:"Pontos de pernoite"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.itamonte,-10,30),k:"mtz",bend:.2},
+  {a:off(P.itamonte,-10,30),b:off(P.serraFina,-44,-18),k:"pe",bend:-.2}],
+ notes:[{t:"Base avançada",s:"A fração passa a operar de Itamonte, sem retornar a São João del Rei ao fim da missão.",c:"az"},
+        {t:"Petrozul",s:"O ramal Passa Quatro – Aiuruoca corta a área — é o duto que o MARQ pretende sabotar.",c:"ma"}]},
+
+{op:"Op TRANSMANTIQUEIRA II",local:"Serra do Papagaio — Aiuruoca / Alagoa",date:"25 – 27 JUL 26",carta:"Carta Alagoa 1/50.000",
+ sit:"Com a fuga dos elementos do MARQ para a Serra do Papagaio, é preciso confirmar a presença de um alvo de alto valor na nova região de homizio. Aproveitando os meios já desdobrados, o Cmt da Bda Inf Mth determina a intervenção imediata do 11º BI Mth.",
+ missao:"<b>RECONHECER</b> a Fx Infl ARAUCÁRIA e ficar em condições de <b>MONITORAR</b> RIPI, levantando instalações estratégicas e atividades inimigas. <b>FICAR ECD</b> de tiro de oportunidade e neutralização. <b>ESTABELECER</b> contato com apoio local para ressuprimento e informes.",
+ chips:["Patrulhamento Itamonte e Alagoa","Contato com apoio local (SPA/SPL)","Tiro de oportunidade"],
+ units:{pelrec:off(P.papagaio,-24,-32),bavc:off(P.itamonte,-10,30),cia1:off(P.itamonte,52,6),
+  cia2:off(P.alagoa,26,24),cia3:off(P.aiuruoca,40,28),gac:off(P.itanhandu,-46,28),
+  b10bil:off(P.itamonte,-64,50),b32bil:off(P.passaQuatro,-30,28),marq:{...off(P.papagaio,40,16),contact:true}},
+ marks:[{t:"fx",p:off(P.papagaio,-104,-12),l:"Fx Infl ARAUCÁRIA"},
+  {t:"ripi",p:off(P.papagaio,34,-20),l:"RIPI (5026) — casario"},
+  {t:"contato",p:off(P.alagoa,-52,-18),l:"Contato — apoio local"}],
+ routes:[{a:off(P.itamonte,-10,30),b:off(P.papagaio,-46,-8),k:"pe",bend:.25}],
+ notes:[{t:"Apoio de fogo",s:"Quatro obuses L118 em Itanhandu, mediante autorização do Esc Sup.",c:"az"},
+        {t:"Reforço",s:"4º Esqd C Mec em condições de reforçar a tropa em 30 minutos.",c:"az"},
+        {t:"População",s:"Há indícios de que comunidades rurais apoiam a causa do MARQ.",c:"ma"}]},
+
+{op:"Op FELDSPATO",local:"Pedra da Laje — Carmópolis de Minas",date:"28 – 30 JUL 26",carta:"Carta Carmópolis de Minas 1/50.000",
+ sit:"A 42ª Bda Inf L Vm prossegue no eixo Perdões–Carmópolis pela BR-381 para conquistar as cristas dominantes. O 551º BI Amv ocupa ponto forte e PO no P Cot 1259, mas um Pel Rec inimigo nos P Cot 1191 e 1199 bate por fogos as vias de acesso, impedindo o rodízio e o retraimento. A única alternativa é retrair para leste — onde existe um paredão de cerca de 200 m. A 2ª DE solicita apoio à 1ª DE e a Bda Inf Mth emprega o 11º BI Mth.",
+ missao:"Realizando deslocamento motorizado, <b>INFILTRAR</b> pelo E Prog ETERNO até a P Desemb. <b>RETIFICAR/RATIFICAR</b> os dados do itinerário e <b>TRANSMITIR</b> ao Esc Sup. Aproximar-se do obstáculo rochoso e <b>EQUIPAR</b> para desescalada, apoiando o retraimento do pelotão aferrado.",
+ chips:["Escalada e equipagem de paredão (~200 m)","Desescalada de tropa não especializada","Rec do E Prog"],
+ units:{pelrec:off(P.laje,-46,-16),bcmb:off(P.sjdr,30,26),b551:{...off(P.carmopolis,40,30),contact:true},
+  pelrecvm:{...off(P.laje,30,-46),contact:true},b42:off(P.perdoes,-10,-34),b10:off(P.carmopolis,-64,50),
+  marq:off(P.papagaio,-70,-90)},
+ marks:[{t:"fx",p:off(P.laje,-108,-38),l:"E Prog ETERNO"},
+  {t:"obst",p:off(P.laje,-10,12),l:"Obst rochoso ~200 m — desescalada"},
+  {t:"po",p:off(P.laje,12,-28),l:"Pt Forte P Cot 1259"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.laje,-80,-30),k:"mtz",bend:-.18},
+  {a:off(P.laje,-80,-30),b:off(P.laje,-26,-8),k:"pe",bend:.3},
+  {a:off(P.papagaio,-10,-10),b:off(P.papagaio,-70,-90),k:"marq",bend:.18}],
+ notes:[{t:"Terreno",s:"AO dominada pelo maciço da Pedra da Laje — excelentes campos de observação sobre Carmópolis e a BR-381.",c:"az"},
+        {t:"MARQ em deslocamento",s:"Elementos do movimento iniciam o deslocamento da Mantiqueira para a região de Três Corações.",c:"ma"}]},
+
+{op:"Op QUARTZO",local:"Atalaia / CIGMAL — Três Corações",date:"31 JUL – 03 AGO 26",carta:"Cartas São Bento Abade e São Thomé das Letras 1/25.000",
+ sit:"A 41ª Bda Inf Mec aguarda em Nepomuceno para ser reforçada pela 42ª Bda Inf L, que se desloca Carmópolis–Lavras após expulsar a 10ª Bda Inf Mtz. Remanescentes do MARQ patrulham as estradas rurais adjacentes ao CIGMAL, com emboscadas e armadilhas. Há campo de minas na via de acesso menos provável — a Fx Infl GAVIÃO — onde a inteligência apontou uma brecha por um obstáculo horizontal de 50 m, sem sentinelas.",
+ missao:"<b>INFILTRAR</b> pelo E Prog GAVIÃO a partir de 311800JUL26. <b>MONITORAR</b> RIPI a partir de 010800AGO26. <b>MOBILIAR</b> obstáculo horizontal em segurança. <b>INTERDITAR</b> instalações clandestinas em 020500AGO26 e <b>EXFILTRAR</b> a pé.",
+ chips:["Obstáculo horizontal de 50 m","Contorno de campo de minas","Interdição de instalações","25 min do objetivo ao Pt Exfl"],
+ units:{pelrec:off(P.cigmal,-34,-24),bcmb:off(P.sjdr,30,26),cia1:off(P.saoThome,24,26),
+  cia2:off(P.saoBento,-34,24),marq:{...off(P.cigmal,36,18),contact:true},
+  b41:off(P.nepomuceno,-20,-26),b42:off(P.lavras,90,-28),b9:off(P.tresCoracoes,-34,26)},
+ marks:[{t:"fx",p:off(P.cigmal,-104,-42),l:"Fx Infl GAVIÃO"},
+  {t:"minas",p:off(P.cigmal,-46,12),l:"Campo de minas e armadilhas"},
+  {t:"obsth",p:off(P.cigmal,-8,-8),l:"Obst horizontal 50 m"},
+  {t:"alvo",p:off(P.cigmal,38,34),l:"Instalações clandestinas — interditadas"}],
+ routes:[{a:off(P.sjdr,30,26),b:off(P.cigmal,-84,-50),k:"mtz",bend:.12},
+  {a:off(P.cigmal,-84,-50),b:off(P.cigmal,-18,-10),k:"pe",bend:-.3},
+  {a:off(P.papagaio,-70,-90),b:off(P.cigmal,50,30),k:"marq",bend:.2}],
+ notes:[{t:"Isolamento",s:"PBCVU das Cia Fuz Mth na LMG-862: Três Corações, São Bento Abade e São Thomé das Letras.",c:"az"},
+        {t:"Inimigo",s:"MARQ com severas restrições logísticas e de recompletamento, patrulhas valor GC.",c:"ma"}]},
+
+{op:"Op ARGILA",local:"Serra de Carrancas — Carrancas",date:"05 – 06 AGO 26",carta:"Carta Itutinga / São João del Rei 1/50.000",
+ sit:"Após sucessivas derrotas, remanescentes da 42ª Bda Inf L Vm retiram-se de Carmópolis pela BR-494 e se restabelecem em Carrancas, controlando Carrancas, Itutinga, Caquende e Capela do Saco com patrulhamento motorizado e uma antena de comunicações no alto da Serra de Carrancas. O 8º Btl Pqdt Vm ocupa a região — tropa recém-mobilizada, sem adestramento em montanha.",
+ missao:"<b>INFILTRAR</b> pela Fx Infl CARRANCAS a partir de 050600AGO26. <b>ATACAR</b> e <b>DESTRUIR</b>, em 060900AGO26, a Posição de Antenas inimiga. <b>EXFILTRAR</b> para o Pt Exfl aeromóvel até 061000AGO26.",
+ chips:["Ação direta","Ataque sincronizado com as Cia","Exfiltração aeromóvel","Alturas NO de Carrancas"],
+ units:{pelrec:off(P.serraCarrancas,-28,-28),cia1:off(P.carrancas,-10,-44),cia2:off(P.carrancas,42,24),
+  pqdt8:{...off(P.carrancas,20,-8),contact:true},b42:off(P.tresCoracoes,46,-28),
+  bil5:off(P.lavras,-34,-28),b12bil:off(P.carrancas,-66,28),b32bil:off(P.barroso,-10,28),
+  bdamth:off(P.sjdr,-10,-34),marq:off(P.cigmal,36,18)},
+ marks:[{t:"fx",p:off(P.serraCarrancas,-102,-20),l:"Fx Infl CARRANCAS"},
+  {t:"alvo",p:off(P.serraCarrancas,22,6),l:"Posição de antenas — destruída"},
+  {t:"exfl",p:off(P.serraCarrancas,-12,48),l:"Pt Exfl aeromóvel"}],
+ routes:[{a:off(P.sjdr,-10,-34),b:off(P.serraCarrancas,-64,-36),k:"mtz",bend:.16},
+  {a:off(P.serraCarrancas,-64,-36),b:off(P.serraCarrancas,-34,-12),k:"pe",bend:-.3}],
+ notes:[{t:"Finalidade",s:"Dominar as alturas noroeste de Carrancas e apoiar a Bda Inf Mth no isolamento da cidade.",c:"az"},
+        {t:"Reação inimiga",s:"O inimigo pode reforçar as áreas adjacentes em até 60 minutos, com tropa valor SU.",c:"vm"}]},
+
+{op:"Retraimento a pé",local:"Carrancas → São João del Rei",date:"Após 06 AGO 26",wide:true,
+ sit:"Encerrada a Op Argila, a fração permanece na região de Carrancas. Sem retorno motorizado, o retraimento é feito a pé até a base de combate em São João del Rei — cerca de 55 km em linha reta por terreno compartimentado — encerrando a fase de operações do CAM 2026.",
+ missao:"<b>RETRAIR</b> a pé da região de Carrancas até a B Cmb do 11º BI Mth em São João del Rei, encerrando a fase de operações do curso.",
+ chips:["Marcha a pé","Navegação em terreno compartimentado","Encerramento do CAM 2026"],
+ units:{pelrec:off(P.itutinga,20,44),bcmb:off(P.sjdr,30,26),bdamth:off(P.sjdr,-10,-34),marq:off(P.cigmal,36,18)},
+ routes:[{a:P.carrancas,b:off(P.sjdr,20,26),k:"pe",bend:.16}],
+ notes:[{t:"Nove operações",s:"Lenheiro, Faria, São José, Serra Fina, Papagaio, Pedra da Laje, CIGMAL e Carrancas.",c:"az"}]}
+];
+
+
+/* objetivos de instrução de cada operação (quadro do curso) */
+const OBJETIVOS={
+ "Op QUARTZITO":["Reconhecimento de Itinerário","Reconhecimento de Obstáculo","Monitoramento de RIPI","Emprego de TAI Defensiva"],
+ "Op BOCAINA":["Reconhecimento de Itinerário","Reconhecimento de Obstáculo","Condução de Fogos de Artilharia","Exfiltração Aeromóvel"],
+ "Op BASALTO":["ABRM","Busca e Infiltração Aeromóvel"],
+ "Op MÁRMORE":["Reconhecimento de Itinerário","Equipagem de 6 vias","Caçador Inimigo","Reorganização após Dispersão","Marcha Preparação para o EDL"],
+ "Op TRANSMANTIQUEIRA I":["Reconhecimento de Itinerário","Monitoramento de RIPI","Falha nas Comunicações"],
+ "Op TRANSMANTIQUEIRA II":["Reconhecimento de Itinerário","Monitoramento de RIPI","Emprego de Caçador","Emprego de Muar","Emprego de Drone Inimigo","Exploração Tática de Área","Exfiltração Aeromóvel"],
+ "Op FELDSPATO":["Transposição de Obstáculo (>200 m)"],
+ "Op QUARTZO":["Reconhecimento de Obstáculo Horizontal","Ação Direta – Neutralização","Exploração Tática de Área"],
+ "Op ARGILA":["Reconhecimento de Itinerário","Reconhecimento de Obstáculo","Ação Direta"]
+};
+
+/* ===================== simbologia ====================================== */
+const COL={az:{s:"#12468f",f:"#cfe0f6"},pr:{s:"#0f6b52",f:"#c8ecdd"},vm:{s:"#a81c28",f:"#f4cbcd"},ma:{s:"#7a4718",f:"#e9d6bd"}};
+const SW=54,SH=36;
+function echelon(e,c){const y=-SH/2-8;
+ if(e==="pel")return `<g fill="${c}">${[-9,0,9].map(d=>`<circle cx="${d}" cy="${y-1}" r="2.6"/>`).join('')}</g>`;
+ const m={cia:"I",btl:"II",rgt:"III",bda:"X",div:"XX"};
+ return m[e]?`<text x="0" y="${y+4}" text-anchor="middle" font-size="12" font-weight="700" fill="${c}">${m[e]}</text>`:"";}
+function symbol(u,s){s=s||1;const c=COL[u.side];let fr,inner="";
+ if(u.side==="vm"||u.side==="ma"){const w=SW*.62,h=SH*.98;
+   fr=`<polygon points="0,${-h} ${w},0 0,${h} ${-w},0" fill="${c.f}" stroke="${c.s}" stroke-width="2.4"/>`;}
+ else fr=`<rect x="${-SW/2}" y="${-SH/2}" width="${SW}" height="${SH}" fill="${c.f}" stroke="${c.s}" stroke-width="2.4"/>`;
+ const X=`<path d="M${-SW/2+6},${-SH/2+6} L${SW/2-6},${SH/2-6} M${SW/2-6},${-SH/2+6} L${-SW/2+6},${SH/2-6}" stroke="${c.s}" stroke-width="2" fill="none"/>`;
+ const mth=`<path d="M-9,${SH/2-5} L0,${SH/2-13} L9,${SH/2-5} Z" fill="${c.s}"/>`;
+ switch(u.branch){
+  case"infL":inner=X;break;
+  case"infMth":inner=X+mth;break;
+  case"recMth":inner=X+mth+`<text x="0" y="${-SH/2+13}" text-anchor="middle" font-size="10" font-weight="700" fill="${c.s}">Rec</text>`;break;
+  case"infMtz":inner=X+`<circle cx="0" cy="${SH/2-4}" r="3.2" fill="none" stroke="${c.s}" stroke-width="2"/>`;break;
+  case"infMec":inner=X+`<ellipse rx="12" ry="8.5" fill="none" stroke="${c.s}" stroke-width="2"/>`;break;
+  case"cavMec":inner=`<path d="M${-SW/2+6},${SH/2-6} L${SW/2-6},${-SH/2+6}" stroke="${c.s}" stroke-width="2.2"/><ellipse rx="12" ry="8.5" fill="none" stroke="${c.s}" stroke-width="2"/>`;break;
+  case"infAmv":inner=X+`<path d="M-11,${-SH/2+7} L11,${-SH/2+7} M0,${-SH/2+7} L0,${-SH/2+12}" stroke="${c.s}" stroke-width="2" fill="none"/>`;break;
+  case"pqdt":inner=X+`<path d="M-10,${-SH/2+11} A10,10 0 0 1 10,${-SH/2+11}" fill="none" stroke="${c.s}" stroke-width="2"/>`;break;
+  case"artMth":inner=`<circle r="5.5" fill="${c.s}"/>`+mth;break;
+  case"fe":inner=`<text x="0" y="5" text-anchor="middle" font-size="15" font-weight="700" fill="${c.s}">FE</text>`;break;
+  case"irr":inner=`<path d="M${-SW/2+9},0 L${SW/2-9},0" stroke="${c.s}" stroke-width="2.2"/><path d="M-7,-8 L7,8 M7,-8 L-7,8" stroke="${c.s}" stroke-width="2" fill="none"/>`;break;
+  case"base":inner=`<path d="M${-SW/2+9},${SH/2-7} L${-SW/2+9},${-SH/2+7} L${SW/2-11},${-SH/2+7} L${SW/2-11},-2 L${-SW/2+9},-2" fill="none" stroke="${c.s}" stroke-width="2.2"/>`;break;
+  default:inner=X;}
+ return `<g transform="scale(${s})">${echelon(u.ech,c.s)}${fr}${inner}
+   <text x="${SW/2+7}" y="4.5" font-size="12" font-weight="700" fill="${c.s}">${u.short}</text></g>`;}
+function markSVG(t){
+ const g=(i,c)=>`<g stroke="${c}" fill="none" stroke-width="2.6">${i}</g>`;
+ switch(t){
+  case"obst":return g('<path d="M-11,8 L0,-12 L11,8 Z"/><path d="M-6,8 L0,-3 L6,8" stroke-width="1.6"/>',"#8a6608");
+  case"obsth":return g('<path d="M-14,-4 L14,-4 M-14,4 L14,4"/>',"#8a6608")+'<circle r="3" fill="#8a6608"/>';
+  case"po":return g('<circle r="9"/><path d="M0,-15 L0,-10 M0,10 L0,15"/>',"#12468f")+'<circle r="3" fill="#12468f"/>';
+  case"ripi":return g('<circle r="12" stroke-dasharray="4 4"/>',"#7a4718")+'<circle r="3.2" fill="#7a4718"/>';
+  case"alvo":return g('<circle r="12"/><path d="M-7,-7 L7,7 M7,-7 L-7,7"/>',"#d84315");
+  case"minas":return g('<path d="M-15,7 L-7,-6 L0,7 L7,-6 L15,7"/>',"#d84315");
+  case"resgate":return g('<circle r="12"/><path d="M0,-7 L0,7 M-7,0 L7,0" stroke-width="3"/>',"#12468f");
+  case"exfl":return g('<path d="M-13,-6 L13,-6 M0,-6 L0,6 M-7,7 L7,7"/>',"#12468f")+'<circle r="3" fill="#12468f"/>';
+  case"contato":return g('<circle r="10"/><path d="M-5,0 L-1,4 L6,-4"/>',"#0f6b52");
+  case"fx":return g('<path d="M-16,0 L16,0" stroke-dasharray="6 4"/><circle r="4"/>',"#0f6b52");
+  default:return g('<circle r="8"/>',"#333");}}
+
+/* ===================== desenho da carta ================================ */
+const path=pts=>pts.map((p,i)=>(i?'L':'M')+p.x+','+p.y).join(' ');
+const ll=(lat,lon)=>pt(lat,lon);
+
+const FRONT=[ll(-20.25,-45.30),ll(-20.80,-45.42),ll(-21.30,-45.47),ll(-21.90,-45.40),ll(-22.60,-45.28)];
+const RD={
+ br265:[ll(-21.24,-45.46),P.nepomuceno,P.lavras,ll(-21.29,-44.83),P.itutinga,ll(-21.21,-44.43),P.sjdr,P.barroso],
+ br381:[ll(-21.02,-45.45),ll(-21.06,-45.24),P.perdoes,ll(-20.86,-44.90),P.carmopolis],
+ br494:[P.lavras,ll(-21.40,-44.86),P.carrancas,ll(-21.36,-44.50),P.sjdr],
+ lmg862:[P.tresCoracoes,P.saoBento,P.saoThome],
+ sul:[P.tresCoracoes,ll(-22.00,-45.09),P.itanhandu,P.itamonte,P.alagoa,P.aiuruoca],
+ mg383:[P.sjdr,P.tiradentes]
+};
+const PZ_EIXO=[ll(-20.35,-43.90),ll(-20.75,-43.86),ll(-21.22,-43.77),ll(-21.55,-43.62)];
+const PZ_RAMAL=[ll(-21.30,-43.86),ll(-21.62,-44.16),ll(-21.86,-44.42),P.aiuruoca,ll(-22.12,-44.72),P.itamonte,P.passaQuatro];
+
+const SERRAS=[
+ {n:"SERRA DO LENHEIRO",c:P.lenheiro,rx:50,ry:17,a:-16},
+ {n:"SERRA DE SÃO JOSÉ",c:P.saoJose,rx:46,ry:15,a:-12},
+ {n:"SERRA DO FARIA",c:P.faria,rx:54,ry:18,a:8},
+ {n:"SERRA DE CARRANCAS",c:P.serraCarrancas,rx:60,ry:20,a:-20},
+ {n:"PEDRA DA LAJE",c:P.laje,rx:44,ry:15,a:12},
+ {n:"SERRA DO PAPAGAIO",c:P.papagaio,rx:74,ry:25,a:-12},
+ {n:"SERRA FINA",c:P.serraFina,rx:86,ry:26,a:-16},
+ {n:"ATALAIA / CIGMAL",c:P.cigmal,rx:52,ry:18,a:4}
+];
+const AO=[["1","Serra do Lenheiro","Quartzito",P.lenheiro],["2","Serra do Faria","Bocaina",P.faria],
+ ["3","Serra de São José","Basalto",P.saoJose],["4","Serra do Lenheiro","Mármore",off(P.lenheiro,26,20)],
+ ["5","Serra Fina","Transmantiqueira I",P.serraFina],["6","Serra do Papagaio","Transmantiqueira II",P.papagaio],
+ ["7","Pedra da Laje","Feldspato",P.laje],["8","Atalaia / CIGMAL","Quartzo",P.cigmal],
+ ["9","Serra de Carrancas","Argila",P.serraCarrancas]];
+const CIDADES=[["São João del Rei",P.sjdr,1],["Lavras",P.lavras,1],["Três Corações",P.tresCoracoes,1],
+ ["Carmópolis de Minas",P.carmopolis,1],["Carrancas",P.carrancas,1],["Itamonte",P.itamonte,1],
+ ["Tiradentes",P.tiradentes,0],["Barroso",P.barroso,0],["Itutinga",P.itutinga,0],["Nepomuceno",P.nepomuceno,0],
+ ["Perdões",P.perdoes,0],["São Bento Abade",P.saoBento,0],["São Thomé das Letras",P.saoThome,0],
+ ["Aiuruoca",P.aiuruoca,0],["Alagoa",P.alagoa,0],["Itanhandu",P.itanhandu,0],["Passa Quatro",P.passaQuatro,0]];
+
+function terreno(){
+  const blob=(c,rx,ry,a,f)=>`<ellipse cx="${c.x}" cy="${c.y}" rx="${rx}" ry="${ry}" transform="rotate(${a} ${c.x} ${c.y})" fill="${f}"/>`;
+  const crista=(c,rx,ry,a)=>{let s='';for(let i=-2;i<=2;i++){const x=c.x+i*rx*.36,y=c.y-ry*.15;
+    s+=`<path d="M${x-8},${y+6} l8,-11 l8,11" fill="none" stroke="#6f7c59" stroke-width="1.8" vector-effect="non-scaling-stroke" transform="rotate(${a} ${c.x} ${c.y})"/>`;}return s;};
+  let s=`<g id="layerRelief">
+   <rect width="${W}" height="${H}" fill="var(--terr)"/>
+   <path d="${path([ll(-21.85,-45.35),ll(-22.05,-44.90),ll(-22.15,-44.40),ll(-22.35,-43.90),ll(-22.60,-43.90),ll(-22.60,-45.35)])} Z" fill="var(--terr2)"/>
+   <path d="${path([ll(-22.10,-45.20),ll(-22.25,-44.80),ll(-22.30,-44.35),ll(-22.60,-44.10),ll(-22.60,-45.25)])} Z" fill="var(--terr3)"/>
+   <path d="${path([ll(-20.35,-45.20),ll(-20.60,-44.80),ll(-20.95,-44.55),ll(-21.20,-44.20),ll(-21.20,-43.60),ll(-20.35,-43.60)])} Z" fill="var(--terr2)" opacity=".7"/>
+   <path d="${path([ll(-21.25,-44.85),ll(-21.45,-44.60),ll(-21.65,-44.30),ll(-21.95,-44.05),ll(-21.95,-43.60),ll(-21.15,-43.60)])} Z" fill="var(--terr2)" opacity=".55"/>`;
+  SERRAS.forEach(sr=>{s+=blob(sr.c,sr.rx+16,sr.ry+10,sr.a,'var(--terr3)')+blob(sr.c,sr.rx,sr.ry,sr.a,'var(--terr4)')+crista(sr.c,sr.rx,sr.ry,sr.a);});
+  /* hidrografia */
+  s+=`<path d="${path([ll(-21.10,-45.40),ll(-21.30,-45.05),ll(-21.42,-44.75),ll(-21.30,-44.55),ll(-21.15,-44.35),ll(-21.05,-44.00)])}"
+      fill="none" stroke="var(--water)" stroke-width="3" vector-effect="non-scaling-stroke" opacity=".75"/>
+   <text class="notelab" x="${ll(-21.36,-44.90).x}" y="${ll(-21.36,-44.90).y}" fill="#4a6d7d">Rio Grande</text>`;
+  s+=`</g>`;
+  return s;
+}
+function paises(){
+  const fr=path(FRONT);
+  return `<g id="layerCtry">
+   <path d="M0,0 L${FRONT[0].x},${FRONT[0].y} ${fr.slice(fr.indexOf('L'))} L0,${H} Z" fill="#a81c28" opacity=".13"/>
+   <path d="${fr}" fill="none" stroke="#8a2530" stroke-width="3" stroke-dasharray="18 7 5 7" vector-effect="non-scaling-stroke"/>
+   <text class="ctrylab" x="40" y="${ll(-21.15,-45.6).y}" fill="#8a2530" opacity=".9">PAÍS VERMELHO</text>
+   <text class="notelab" x="40" y="${ll(-21.15,-45.6).y+26}" fill="#8a2530">de onde parte a ofensiva do 2º C Ex Vm</text>
+   <text class="notelab" x="${FRONT[2].x+8}" y="${FRONT[2].y}" fill="#8a2530">FRONTEIRA INTERNACIONAL</text>
+   <text class="ctrylab" x="${ll(-21.6,-44.45).x}" y="${ll(-21.6,-44.45).y}" fill="#2f5f96" opacity=".3">PAÍS AZUL</text>
+   <text class="notelab" x="${W-250}" y="${ll(-20.60,-43.7).y}" fill="#7a4718">PAÍS MARROM →</text>
+   <text class="notelab" x="${ll(-22.5,-44.6).x}" y="${H-24}" fill="#7d6512">↓ PAÍS AMARELO</text>
+  </g>`;
+}
+function petrozul(){
+  return `<g id="layerPz">
+   <path d="${path(PZ_EIXO)}" fill="none" stroke="#b8860b" stroke-width="4.5" stroke-dasharray="2 9" vector-effect="non-scaling-stroke"/>
+   <path d="${path(PZ_RAMAL)}" fill="none" stroke="#b8860b" stroke-width="3.5" stroke-dasharray="2 8" vector-effect="non-scaling-stroke"/>
+   <text class="notelab" x="${PZ_EIXO[1].x-190}" y="${PZ_EIXO[1].y}" fill="#8a6608" font-weight="600">EIXO PETROZUL (BH – RJ)</text>
+   <text class="notelab" x="${ll(-21.95,-44.35).x}" y="${ll(-21.95,-44.35).y}" fill="#8a6608" font-weight="600">Ramal Passa Quatro – Aiuruoca</text>
+   <g transform="translate(${P.aiuruoca.x+14},${P.aiuruoca.y-26})">${markSVG('alvo')}</g>
+   <text class="notelab" x="${P.aiuruoca.x+30}" y="${P.aiuruoca.y-40}" fill="#a5330f">sabotagem MARQ</text>
+  </g>`;
+}
+function rodovias(){
+  const line=(pts,w)=>`<path d="${path(pts)}" fill="none" stroke="#efe9d8" stroke-width="${w+4}" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    <path d="${path(pts)}" fill="none" stroke="var(--road)" stroke-width="${w}" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>`;
+  const shield=(p,t)=>`<g transform="translate(${p.x},${p.y})"><rect x="-26" y="-11" width="52" height="22" rx="3" fill="#efe9d8" stroke="#5d5443" stroke-width="1.6" vector-effect="non-scaling-stroke"/>
+    <text class="roadlab" x="0" y="4" text-anchor="middle">${t}</text></g>`;
+  return `<g id="layerRoads">
+   ${line(RD.br265,4)}${line(RD.br381,4)}${line(RD.br494,3)}${line(RD.lmg862,2.6)}${line(RD.sul,3)}${line(RD.mg383,2.4)}
+   ${shield(ll(-21.27,-44.90),'BR-265')}${shield(ll(-21.21,-44.42),'BR-265')}
+   ${shield(ll(-20.90,-45.00),'BR-381')}${shield(ll(-21.41,-44.80),'BR-494')}
+   ${shield(ll(-21.66,-45.16),'LMG-862')}${shield(ll(-22.22,-44.99),'BR-354')}
+  </g>`;
+}
+function eixosAtaque(){
+  const seta=(a,b,txt,dy)=>`<path d="M${a.x},${a.y} L${b.x},${b.y}" stroke="#a81c28" stroke-width="16" opacity=".22" stroke-linecap="round"/>
+   <text class="axislab" x="${(a.x+b.x)/2}" y="${(a.y+b.y)/2+dy}" text-anchor="middle">${txt}</text>`;
+  return `<g id="layerAxes" style="display:none">
+   ${seta(off(ENT.principal,-20,0),off(P.sjdr,-60,10),'EIXO PRINCIPAL — BR-265',-22)}
+   ${seta(off(ENT.secundario,-20,0),off(P.carmopolis,-40,40),'EIXO SECUNDÁRIO — BR-381',-20)}
+  </g>`;
+}
+function rotulos(){
+  return `<g id="layerLabels">
+   ${CIDADES.map(([n,p,big])=>`<circle cx="${p.x}" cy="${p.y}" r="${big?5:3.6}" fill="#2f353d"/>
+     <text class="${big?'citybig':'citylab'}" x="${p.x+9}" y="${p.y+15}">${n}</text>`).join('')}
+   ${SERRAS.map(s=>`<text class="serralab" x="${s.c.x-s.rx-6}" y="${s.c.y-s.ry-8}" text-anchor="end">${s.n}</text>`).join('')}
+  </g>`;
+}
+function aoLayer(){
+  return `<g id="layerAO">${AO.map(([n,nome,op,p])=>`
+   <circle cx="${p.x}" cy="${p.y}" r="17" fill="#b8860b" fill-opacity=".2" stroke="#8a6608" stroke-width="2" vector-effect="non-scaling-stroke"/>
+   <text x="${p.x}" y="${p.y+6}" text-anchor="middle" font-family="Barlow Condensed" font-weight="700"
+     style="font-size:calc(var(--k)*17px)" fill="#6b5106">${n}</text>`).join('')}</g>`;
+}
+
+function buildMap(){
+  const svg=`<svg id="opSvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="--k:1" xmlns="http://www.w3.org/2000/svg">
+   <defs>
+     <marker id="mkVm" markerWidth="6" markerHeight="6" refX="4.6" refY="2.3" orient="auto"><path d="M0,0 L4.8,2.3 L0,4.6 Z" fill="#a81c28"/></marker>
+     <marker id="mkAz" markerWidth="7" markerHeight="7" refX="5.2" refY="2.6" orient="auto"><path d="M0,0 L5.4,2.6 L0,5.2 Z" fill="#12468f"/></marker>
+     <marker id="mkPr" markerWidth="7" markerHeight="7" refX="5.2" refY="2.6" orient="auto"><path d="M0,0 L5.4,2.6 L0,5.2 Z" fill="#0f6b52"/></marker>
+     <marker id="mkMa" markerWidth="7" markerHeight="7" refX="5.2" refY="2.6" orient="auto"><path d="M0,0 L5.4,2.6 L0,5.2 Z" fill="#7a4718"/></marker>
+   </defs>
+   ${terreno()}${paises()}${petrozul()}${rodovias()}${eixosAtaque()}${rotulos()}${aoLayer()}
+   <g id="dyn"></g>
+   <g id="units">${UNITS.map(u=>`<g class="unit" id="u-${u.id}" data-id="${u.id}" transform="translate(-500,-500)" opacity="0">
+      <circle class="ct" r="34" fill="none" stroke="#d84315" stroke-width="3"/>
+      <rect class="selring" x="-42" y="-32" width="84" height="64" fill="none" stroke="#0d1218" stroke-width="1.6" stroke-dasharray="5 4"/>
+      ${symbol(u,1)}<text class="ulabel" x="0" y="${(u.side==='vm'||u.side==='ma')?42:34}" text-anchor="middle">${u.name}</text>
+      <rect x="-46" y="-36" width="92" height="86" fill="transparent"/></g>`).join('')}</g>
+   <g id="hud"></g></svg>`;
+  document.getElementById('mapView').innerHTML=svg;
+  document.querySelectorAll('.unit').forEach(el=>el.addEventListener('click',()=>selectUnit(el.dataset.id)));
+}
+
+/* ===================== câmera e animação =============================== */
+let idx=0,playing=false,timer=null,selected=null,chapter='all',cam={x:0,y:0,w:W,h:H},raf=null;
+const svgEl=()=>document.getElementById('opSvg');
+
+function aspect(){const v=document.getElementById('mapView');return Math.max(.9,v.clientWidth/Math.max(1,v.clientHeight));}
+function camFor(ph){
+  if(!document.getElementById('lyZoom').checked||ph.wide) return fitAll();
+  const pts=[];
+  Object.values(ph.units).forEach(p=>pts.push(p));
+  (ph.marks||[]).forEach(m=>pts.push(m.p));
+  (ph.routes||[]).forEach(r=>{pts.push(r.a,r.b);});
+  if(!pts.length) return fitAll();
+  let x0=Math.min(...pts.map(p=>p.x)),x1=Math.max(...pts.map(p=>p.x));
+  let y0=Math.min(...pts.map(p=>p.y)),y1=Math.max(...pts.map(p=>p.y));
+  const padX=Math.max(70,(x1-x0)*.12), padY=Math.max(55,(y1-y0)*.12);
+  x0-=padX;x1+=padX;y0-=padY;y1+=padY;
+  let w=Math.max(x1-x0,340), h=Math.max(y1-y0,210);
+  const a=aspect();
+  if(w/h<a) w=h*a; else h=w/a;
+  const cx=(x0+x1)/2, cy=(y0+y1)/2;
+  return {x:cx-w/2,y:cy-h/2,w,h};
+}
+function fitAll(){const a=aspect();let w=W,h=H;if(w/h<a)w=h*a;else h=w/a;
+  return {x:(W-w)/2,y:(H-h)/2,w,h};}
+
+function applyScale(k){
+  const svg=svgEl(); if(!svg) return;
+  svg.style.setProperty('--k',k);
+  document.querySelectorAll('#units .unit').forEach(g=>{
+    const x=+g.dataset.x||-500,y=+g.dataset.y||-500;
+    g.setAttribute('transform',`translate(${x},${y}) scale(${k})`);});
+  document.querySelectorAll('#dyn .mkg').forEach(g=>{
+    g.setAttribute('transform',`translate(${g.dataset.x},${g.dataset.y}) scale(${k})`);});
+  document.querySelectorAll('#dyn .route').forEach(p=>p.setAttribute('stroke-width',(+p.dataset.w)*k));
+  drawHud(k);
+}
+function drawHud(k){
+  const hud=document.getElementById('hud'); if(!hud) return;
+  const km=[5,10,20,50,100].reduce((a,b)=>Math.abs(b*PXKM/k-140)<Math.abs(a*PXKM/k-140)?b:a);
+  const len=km*PXKM, x=cam.x+26*k, y=cam.y+cam.h-30*k;
+  hud.innerHTML=`<g transform="translate(${x},${y})">
+    <rect x="${-8*k}" y="${-22*k}" width="${len+16*k}" height="${30*k}" fill="#efe9d8" opacity=".82" rx="${3*k}"/>
+    <path d="M0,0 L${len},0 M0,${-6*k} L0,${6*k} M${len},${-6*k} L${len},${6*k} M${len/2},${-4*k} L${len/2},${4*k}"
+      stroke="#3d3a30" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <text x="${len/2}" y="${-9*k}" text-anchor="middle" style="font-size:${11*k}px" fill="#3d3a30" font-family="IBM Plex Mono">${km} km (aprox. L–O)</text></g>
+   <g transform="translate(${cam.x+cam.w-46*k},${cam.y+50*k}) scale(${k})">
+    <path d="M0,-24 L8,10 L0,3 L-8,10 Z" fill="#3d3a30"/><text x="0" y="26" text-anchor="middle" font-size="12" font-family="IBM Plex Mono" fill="#3d3a30">N</text></g>`;
+}
+function animateTo(target,unitTargets,dur){
+  const from={...cam}, t0=performance.now();
+  const starts={};
+  UNITS.forEach(u=>{const g=document.getElementById('u-'+u.id);
+    starts[u.id]={x:+g.dataset.x||target.x+target.w/2,y:+g.dataset.y||target.y+target.h/2};});
+  cancelAnimationFrame(raf);
+  (function step(now){
+    const p=Math.min(1,(now-t0)/dur), e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    cam={x:from.x+(target.x-from.x)*e,y:from.y+(target.y-from.y)*e,
+         w:from.w+(target.w-from.w)*e,h:from.h+(target.h-from.h)*e};
+    svgEl().setAttribute('viewBox',`${cam.x} ${cam.y} ${cam.w} ${cam.h}`);
+    UNITS.forEach(u=>{const t=unitTargets[u.id]; if(!t) return;
+      const g=document.getElementById('u-'+u.id), s=starts[u.id];
+      g.dataset.x=s.x+(t.x-s.x)*e; g.dataset.y=s.y+(t.y-s.y)*e;});
+    applyScale(cam.w/KBASE);
+    if(p<1) raf=requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ===================== render ========================================== */
+function render(){
+  const ph=PHASES[idx], geral=idx<GERAL;
+  document.getElementById('layerAxes').style.display=ph.axes?'':'none';
+
+  const targets={};
+  UNITS.forEach(u=>{const g=document.getElementById('u-'+u.id), p=ph.units[u.id];
+    if(p){ if(g.style.opacity!=='1'&&!g.dataset.x){g.dataset.x=p.x;g.dataset.y=p.y;}
+      targets[u.id]={x:p.x,y:p.y}; g.style.opacity=1;}
+    else g.style.opacity=0;
+    g.classList.toggle('in-contact',!!(p&&p.contact));});
+
+  const dyn=document.getElementById('dyn');
+  const RK={mtz:{c:"#12468f",w:5,m:"mkAz"},pe:{c:"#0f6b52",w:4,d:"10 7",m:"mkPr"},amv:{c:"#12468f",w:4,d:"2 8",m:"mkAz"},
+   atk:{c:"#a81c28",w:9,m:"mkVm"},atkAir:{c:"#a81c28",w:5,d:"14 10",m:"mkVm"},retro:{c:"#a81c28",w:5,d:"12 9",m:"mkVm"},
+   retard:{c:"#12468f",w:4,d:"12 9",m:"mkAz"},marq:{c:"#7a4718",w:4,d:"11 8",m:"mkMa"}};
+  const curva=(a,b,bend)=>{bend=bend||0;const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y;
+    return `M${a.x},${a.y} Q${mx-dy*bend},${my+dx*bend} ${b.x},${b.y}`;};
+  dyn.innerHTML=(ph.routes||[]).map(r=>{const k=RK[r.k];
+      return `<path class="route" data-w="${k.w}" d="${curva(r.a,r.b,r.bend)}" fill="none" stroke="${k.c}"
+        stroke-width="${k.w}" ${k.d?`stroke-dasharray="${k.d}"`:''} stroke-linecap="round" marker-end="url(#${k.m})" opacity=".92"/>`;}).join('')
+    +(ph.marks||[]).map(m=>`<g class="mkg" data-x="${m.p.x}" data-y="${m.p.y}" transform="translate(${m.p.x},${m.p.y})">
+        ${markSVG(m.t)}<text class="mklab" x="0" y="30" text-anchor="middle">${m.l}</text></g>`).join('');
+
+  animateTo(camFor(ph),targets,900);
+
+  document.querySelectorAll('#scrub button').forEach(b=>{const on=+b.dataset.i===idx;
+    b.classList.toggle('on',on); if(on) b.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});});
+  document.getElementById('phNum').textContent=idx+1;
+
+  document.getElementById('phasePanel').innerHTML=`
+   <div class="sp-lab">${geral?'Situação Geral':'Fase de Operações'} · fase ${idx+1} de ${PHASES.length}</div>
+   <div class="sp-op">${ph.op}</div><div class="sp-loc">${ph.local}</div>
+   <div class="sp-date">${ph.date}${ph.carta?` · ${ph.carta}`:''}</div>
+   <div class="sp-h">${geral?'Situação':'Situação particular'}</div><p class="sp-text">${ph.sit}</p>
+   ${ph.missao?`<div class="sp-h">Missão do Pel Rec</div><div class="sp-mission">${ph.missao}</div>`:''}
+   ${ph.manobra?`<div class="sp-h">Ideia de manobra</div><div class="sp-mission" style="border-left-color:var(--gold)">${ph.manobra}</div>`:''}
+   ${OBJETIVOS[ph.op]?`<div class="sp-h obj">Objetivos da operação</div><ul class="objs">${OBJETIVOS[ph.op].map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+   ${ph.chips?`<div class="chips">${ph.chips.map(c=>`<span>${c}</span>`).join('')}</div>`:''}
+   ${ph.notes?`<div class="sp-h">Pontos de atenção</div><ul class="sp-list">${ph.notes.map(n=>`
+     <li><span class="sw" style="background:${n.c==='az'?'var(--az)':n.c==='vm'?'var(--vm)':'var(--ma)'}"></span>
+     <div><b>${n.t}</b><em>${n.s}</em></div></li>`).join('')}</ul>`:''}`;
+}
+function selectUnit(id){
+  selected=id;
+  document.querySelectorAll('.unit').forEach(el=>el.classList.toggle('sel',el.dataset.id===id));
+  const u=U[id],ph=PHASES[idx],p=ph.units[id];
+  const sn=u.side==='pr'?'Peça de manobra do curso':u.side==='az'?'Força de AZUL':u.side==='vm'?'Força de VERMELHO':'Força irregular';
+  document.getElementById('unitPanel').innerHTML=`
+   <div class="sp-lab">Unidade selecionada</div>
+   <div class="uc-head"><svg width="98" height="60" viewBox="-49 -30 98 60">${symbol(u,.78)}</svg>
+     <div><div class="nm">${u.name}</div><div class="sd">${sn} · ${u.gu}</div></div></div>
+   <div class="uc-row"><b>Função</b><p>${u.role}</p></div>
+   <div class="uc-row"><b>Detalhamento</b><p>${u.detail}</p></div>
+   <div class="uc-row"><b>Situação nesta fase</b><p style="color:${p&&p.contact?'#ff7043':'var(--muted)'}">${!p?'Não desdobrada nesta operação.':p.contact?'Em contato / alvo da ação.':'Desdobrada, sem contato registrado.'}</p></div>`;
+}
+
+/* ===================== controles ======================================= */
+const scrub=document.getElementById('scrub');
+function buildScrub(){
+  scrub.innerHTML=PHASES.map((p,i)=>({p,i}))
+   .filter(x=>chapter==='all'||(chapter==='geral'?x.i<GERAL:x.i>=GERAL))
+   .map(({p,i})=>`<button data-i="${i}" class="${i<GERAL?'era-g':'era-o'}"><span class="d">${p.date}</span>
+     <span class="t">${p.op}</span><span class="l">${p.local.split('—')[0].trim()}</span></button>`).join('');
+  scrub.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{stop();go(+b.dataset.i);}));
+}
+document.querySelectorAll('#chapters button').forEach(b=>b.addEventListener('click',()=>{
+  stop();chapter=b.dataset.c;
+  document.querySelectorAll('#chapters button').forEach(x=>x.classList.toggle('on',x===b));
+  buildScrub();
+  if(chapter==='geral'&&idx>=GERAL) idx=0;
+  if(chapter==='ops'&&idx<GERAL) idx=GERAL;
+  render();}));
+buildScrub();
+document.getElementById('phTot').textContent=PHASES.length;
+function go(n){idx=Math.max(0,Math.min(PHASES.length-1,n));render();if(selected)selectUnit(selected);}
+document.getElementById('btnPrev').onclick=()=>{stop();go(idx-1);};
+document.getElementById('btnNext').onclick=()=>{stop();go(idx+1);};
+const playIcon=document.getElementById('playIcon');
+function play(){playing=true;playIcon.innerHTML='<path d="M4 3h3v10H4zM9 3h3v10H9z"/>';
+  timer=setInterval(()=>{if(idx>=PHASES.length-1){stop();return;}go(idx+1);},6000);}
+function stop(){playing=false;clearInterval(timer);playIcon.innerHTML='<path d="M4 2l9 6-9 6z"/>';}
+document.getElementById('btnPlay').onclick=()=>{if(playing){stop();return;}if(idx>=PHASES.length-1)go(0);play();};
+document.getElementById('btnAll').onclick=()=>{animateTo(fitAll(),{},800);};
+const bind=(cb,t)=>document.getElementById(cb).addEventListener('change',e=>{
+  document.getElementById(t).style.display=e.target.checked?'':'none';});
+bind('lyAO','layerAO');bind('lyPz','layerPz');bind('lyRoads','layerRoads');bind('lyRelief','layerRelief');
+document.getElementById('lyZoom').addEventListener('change',()=>render());
+
+/* tela cheia */
+const shell=document.getElementById('shell'),btnFs=document.getElementById('btnFs');
+const I_IN='<svg viewBox="0 0 16 16"><path d="M2 2h5v2H4v3H2V2zm12 0v5h-2V4H9V2h5zM2 9h2v3h3v2H2V9zm10 0h2v5H9v-2h3V9z"/></svg>';
+const I_OUT='<svg viewBox="0 0 16 16"><path d="M7 2h2v5H4V5h3V2zM2 9h5v5H5v-3H2V9zm7 0h5v2h-3v3H9V9zm0-7h2v3h3v2H9V2z"/></svg>';
+function setFs(on){shell.classList.toggle('fs',on);document.body.classList.toggle('fs-on',on);
+  btnFs.innerHTML=on?I_OUT:I_IN;
+  if(on&&shell.requestFullscreen&&!document.fullscreenElement) shell.requestFullscreen().catch(()=>{});
+  if(!on&&document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  setTimeout(()=>render(),240);}
+btnFs.onclick=()=>setFs(!shell.classList.contains('fs'));
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&shell.classList.contains('fs'))setFs(false);});
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'){stop();go(idx+1);}
+  if(e.key==='ArrowLeft'){stop();go(idx-1);}
+  if(e.key==='Escape'&&shell.classList.contains('fs'))setFs(false);
+  if(e.key==='f'||e.key==='F')setFs(!shell.classList.contains('fs'));});
+window.addEventListener('resize',()=>{clearTimeout(window._rz);window._rz=setTimeout(()=>render(),200);});
+
+buildMap();
+cam=fitAll();
+applyScale(cam.w/KBASE);
+render();
+</script>
+</body>
+</html>
