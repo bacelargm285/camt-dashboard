@@ -62,8 +62,19 @@ h2{font-size:clamp(23px,2.5vw,32px);text-transform:uppercase}
 .scrub button.on{background:var(--panel-3);color:var(--txt)}
 .scrub button.on .d{color:var(--gold)}
 .scrub button.on::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold)}
-.scrub button.era-g{box-shadow:inset 0 3px 0 rgba(168,28,40,.55)}
-.scrub button.era-o{box-shadow:inset 0 3px 0 rgba(15,107,82,.55)}
+.scrub button.era-def{box-shadow:inset 0 3px 0 rgba(168,28,40,.6)}
+.scrub button.era-ops{box-shadow:inset 0 3px 0 rgba(15,107,82,.6)}
+.scrub button.era-fim{box-shadow:inset 0 3px 0 rgba(184,134,11,.7)}
+.scrub button.isop .t{color:#f4dfa6}
+.scrub button .opn{font-style:normal;font-family:var(--fm);font-size:10px;color:#0d1218;background:var(--gold);
+  border-radius:2px;padding:1px 4px;margin-right:3px;font-weight:700}
+.opbadge{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:#0d1218;background:var(--gold);padding:5px 10px;border-radius:2px;font-weight:700;margin-bottom:10px}
+.sp-h.bast{color:#7fb2ff}
+.bastidores{font-size:13.2px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line);
+  border-left:3px solid #2f6fd0;padding:10px 12px;border-radius:2px}
+.resultado{font-size:13.2px;color:#cfe9dc;background:rgba(15,107,82,.14);border:1px solid #1d4d3c;
+  border-left:3px solid #19b87e;padding:10px 12px;border-radius:2px}
 .mapgrid{display:grid;grid-template-columns:1fr 350px}
 .mapview{background:var(--terr);height:clamp(460px,78vh,940px);overflow:hidden}
 .mapview svg{display:block;width:100%;height:100%}
@@ -141,17 +152,17 @@ svg text{font-family:var(--fm)}
 <div class="topbar">
   <div class="brand">
     <div class="mark">11º<br>BI Mth</div>
-    <div><div class="t">CAM 2026 — Carta de Manobra</div>
-    <div class="s">SITUAÇÃO GERAL + FASE DE OPERAÇÕES · PEL REC / 11º BI MTH</div></div>
+    <div><div class="t">CAM 2026 — Carta de Manobra da Campanha</div>
+    <div class="s">DA INVASÃO AO ESTADO FINAL DESEJADO · 24 FASES · PEL REC / 11º BI MTH</div></div>
   </div>
   <div class="hint">países e forças fictícios · cidades e serras reais · carta esquemática, distâncias aproximadas</div>
 </div>
 
 <section><div class="wrap">
   <div class="sec-head">
-    <div class="eyebrow">Carta única, dois capítulos</div>
-    <h2>Da invasão de Vermelho às nove operações do Pel Rec</h2>
-    <p>A carta se aproxima sozinha da área de cada fase — nas fases da Situação Geral abre para todo o teatro; nas operações fecha na serra onde a fração está atuando. Use ▶ para percorrer, as setas ← → para avançar, F para tela cheia. Clique num símbolo para ver a unidade.</p>
+    <div class="eyebrow">Carta única, três capítulos</div>
+    <h2>A campanha inteira, fase a fase</h2>
+    <p>As <b>nove operações do curso</b> aparecem destacadas em dourado; entre elas, as fases de bastidores mostram o que as grandes unidades faziam ao mesmo tempo. A carta se aproxima sozinha da área de cada fase. Clique em qualquer símbolo para ver o início e o desfecho daquela unidade na campanha.</p>
   </div>
 
   <div class="mapshell" id="shell">
@@ -159,7 +170,7 @@ svg text{font-family:var(--fm)}
       <button class="tbtn" id="btnPrev" title="Anterior (←)"><svg viewBox="0 0 16 16"><path d="M11 2 4 8l7 6z"/></svg></button>
       <button class="tbtn play" id="btnPlay" title="Reproduzir"><svg viewBox="0 0 16 16" id="playIcon"><path d="M4 2l9 6-9 6z"/></svg></button>
       <button class="tbtn" id="btnNext" title="Próxima (→)"><svg viewBox="0 0 16 16"><path d="M5 2l7 6-7 6z"/></svg></button>
-      <div class="phasecount">FASE <b id="phNum">1</b> DE <span id="phTot">17</span></div>
+      <div class="phasecount">FASE <b id="phNum">1</b> DE <span id="phTot">24</span></div>
       <button class="tbtn" id="btnFs" title="Tela cheia (F)"><svg viewBox="0 0 16 16"><path d="M2 2h5v2H4v3H2V2zm12 0v5h-2V4H9V2h5zM2 9h2v3h3v2H2V9zm10 0h2v5H9v-2h3V9z"/></svg></button>
       <button class="tbtn wide" id="btnAll">VER TODO O TEATRO</button>
       <div class="layers">
@@ -171,9 +182,10 @@ svg text{font-family:var(--fm)}
       </div>
     </div>
     <div class="chapters" id="chapters">
-      <button data-c="all" class="on">Sequência completa</button>
-      <button data-c="geral">I · Situação Geral</button>
-      <button data-c="ops">II · Fase de Operações</button>
+      <button data-c="all" class="on">Campanha completa</button>
+      <button data-c="def">I · Defesa e culminância</button>
+      <button data-c="ops">II · Operações do Pel Rec</button>
+      <button data-c="fim">III · Contraofensiva</button>
     </div>
     <div class="scrub" id="scrub"></div>
     <div class="mapgrid">
@@ -215,7 +227,9 @@ const P={
  tiradentes:pt(-21.110,-44.174), saoJose:pt(-21.086,-44.205), barroso:pt(-21.189,-43.978),
  aiuruoca:pt(-21.977,-44.603), papagaio:pt(-22.050,-44.680), alagoa:pt(-22.170,-44.640),
  itamonte:pt(-22.283,-44.869), itanhandu:pt(-22.293,-44.936), passaQuatro:pt(-22.390,-44.970),
- serraFina:pt(-22.340,-44.800)
+ serraFina:pt(-22.340,-44.800),
+ saoSebastiao:pt(-21.030,-44.160), ibertioga:pt(-21.420,-43.970),
+ saoTiago:pt(-20.910,-44.510), ritapolis:pt(-21.020,-44.320), morroFerro:pt(-20.880,-44.800)
 };
 /* pontos de entrada de VERMELHO (a oeste da fronteira) */
 const ENT={principal:pt(-21.24,-45.47), secundario:pt(-21.02,-45.46), reserva:pt(-20.80,-45.43), amv:pt(-20.62,-45.40)};
@@ -224,171 +238,268 @@ const ENT={principal:pt(-21.24,-45.47), secundario:pt(-21.02,-45.46), reserva:pt
 const UNITS=[
  {id:"pelrec",side:"pr",ech:"pel",branch:"recMth",short:"Rec",name:"Pel Rec / 11º BI Mth",gu:"11º BI Mth · Bda Inf Mth",
   role:"Peça de manobra empregada no terreno",
-  detail:"Reconhecimento especializado em montanha: infiltra dissimuladamente, reconhece faixas de infiltração e obstáculos, ocupa PO, mobilia vias em obstáculo vertical e horizontal e conduz ações diretas quando determinado."},
+  detail:"Fração de reconhecimento especializada em montanha. Ao longo de um mês, foi o sensor que alimentou decisões de escalões até o nível de Divisão de Exército.",
+  inicio:"Rec, Vig e monitoramento de RIPI em proveito do Batalhão e da Brigada.",
+  desfecho:"Cumpre as nove operações do curso sem perdas; encerra a campanha com o retraimento a pé de Carrancas a São João del Rei."},
  {id:"bcmb",side:"az",ech:"base",branch:"base",short:"B Cmb",name:"B Cmb 11º BI Mth",gu:"São João del Rei",
-  role:"Base de combate do Batalhão",detail:"Ponto de partida e de retorno de praticamente todas as operações da fase."},
+  role:"Base de combate do Batalhão",detail:"Ponto de partida e de retorno de praticamente todas as operações da fase.",
+  inicio:"Instalada em São João del Rei com a chegada da Bda Inf Mth ao Campo das Vertentes.",
+  desfecho:"Mantida até o fim da campanha; recebe o Pel Rec após o retraimento a pé."},
  {id:"bavc",side:"az",ech:"base",branch:"base",short:"B Avç",name:"Base avançada — Itamonte",gu:"11º BI Mth",
-  role:"Base avançada na Mantiqueira",detail:"Estabelecida para as operações Transmantiqueira I e II, na região de Itamonte, Alagoa e Passa Quatro."},
+  role:"Base avançada na Mantiqueira",detail:"Sustenta as operações Transmantiqueira I e II na região de Itamonte, Alagoa e Passa Quatro.",
+  inicio:"Estabelecida em 20 JUL para o esforço contra o MARQ.",
+  desfecho:"Desativada ao término da Transmantiqueira II; meios revertem a São João del Rei."},
  {id:"cia1",side:"az",ech:"cia",branch:"infMth",short:"1ª",name:"1ª/11º BI Mth",gu:"11º BI Mth",role:"Cia Fuz Mth",
-  detail:"Conforme a operação: reserva na B Cmb em ordem de marcha, patrulha motorizada em São João del Rei, PBCVU, patrulhamento em Itamonte ou ataque a PBCE em Carrancas."},
+  detail:"Reserva em ordem de marcha, patrulha motorizada, PBCVU, patrulhamento na Mantiqueira e ataque a PBCE em Carrancas.",
+  inicio:"Reserva do Batalhão na B Cmb, em condições de infiltrar e desencadear Pa Rec F.",
+  desfecho:"Ataca PBCE inimigos na Op Argila e integra o isolamento de Carrancas."},
  {id:"cia2",side:"az",ech:"cia",branch:"infMth",short:"2ª",name:"2ª/11º BI Mth",gu:"11º BI Mth",role:"Cia Fuz Mth",
-  detail:"PBCVU nos eixos que cortam o perímetro urbano de São João del Rei (BR-265, BR-494 e MG-383); na Mantiqueira, patrulha Alagoa."},
+  detail:"Opera PBCVU nos eixos que cortam São João del Rei e, na Mantiqueira, patrulha Alagoa.",
+  inicio:"PBCVU na BR-265, BR-494 e MG-383, cortando o ressuprimento inimigo pela área urbana.",
+  desfecho:"Mantém o controle das vias urbanas durante toda a campanha e participa do isolamento de Carrancas."},
  {id:"cia3",side:"az",ech:"cia",branch:"infMth",short:"3ª",name:"3ª/11º BI Mth",gu:"11º BI Mth",role:"Cia Fuz Mth",
-  detail:"Em condições de infiltrar pela Fx Infl Araucária e atacar posição do MARQ na região de casario, após confirmação do Pel Rec."},
+  detail:"Em condições de infiltrar pela Fx Infl Araucária e atacar posição do MARQ após confirmação do Pel Rec.",
+  inicio:"Constituída para o esforço na Mantiqueira.",desfecho:"Permanece ECD atacar; a ação é resolvida pelo reconhecimento e pelos fogos."},
  {id:"gac",side:"az",ech:"cia",branch:"artMth",short:"1ª/4º",name:"1ª/4º GAC L Mth",gu:"Bda Inf Mth",role:"Apoio de fogo",
-  detail:"Seis obuses 105 mm com alcance de até 13 km em Lavras; na Mantiqueira, quatro obuses L118 em Itanhandu."},
+  detail:"Seis obuses 105 mm (alcance até 13 km) em Lavras; quatro obuses L118 em Itanhandu na Mantiqueira; posição em Barroso na Op Argila.",
+  inicio:"Reforça a 14ª Bda Inf Mtz em Lavras.",
+  desfecho:"Conduz os fogos que destroem o Centro de Op de Drones e apoia a Bda Inf Mth em Carrancas com Prio F para o 11º BI Mth."},
  {id:"b10bil",side:"az",ech:"btl",branch:"infMth",short:"10º",name:"10º BIL Mth",gu:"4ª Bda Inf L Mth",role:"Ataque / patrulhamento",
-  detail:"Ataca a C Pnt Amv Vm no Lenheiro após a transposição do obstáculo mobiliado pelo 11º BI Mth. Na Mantiqueira, patrulha a BR-354."},
+  detail:"Batalhão de ataque da Brigada em montanha.",
+  inicio:"ECD infiltrar para travar contato na Serra do Lenheiro.",
+  desfecho:"Transpõe o obstáculo mobiliado pelo 11º BI Mth, ataca e consolida a C Pnt Amv Vm; depois atua de Ibertioga no cerco a Carrancas."},
  {id:"b12bil",side:"az",ech:"btl",branch:"infMth",short:"12º",name:"12º BIL Mth",gu:"4ª Bda Inf L Mth",role:"Patrulhamento / isolamento",
-  detail:"Patrulha a estrada da Fé e a linha férrea; em Argila, isola a porção oeste de Carrancas."},
+  detail:"Patrulha a estrada da Fé e a linha férrea; isola a porção oeste de Carrancas.",
+  inicio:"Segurança da Z Aç da Brigada ao norte e a oeste do Lenheiro.",
+  desfecho:"Isola a porção oeste de Carrancas na operação decisiva da Brigada."},
  {id:"b32bil",side:"az",ech:"btl",branch:"infMth",short:"32º",name:"32º BIL Mth",gu:"4ª Bda Inf L Mth",role:"Reserva",
-  detail:"Em condições de reforçar ou substituir o 10º BIL Mth; na Mantiqueira patrulha a MG-158."},
+  detail:"Reserva da Brigada; na Mantiqueira patrulha a MG-158.",
+  inicio:"Reserva, ECD reforçar ou substituir o 10º BIL Mth.",desfecho:"Preservada; apoia as ações da Brigada a partir de Barroso."},
+ {id:"esqd4",side:"az",ech:"cia",branch:"cavMec",short:"4º",name:"4º Esqd Cav Mth",gu:"Bda Inf Mth",role:"Vigilância e segurança",
+  detail:"Elemento de reconhecimento montado da Brigada.",
+  inicio:"Vigilância da região de São João del Rei e das estradas de acesso à cidade.",
+  desfecho:"Mantém a segurança da área de retaguarda da Brigada durante a ofensiva final."},
  {id:"b551",side:"az",ech:"btl",branch:"infAmv",short:"551º",name:"551º BI Amv",gu:"10ª Bda Inf Amv",role:"Ponto forte — P Cot 1259",
-  detail:"Vigia o avanço da 42ª Bda Inf L pela BR-381. O 1º/2ª Cia fica aferrado no terreno, sem via de retraimento praticável."},
+  detail:"Escalão de segurança da 10ª Bda Inf Amv: informação e alerta oportuno sobre a BR-381.",
+  inicio:"Ocupa Pt Forte e PO no P Cot 1259 para vigiar o avanço da 42ª Bda Inf L.",
+  desfecho:"O 1º/2ª Cia é resgatado pelo 11º BI Mth por desescalada; o Btl retrai para a B Cmb em Carmópolis."},
+ {id:"bdaamv",side:"az",ech:"bda",branch:"infAmv",short:"10",name:"10ª Bda Inf Amv",gu:"2ª DE",role:"Vigilância do eixo da BR-381",
+  detail:"GU aeromóvel que assume a vigilância do eixo secundário na região de Carmópolis.",
+  inicio:"Desdobra o 551º em Pt Forte, o 552º na MG-260 e o 553º em reserva.",
+  desfecho:"Exfiltra por itinerário desenfiado, levantado pelo Pel Rec, e reforça a 3ª Bda Inf Mec em Tiradentes."},
  {id:"b14",side:"az",ech:"bda",branch:"infMtz",short:"14",name:"14ª Bda Inf Mtz",gu:"2ª DE",role:"Defesa em posição — Lavras",
-  detail:"Primeira grande resistência do eixo principal; depois estabelece posição defensiva em Lavras aguardando reforços."},
+  detail:"Primeira grande resistência do eixo principal.",
+  inicio:"Defesa em posição em Lavras, no eixo da BR-265.",
+  desfecho:"Repele a 41ª Bda Inf Mec, reocupa Lavras e integra a ação ofensiva final rumo à fronteira oeste."},
  {id:"b3",side:"az",ech:"bda",branch:"infMec",short:"3",name:"3ª Bda Inf Mec",gu:"2ª DE",role:"Reserva móvel",
-  detail:"Reserva na região de Tiradentes; depois reforça o controle das rodovias que incidem sobre Lavras."},
+  detail:"Reserva de contra-ataque da 2ª DE.",
+  inicio:"Reserva na região de Tiradentes, aguardando o desdobramento principal inimigo.",
+  desfecho:"Empregada no controle dos eixos de Lavras e reforçada pela 10ª Bda Inf Amv; participa do aproveitamento do êxito."},
  {id:"b10",side:"az",ech:"bda",branch:"infMtz",short:"10",name:"10ª Bda Inf Mtz",gu:"2ª DE",role:"Defesa em posição — Carmópolis",
-  detail:"Disputa as cristas de Carmópolis com a 42ª Bda Inf L; expulsa, retrai pelo eixo Carmópolis–São Tiago."},
+  detail:"Disputa as cristas de Carmópolis com a 42ª Bda Inf L.",
+  inicio:"Defesa em posição na região de Carmópolis.",
+  desfecho:"Expulsa pela 42ª Bda Inf L e retrai por São Tiago; reorganiza-se e retorna como força de cobertura pela BR-267."},
  {id:"b9",side:"az",ech:"bda",branch:"infMtz",short:"9",name:"9ª Bda Inf Mtz",gu:"1ª DE",role:"Defesa em posição — Três Corações",
-  detail:"Defesa em posição na porção sul do dispositivo."},
+  detail:"Porção sul do dispositivo defensivo.",
+  inicio:"Defesa em posição em Três Corações.",
+  desfecho:"Consolida posição defensiva Carmópolis–São Tiago–Ritápolis, protegendo o flanco norte da progressão."},
  {id:"bdamth",side:"az",ech:"bda",branch:"infMth",short:"Mth",name:"Bda Inf Mth",gu:"1ª DE",role:"Grande unidade enquadrante",
-  detail:"Única GU de AZUL com capacidade plena em montanha. Base em São João del Rei; emprega o 11º BI Mth em todas as operações."},
+  detail:"Única GU de AZUL com capacidade plena em terreno montanhoso — GU decisiva da campanha.",
+  inicio:"Defesa em posição no Campo das Vertentes, com base em São João del Rei.",
+  desfecho:"Elimina a C Pnt Amv do Lenheiro, desarticula o MARQ, conquista Carrancas e bate os eixos de retraimento inimigos."},
  {id:"cav1",side:"az",ech:"bda",branch:"cavMec",short:"1",name:"1ª Bda Cav Mec",gu:"1ª DE",role:"Ação retardadora — BR-265",
-  detail:"Troca espaço por tempo no eixo principal, desgastando a progressão mecanizada até a defesa em posição estar pronta."},
+  detail:"Troca espaço por tempo no eixo principal.",
+  inicio:"Ação retardadora a oeste da BR-265, negando ao inimigo o reconhecimento antecipado da P Def.",
+  desfecho:"Preservada; desloca-se para a ação ofensiva sobre Lavras e integra a força de aproveitamento do êxito."},
  {id:"de4",side:"az",ech:"div",branch:"infMec",short:"4",name:"4ª Divisão de Exército",gu:"TOT",role:"Reserva do Teatro",
-  detail:"Mantida integralmente fechada na retaguarda como reserva do Teatro de Operações."},
+  detail:"Reserva estratégica do Comando do TOT.",
+  inicio:"Mantida integralmente fechada na retaguarda.",
+  desfecho:"Preservada durante toda a defensiva e liberada para a fase ofensiva."},
  {id:"tot",side:"az",ech:"base",branch:"base",short:"TOT",name:"Comando do TOT",gu:"Gen Ex MINA",role:"Posto de Comando do Teatro",
-  detail:"Ativado em 01 JUN 2026; conduz a defesa em profundidade e preserva as reservas móveis."},
+  detail:"Conduz a defesa em profundidade e, depois, a transição para as operações ofensivas.",
+  inicio:"Ativado em 01 JUN 26, com dispositivo defensivo em profundidade.",
+  desfecho:"Determina o aproveitamento do êxito e alcança os quatro objetivos estratégicos da DPED."},
  {id:"amv1",side:"vm",ech:"rgt",branch:"infAmv",short:"1º",name:"1º Rgt Inf Amv Vm",gu:"2º C Ex Vm",role:"C Pnt Amv — Serra do Lenheiro",
-  detail:"Cabeça de ponte aeromóvel para bloquear a BR-265 e barrar o ressuprimento azulino a oeste, em condições de junção com a 41ª Bda."},
+  detail:"Unidade de elite empenhada em missão de projeção de poder.",
+  inicio:"Assalto aeromóvel e cabeça de ponte na Serra do Lenheiro para bloquear a BR-265.",
+  desfecho:"Isolado sem junção; desorganizado na Op DIABÁSIO II e destruído pelo 10º BIL Mth na Op MÁRMORE."},
  {id:"b41",side:"vm",ech:"bda",branch:"infMec",short:"41",name:"41ª Bda Inf Mec Vm",gu:"2º C Ex Vm",role:"Eixo principal — BR-265",
-  detail:"Progride Lavras–São João del Rei; enfraquecida, retrai pela BR-265 rumo a Nepomuceno."},
+  detail:"Esforço principal do 2º C Ex Vm.",
+  inicio:"Ataque em dois escalões na direção Lavras–São João del Rei, buscando a junção com o 1º Rgt Inf Amv.",
+  desfecho:"Repelida em Lavras, retrai a Nepomuceno, reorganiza-se e é empurrada para além da fronteira no aproveitamento do êxito."},
  {id:"b42",side:"vm",ech:"bda",branch:"infL",short:"42",name:"42ª Bda Inf L Vm",gu:"2º C Ex Vm",role:"Eixo secundário — BR-381",
-  detail:"Avança Perdões–Carmópolis para conquistar cristas dominantes; depois desloca-se para reforçar a 41ª e retrai pela BR-494 para Carrancas."},
+  detail:"Conquista das cristas dominantes e isolamento do Quadrilátero.",
+  inicio:"Progressão Perdões–Carmópolis pela BR-381.",
+  desfecho:"Expulsa a 10ª Bda Inf Mtz de Carmópolis, mas retrai pela BR-494; remanescentes batidos em Carrancas."},
  {id:"b43",side:"vm",ech:"bda",branch:"infL",short:"43",name:"43ª Bda Inf L Vm",gu:"2º C Ex Vm",role:"Reserva estratégica",
-  detail:"Agrupada para exploração do êxito, a ser lançada no eixo de maior progresso."},
+  detail:"Reserva do Corpo de Exército para exploração do êxito.",
+  inicio:"Agrupada na retaguarda, aguardando o eixo de maior progresso.",
+  desfecho:"Consumida no reforço sucessivo dos dois eixos, sem produzir a ruptura pretendida."},
  {id:"pelrecvm",side:"vm",ech:"pel",branch:"infL",short:"Rec",name:"Pel Rec Vm",gu:"42ª Bda Inf L Vm",role:"P Cot 1191 e 1199",
-  detail:"Bate por fogos as vias de acesso ao P Cot 1259, restringindo o movimento do 551º BI Amv."},
+  detail:"Opera à frente do grosso da 42ª Bda Inf L.",
+  inicio:"Ocupa pontos de comandamento que batem as vias de acesso ao P Cot 1259.",
+  desfecho:"Perde a vantagem com a desescalada assistida do pelotão azulino e recua com o grosso da 42ª."},
  {id:"fevm",side:"vm",ech:"eqp",branch:"fe",short:"FE",name:"Elm FE Vm",gu:"Forças Especiais Vm",role:"Centro de Op de Drones",
-  detail:"Operam drones categoria 0 com alcance de até 9 km, além de operações psicológicas e cooptação da população."},
+  detail:"Op Psc, cooptação da população e operação de drones categoria 0 com alcance de até 9 km.",
+  inicio:"Ocupam instalações rurais na Serra do Faria e no Campo das Vertentes.",
+  desfecho:"Centro de Operações de Drones destruído por fogos de artilharia conduzidos pelo Pel Rec; demais elementos dispersos."},
  {id:"pqdt8",side:"vm",ech:"btl",branch:"pqdt",short:"8º",name:"8º Btl Pqdt Vm",gu:"2º C Ex Vm",role:"Domínio de Carrancas",
-  detail:"Tropa recém-mobilizada, sem adestramento em montanha, capaz de reforçar áreas adjacentes em até 60 minutos."},
- {id:"bil5",side:"vm",ech:"btl",branch:"infL",short:"5º",name:"5º Btl Inf L Vm",gu:"2º C Ex Vm",role:"Vigilância — Lavras",
-  detail:"Vigilância nas principais vias de acesso e na região da Serra do Campestre."},
+  detail:"Tropa recém-mobilizada, pouca coesão, moral elevado, sem adestramento em montanha.",
+  inicio:"Estabelecido em Carrancas, aguardando junção com a 42ª Bda Inf L.",
+  desfecho:"Isolado pela destruição do posto de antenas e batido em detalhe pela Bda Inf Mth."},
+ {id:"bil5",side:"vm",ech:"btl",branch:"infL",short:"5º",name:"5º Btl Inf L Vm",gu:"41ª Bda Inf Mec Vm",role:"Vigilância — Lavras",
+  detail:"Vigilância das vias de acesso e da Serra do Campestre.",
+  inicio:"Empregado na reocupação temporária de Lavras após a junção das brigadas de VERMELHO.",
+  desfecho:"Expulso na ação ofensiva da 1ª Bda Cav Mec e da 14ª Bda Inf Mtz sobre Lavras."},
  {id:"marq",side:"ma",ech:"eqp",branch:"irr",short:"MARQ",name:"MARQ",gu:"Apoio de MARROM",role:"Força insurgente",
-  detail:"Sabota os oleodutos da Petrozul na Mantiqueira, investe em inteligência e recrutamento e guarnece posições com efetivos de 3 a 5 homens."}
+  detail:"Sabota os dutos da Petrozul e interdita eixos logísticos, obrigando AZUL a operar em duas frentes.",
+  inicio:"Instalado na Serra da Mantiqueira, sobre o ramal Passa Quatro–Aiuruoca da Petrozul.",
+  desfecho:"Expulso da Serra Fina e da Serra do Papagaio; base do CIGMAL interditada; perde a capacidade de interdição logística."}
 ];
 const U={}; UNITS.forEach(u=>U[u.id]=u);
 
 /* ===================== fases =========================================== */
-const GERAL=6;
+const CAPS=[{k:"def",n:"I · Defesa e culminância"},{k:"ops",n:"II · Operações do Pel Rec"},{k:"fim",n:"III · Contraofensiva e desfecho"}];
 const PHASES=[
-{op:"Ativação do TOT",local:"Teatro de Operações — defesa em profundidade",date:"01 JUN 26",wide:true,
- sit:"Emitida a DPED em 15 MAI, o Teatro é ativado em 01 JUN sob o Gen Ex MINA, com defesa em profundidade: ação retardadora nos eixos, defesa em posição nas regiões-chave e reservas preservadas. Na retaguarda, o MARQ já atua na Mantiqueira sobre os dutos da Petrozul.",
- manobra:"Absorver o choque inicial, desgastar o inimigo em profundidade e <b>preservar o contra-ataque das reservas</b>, protegendo a Petrozul e as jazidas de nióbio.",
- chips:["1º C Ex Az — 1ª, 2ª e 4ª DE","Defesa em profundidade","4ª DE como reserva do TOT"],
+/* ============================ CAPÍTULO I ============================ */
+{cap:"def",op:"Ativação do TOT",local:"Teatro de Operações — defesa em profundidade",date:"01 JUN 26",wide:true,
+ sit:"Emitida a DPED em 15 MAI, o Teatro é ativado sob o Gen Ex MINA. O dispositivo é organizado em profundidade: ação retardadora nos eixos, defesa em posição nas regiões-chave e reservas preservadas. Na retaguarda, o MARQ já opera sobre os dutos da Petrozul na Mantiqueira.",
+ manobra:"Absorver o choque inicial, desgastar o inimigo em profundidade e <b>preservar a capacidade de contra-ataque das reservas</b>, protegendo a Petrozul e as jazidas de nióbio.",
+ bastidores:"1ª Bda Cav Mec à frente na BR-265; 14ª, 10ª e 9ª Bda Inf Mtz e Bda Inf Mth na área de defesa avançada; 3ª Bda Inf Mec e 4ª DE preservadas como reservas.",
+ chips:["1º C Ex Az — 1ª, 2ª e 4ª DE","Defesa em posição","Reservas fechadas"],
  units:{tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180),cav1:off(P.nepomuceno,-90,-30),
   b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
   bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14)},
- notes:[{t:"Camadas do dispositivo",s:"Retardamento (1ª Bda Cav Mec) · defesa em posição (Mth, 14ª, 10ª, 9ª) · reservas (3ª Bda e 4ª DE).",c:"az"},
-        {t:"Ameaça na retaguarda",s:"MARQ sabota os dutos da Petrozul e interdita eixos logísticos na Mantiqueira.",c:"ma"}]},
+ notes:[{t:"Camadas do dispositivo",s:"Retardamento · defesa em posição · reservas móveis.",c:"az"},
+        {t:"Ameaça na retaguarda",s:"MARQ obriga o TOT a conduzir operações convencionais e de contrainsurgência ao mesmo tempo.",c:"ma"}]},
 
-{op:"Concentração inimiga",local:"Linha de fronteira — 2º C Ex Vm",date:"10 JUN 26",wide:true,
- sit:"A inteligência confirma a concentração final do 2º Corpo de Exército de VERMELHO junto à fronteira: uma brigada mecanizada, duas brigadas de infantaria leve e um regimento aeromóvel — ofensiva em larga escala iminente.",
- manobra:"Operação de armas combinadas orientada à <b>ruptura e ao isolamento</b> do centro do Quadrilátero, apoiada por guerra eletrônica, ações cibernéticas e forças irregulares.",
- chips:["41ª Bda Inf Mec","42ª e 43ª Bda Inf L","1º Rgt Inf Amv"],
+{cap:"def",op:"Concentração inimiga",local:"Linha de fronteira — 2º C Ex Vm",date:"10 JUN 26",wide:true,
+ sit:"A inteligência confirma a concentração final do 2º Corpo de Exército junto à fronteira: uma brigada mecanizada, duas brigadas de infantaria leve e um regimento aeromóvel.",
+ manobra:"Manobra de armas combinadas orientada à <b>ruptura e ao isolamento</b> do Quadrilátero, com frentes estreitas, escalões sucessivos e ritmo intenso.",
+ bastidores:"A 43ª Bda Inf L é mantida agrupada em reserva do Corpo de Exército, para exploração do êxito no eixo de maior progresso.",
+ chips:["Massa e surpresa","Escalões sucessivos","43ª Bda em reserva"],
  units:{tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180),cav1:off(P.nepomuceno,-90,-30),
   b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
   bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14),
   b41:off(ENT.principal,-40,0),b42:off(ENT.secundario,-40,0),b43:off(ENT.reserva,-60,0),amv1:off(ENT.amv,-40,0)},
- notes:[{t:"Restrição aeroespacial",s:"Defesa antiaérea e GE de VERMELHO limitam o poder aéreo — superioridade local e temporária.",c:"vm"}]},
+ notes:[{t:"Restrição aeroespacial",s:"Defesa antiaérea e GE limitam o poder aéreo de AZUL — superioridade local e temporária.",c:"vm"}]},
 
-{op:"Dia D — a invasão",local:"Transposição da fronteira internacional",date:"14 JUN 26",wide:true,
- sit:"VERMELHO transpõe a fronteira em dois eixos coordenados: mecanizados pela BR-265 rumo a Lavras–São João del Rei e forças leves pela BR-381 rumo a Perdões–Carmópolis. A 1ª Bda Cav Mec entra em contato e inicia a ação retardadora.",
- manobra:"Eixo principal (BR-265): <b>41ª Bda Inf Mec</b>. Eixo secundário (BR-381): <b>42ª Bda Inf L</b>, para conquistar cristas dominantes e isolar o Quadrilátero.",
- chips:["Ofensiva em dois eixos","Guerra multidomínio","43ª Bda Inf L em reserva"],
+{cap:"def",op:"Dia D — a invasão",local:"Transposição da fronteira internacional",date:"14 JUN 26",wide:true,axes:true,
+ sit:"VERMELHO transpõe a fronteira em dois eixos coordenados. A 1ª Bda Cav Mec entra em contato e inicia a ação retardadora, trocando espaço por tempo.",
+ manobra:"Eixo principal (BR-265): <b>41ª Bda Inf Mec</b> sobre Lavras–São João del Rei. Eixo secundário (BR-381): <b>42ª Bda Inf L</b> sobre Perdões–Carmópolis.",
+ bastidores:"O 1º Rgt Inf Amv permanece na zona de reunião, aguardando as condições para o assalto aeromóvel na retaguarda azulina.",
+ chips:["Ofensiva em dois eixos","Guerra multidomínio"],
  units:{tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180),cav1:{...off(P.nepomuceno,-40,-24),contact:true},
   b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
   bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14),
   b41:{...off(ENT.principal,60,-6),contact:true},b42:off(ENT.secundario,70,10),b43:off(ENT.reserva,-40,0),amv1:off(ENT.amv,-40,0)},
- axes:true,
  routes:[{a:ENT.principal,b:off(ENT.principal,90,-4),k:"atk"},{a:ENT.secundario,b:off(ENT.secundario,100,14),k:"atk"}],
- notes:[{t:"Ação retardadora",s:"1ª Bda Cav Mec troca espaço por tempo no eixo da BR-265.",c:"az"},
-        {t:"Objetivo inimigo",s:"Dominar cristas topográficas para sustentar o Comando e Controle.",c:"vm"}]},
+ notes:[{t:"Ação retardadora",s:"A cavalaria mecanizada nega ao inimigo o reconhecimento antecipado da posição defensiva.",c:"az"}]},
 
-{op:"Choque em Lavras",local:"Eixo principal BR-265 — Lavras",date:"14 – 15 JUN 26",
- sit:"A cavalaria mecanizada desengaja e recua pela BR-265, desgastando a progressão inimiga e dando tempo à 14ª Bda Inf Mtz para consolidar a defesa em posição em Lavras. No eixo secundário, a 42ª Bda Inf L progride para as cristas de Carmópolis.",
- manobra:"Desgastar o inimigo no eixo e <b>fixá-lo diante da defesa em posição</b>, preservando a liberdade de ação das reservas móveis.",
- chips:["Troca de espaço por tempo","Defesa em posição em Lavras","Reservas não empenhadas"],
+{cap:"def",op:"Choque em Lavras",local:"Eixo principal BR-265 — Lavras",date:"14 – 20 JUN 26",axes:true,
+ sit:"A cavalaria recua pela BR-265 desgastando a progressão inimiga e dando tempo à 14ª Bda Inf Mtz para consolidar a defesa em posição. No eixo secundário, a 42ª Bda Inf L progride para as cristas de Carmópolis.",
+ manobra:"Desgastar o inimigo no eixo e <b>fixá-lo diante da defesa em posição</b>, preservando as reservas móveis para o contra-ataque.",
+ bastidores:"A 3ª Bda Inf Mec permanece intacta em Tiradentes e a 4ª DE fechada: o Comando ainda não empenhou nenhuma reserva.",
+ chips:["Troca de espaço por tempo","Defesa em posição em Lavras"],
  units:{cav1:off(P.lavras,110,40),b14:{...off(P.lavras,-40,26),contact:true},b10:off(P.carmopolis,-30,30),
   b9:off(P.tresCoracoes,-30,30),bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),
   b41:{...off(P.nepomuceno,-40,-26),contact:true},b42:off(P.perdoes,-70,-70),b43:off(ENT.reserva,10,20),marq:off(P.serraFina,20,-14)},
- axes:true,
  routes:[{a:off(ENT.principal,80,-6),b:off(P.nepomuceno,-70,-22),k:"atk"},
    {a:off(ENT.secundario,90,14),b:off(P.perdoes,-100,-60),k:"atk"},
    {a:off(P.nepomuceno,10,-10),b:off(P.lavras,90,34),k:"retard",bend:.12}],
  notes:[{t:"Peça-chave",s:"A 14ª Bda Inf Mtz é a primeira grande resistência do eixo principal.",c:"az"}]},
 
-{op:"Salto aeromóvel e cristas",local:"Serra do Lenheiro e Carmópolis",date:"15 JUN 26",wide:true,
- sit:"O 1º Rgt Inf Amv infiltra-se por via aérea e estabelece cabeça de ponte na Serra do Lenheiro, na retaguarda imediata de São João del Rei, buscando junção com o eixo principal e o bloqueio da BR-265. Ao norte, a 42ª Bda Inf L disputa com a 10ª Bda Inf Mtz as cristas de Carmópolis.",
- manobra:"Junção do eixo principal com a <b>cabeça de ponte aeromóvel</b> no Lenheiro e isolamento operacional do Quadrilátero pela conquista das cristas.",
- chips:["C Pnt Amv na Serra do Lenheiro","Bloqueio da BR-265","Combate pelas cristas"],
- units:{cav1:off(P.lavras,150,60),b14:{...off(P.lavras,-40,26),contact:true},
-  b10:{...off(P.carmopolis,-40,44),contact:true},b9:off(P.tresCoracoes,-30,30),
-  bdamth:{...off(P.sjdr,-10,-34),contact:true},b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14),
-  b41:off(P.lavras,110,-24),b42:{...off(P.carmopolis,-110,66),contact:true},b43:off(P.nepomuceno,-150,-40),
-  amv1:{...off(P.lenheiro,-20,-24),contact:true}},
- axes:true,
+{cap:"def",op:"Salto aeromóvel e cristas",local:"Serra do Lenheiro e Carmópolis",date:"15 JUN 26",wide:true,axes:true,
+ sit:"O 1º Rgt Inf Amv estabelece cabeça de ponte na Serra do Lenheiro, na retaguarda imediata de São João del Rei, para bloquear a BR-265. Ao norte, a 42ª Bda Inf L disputa as cristas de Carmópolis com a 10ª Bda Inf Mtz.",
+ manobra:"Junção do eixo principal com a <b>cabeça de ponte aeromóvel</b> — que a doutrina de VERMELHO exige em prazo não superior a 48 horas do lançamento.",
+ bastidores:"A Bda Inf Mth passa a defender São João del Rei com ameaça à frente e à retaguarda: é o momento em que a montanha entra na campanha.",
+ chips:["Envolvimento vertical","Junção em 48 h","Combate pelas cristas"],
+ units:{cav1:off(P.lavras,150,60),b14:{...off(P.lavras,-40,26),contact:true},b10:{...off(P.carmopolis,-40,44),contact:true},
+  b9:off(P.tresCoracoes,-30,30),bdamth:{...off(P.sjdr,-10,-34),contact:true},b3:off(P.tiradentes,40,34),
+  marq:off(P.serraFina,20,-14),b41:off(P.lavras,110,-24),b42:{...off(P.carmopolis,-110,66),contact:true},
+  b43:off(P.nepomuceno,-150,-40),amv1:{...off(P.lenheiro,-20,-24),contact:true}},
+ marks:[{t:"po",p:off(P.lenheiro,26,-40),l:"Cabeça de ponte aeromóvel"}],
  routes:[{a:off(P.nepomuceno,10,-26),b:off(P.lavras,90,-24),k:"atk"},
    {a:off(P.perdoes,-40,-70),b:off(P.carmopolis,-130,80),k:"atk"},
    {a:off(ENT.amv,20,0),b:off(P.lenheiro,-46,-30),k:"atkAir",bend:.16}],
- notes:[{t:"Terreno decisivo",s:"A posse das cristas define a liberdade de ação nos dois eixos.",c:"vm"},
-        {t:"Bda Inf Mth",s:"Passa a defender São João del Rei com ameaça à frente e à retaguarda.",c:"az"}]},
+ notes:[{t:"Terreno decisivo",s:"A posse das cristas define a liberdade de ação nos dois eixos.",c:"vm"}]},
 
-{op:"A ofensiva é barrada",local:"Teatro de Operações — retomada da iniciativa",date:"Meados a fim de JUN 26",wide:true,
- sit:"Em meados de junho a ofensiva perde força, barrada pelos dispositivos defensivos de AZUL. No fim do mês AZUL retoma a iniciativa e conduz operações ofensivas de larga escala, forçando VERMELHO a movimentos retrógrados. Enfraquecida, a 41ª Bda Inf Mec é empurrada para além de Lavras e retrai pela BR-265 rumo a Nepomuceno.",
- manobra:"Retomar a iniciativa, <b>empurrar VERMELHO em direção às fronteiras originais</b> e limpar a retaguarda — daqui nascem as situações particulares da fase de operações.",
- chips:["Movimento retrógrado de VERMELHO","14ª Bda retoma Lavras","Remanescentes no Lenheiro e na Mantiqueira"],
+{cap:"def",op:"Culminância da ofensiva",local:"Frente leste — São Sebastião da Vitória",date:"Meados de JUN 26",wide:true,
+ sit:"A progressão de VERMELHO alcança seu ponto mais avançado nas proximidades de São Sebastião da Vitória, exclusive, onde é contida. Alongadas as linhas de comunicações, desgastado pelo escalonamento da defesa e sem obter a junção com a força aeromóvel, o atacante perde a impulsão.",
+ manobra:"Configura-se a <b>culminância da ofensiva inimiga</b>: o atacante já não dispõe de poder de combate relativo para prosseguir e o defensor reúne condições para retomar a iniciativa.",
+ bastidores:"A cabeça de ponte do Lenheiro permanece isolada muito além do prazo doutrinário e passa a depender de ressuprimento precário obtido junto à população cooptada.",
+ chips:["Linhas de comunicações alongadas","Junção não realizada","Impulsão perdida"],
+ units:{cav1:off(P.lavras,150,60),b14:{...off(P.lavras,-40,26),contact:true},b10:off(P.carmopolis,-40,44),
+  b9:off(P.tresCoracoes,-30,30),bdamth:{...off(P.sjdr,-10,-34),contact:true},b3:off(P.tiradentes,40,34),
+  marq:off(P.serraFina,20,-14),b41:off(P.lavras,110,-24),b42:off(P.carmopolis,-110,66),
+  amv1:{...off(P.lenheiro,-20,-24),contact:true},b43:off(P.nepomuceno,-120,-30)},
+ marks:[{t:"alvo",p:off(P.saoSebastiao,10,-10),l:"Limite do avanço de VERMELHO"}],
+ notes:[{t:"Três causas",s:"Linhas alongadas · desgaste na defesa em profundidade · falha da junção em 48 h.",c:"vm"},
+        {t:"Consequência",s:"A defensiva cumpriu sua finalidade: criar condições para a retomada da ofensiva.",c:"az"}]},
+
+{cap:"def",op:"Retomada da iniciativa",local:"Teatro de Operações — transição para a ofensiva",date:"Fim de JUN 26",wide:true,
+ sit:"O Comando do TOT determina a transição para operações ofensivas de larga escala. A 41ª Bda Inf Mec, enfraquecida, é empurrada para além da área urbana de Lavras e inicia movimento retrógrado pela BR-265 rumo a Nepomuceno. A 14ª Bda Inf Mtz reocupa Lavras e ali estabelece posição defensiva.",
+ manobra:"Forçar VERMELHO à conduta defensiva e aos movimentos retrógrados, <b>empurrando-o em direção às fronteiras originais</b>.",
+ bastidores:"Restam no interior do território azulino três ameaças residuais que impedem a livre articulação das GU: a C Pnt Amv do Lenheiro, os Elm FE infiltrados e o MARQ na Mantiqueira. Todas em terreno de acesso restritivo.",
+ chips:["Movimento retrógrado de VERMELHO","14ª Bda reocupa Lavras","Três ameaças residuais"],
  units:{b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),
-  bdamth:off(P.sjdr,-10,-34),b3:off(P.itutinga,60,-40),marq:{...off(P.serraFina,20,-14),contact:true},
+  bdamth:off(P.sjdr,-10,-34),b3:off(P.tiradentes,40,34),marq:{...off(P.serraFina,20,-14),contact:true},
   b41:off(P.nepomuceno,-30,-26),b42:off(P.carmopolis,-90,70),amv1:{...off(P.lenheiro,-20,-24),contact:true},
-  tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180)},
- routes:[{a:off(P.lavras,60,-24),b:off(P.nepomuceno,10,-26),k:"retro"},
-   {a:off(P.tiradentes,40,34),b:off(P.itutinga,80,-30),k:"pe",bend:.12}],
- notes:[{t:"O que sobra no terreno",s:"C Pnt Amv no Lenheiro, Elm FE Vm infiltrados e o MARQ na Mantiqueira.",c:"vm"},
-        {t:"Consequência",s:"A Bda Inf Mth passa a empregar suas peças de manobra — começa a fase de operações.",c:"az"}]},
+  fevm:off(P.faria,34,28),tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180)},
+ routes:[{a:off(P.lavras,60,-24),b:off(P.nepomuceno,10,-26),k:"retro"}],
+ notes:[{t:"Problema central",s:"Nenhuma GU motorizada ou mecanizada tem capacidade de atuar nesse terreno.",c:"az"},
+        {t:"Solução doutrinária",s:"Emprego da única GU apta a combater em terreno montanhoso.",c:"az"}]},
 
-{op:"Dispositivo inicial",local:"São João del Rei — Campo das Vertentes",date:"06 JUL 26",wide:true,
- sit:"O 11º BI Mth ocupa o Campo das Vertentes com base de combate em São João del Rei. A cabeça de ponte permanece no Lenheiro bloqueando a BR-265, a 41ª Bda pressiona pelo eixo principal e o MARQ segue na Mantiqueira.",
- missao:"<b>Reconhecer, vigiar e monitorar RIPI</b> com máximo sigilo e dissimulação, otimizando o emprego tático das peças de manobra do Batalhão.",
- chips:["B Cmb: São João del Rei"],
- units:{pelrec:off(P.sjdr,-34,26),bcmb:off(P.sjdr,30,26),bdamth:off(P.sjdr,-10,-34),
-  amv1:off(P.lenheiro,-20,-24),b41:off(P.lavras,90,-26),b14:off(P.lavras,-40,26),
-  b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),b3:off(P.tiradentes,40,34),marq:off(P.serraFina,20,-14)},
- notes:[{t:"Ambiente de montanha",s:"Terreno compartimentado, de acesso restritivo, com escarpas que exigem técnicas de montanhismo.",c:"az"}]},
+/* ============================ CAPÍTULO II =========================== */
+{cap:"ops",op:"Bda Inf Mth assume o Campo das Vertentes",local:"São João del Rei — esforço de IRVA",date:"06 JUL 26",wide:true,
+ sit:"O Comandante da Força Terrestre Componente ordena que a Bda Inf Mth reforce as GU estabelecidas na região, empregando suas peças de manobra prioritariamente em ações de Inteligência, Reconhecimento, Vigilância e Aquisição de Alvos.",
+ missao:"<b>Reconhecer, vigiar e monitorar RIPI</b> com máximo sigilo e dissimulação, por progressão furtiva, evitando o engajamento decisivo.",
+ bastidores:"Estabelece-se o ciclo que estrutura toda a fase: informe do Pel Rec → decisão do escalão superior → ação de uma peça de manobra maior → nova situação particular.",
+ chips:["B Cmb: São João del Rei","Esforço de IRVA","Pel Rec como sensor da Brigada"],
+ units:{pelrec:off(P.sjdr,-34,26),bcmb:off(P.sjdr,30,26),bdamth:off(P.sjdr,-10,-34),cia1:off(P.sjdr,-44,44),
+  cia2:off(P.sjdr,48,-6),esqd4:off(P.sjdr,72,26),amv1:off(P.lenheiro,-20,-24),b41:off(P.lavras,90,-26),
+  b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),b9:off(P.tresCoracoes,-30,30),b3:off(P.tiradentes,40,34),
+  marq:off(P.serraFina,20,-14),fevm:off(P.faria,34,28)},
+ notes:[{t:"Por que IRVA primeiro",s:"Na montanha, a observação em profundidade exige patrulhas e PO escalonados em altitudes diferentes.",c:"az"}]},
 
-{op:"Op QUARTZITO",local:"Serra do Lenheiro — São João del Rei",date:"10 – 11 JUL 26",carta:"Carta São João del Rei 1/25.000",
- sit:"O 1º Rgt Inf Amv Vm mantém a C Pnt Amv na Serra do Lenheiro para bloquear a BR-265 e barrar o ressuprimento das unidades azulinas a oeste, em condições de junção com a 41ª Bda Inf Mec. O terreno restritivo pode ter permitido a cooptação de parcela da população local.",
- missao:"<b>RECONHECER</b> a Fx Infl “ESCOLA UNO” de 101600 a 110130JUL26. <b>RECONHECER</b> obstáculo vertical rochoso na Q (05-76) de 110500 a 111200JUL26. <b>OCUPAR</b> PO e <b>MONITORAR</b> a P Def Ini na porção NE da Serra do Lenheiro de 111200 a 111800JUL26.",
- chips:["Rec de itinerário","Rec de obstáculo vertical","PO e monitoramento","1ª Prio F: 1ª Cia"],
+{cap:"ops",op:"Op QUARTZITO",n:1,local:"Serra do Lenheiro — São João del Rei",date:"10 – 11 JUL 26",carta:"Carta São João del Rei 1/25.000",
+ sit:"O 1º Rgt Inf Amv mantém a C Pnt Amv na Serra do Lenheiro, bloqueando a BR-265 e barrando o ressuprimento das unidades azulinas a oeste, enquanto a 41ª Bda Inf Mec pressiona pelo eixo principal em busca da junção.",
+ missao:"<b>RECONHECER</b> a Fx Infl “ESCOLA UNO” e o obstáculo vertical rochoso na Q (05-76). <b>OCUPAR</b> PO e <b>MONITORAR</b> a P Def Ini na porção NE da Serra do Lenheiro.",
+ bastidores:"A 2ª/11º BI Mth opera PBCVU em São João del Rei, cortando o ressuprimento inimigo pela área urbana; a 1ª/11º permanece em ordem de marcha, ECD infiltrar e desencadear Pa Rec F.",
+ resultado:"Confirmada a cabeça de ponte, levantado o dispositivo inimigo e — decisivo — identificado um obstáculo vertical transponível onde o inimigo não mantinha vigilância.",
+ chips:["Rec de itinerário","Rec de obstáculo vertical","PO e monitoramento"],
  units:{pelrec:off(P.lenheiro,-26,-30),bcmb:off(P.sjdr,30,26),cia1:off(P.sjdr,-44,44),cia2:off(P.sjdr,48,-6),
-  amv1:{...off(P.lenheiro,34,-6),contact:true},b41:off(P.lavras,90,-26),b14:off(P.lavras,-40,26),marq:off(P.serraFina,20,-14)},
+  esqd4:off(P.sjdr,72,26),amv1:{...off(P.lenheiro,34,-6),contact:true},b41:off(P.lavras,90,-26),
+  b14:off(P.lavras,-40,26),marq:off(P.serraFina,20,-14)},
  marks:[{t:"fx",p:off(P.lenheiro,-92,-56),l:"Fx Infl ESCOLA UNO"},
   {t:"obst",p:off(P.lenheiro,-16,6),l:"Obst Vtc — Q (05-76)"},
-  {t:"po",p:off(P.lenheiro,20,-42),l:"PO — P Def Ini (NE do Lenheiro)"}],
+  {t:"po",p:off(P.lenheiro,20,-42),l:"PO — P Def Ini"}],
  routes:[{a:off(P.sjdr,30,26),b:off(P.lenheiro,-70,-46),k:"mtz",bend:.16},
   {a:off(P.lenheiro,-70,-46),b:off(P.lenheiro,-8,-14),k:"pe",bend:-.3}],
- notes:[{t:"Inimigo",s:"C Pnt Amv do 1º Rgt Inf Amv Vm — armamento similar ao nosso, braçais vermelhos.",c:"vm"},
-        {t:"2ª/11º BI Mth",s:"PBCVU nos eixos que cortam o perímetro urbano de São João del Rei.",c:"az"}]},
+ notes:[{t:"Efeito",s:"O Lenheiro deixa de ser incógnita e passa a ser objetivo.",c:"az"}]},
 
-{op:"Op BOCAINA",local:"Serra do Faria — Lavras",date:"13 – 14 JUL 26",carta:"Carta Lavras 1/50.000",
- sit:"Enfraquecida, a 41ª Bda Inf Mec é empurrada para além de Lavras e retrai pela BR-265 rumo a Nepomuceno. A 14ª Bda Inf Mtz estabelece posição defensiva em Lavras. A AAI informa que elementos de Forças Especiais ocupam instalações na área rural da Serra do Faria, operando um Centro de Operações de Drones com alcance de até 9 km.",
- missao:"<b>RECONHECER</b> a Fx Infl “CAMPESTRE” de 131800 a 140600JUL26. <b>MOBILIAR</b> via em obstáculo vertical rochoso para ocupação dissimulada de PO. <b>MONITORAR</b> o Centro de Operações de Drones e, confirmando-se, <b>CONDUZIR FOGOS</b> de artilharia para <b>DESTRUIR</b> os SARPs e/ou <b>NEUTRALIZAR</b> as tropas.",
- chips:["Infiltração dissimulada","Mobiliamento de via","Observação de tiro","Apoio: 1ª/4º GAC L Mth"],
+{cap:"ops",op:"Op DIABÁSIO II e a repulsa em Lavras",local:"Serra do Lenheiro e Lavras — ações simultâneas",date:"11 – 12 JUL 26",
+ sit:"De posse do relatório do Pel Rec, a Bda Inf Mth desencadeia a Op DIABÁSIO II contra a cabeça de ponte, simultaneamente à ofensiva conduzida no Teatro de Operações de Lavras. A ação impõe pesadas baixas e significativa desorganização ao 1º Rgt Inf Amv.",
+ manobra:"A simultaneidade é deliberada: atacar o Lenheiro no mesmo momento em que a 14ª Bda repele a 41ª <b>nega ao inimigo a junção</b> que sua doutrina estabelece como imprescindível ao envolvimento vertical.",
+ bastidores:"Sem perspectiva de junção e repelida em Lavras, a 41ª Bda Inf Mec inicia movimento retrógrado sem pressão pela BR-265 rumo a Nepomuceno, onde reorganiza seus meios.",
+ chips:["Ação da Bda Inf Mth","Sem participação do Pel Rec","Junção negada"],
+ units:{bdamth:{...off(P.sjdr,-10,-34),contact:true},bcmb:off(P.sjdr,30,26),pelrec:off(P.sjdr,-34,26),
+  amv1:{...off(P.lenheiro,20,-16),contact:true},b14:{...off(P.lavras,-40,26),contact:true},
+  b41:off(P.nepomuceno,-30,-26),b10bil:off(P.lenheiro,-40,30),gac:off(P.lavras,10,32)},
+ marks:[{t:"alvo",p:off(P.lenheiro,42,10),l:"Op DIABÁSIO II — ataque à C Pnt Amv"},
+  {t:"alvo",p:off(P.lavras,-16,-40),l:"Ataque da 41ª Bda repelido"}],
+ routes:[{a:off(P.lavras,60,-24),b:off(P.nepomuceno,10,-26),k:"retro"}],
+ notes:[{t:"Doutrina",s:"O envolvimento vertical de VERMELHO exige junção em até 48 h — prazo largamente ultrapassado.",c:"vm"}]},
+
+{cap:"ops",op:"Op BOCAINA",n:2,local:"Serra do Faria — Lavras",date:"13 – 14 JUL 26",carta:"Carta Lavras 1/50.000",
+ sit:"Com a 41ª Bda em retraimento e a 14ª Bda estabelecida em Lavras, a AAI informa que elementos de Forças Especiais ocupam instalações na área rural da Serra do Faria, operando um Centro de Operações de Drones com alcance de monitoramento de até 9 km.",
+ missao:"<b>RECONHECER</b> a Fx Infl “CAMPESTRE”, <b>MOBILIAR</b> via em obstáculo vertical para ocupação dissimulada de PO, <b>MONITORAR</b> o Centro de Operações de Drones e <b>CONDUZIR FOGOS</b> para <b>DESTRUIR</b> os SARPs.",
+ bastidores:"A 3ª Bda Inf Mec estabelece PBCVU nos eixos que incidem sobre Lavras; a 14ª Bda mantém dois Pel Fuz Mtz aprestados como Força de Ação Rápida; a 1ª/4º GAC L Mth fica de prontidão com seis obuses.",
+ resultado:"Centro de Operações de Drones destruído por fogos de artilharia conduzidos pelo Pel Rec: VERMELHO perde a vigilância aérea sobre a região de Lavras.",
+ chips:["Infiltração dissimulada","Mobiliamento de via","Observação de tiro"],
  units:{pelrec:off(P.faria,-46,-20),bcmb:off(P.sjdr,30,26),fevm:{...off(P.faria,34,28),contact:true},
-  gac:off(P.lavras,10,32),b14:off(P.lavras,-52,4),b3:off(P.lavras,60,30),b41:off(P.nepomuceno,-20,-26),marq:off(P.serraFina,20,-14)},
+  gac:off(P.lavras,10,32),b14:off(P.lavras,-52,4),b3:off(P.lavras,60,30),b41:off(P.nepomuceno,-20,-26),
+  marq:off(P.serraFina,20,-14),bdamth:off(P.sjdr,-10,-34)},
  marks:[{t:"fx",p:off(P.faria,-104,-48),l:"Fx Infl CAMPESTRE"},
   {t:"obst",p:off(P.faria,-18,6),l:"Obst Vtc — via mobiliada"},
   {t:"alvo",p:off(P.faria,48,50),l:"Centro de Op de Drones — destruído"},
@@ -396,123 +507,209 @@ const PHASES=[
  routes:[{a:off(P.sjdr,30,26),b:off(P.faria,-88,-34),k:"mtz",bend:.1},
   {a:off(P.faria,-88,-34),b:off(P.faria,-26,-8),k:"pe",bend:-.3}],
  notes:[{t:"Apoio de fogo",s:"Seis obuses 105 mm em Lavras, alcance de até 13 km.",c:"az"},
-        {t:"Contingência",s:"14ª Bda Inf Mtz com dois Pel Fuz Mtz como Força de Ação Rápida.",c:"az"},
-        {t:"Sem apoio aéreo",s:"Não há possibilidade de suporte aéreo durante as fases da operação.",c:"vm"}]},
+        {t:"Sem apoio aéreo",s:"Nenhuma possibilidade de suporte aéreo durante as fases da operação.",c:"vm"}]},
 
-{op:"Op BASALTO",local:"Serra de São José — Tiradentes",date:"15 – 16 JUL 26",carta:"Carta Santa Cruz de Minas 1/50.000",
- sit:"Confirmada a C Pnt Amv pela Op Quartzito (D-7), a Bda Inf Mth desencadeia a Op DIABÁSIO II em D-5. Em D-2 é acionada a Op de reconhecimento aéreo FALCÃO NEGRO: a aeronave decola da região de Tiradentes, perde contato e cai na Serra de São José. Em D-1 os destroços indicam a área provável; em D, o 11º BI Mth é empregado para a ABRM.",
- missao:"<b>LOCALIZAR</b> e <b>RESGATAR</b> a tripulação desaparecida. <b>EVACUAR</b> os feridos para o Pt EVAM até 160600JUL26. <b>RETRAIR</b> para a base do Batalhão. Infiltração aeromóvel a partir de 151200JUL26.",
+{cap:"ops",op:"Op FALCÃO NEGRO",local:"Serra do Lenheiro e Serra de São José",date:"14 JUL 26",
+ sit:"Em D-3 o Comandante da Bda Inf Mth solicita ao 1º B Av Ex Az reconhecimento aéreo sobre a área da cabeça de ponte, para confirmar a neutralização das posições. Em D-2 a aeronave decola da região de Tiradentes, perde contato e cai, já em retraimento, na Serra de São José.",
+ manobra:"Reconhecimento aéreo para <b>confirmar a neutralização</b> das posições inimigas no Lenheiro após a Op DIABÁSIO II.",
+ bastidores:"Passado o tempo previsto e após repetidas tentativas de restabelecer contato, o Comando conclui pela queda; em D-1, novo reconhecimento localiza destroços que indicam a provável área do acidente.",
+ chips:["Aviação do Exército","Contato perdido","Origina a Op BASALTO"],
+ units:{bdamth:off(P.sjdr,-10,-34),bcmb:off(P.sjdr,30,26),pelrec:off(P.sjdr,-34,26),
+  amv1:off(P.lenheiro,-20,-24),cia2:off(P.sjdr,48,-6)},
+ marks:[{t:"alvo",p:off(P.saoJose,12,-6),l:"Queda da aeronave"},
+  {t:"po",p:off(P.tiradentes,20,34),l:"Base de decolagem"}],
+ routes:[{a:off(P.tiradentes,20,30),b:off(P.lenheiro,20,-20),k:"amv",bend:-.2},
+  {a:off(P.lenheiro,20,-20),b:off(P.saoJose,6,-4),k:"amv",bend:.18}],
+ notes:[{t:"Consequência",s:"A perda da aeronave gera a ação de busca e resgate em montanha — e, com ela, o produto de inteligência da campanha.",c:"az"}]},
+
+{cap:"ops",op:"Op BASALTO",n:3,local:"Serra de São José — Tiradentes",date:"15 – 16 JUL 26",carta:"Carta Santa Cruz de Minas 1/50.000",
+ sit:"Em D, o Comandante da Bda Inf Mth emprega o 11º BI Mth, com seu Pel Rec, para conduzir a Ação de Busca e Resgate em Montanha na região da Serra de São José.",
+ missao:"<b>LOCALIZAR</b> e <b>RESGATAR</b> a tripulação desaparecida. <b>EVACUAR</b> os feridos para o Pt EVAM até 160600JUL26. <b>RETRAIR</b> para a base do Batalhão.",
+ bastidores:"O 1º/1ª/11º BI Mth garante a segurança tática da exfiltração até o Pt EVAM; a 2ª/11º mantém os PBCVU em São João del Rei; a Cia C Ap reforça o Pel Rec com equipe de APH.",
+ resultado:"Tripulação resgatada. Já em segurança, o piloto informa ter identificado posição semelhante a uma C Pnt Ae ainda ocupada no Lenheiro e patrulhas inimigas nas vias de acesso, reconhecendo-as em fotografias aéreas.",
  chips:["Infiltração aeromóvel","Busca e resgate em montanha","ECD CASEVAC"],
  units:{pelrec:off(P.saoJose,-20,-32),bcmb:off(P.sjdr,30,26),cia1:off(P.sjdr,-44,48),cia2:off(P.sjdr,44,4),
-  amv1:off(P.lenheiro,-30,-22),marq:off(P.serraFina,20,-14)},
- marks:[{t:"resgate",p:off(P.saoJose,18,-4),l:"Área de busca — Q (8870)"},
-  {t:"exfl",p:off(P.saoJose,-26,40),l:"Pt EVAM"}],
+  amv1:off(P.lenheiro,-30,-22),bdamth:off(P.sjdr,-10,-34),marq:off(P.serraFina,20,-14)},
+ marks:[{t:"resgate",p:off(P.saoJose,18,-4),l:"Área de busca"},{t:"exfl",p:off(P.saoJose,-26,40),l:"Pt EVAM"}],
  routes:[{a:off(P.sjdr,30,26),b:off(P.saoJose,-34,-16),k:"amv",bend:-.24},
   {a:off(P.saoJose,10,4),b:off(P.saoJose,-26,40),k:"pe",bend:.25}],
- notes:[{t:"Segurança tática",s:"1º/1ª/11º BI Mth garante a exfiltração da tripulação até o Pt EVAM.",c:"az"},
-        {t:"Remanescentes",s:"Elementos do 1º Rgt Inf Amv Vm ainda ocupam o Lenheiro.",c:"vm"}]},
+ notes:[{t:"Produto de inteligência",s:"O relato do piloto permite determinar a faixa de menor presença inimiga no Lenheiro.",c:"az"}]},
 
-{op:"Op MÁRMORE",local:"Serra do Lenheiro — São João del Rei",date:"16 – 17 JUL 26",carta:"Carta São João del Rei 1/25.000",
- sit:"Resgatado, o piloto informa ter identificado posição semelhante a uma C Pnt Ae no Lenheiro e movimento de tropas nas vias de acesso. A análise determina uma faixa de menor presença inimiga — com um obstáculo rochoso no percurso. A 1ª DE determina que a 4ª Bda Inf L Mth reconheça e ataque: o 11º BI Mth reconhece e mobilia, o 10º BIL Mth ataca.",
- missao:"<b>RECONHECER</b> a Fx Infl CINZA. <b>MOBILIAR</b> de 4 a 6 vias equipadas no obstáculo vertical rochoso. <b>AUXILIAR</b> a transposição do 10º BIL Mth e <b>APOIAR</b> suas missões e a evacuação de feridos. <b>RETRAIR</b> mediante ordem.",
- chips:["Mobiliamento de 4–6 vias","Apoio a ataque de Btl","Azm de fuga 310º","GPS restrito"],
+{cap:"ops",op:"Op MÁRMORE",n:4,local:"Serra do Lenheiro — São João del Rei",date:"16 – 17 JUL 26",carta:"Carta São João del Rei 1/25.000",
+ sit:"O Comandante da 1ª DE determina que a 4ª Bda Inf L Mth reconheça a faixa de infiltração e ataque a posição ocupada pelo inimigo. O 11º BI Mth reconhece e mobilia; o 10º BIL Mth ataca.",
+ missao:"<b>RECONHECER</b> a Fx Infl CINZA e <b>MOBILIAR</b> de quatro a seis vias no obstáculo vertical rochoso, <b>AUXILIANDO</b> a transposição do 10º BIL Mth e <b>APOIANDO</b> a evacuação de feridos.",
+ bastidores:"O 12º BIL Mth patrulha a estrada da Fé e a linha férrea; o 32º BIL Mth permanece em reserva, ECD reforçar ou substituir o batalhão atacante; navegação por GPS restrita ao extremo necessário, por risco de interceptação.",
+ resultado:"O 10º BIL Mth transpõe o obstáculo por via desenfiada, ataca e consolida a posição: o 1º Rgt Inf Amv é destruído e a BR-265 é reativada como eixo logístico.",
+ chips:["Mobiliamento de vias","Apoio a ataque de Btl","GPS restrito"],
  units:{pelrec:off(P.lenheiro,-30,-10),bcmb:off(P.sjdr,30,26),b10bil:off(P.lenheiro,-8,34),
   b12bil:off(P.lenheiro,-70,-44),b32bil:off(P.sjdr,50,-14),cia2:off(P.sjdr,-34,52),
-  amv1:{...off(P.lenheiro,44,-6),contact:true},marq:off(P.serraFina,20,-14)},
+  amv1:{...off(P.lenheiro,44,-6),contact:true},bdamth:off(P.sjdr,-10,-34),marq:off(P.serraFina,20,-14)},
  marks:[{t:"fx",p:off(P.lenheiro,-88,-52),l:"Fx Infl CINZA"},
   {t:"obst",p:off(P.lenheiro,-6,-26),l:"Obst rochoso — 4 a 6 vias"},
-  {t:"alvo",p:off(P.lenheiro,58,12),l:"Ataque à C Pnt Amv Vm"}],
+  {t:"alvo",p:off(P.lenheiro,58,12),l:"C Pnt Amv Vm destruída"}],
  routes:[{a:off(P.sjdr,30,26),b:off(P.lenheiro,-58,-36),k:"mtz",bend:.16},
-  {a:off(P.lenheiro,-58,-36),b:off(P.lenheiro,-18,-18),k:"pe",bend:-.3}],
- notes:[{t:"Finalidade",s:"Retomar o controle da Serra do Lenheiro e reativar suas vias de acesso.",c:"az"},
-        {t:"Guerra eletrônica",s:"Navegação por GPS somente em caso de extrema necessidade.",c:"vm"}]},
+  {a:off(P.lenheiro,-58,-36),b:off(P.lenheiro,-18,-18),k:"pe",bend:-.3},
+  {a:off(P.lenheiro,-8,34),b:off(P.lenheiro,44,6),k:"mtz",bend:-.2}],
+ notes:[{t:"Virada da campanha",s:"Eliminada a ameaça de retaguarda, a 1ª DE deixa de ter frente invertida e pode articular-se para a ofensiva.",c:"az"}]},
 
-{op:"Op TRANSMANTIQUEIRA I",local:"Serra Fina — Itamonte",date:"20 – 23 JUL 26",carta:"Cartas Passa Quatro e Itamonte 1/50.000",
- sit:"Populares de Itamonte, Passa-Quatro e Maromba relatam intensificação do MARQ. Agentes da AAI apontam o líder, o chefe de segurança (“MONSTRO”) e auxiliares logísticos homiziados entre a população, adquirindo comunicações, armamento e explosivos. Há relatos de pousos na Serra Fina e tratativas para sabotar o oleoduto entre Passa Quatro e Aiuruoca. Os insurgentes evitam a Serra Fina — não têm adestramento de montanha.",
- missao:"<b>RECONHECER</b> a Fx Infl “LOBO – IVOS” a partir de 210400JUL26 e ficar em condições de <b>MONITORAR</b> possível RIPI. Em caso de contato com Elm MARQ, informar de imediato e aguardar autorização para neutralização.",
- chips:["Infiltração dissimulada de 3 dias","Pernoites obrigatórios","Sem apoio aéreo","Base avançada em Itamonte"],
+{cap:"ops",op:"Op TRANSMANTIQUEIRA I",n:5,local:"Serra Fina — Itamonte",date:"20 – 23 JUL 26",carta:"Cartas Passa Quatro e Itamonte 1/50.000",
+ sit:"O MARQ mantém-se na Mantiqueira porque o eixo energético da Petrozul atravessa a região. Agentes da AAI apontam o líder e o chefe de segurança homiziados em Itamonte, pousos de pequenas aeronaves na Serra Fina e tratativas para sabotar o oleoduto entre Passa Quatro e Aiuruoca. Os insurgentes evitam a Serra Fina: não têm adestramento de montanha.",
+ missao:"<b>RECONHECER</b> a Fx Infl “LOBO – IVOS” e ficar em condições de <b>MONITORAR</b> possível RIPI no Alto dos Ivos; em caso de contato, informar de imediato e aguardar autorização.",
+ bastidores:"Enquanto isso, no eixo principal, a 41ª Bda reorganiza-se em Nepomuceno e a 42ª Bda prossegue pressionando Carmópolis — a campanha convencional não parou.",
+ resultado:"Confirmadas as instalações e a atividade do movimento; a pressão sobre o santuário provoca o deslocamento do MARQ para a Serra do Papagaio. A fração não retorna a São João del Rei: permanece na base avançada de Itamonte.",
+ chips:["Infiltração dissimulada de 3 dias","Pernoites obrigatórios","Sem apoio aéreo"],
  units:{pelrec:off(P.serraFina,-30,-34),bavc:off(P.itamonte,-10,30),bcmb:off(P.sjdr,30,26),
-  marq:{...off(P.serraFina,44,18),contact:true}},
+  marq:{...off(P.serraFina,44,18),contact:true},b41:off(P.nepomuceno,-20,-26),b42:off(P.carmopolis,-90,70),
+  b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30)},
  marks:[{t:"fx",p:off(P.serraFina,-102,-10),l:"Fx Infl LOBO – IVOS"},
   {t:"ripi",p:off(P.serraFina,36,-18),l:"RIPI — Alto dos Ivos"},
   {t:"po",p:off(P.serraFina,-44,30),l:"Pontos de pernoite"}],
  routes:[{a:off(P.sjdr,30,26),b:off(P.itamonte,-10,30),k:"mtz",bend:.2},
   {a:off(P.itamonte,-10,30),b:off(P.serraFina,-44,-18),k:"pe",bend:-.2}],
- notes:[{t:"Base avançada",s:"A fração passa a operar de Itamonte, sem retornar a São João del Rei ao fim da missão.",c:"az"},
-        {t:"Petrozul",s:"O ramal Passa Quatro – Aiuruoca corta a área — é o duto que o MARQ pretende sabotar.",c:"ma"}]},
+ notes:[{t:"Via de acesso menos provável",s:"A área que o inimigo julga intransponível é a mais adequada à infiltração.",c:"az"},
+        {t:"Petrozul",s:"O ramal Passa Quatro – Aiuruoca é o duto que o MARQ pretende sabotar.",c:"ma"}]},
 
-{op:"Op TRANSMANTIQUEIRA II",local:"Serra do Papagaio — Aiuruoca / Alagoa",date:"25 – 27 JUL 26",carta:"Carta Alagoa 1/50.000",
- sit:"Com a fuga dos elementos do MARQ para a Serra do Papagaio, é preciso confirmar a presença de um alvo de alto valor na nova região de homizio. Aproveitando os meios já desdobrados, o Cmt da Bda Inf Mth determina a intervenção imediata do 11º BI Mth.",
- missao:"<b>RECONHECER</b> a Fx Infl ARAUCÁRIA e ficar em condições de <b>MONITORAR</b> RIPI, levantando instalações estratégicas e atividades inimigas. <b>FICAR ECD</b> de tiro de oportunidade e neutralização. <b>ESTABELECER</b> contato com apoio local para ressuprimento e informes.",
- chips:["Patrulhamento Itamonte e Alagoa","Contato com apoio local (SPA/SPL)","Tiro de oportunidade"],
+{cap:"ops",op:"Op TRANSMANTIQUEIRA II",n:6,local:"Serra do Papagaio — Aiuruoca / Alagoa",date:"25 – 27 JUL 26",carta:"Carta Alagoa 1/50.000",
+ sit:"Com a fuga dos elementos do MARQ para a Serra do Papagaio, é preciso confirmar a presença de alvo de alto valor na nova região de homizio, sem conceder tempo de reorganização.",
+ missao:"<b>RECONHECER</b> a Fx Infl ARAUCÁRIA, <b>MONITORAR</b> a RIPI e <b>ESTABELECER</b> contato com apoio local para ressuprimento e informes; ficar ECD de tiro de oportunidade e neutralização.",
+ bastidores:"A 1ª Cia patrulha Itamonte e a 2ª Cia patrulha Alagoa com efeito dissuasório; a 3ª Cia fica ECD infiltrar e atacar após a confirmação; o 10º BIL Mth patrulha a BR-354, o 32º BIL Mth a MG-158 e a 1ª Bia/4º GAC apoia de Itanhandu, com o 4º Esqd C Mec ECD reforçar em 30 minutos.",
+ resultado:"Desarticulados os módulos logísticos e a estrutura de comunicações do movimento, cessam as sabotagens ao ramal da Petrozul. Restabelecido o fluxo, o TOT recupera a sustentação logística da futura contraofensiva.",
+ chips:["Patrulhamento ostensivo","Contato com apoio local","Tiro de oportunidade"],
  units:{pelrec:off(P.papagaio,-24,-32),bavc:off(P.itamonte,-10,30),cia1:off(P.itamonte,52,6),
   cia2:off(P.alagoa,26,24),cia3:off(P.aiuruoca,40,28),gac:off(P.itanhandu,-46,28),
   b10bil:off(P.itamonte,-64,50),b32bil:off(P.passaQuatro,-30,28),marq:{...off(P.papagaio,40,16),contact:true}},
  marks:[{t:"fx",p:off(P.papagaio,-104,-12),l:"Fx Infl ARAUCÁRIA"},
-  {t:"ripi",p:off(P.papagaio,34,-20),l:"RIPI (5026) — casario"},
+  {t:"ripi",p:off(P.papagaio,34,-20),l:"RIPI — casario"},
   {t:"contato",p:off(P.alagoa,-52,-18),l:"Contato — apoio local"}],
  routes:[{a:off(P.itamonte,-10,30),b:off(P.papagaio,-46,-8),k:"pe",bend:.25}],
- notes:[{t:"Apoio de fogo",s:"Quatro obuses L118 em Itanhandu, mediante autorização do Esc Sup.",c:"az"},
-        {t:"Reforço",s:"4º Esqd C Mec em condições de reforçar a tropa em 30 minutos.",c:"az"},
-        {t:"População",s:"Há indícios de que comunidades rurais apoiam a causa do MARQ.",c:"ma"}]},
+ notes:[{t:"Efeito estratégico",s:"Sem interdição no eixo energético, a logística da ofensiva fica assegurada.",c:"az"},
+        {t:"Deslocamento do MARQ",s:"Os remanescentes retraem para a região de Três Corações.",c:"ma"}]},
 
-{op:"Op FELDSPATO",local:"Pedra da Laje — Carmópolis de Minas",date:"28 – 30 JUL 26",carta:"Carta Carmópolis de Minas 1/50.000",
- sit:"A 42ª Bda Inf L Vm prossegue no eixo Perdões–Carmópolis pela BR-381 para conquistar as cristas dominantes. O 551º BI Amv ocupa ponto forte e PO no P Cot 1259, mas um Pel Rec inimigo nos P Cot 1191 e 1199 bate por fogos as vias de acesso, impedindo o rodízio e o retraimento. A única alternativa é retrair para leste — onde existe um paredão de cerca de 200 m. A 2ª DE solicita apoio à 1ª DE e a Bda Inf Mth emprega o 11º BI Mth.",
- missao:"Realizando deslocamento motorizado, <b>INFILTRAR</b> pelo E Prog ETERNO até a P Desemb. <b>RETIFICAR/RATIFICAR</b> os dados do itinerário e <b>TRANSMITIR</b> ao Esc Sup. Aproximar-se do obstáculo rochoso e <b>EQUIPAR</b> para desescalada, apoiando o retraimento do pelotão aferrado.",
- chips:["Escalada e equipagem de paredão (~200 m)","Desescalada de tropa não especializada","Rec do E Prog"],
- units:{pelrec:off(P.laje,-46,-16),bcmb:off(P.sjdr,30,26),b551:{...off(P.carmopolis,40,30),contact:true},
+{cap:"ops",op:"Crise no eixo norte",local:"BR-381 — Carmópolis e P Cot 1259",date:"28 JUL 26",
+ sit:"A 42ª Bda Inf L prossegue na direção Perdões–Carmópolis buscando as cristas dominantes. O 551º BI Amv ocupa ponto forte e PO no P Cot 1259 para alerta oportuno, mas um Pel Rec inimigo nos P Cot 1191 e 1199 passa a bater por fogos as vias de acesso, impedindo o rodízio e o retraimento do pelotão em posição.",
+ manobra:"A única alternativa viável de exfiltração é retrair para leste, onde existe paredão rochoso de cerca de 200 m — <b>intransponível por tropa sem capacitação em montanhismo</b>.",
+ bastidores:"O Comandante da 2ª DE solicita apoio à 1ª DE; a Bda Inf Mth é acionada e atribui a missão ao 11º BI Mth, ainda desdobrado na Mantiqueira.",
+ chips:["Escalão de segurança fixado","Vias de acesso batidas por fogos","Pedido de apoio entre DE"],
+ units:{b551:{...off(P.carmopolis,40,30),contact:true},bdaamv:off(P.carmopolis,90,60),
   pelrecvm:{...off(P.laje,30,-46),contact:true},b42:off(P.perdoes,-10,-34),b10:off(P.carmopolis,-64,50),
-  marq:off(P.papagaio,-70,-90)},
+  pelrec:off(P.itamonte,-10,30),bcmb:off(P.sjdr,30,26)},
+ marks:[{t:"po",p:off(P.laje,12,-28),l:"Pt Forte P Cot 1259 — pelotão aferrado"},
+  {t:"alvo",p:off(P.laje,46,-58),l:"P Cot 1191 e 1199 — Pel Rec Vm"},
+  {t:"obst",p:off(P.laje,-10,12),l:"Paredão de ~200 m"}],
+ routes:[{a:off(P.perdoes,-10,-34),b:off(P.carmopolis,-70,60),k:"atk",bend:-.1}],
+ notes:[{t:"Doutrina",s:"O escalão de segurança existe para informar e alertar, não para o combate decisivo.",c:"az"}]},
+
+{cap:"ops",op:"Op FELDSPATO",n:7,local:"Pedra da Laje — Carmópolis de Minas",date:"28 – 30 JUL 26",carta:"Carta Carmópolis de Minas 1/50.000",
+ sit:"Cumprindo a determinação da 1ª DE, o 11º BI Mth desloca-se para resgatar os militares aferrados no terreno, na área dominada pelo maciço da Pedra da Laje.",
+ missao:"<b>INFILTRAR</b> pelo E Prog ETERNO, <b>RETIFICAR/RATIFICAR</b> e <b>TRANSMITIR</b> os dados do itinerário, <b>ESCALAR</b> e <b>EQUIPAR</b> o paredão para a desescalada assistida do pelotão aferrado.",
+ bastidores:"O 551º BI Amv mantém a observação sobre as posições inimigas e a segurança leste do obstáculo; o 552º vigia a MG-260 e o 553º permanece em reserva.",
+ resultado:"Pelotão resgatado. Os dados do E Prog, retificados no terreno, permitem à 10ª Bda Inf Amv planejar a exfiltração para Tiradentes, onde reforçará a 3ª Bda Inf Mec — evitando a BR-494, a BR-381 e a MG-270.",
+ chips:["Escalada e equipagem (~200 m)","Desescalada de tropa não especializada","Rec do E Prog"],
+ units:{pelrec:off(P.laje,-46,-16),bcmb:off(P.sjdr,30,26),b551:{...off(P.carmopolis,40,30),contact:true},
+  bdaamv:off(P.carmopolis,90,60),pelrecvm:{...off(P.laje,30,-46),contact:true},b42:off(P.perdoes,-10,-34),
+  b10:off(P.carmopolis,-64,50),marq:off(P.papagaio,-70,-90),b3:off(P.tiradentes,40,34)},
  marks:[{t:"fx",p:off(P.laje,-108,-38),l:"E Prog ETERNO"},
   {t:"obst",p:off(P.laje,-10,12),l:"Obst rochoso ~200 m — desescalada"},
   {t:"po",p:off(P.laje,12,-28),l:"Pt Forte P Cot 1259"}],
  routes:[{a:off(P.sjdr,30,26),b:off(P.laje,-80,-30),k:"mtz",bend:-.18},
   {a:off(P.laje,-80,-30),b:off(P.laje,-26,-8),k:"pe",bend:.3},
+  {a:off(P.carmopolis,40,30),b:off(P.tiradentes,20,20),k:"pe",bend:-.16},
   {a:off(P.papagaio,-10,-10),b:off(P.papagaio,-70,-90),k:"marq",bend:.18}],
- notes:[{t:"Terreno",s:"AO dominada pelo maciço da Pedra da Laje — excelentes campos de observação sobre Carmópolis e a BR-381.",c:"az"},
-        {t:"MARQ em deslocamento",s:"Elementos do movimento iniciam o deslocamento da Mantiqueira para a região de Três Corações.",c:"ma"}]},
+ notes:[{t:"Ganho além do resgate",s:"A operação produz a base de dados de mobilidade para o reagrupamento das reservas.",c:"az"},
+        {t:"MARQ em deslocamento",s:"Os remanescentes iniciam o deslocamento para a região de Três Corações.",c:"ma"}]},
 
-{op:"Op QUARTZO",local:"Atalaia / CIGMAL — Três Corações",date:"31 JUL – 03 AGO 26",carta:"Cartas São Bento Abade e São Thomé das Letras 1/25.000",
- sit:"A 41ª Bda Inf Mec aguarda em Nepomuceno para ser reforçada pela 42ª Bda Inf L, que se desloca Carmópolis–Lavras após expulsar a 10ª Bda Inf Mtz. Remanescentes do MARQ patrulham as estradas rurais adjacentes ao CIGMAL, com emboscadas e armadilhas. Há campo de minas na via de acesso menos provável — a Fx Infl GAVIÃO — onde a inteligência apontou uma brecha por um obstáculo horizontal de 50 m, sem sentinelas.",
- missao:"<b>INFILTRAR</b> pelo E Prog GAVIÃO a partir de 311800JUL26. <b>MONITORAR</b> RIPI a partir de 010800AGO26. <b>MOBILIAR</b> obstáculo horizontal em segurança. <b>INTERDITAR</b> instalações clandestinas em 020500AGO26 e <b>EXFILTRAR</b> a pé.",
- chips:["Obstáculo horizontal de 50 m","Contorno de campo de minas","Interdição de instalações","25 min do objetivo ao Pt Exfl"],
+{cap:"ops",op:"A junção das brigadas de VERMELHO",local:"Nepomuceno e Carmópolis–Lavras",date:"30 JUL 26",
+ sit:"A 42ª Bda Inf L obtém êxito ao expulsar a 10ª Bda Inf Mtz de Carmópolis — que retrai pelo eixo Carmópolis–São Tiago — e desloca-se no sentido Carmópolis–Lavras para reforçar a 41ª Bda Inf Mec, que aguarda em Nepomuceno com suas peças de manobra recuperadas.",
+ manobra:"VERMELHO busca <b>reunir suas duas brigadas</b> para uma nova ofensiva sobre o eixo principal.",
+ bastidores:"Permitir que os remanescentes do MARQ continuassem operando no sul significaria aceitar ameaça permanente sobre a retaguarda no momento em que as reservas seriam deslocadas para a frente.",
+ chips:["10ª Bda Inf Mtz retrai","Reorganização inimiga","Ameaça na retaguarda sul"],
+ units:{b41:off(P.nepomuceno,-20,-26),b42:off(P.lavras,90,-28),b10:off(P.saoTiago,-20,26),
+  b14:off(P.lavras,-40,26),b9:off(P.tresCoracoes,-30,30),marq:off(P.cigmal,36,18),
+  bdamth:off(P.sjdr,-10,-34),bcmb:off(P.sjdr,30,26),pelrec:off(P.sjdr,-34,26)},
+ routes:[{a:off(P.carmopolis,-70,60),b:off(P.lavras,110,-28),k:"atk",bend:.14},
+  {a:off(P.carmopolis,-40,44),b:off(P.saoTiago,-20,22),k:"retard",bend:.1},
+  {a:off(P.papagaio,-70,-90),b:off(P.cigmal,50,30),k:"marq",bend:.2}],
+ notes:[{t:"Decisão",s:"Limpar a retaguarda profunda antes de deslocar as reservas para a frente.",c:"az"}]},
+
+{cap:"ops",op:"Op QUARTZO",n:8,local:"Atalaia / CIGMAL — Três Corações",date:"31 JUL – 03 AGO 26",carta:"Cartas São Bento Abade e São Thomé das Letras 1/25.000",
+ sit:"Remanescentes do MARQ patrulham as estradas rurais adjacentes ao CIGMAL com efetivos valor GC, empregando emboscadas e armadilhas. Há campo de minas na via de acesso menos provável — a Fx Infl GAVIÃO — e, nela, uma brecha por obstáculo horizontal de 50 m, vigiada mas sem sentinelas.",
+ missao:"<b>INFILTRAR</b> pelo E Prog GAVIÃO, <b>MONITORAR</b> a RIPI, <b>MOBILIAR</b> o obstáculo horizontal em segurança e <b>INTERDITAR</b> as instalações clandestinas do inimigo.",
+ bastidores:"A 1ª/11º BI Mth cerca e isola São Thomé das Letras e guarnece ponto forte; a 2ª/11º opera PBCVU em São Bento Abade, ECD impedir o avanço de elementos de VERMELHO após a ação no objetivo. A 9ª Bda Inf Mtz sustenta Três Corações.",
+ resultado:"Eliminada a base de apoio remanescente, a retaguarda profunda fica consolidada: pela primeira vez desde janeiro, o Teatro não conduz operações convencionais e de contrainsurgência ao mesmo tempo.",
+ chips:["Obstáculo horizontal de 50 m","Contorno de campo de minas","Isolamento por PBCVU"],
  units:{pelrec:off(P.cigmal,-34,-24),bcmb:off(P.sjdr,30,26),cia1:off(P.saoThome,24,26),
   cia2:off(P.saoBento,-34,24),marq:{...off(P.cigmal,36,18),contact:true},
-  b41:off(P.nepomuceno,-20,-26),b42:off(P.lavras,90,-28),b9:off(P.tresCoracoes,-34,26)},
+  b41:off(P.nepomuceno,-20,-26),b42:off(P.lavras,90,-28),b9:off(P.tresCoracoes,-34,26),bdamth:off(P.sjdr,-10,-34)},
  marks:[{t:"fx",p:off(P.cigmal,-104,-42),l:"Fx Infl GAVIÃO"},
   {t:"minas",p:off(P.cigmal,-46,12),l:"Campo de minas e armadilhas"},
   {t:"obsth",p:off(P.cigmal,-8,-8),l:"Obst horizontal 50 m"},
-  {t:"alvo",p:off(P.cigmal,38,34),l:"Instalações clandestinas — interditadas"}],
+  {t:"alvo",p:off(P.cigmal,38,34),l:"Instalações clandestinas interditadas"}],
  routes:[{a:off(P.sjdr,30,26),b:off(P.cigmal,-84,-50),k:"mtz",bend:.12},
-  {a:off(P.cigmal,-84,-50),b:off(P.cigmal,-18,-10),k:"pe",bend:-.3},
-  {a:off(P.papagaio,-70,-90),b:off(P.cigmal,50,30),k:"marq",bend:.2}],
- notes:[{t:"Isolamento",s:"PBCVU das Cia Fuz Mth na LMG-862: Três Corações, São Bento Abade e São Thomé das Letras.",c:"az"},
-        {t:"Inimigo",s:"MARQ com severas restrições logísticas e de recompletamento, patrulhas valor GC.",c:"ma"}]},
+  {a:off(P.cigmal,-84,-50),b:off(P.cigmal,-18,-10),k:"pe",bend:-.3}],
+ notes:[{t:"Efeito",s:"Todo o poder de combate pode ser concentrado contra o 2º C Ex Vm.",c:"az"}]},
 
-{op:"Op ARGILA",local:"Serra de Carrancas — Carrancas",date:"05 – 06 AGO 26",carta:"Carta Itutinga / São João del Rei 1/50.000",
- sit:"Após sucessivas derrotas, remanescentes da 42ª Bda Inf L Vm retiram-se de Carmópolis pela BR-494 e se restabelecem em Carrancas, controlando Carrancas, Itutinga, Caquende e Capela do Saco com patrulhamento motorizado e uma antena de comunicações no alto da Serra de Carrancas. O 8º Btl Pqdt Vm ocupa a região — tropa recém-mobilizada, sem adestramento em montanha.",
- missao:"<b>INFILTRAR</b> pela Fx Infl CARRANCAS a partir de 050600AGO26. <b>ATACAR</b> e <b>DESTRUIR</b>, em 060900AGO26, a Posição de Antenas inimiga. <b>EXFILTRAR</b> para o Pt Exfl aeromóvel até 061000AGO26.",
- chips:["Ação direta","Ataque sincronizado com as Cia","Exfiltração aeromóvel","Alturas NO de Carrancas"],
+{cap:"ops",op:"Op ARGILA",n:9,local:"Serra de Carrancas — Carrancas",date:"05 – 06 AGO 26",carta:"Carta Itutinga / São João del Rei 1/50.000",
+ sit:"Remanescentes da 42ª Bda Inf L retraem de Carmópolis pela BR-494 e se restabelecem em Carrancas, somando-se ao 8º Btl Pqdt Vm. Controlam Carrancas, Itutinga, Caquende e Capela do Saco com patrulhamento motorizado e uma antena de comunicações no alto da serra — único nó de C² que ainda os liga ao escalão superior.",
+ missao:"<b>INFILTRAR</b> pela Fx Infl CARRANCAS, <b>ATACAR</b> e <b>DESTRUIR</b> a Posição de Antenas em 060900AGO26 e <b>EXFILTRAR</b> por via aeromóvel.",
+ bastidores:"Manobra descentralizada da Brigada: o 12º BIL Mth isola a porção oeste da cidade, o 10º BIL Mth atua a partir de Ibertioga, o 32º BIL Mth apoia de Barroso, o 4º GAC L Mth ocupa posição com Prio F para o 11º BI Mth e o 4º Esqd Cav Mth mantém a vigilância de São João del Rei. As Cia Fuz Mth atacam simultaneamente quatro PBCE.",
+ resultado:"Destruída a antena, o 8º Btl Pqdt e os remanescentes da 42ª Bda perdem a ligação e a capacidade de coordenar a junção pretendida. Isolados, são batidos em detalhe: cai o último ponto de apoio de VERMELHO em profundidade.",
+ chips:["Ação direta","Ataque sincronizado","Exfiltração aeromóvel"],
  units:{pelrec:off(P.serraCarrancas,-28,-28),cia1:off(P.carrancas,-10,-44),cia2:off(P.carrancas,42,24),
-  pqdt8:{...off(P.carrancas,20,-8),contact:true},b42:off(P.tresCoracoes,46,-28),
+  pqdt8:{...off(P.carrancas,20,-8),contact:true},b42:{...off(P.tresCoracoes,46,-28),contact:true},
   bil5:off(P.lavras,-34,-28),b12bil:off(P.carrancas,-66,28),b32bil:off(P.barroso,-10,28),
+  b10bil:off(P.ibertioga,-10,26),gac:off(P.barroso,-40,50),esqd4:off(P.sjdr,72,26),
   bdamth:off(P.sjdr,-10,-34),marq:off(P.cigmal,36,18)},
  marks:[{t:"fx",p:off(P.serraCarrancas,-102,-20),l:"Fx Infl CARRANCAS"},
   {t:"alvo",p:off(P.serraCarrancas,22,6),l:"Posição de antenas — destruída"},
   {t:"exfl",p:off(P.serraCarrancas,-12,48),l:"Pt Exfl aeromóvel"}],
  routes:[{a:off(P.sjdr,-10,-34),b:off(P.serraCarrancas,-64,-36),k:"mtz",bend:.16},
-  {a:off(P.serraCarrancas,-64,-36),b:off(P.serraCarrancas,-34,-12),k:"pe",bend:-.3}],
- notes:[{t:"Finalidade",s:"Dominar as alturas noroeste de Carrancas e apoiar a Bda Inf Mth no isolamento da cidade.",c:"az"},
+  {a:off(P.serraCarrancas,-64,-36),b:off(P.serraCarrancas,-34,-12),k:"pe",bend:-.3},
+  {a:off(P.tresCoracoes,46,-28),b:off(P.carrancas,40,-4),k:"atk",bend:-.14}],
+ notes:[{t:"Alvo compensador",s:"As instalações de comando e as logísticas do inimigo são os alvos que decidem em montanha.",c:"az"},
         {t:"Reação inimiga",s:"O inimigo pode reforçar as áreas adjacentes em até 60 minutos, com tropa valor SU.",c:"vm"}]},
 
-{op:"Retraimento a pé",local:"Carrancas → São João del Rei",date:"Após 06 AGO 26",wide:true,
- sit:"Encerrada a Op Argila, a fração permanece na região de Carrancas. Sem retorno motorizado, o retraimento é feito a pé até a base de combate em São João del Rei — cerca de 55 km em linha reta por terreno compartimentado — encerrando a fase de operações do CAM 2026.",
- missao:"<b>RETRAIR</b> a pé da região de Carrancas até a B Cmb do 11º BI Mth em São João del Rei, encerrando a fase de operações do curso.",
- chips:["Marcha a pé","Navegação em terreno compartimentado","Encerramento do CAM 2026"],
- units:{pelrec:off(P.itutinga,20,44),bcmb:off(P.sjdr,30,26),bdamth:off(P.sjdr,-10,-34),marq:off(P.cigmal,36,18)},
+/* ============================ CAPÍTULO III ========================== */
+{cap:"fim",op:"Aproveitamento do êxito",local:"Eixo principal — reconquista de Lavras",date:"07 – 10 AGO 26",wide:true,
+ sit:"A queda de Carrancas priva o 2º C Ex Vm de sua reserva de manobra em profundidade, expõe o flanco sul da 41ª Bda Inf Mec e libera a 1ª Bda Cav Mec e a 14ª Bda Inf Mtz para a ação ofensiva sobre Lavras. Reconquistada a cidade e restabelecido o eixo da BR-265, o TOT determina o aproveitamento do êxito.",
+ manobra:"Avanço contínuo e rápido para <b>ampliar as vantagens obtidas e anular a capacidade do inimigo de reorganizar-se</b> ou de retrair de forma ordenada.",
+ bastidores:"A 10ª Bda Inf Mtz, reorganizada, atua como força de cobertura pela BR-267; a 9ª Bda Inf Mtz consolida posição em Carmópolis–São Tiago–Ritápolis, protegendo o flanco norte; a 3ª Bda Inf Mec, reforçada pela 10ª Bda Inf Amv, integra o esforço.",
+ chips:["Força de aproveitamento do êxito","Força de acompanhamento e apoio","BR-265 restabelecida"],
+ units:{cav1:off(P.lavras,60,-30),b14:{...off(P.lavras,-40,26),contact:true},bil5:{...off(P.lavras,-34,-28),contact:true},
+  b41:off(P.nepomuceno,-30,-26),b42:off(P.tresCoracoes,46,-28),b10:off(P.saoTiago,-20,26),
+  b9:off(P.ritapolis,-20,26),b3:off(P.itutinga,60,-40),bdaamv:off(P.tiradentes,60,40),
+  bdamth:off(P.carrancas,-30,-40),tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180)},
+ routes:[{a:off(P.itutinga,40,-20),b:off(P.lavras,20,-24),k:"mtz",bend:.1},
+  {a:off(P.lavras,-40,26),b:off(P.nepomuceno,20,-10),k:"mtz",bend:-.12}],
+ notes:[{t:"Doutrina",s:"É a operação que produz os resultados mais decisivos, com o mínimo de perdas para o atacante.",c:"az"}]},
+
+{cap:"fim",op:"Perseguição nas cristas",local:"Eixos de retraimento — oeste do Teatro",date:"10 – 13 AGO 26",wide:true,
+ sit:"À Bda Inf Mth cabe a tarefa para a qual é insubstituível: lançada à frente da força inimiga que retrai, conquista os pontos de comandamento sobre as cristas que dominam os eixos de retraimento e bate por fogos diretos e indiretos as colunas de VERMELHO nos desfiladeiros e nas regiões de passagem obrigatória.",
+ manobra:"Cercar e destruir a força inimiga que retrai, <b>negando-lhe o movimento retrógrado ordenado</b>. O que a montanha negou ao atacante em junho, nega ao retraente em agosto.",
+ bastidores:"VERMELHO conduz os movimentos retrógrados de forma dinâmica e agressiva, precedidos de contra-ataques de desorganização — que já não dispõem de massa suficiente para alterar a relação de forças.",
+ chips:["Força de cerco","Fogos sobre desfiladeiros","Contra-ataques de desorganização"],
+ units:{bdamth:{...off(P.nepomuceno,60,-60),contact:true},cav1:off(P.nepomuceno,20,30),
+  b14:off(P.lavras,-40,26),b41:{...off(P.nepomuceno,-80,-30),contact:true},
+  b42:{...off(P.tresCoracoes,-40,-40),contact:true},b10:off(P.saoTiago,-20,26),b9:off(P.ritapolis,-20,26),
+  b3:off(P.lavras,60,40),pelrec:off(P.carrancas,-20,-30),tot:off(P.barroso,40,60)},
+ routes:[{a:off(P.nepomuceno,-30,-26),b:off(ENT.principal,60,-6),k:"retro"},
+  {a:off(P.tresCoracoes,20,-30),b:off(ENT.principal,40,60),k:"retro",bend:.12},
+  {a:off(P.lavras,20,-10),b:off(P.nepomuceno,40,-40),k:"mtz",bend:-.1}],
+ notes:[{t:"Bda Inf Mth",s:"Ocupa posições de onde bate o inimigo pelo fogo e interdita as obras de arte nos eixos de retraimento.",c:"az"}]},
+
+{cap:"fim",op:"Estado Final Desejado",local:"Teatro de Operações — fronteiras originais",date:"2ª semana de AGO 26",wide:true,
+ sit:"O 2º Corpo de Exército de VERMELHO é empurrado para além das fronteiras que delimitavam a região antes do início do conflito. Consumida a 43ª Bda Inf L, destruído o 1º Rgt Inf Amv, dispersa a 42ª Bda Inf L e desgastada a 41ª Bda Inf Mec, o Corpo de Exército perdeu a integridade como grande comando operacional.",
+ manobra:"Cumpridos os quatro objetivos da DPED: <b>integridade territorial garantida</b>, Petrozul e jazidas de nióbio protegidas, invasão barrada e poder militar terrestre de VERMELHO substancialmente reduzido — tudo sob os princípios do DICA.",
+ bastidores:"Encerrada a Op Argila, o Pel Rec/11º BI Mth permanece na região de Carrancas e executa o retraimento a pé até São João del Rei, cerca de 55 km em linha reta por terreno compartimentado, encerrando sua participação na campanha.",
+ chips:["EFD alcançado","Fronteiras restabelecidas","Retraimento a pé do Pel Rec"],
+ units:{bdamth:off(P.sjdr,-10,-34),bcmb:off(P.sjdr,30,26),pelrec:off(P.itutinga,20,44),
+  cav1:off(P.nepomuceno,-70,-20),b14:off(P.lavras,-40,26),b10:off(P.carmopolis,-30,30),
+  b9:off(P.tresCoracoes,-30,30),b3:off(P.tiradentes,40,34),bdaamv:off(P.tiradentes,60,40),
+  b41:off(ENT.principal,-60,0),b42:off(ENT.secundario,-60,0),tot:off(P.barroso,40,60),de4:off(P.barroso,-30,180)},
  routes:[{a:P.carrancas,b:off(P.sjdr,20,26),k:"pe",bend:.16}],
- notes:[{t:"Nove operações",s:"Lenheiro, Faria, São José, Serra Fina, Papagaio, Pedra da Laje, CIGMAL e Carrancas.",c:"az"}]}
+ notes:[{t:"Por que VERMELHO perdeu",s:"Dependeu de uma junção que não obteve; instalou suas forças irregulares justamente onde AZUL era especialista; e buscou o terreno alto sem tropa capaz de nele combater.",c:"vm"},
+        {t:"Por que AZUL venceu",s:"Fez da via de acesso menos provável seu eixo preferencial, do obstáculo intransponível sua porta de entrada, e de uma fração valor pelotão o sensor que alimentou decisões até o nível de DE.",c:"az"}]}
 ];
+const GERAL=PHASES.filter(p=>p.cap==="def").length;
 
 
 /* objetivos de instrução de cada operação (quadro do curso) */
@@ -773,7 +970,7 @@ function animateTo(target,unitTargets,dur){
 
 /* ===================== render ========================================== */
 function render(){
-  const ph=PHASES[idx], geral=idx<GERAL;
+  const ph=PHASES[idx];
   document.getElementById('layerAxes').style.display=ph.axes?'':'none';
 
   const targets={};
@@ -793,7 +990,12 @@ function render(){
       return `<path class="route" data-w="${k.w}" d="${curva(r.a,r.b,r.bend)}" fill="none" stroke="${k.c}"
         stroke-width="${k.w}" ${k.d?`stroke-dasharray="${k.d}"`:''} stroke-linecap="round" marker-end="url(#${k.m})" opacity=".92"/>`;}).join('')
     +(ph.marks||[]).map(m=>`<g class="mkg" data-x="${m.p.x}" data-y="${m.p.y}" transform="translate(${m.p.x},${m.p.y})">
-        ${markSVG(m.t)}<text class="mklab" x="0" y="30" text-anchor="middle">${m.l}</text></g>`).join('');
+        ${markSVG(m.t)}<text class="mklab" x="0" y="30" text-anchor="middle">${m.l}</text></g>`).join('')
+    +(ph.n&&ph.units.pelrec?`<g class="mkg" data-x="${ph.units.pelrec.x}" data-y="${ph.units.pelrec.y-52}"
+        transform="translate(${ph.units.pelrec.x},${ph.units.pelrec.y-52})">
+        <rect x="-92" y="-15" width="184" height="27" rx="3" fill="#b8860b" opacity=".92"/>
+        <text x="0" y="4" text-anchor="middle" font-family="Barlow Condensed" font-weight="700"
+          font-size="19" letter-spacing="1.5" fill="#1a1400">${ph.op.toUpperCase()}</text></g>`:'');
 
   animateTo(camFor(ph),targets,900);
 
@@ -801,14 +1003,18 @@ function render(){
     b.classList.toggle('on',on); if(on) b.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});});
   document.getElementById('phNum').textContent=idx+1;
 
+  const capNome={def:'Capítulo I · Defesa e culminância',ops:'Capítulo II · Operações do Pel Rec',fim:'Capítulo III · Contraofensiva'};
   document.getElementById('phasePanel').innerHTML=`
-   <div class="sp-lab">${geral?'Situação Geral':'Fase de Operações'} · fase ${idx+1} de ${PHASES.length}</div>
+   <div class="sp-lab">${capNome[ph.cap]} · fase ${idx+1} de ${PHASES.length}</div>
+   ${ph.n?`<div class="opbadge">◆ Operação do curso — ${ph.n} de 9</div>`:''}
    <div class="sp-op">${ph.op}</div><div class="sp-loc">${ph.local}</div>
    <div class="sp-date">${ph.date}${ph.carta?` · ${ph.carta}`:''}</div>
-   <div class="sp-h">${geral?'Situação':'Situação particular'}</div><p class="sp-text">${ph.sit}</p>
+   <div class="sp-h">${ph.n?'Situação particular':'Situação'}</div><p class="sp-text">${ph.sit}</p>
    ${ph.missao?`<div class="sp-h">Missão do Pel Rec</div><div class="sp-mission">${ph.missao}</div>`:''}
    ${ph.manobra?`<div class="sp-h">Ideia de manobra</div><div class="sp-mission" style="border-left-color:var(--gold)">${ph.manobra}</div>`:''}
    ${OBJETIVOS[ph.op]?`<div class="sp-h obj">Objetivos da operação</div><ul class="objs">${OBJETIVOS[ph.op].map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+   ${ph.bastidores?`<div class="sp-h bast">Por trás dos panos</div><div class="bastidores">${ph.bastidores}</div>`:''}
+   ${ph.resultado?`<div class="sp-h">Resultado e consequência</div><div class="resultado">${ph.resultado}</div>`:''}
    ${ph.chips?`<div class="chips">${ph.chips.map(c=>`<span>${c}</span>`).join('')}</div>`:''}
    ${ph.notes?`<div class="sp-h">Pontos de atenção</div><ul class="sp-list">${ph.notes.map(n=>`
      <li><span class="sw" style="background:${n.c==='az'?'var(--az)':n.c==='vm'?'var(--vm)':'var(--ma)'}"></span>
@@ -825,24 +1031,26 @@ function selectUnit(id){
      <div><div class="nm">${u.name}</div><div class="sd">${sn} · ${u.gu}</div></div></div>
    <div class="uc-row"><b>Função</b><p>${u.role}</p></div>
    <div class="uc-row"><b>Detalhamento</b><p>${u.detail}</p></div>
-   <div class="uc-row"><b>Situação nesta fase</b><p style="color:${p&&p.contact?'#ff7043':'var(--muted)'}">${!p?'Não desdobrada nesta operação.':p.contact?'Em contato / alvo da ação.':'Desdobrada, sem contato registrado.'}</p></div>`;
+   <div class="uc-row"><b>Situação nesta fase</b><p style="color:${p&&p.contact?'#ff7043':'var(--muted)'}">${!p?'Não desdobrada nesta fase.':p.contact?'Em contato / alvo da ação.':'Desdobrada, sem contato registrado.'}</p></div>
+   ${u.inicio?`<div class="uc-row"><b>Início da campanha</b><p>${u.inicio}</p></div>`:''}
+   ${u.desfecho?`<div class="uc-row"><b>Desfecho</b><p style="color:#cfe9dc">${u.desfecho}</p></div>`:''}`;
 }
 
 /* ===================== controles ======================================= */
 const scrub=document.getElementById('scrub');
 function buildScrub(){
   scrub.innerHTML=PHASES.map((p,i)=>({p,i}))
-   .filter(x=>chapter==='all'||(chapter==='geral'?x.i<GERAL:x.i>=GERAL))
-   .map(({p,i})=>`<button data-i="${i}" class="${i<GERAL?'era-g':'era-o'}"><span class="d">${p.date}</span>
-     <span class="t">${p.op}</span><span class="l">${p.local.split('—')[0].trim()}</span></button>`).join('');
+   .filter(x=>chapter==='all'||x.p.cap===chapter)
+   .map(({p,i})=>`<button data-i="${i}" class="era-${p.cap}${p.n?' isop':''}"><span class="d">${p.date}</span>
+     <span class="t">${p.n?'<em class="opn">'+p.n+'</em> ':''}${p.op}</span>
+     <span class="l">${p.local.split('—')[0].trim()}</span></button>`).join('');
   scrub.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{stop();go(+b.dataset.i);}));
 }
 document.querySelectorAll('#chapters button').forEach(b=>b.addEventListener('click',()=>{
   stop();chapter=b.dataset.c;
   document.querySelectorAll('#chapters button').forEach(x=>x.classList.toggle('on',x===b));
   buildScrub();
-  if(chapter==='geral'&&idx>=GERAL) idx=0;
-  if(chapter==='ops'&&idx<GERAL) idx=GERAL;
+  if(chapter!=='all'&&PHASES[idx].cap!==chapter) idx=PHASES.findIndex(p=>p.cap===chapter);
   render();}));
 buildScrub();
 document.getElementById('phTot').textContent=PHASES.length;
